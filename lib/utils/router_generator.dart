@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shopisan/main.dart';
 import 'package:shopisan/screens/StoresScreen.dart';
 
 class RouteGenerator {
@@ -12,8 +11,8 @@ class RouteGenerator {
           return StoresScreen();
         });
 
-      case '/main':
-        return MaterialPageRoute(builder: (_) {});
+      // case '/main':
+      //   return MaterialPageRoute(builder: (_) {});
 
       default:
         return _errorRoute();

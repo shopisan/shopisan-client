@@ -7,12 +7,12 @@ class CustomTheme {
     return ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
         primaryColor: CustomColors.lightRed,
-        scaffoldBackgroundColor: Colors.white70,
+        scaffoldBackgroundColor: CustomColors.background,
         fontFamily: 'Montserrat',
         buttonTheme: ButtonThemeData(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
           buttonColor: CustomColors.lightPurple,
-        )
-    );
+        ));
   }
 }
