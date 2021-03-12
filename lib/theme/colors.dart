@@ -7,4 +7,5 @@ class CustomColors {
   static const lightPurple = Colors.deepPurpleAccent;
   static const activePink = Colors.redAccent;
   static const systemGrey = Colors.blueGrey;
+  static const background = Colors.white;
 }
