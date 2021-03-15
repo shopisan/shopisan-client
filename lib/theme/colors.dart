@@ -8,4 +8,11 @@ class CustomColors {
   static const activePink = Colors.redAccent;
   static const systemGrey = Colors.blueGrey;
   static const background = Colors.white;
+
+  static const search = Color(0xFFFFF9F9);
+  static const iconsActive = Color(0xFFFF6565);
+  static const iconsFaded = Color(0xFF717171);
+  static const textResearch = Color(0xFF43465c);
+  static const textDescription = Color(0xFFBFBFBF);
+  static const spread = Color(0xFFF7F7F7);
 }

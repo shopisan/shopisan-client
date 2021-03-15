@@ -8,7 +8,7 @@ class CustomTheme {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         primaryColor: CustomColors.lightRed,
         scaffoldBackgroundColor: CustomColors.background,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Poppins',
         buttonTheme: ButtonThemeData(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
