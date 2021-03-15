@@ -10,8 +10,8 @@
         android:label="shopisan"
         android:icon="@mipmap/ic_launcher">
 
-<!--        <meta-data android:name="com.google.android.geo.API_KEY"-->
-<!--            android:value="AIzaSyDkJlowngFOjqCxtMwPj6APgg2QWlpbEoI"/>-->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCegSUW6N1wYgRONnn_4kOZXUzFu7w2Drs"/>
 
         <activity
             android:name=".MainActivity"

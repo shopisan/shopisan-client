@@ -8,26 +8,20 @@ class GoogleMapScreen extends StatefulWidget {
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
-GoogleMapController mapController;
+  GoogleMapController mapController;
+  final LatLng _center = const LatLng(45.521563, -122.677433);
 
-final LatLng _center = const LatLng(45.521563, -122.677433);
-
-void _onMapCreated(GoogleMapController controller) {
-  mapController = controller;
-}
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       child: GoogleMap(
-      onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 10.0
-        ),
+        onMapCreated: _onMapCreated,
+        initialCameraPosition: CameraPosition(target: _center, zoom: 10.0),
       ),
     );
   }
-
 }
