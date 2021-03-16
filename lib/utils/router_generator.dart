@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shopisan/screens/Login.dart';
+import 'package:shopisan/screens/Register.dart';
 import 'package:shopisan/screens/StoresScreen.dart';
 
 class RouteGenerator {

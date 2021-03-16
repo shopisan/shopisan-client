@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:shopisan/components/StoresScreenTabs/MapTab/DetailsMap/GoogleMap.dart';
+import 'package:shopisan/components/StoresScreenTabs/MapTab/DetailsMap/GoogleMapScreen.dart';
 
 import 'DetailsMap/MapItem.dart';
 
@@ -24,7 +24,6 @@ class _MapTabState extends State<MapTab> {
           children: [
             Positioned.fill(
               // todo virer la key de google map;
-              // la map ne s'affiche pas, I don't know why j'y regarde demain
              child: GoogleMapScreen(),
             ),
             Positioned(

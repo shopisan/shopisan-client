@@ -6,13 +6,13 @@ class CustomTheme {
   static ThemeData get lightTheme {
     return ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        primaryColor: CustomColors.lightRed,
-        scaffoldBackgroundColor: CustomColors.background,
+        primaryColor: CustomColors.iconsActive,
+        scaffoldBackgroundColor: Colors.white,
         fontFamily: 'Poppins',
         buttonTheme: ButtonThemeData(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-          buttonColor: CustomColors.lightPurple,
+          buttonColor: CustomColors.textResearch,
         ));
   }
 }

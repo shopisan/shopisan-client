@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopisan/screens/CommercialScreen.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class AroundYou extends StatefulWidget {
@@ -20,41 +21,46 @@ class _AroundYouState extends State<AroundYou> {
             fontWeight: FontWeight.w600,
           ),),
           SizedBox(
-            height: 100,
+            height: (MediaQuery.of(context).size.height),
             width: double.infinity,
             child: ListView(
               scrollDirection: Axis.vertical,
               children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(0,10,20,10),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 60,
-                        width: 60,
-                        margin: EdgeInsets.only(right: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(5)
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                // ignore: deprecated_member_use
+                FlatButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (_) => CommercialScreen()));
+                    },
+                  padding: EdgeInsets.all(0),
+                      child: Row(
                         children: [
-                          Text("Luckyteam", style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),),
-                          Text("52 rue du président Edouard Herriot, 69002 Lyon",
-                          style: GoogleFonts.poppins(
-                            color: CustomColors.textDescription,
-                            fontSize: 12,
-                          ),)
+                          Container(
+                            height: 60,
+                            width: 60,
+                            margin: EdgeInsets.only(right: 10),
+                            decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(5)
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Luckyteam", style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),),
+                              Text("52 rue du président Edouard Herriot, 69002 Lyon",
+                                style: GoogleFonts.poppins(
+                                  color: CustomColors.textDescription,
+                                  fontSize: 12,
+                                ),)
+                            ],
+                          )
                         ],
-                      )
-                    ],
+                      ),
                   ),
-                ),
               ],
             ),
           )
