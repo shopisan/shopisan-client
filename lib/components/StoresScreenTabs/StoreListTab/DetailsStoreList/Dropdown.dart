@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class DropdownMenu extends StatefulWidget {
@@ -48,7 +50,6 @@ class _DropdownMenuState extends State<DropdownMenu> {
             valueChoose = newValue;
           });
         },
-
         items: listItem.map((valueItem) {
           return DropdownMenuItem(
           value: valueItem,
@@ -67,7 +68,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
 
               ),
               ),
-            )
+            ),
           );
         }).toList(),
       ),

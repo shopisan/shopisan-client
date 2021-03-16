@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 // import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shopisan/components/StoresScreenTabs/FavoriteTab/FavoriteTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/MapTab/MapTab.dart';
+import 'package:shopisan/components/StoresScreenTabs/PostsTab/PostsTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/SettingsTab/SettingsTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/StoreListTab/StoreListTab.dart';
 import 'package:shopisan/theme/colors.dart';
@@ -22,7 +23,8 @@ class _StoresScreenState extends State<StoresScreen> {
     StoreListTab(),
     MapTab(),
     FavoriteTab(),
-    SettingsTab()
+    SettingsTab(),
+    PostsTab(),
   ];
 
   List<BottomNavigationBarItem> _navBarsItems() {
@@ -49,6 +51,12 @@ class _StoresScreenState extends State<StoresScreen> {
       BottomNavigationBarItem(
         icon: SvgPicture.asset(settingsIcon),
         label: "Settings",
+        // activeColor: CustomColors.activeBlue,
+        // inactiveColor: CustomColors.systemGrey,
+      ),
+      BottomNavigationBarItem(
+        icon: SvgPicture.asset(postsIcon),
+        label: "Posts",
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
       ),
