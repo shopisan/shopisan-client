@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'file:///C:/Users/pc/AndroidStudioProjects/shopisan_app/lib/components/CommercialScreenTab/DescriptionTabCommercial/DescriptionTabCommercial.dart';
+import 'package:shopisan/components/CommercialScreenTab/DescriptionTabCommercial/DescriptionTabCommercial.dart';
 import 'package:shopisan/components/CommercialScreenTab/DetailsCommercialScreenTab/CategoriesCommercial.dart';
 import 'package:shopisan/components/CommercialScreenTab/MapTabCommercial.dart';
-import 'file:///C:/Users/pc/AndroidStudioProjects/shopisan_app/lib/components/CommercialScreenTab/PostsTabCommercial/PostsTabCommercial.dart';
+import 'package:shopisan/components/CommercialScreenTab/PostsTabCommercial/PostsTabCommercial.dart';
 import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/theme/icons.dart';
 

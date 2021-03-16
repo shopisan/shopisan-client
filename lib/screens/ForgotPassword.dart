@@ -31,7 +31,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),),
             Padding(
               padding: EdgeInsets.fromLTRB(0, 20, 0, 40),
-              child: Text("We will send you an email to reset your password. Please enter your email adress",
+              child: Text("We will send you an email to reset your password. Please enter your email address",
                 style: GoogleFonts.poppins(
                   fontSize: 14,
                   color: CustomColors.textResearch,
