@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/components/CommercialScreenTab/DescriptionTabCommercial/DescriptionTabCommercial.dart';
 import 'package:shopisan/components/CommercialScreenTab/DetailsCommercialScreenTab/CategoriesCommercial.dart';
@@ -15,7 +16,6 @@ class CommercialScreen extends StatefulWidget {
 }
 
 class _CommercialScreenState extends State<CommercialScreen> {
-
   int _currentIndex = 0;
 
   static List<Widget> _tabs = <Widget>[
@@ -34,7 +34,7 @@ class _CommercialScreenState extends State<CommercialScreen> {
         // inactiveColor: CustomColors.systemGrey,
       ),
       BottomNavigationBarItem(
-        icon: SvgPicture.asset(postsIcon),
+        icon: FaIcon(FontAwesomeIcons.newspaper, size: 40),
         label: ("Posts"),
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
@@ -58,25 +58,27 @@ class _CommercialScreenState extends State<CommercialScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(color: Colors.black),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("CITY", style: GoogleFonts.poppins(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-            color: Colors.black),
-            ),
-            Text("Commercial Name", style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ))
-          ],
-        )
-      ),
+        appBar: AppBar(
+            backgroundColor: CustomColors.commercialBlue,
+            iconTheme: IconThemeData(color: Colors.black),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "CITY",
+                  style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+                Text("Commercial Name",
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ))
+              ],
+            )),
         body: Container(
           color: CustomColors.commercialBlue,
           child: Column(
@@ -91,7 +93,7 @@ class _CommercialScreenState extends State<CommercialScreen> {
               _tabs.elementAt(_currentIndex),
             ],
           ),
-        )  ,
+        ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             boxShadow: <BoxShadow>[

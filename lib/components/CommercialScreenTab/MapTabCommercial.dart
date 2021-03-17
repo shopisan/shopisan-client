@@ -13,13 +13,14 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 300,
       child: GoogleMap(
         onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(target: _center, zoom: 10.0),
+        initialCameraPosition: CameraPosition(target: _center, zoom: 15.0),
       ),
     );
   }

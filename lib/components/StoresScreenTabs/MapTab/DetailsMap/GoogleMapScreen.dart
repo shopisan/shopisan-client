@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -20,7 +19,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     return Container(
       child: GoogleMap(
         onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(target: _center, zoom: 10.0),
+        initialCameraPosition: CameraPosition(target: _center, zoom: 13.0),
       ),
     );
   }

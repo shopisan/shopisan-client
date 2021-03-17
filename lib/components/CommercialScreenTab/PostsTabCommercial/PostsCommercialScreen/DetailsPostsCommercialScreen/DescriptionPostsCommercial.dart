@@ -2,12 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/theme/colors.dart';
 
-class DescriptionPosts extends StatefulWidget {
-  @override
-  _DescriptionPostsState createState() => _DescriptionPostsState();
-}
-
-class _DescriptionPostsState extends State<DescriptionPosts> {
+class DescriptionPostsCommercial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

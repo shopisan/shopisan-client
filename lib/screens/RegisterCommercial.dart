@@ -1,18 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopisan/screens/Login.dart';
-import 'package:shopisan/screens/RegisterCommercial.dart';
 import 'package:shopisan/theme/colors.dart';
 
 import 'StoresScreen.dart';
 
-class RegisterScreen extends StatefulWidget {
+class RegisterCommercialScreen extends StatefulWidget {
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _RegisterCommercialScreenState createState() =>
+      _RegisterCommercialScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Sign Up",
+                  "Sign Up A Store",
                   style: GoogleFonts.poppins(
                       color: CustomColors.textResearch,
                       fontWeight: FontWeight.bold,
@@ -111,6 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         //       color: CustomColors.spread, width: 5),
                         //       borderRadius: BorderRadius.circular(40),
                         // ),
+
                         labelText: 'Password',
                         hintText: 'Enter your secure password'),
                   ),
@@ -158,6 +158,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Container(
                   height: 50,
                   width: double.infinity,
+                  margin: EdgeInsets.only(bottom: 30),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
                     color: CustomColors.textResearch,
@@ -176,43 +177,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           MaterialPageRoute(builder: (_) => StoresScreen()));
                     },
                     child: Text(
-                      "Sign Up",
+                      "Sign Up A Store",
                       style: GoogleFonts.roboto(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
-                  ),
-                ),
-                // ignore: deprecated_member_use
-                FlatButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => RegisterCommercialScreen()));
-                  },
-                  child: Text(
-                    "Sign Up A Store",
-                    style: GoogleFonts.roboto(
-                      fontSize: 14,
-                      color: CustomColors.textDescription,
-                    ),
-                  ),
-                ),
-                // ignore: deprecated_member_use
-                FlatButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => LoginScreen()));
-                  },
-                  child: Text(
-                    "Log In Here",
-                    style: GoogleFonts.roboto(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: CustomColors.textResearch,
                     ),
                   ),
                 ),

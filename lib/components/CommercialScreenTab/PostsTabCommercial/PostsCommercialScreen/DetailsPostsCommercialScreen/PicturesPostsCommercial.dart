@@ -2,12 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class PicturePosts extends StatefulWidget {
-  @override
-  _PicturePostsState createState() => _PicturePostsState();
-}
-
-class _PicturePostsState extends State<PicturePosts> {
+class PicturesPostsCommercial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
