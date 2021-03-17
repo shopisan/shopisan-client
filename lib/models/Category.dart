@@ -17,9 +17,9 @@ class CategoryCollection {
 
   CategoryCollection({this.categories});
 
-  factory CategoryCollection.fromJson(List<dynamic> json) {
+  factory CategoryCollection.fromJson(json) {
     return CategoryCollection(
-      categories: json,
+      categories: json.map<Category>((json) => Category.fromJson(json as Map<String, dynamic>)).toList(),
     );
   }
 }

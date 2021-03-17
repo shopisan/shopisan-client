@@ -1,54 +1,31 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:shopisan/models/Category.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class DropdownMenu extends StatefulWidget {
-  const DropdownMenu({Key key}) : super(key: key);
+  const DropdownMenu({Key key,
+    this.setSelectedCats,
+    @required this.categories
+  }) : super(key: key);
+
+  final CategoryCollection categories;
+  final ValueChanged<List<dynamic>> setSelectedCats;
 
   @override
   _DropdownMenuState createState() => _DropdownMenuState();
 }
 
 class _DropdownMenuState extends State<DropdownMenu> {
-  CategoryCollection categories;
   List<Category> selectedCategories;
-  // String valueChoose;
-  // List listItem = ["Item 1", "Item 2", "Item 3", "Item 4"];
-  void fetchCategories() async {
-    final response = await http.get(
-        Uri.http("10.0.2.2:8000", "/api/stores/categories/"),
-        headers: {'Accept': 'application/json'});
-
-    if (response.statusCode == 200) {
-      // print(response.body);
-      var truc = CategoryCollection.fromJson(jsonDecode(response.body));
-      print(truc);
-      // setState(() {
-      //   categories = truc
-      // });
-    } else {
-      throw Exception(
-          'Failed to load categories, ca serait bien de faire quelque chose dans ce cas la');
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchCategories();
-  }
 
   @override
   Widget build(BuildContext context) {
-    if (null == categories) {
+    if (null == widget.categories) {
       return Center(
-        child: Text("Oh, no!"),
+        child: Text("Oh, no!"), // @todo remplacer par un loader
       );
     }
 
@@ -68,14 +45,14 @@ class _DropdownMenuState extends State<DropdownMenu> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   MultiSelectDialogField(
-                    items: categories.categories
+                    items: widget.categories.categories
                         .map((e) => MultiSelectItem(e.id, e.fr))
                         .toList(),
                     listType: MultiSelectListType.CHIP,
                     chipDisplay: MultiSelectChipDisplay(),
                     onConfirm: (values) {
                       setState(() {
-                        // selectedCategories = values;
+                        widget.setSelectedCats(values);
                       });
                     },
                     backgroundColor: CustomColors.search,

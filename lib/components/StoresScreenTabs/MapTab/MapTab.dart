@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shopisan/components/StoresScreenTabs/MapTab/DetailsMap/GoogleMapScreen.dart';
@@ -13,8 +15,8 @@ class MapTab extends StatefulWidget {
 }
 
 class _MapTabState extends State<MapTab> {
-  String latitudeData = "";
-  String longitudeData = "";
+  String latitudeData;
+  String longitudeData;
 
   @override
   void initState() {
@@ -23,12 +25,16 @@ class _MapTabState extends State<MapTab> {
   }
 
   getCurrentLocation() async {
+    print("getting location");
     final geoposition = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print(geoposition);
     setState(() {
       latitudeData = "${geoposition.latitude}";
       longitudeData = "${geoposition.longitude}";
     });
+    // @todo il faudrait sauvegarder la dernière location dans le storage de l'appareil
+    // @todo maintenant on peut lancer le call vers le back pour chopper les stores selon la proximité
   }
 
   @override
@@ -37,18 +43,17 @@ class _MapTabState extends State<MapTab> {
         body: Stack(
       children: [
         Positioned.fill(
-          // todo virer la key de google map;
           child: GoogleMapScreen(),
         ),
         Positioned(
           top: 200,
           left: 20,
-          child: Text(latitudeData),
+          child: Text("$latitudeData"),
         ),
         Positioned(
           top: 220,
           left: 20,
-          child: Text(longitudeData),
+          child: Text("$longitudeData"),
         ),
         Positioned(
           right: 20,
@@ -59,7 +64,7 @@ class _MapTabState extends State<MapTab> {
             height: 50,
             minWidth: 20,
             onPressed: () {
-              getCurrentLocation();
+              getCurrentLocation(); // @todo plutot replacer la map sur sa position actuelle
             },
             child: Icon(Icons.location_searching_outlined),
           ),
