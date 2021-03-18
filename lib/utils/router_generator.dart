@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopisan/screens/Login.dart';
+import 'package:shopisan/screens/StoresScreen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -8,7 +8,7 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) {
-          return LoginScreen();
+          return StoresScreen();
         });
 
       // case '/main':

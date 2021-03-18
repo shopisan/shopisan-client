@@ -2,5 +2,17 @@
   "helloWorld": "Hello world!",
   "@helloWorld": {
     "description": "WTF???"
-  }
+  },
+  "emailAddress": "Email Address",
+  "emailHint": "abc@gmail.com",
+  "password": "Password",
+  "passHint": "Enter a secure password",
+  "forgotPassword": "Forgot Password ?",
+  "forgPassText": "We will send you an email to reset your password. Please enter your email address",
+  "resetLink": "Send Reset Link",
+  "register": "Register Here",
+  "search": "Search",
+  "recentResearch": "RECENT RESEARCH",
+  "city": "CITY",
+  "commercialName": "Commercial Name"
 }

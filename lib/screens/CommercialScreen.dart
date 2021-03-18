@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -65,20 +67,41 @@ class _CommercialScreenState extends State<CommercialScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "CITY",
+                  AppLocalizations.of(context).city,
                   style: GoogleFonts.poppins(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
-                Text("Commercial Name",
+                Text(AppLocalizations.of(context).commercialName,
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
-                    ))
+                    )),
               ],
-            )),
+            ),
+            actions: [
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 20, 20, 20),
+                child: RatingBar.builder(
+                  initialRating: 3,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemSize: 15,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 0),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (rating) {
+                    print(rating);
+                  },
+                ),
+              ),
+            ]),
         body: Container(
           color: CustomColors.commercialBlue,
           child: Column(

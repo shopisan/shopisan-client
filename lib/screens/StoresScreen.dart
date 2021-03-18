@@ -19,15 +19,21 @@ class _StoresScreenState extends State<StoresScreen> {
   int _currentIndex = 0;
 
   static List<Widget> _tabs = <Widget>[
+    PostsTab(),
     StoreListTab(),
     MapTab(),
     FavoriteTab(),
     SettingsTab(),
-    PostsTab(),
   ];
 
   List<BottomNavigationBarItem> _navBarsItems() {
     return [
+      BottomNavigationBarItem(
+        icon: Icon(FontAwesomeIcons.newspaper, size: 40),
+        label: "Posts",
+        // activeColor: CustomColors.activeBlue,
+        // inactiveColor: CustomColors.systemGrey,
+      ),
       BottomNavigationBarItem(
         backgroundColor: Colors.white,
         icon: SvgPicture.asset(storeIcon),
@@ -50,12 +56,6 @@ class _StoresScreenState extends State<StoresScreen> {
       BottomNavigationBarItem(
         icon: SvgPicture.asset(settingsIcon),
         label: "Settings",
-        // activeColor: CustomColors.activeBlue,
-        // inactiveColor: CustomColors.systemGrey,
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(FontAwesomeIcons.newspaper, size: 40),
-        label: "Posts",
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
       ),

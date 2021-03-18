@@ -1,12 +1,13 @@
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:shopisan/components/StoresScreenTabs/StoreListTab/DetailsStoreList/Around.dart';
+import 'package:shopisan/models/Category.dart';
+
 import 'DetailsStoreList/Dropdown.dart';
 import 'DetailsStoreList/RecentResearch.dart';
-import 'package:shopisan/models/Category.dart';
 
 class StoreListTab extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class StoreListTab extends StatefulWidget {
 class _StoreListTabState extends State<StoreListTab> {
   CategoryCollection categories;
   List<dynamic> selectedCategoriesId;
+  Map<DateTime, Category> categoryHistory;
 
   void loadStores() async {
     print(selectedCategoriesId);
@@ -34,8 +36,7 @@ class _StoreListTabState extends State<StoreListTab> {
       print(response.statusCode);
       print(response.body);
     } else {
-      throw Exception(
-          'Failed to load stores');
+      throw Exception('Failed to load stores');
     }
   }
 
@@ -54,6 +55,25 @@ class _StoreListTabState extends State<StoreListTab> {
     }
   }
 
+  void saveSearchHistory(List<dynamic> catIds) {
+    /**
+     * @todo categories --> selon les ids retrouver la bonne cat
+     * @todo dans le storage save les dernières cats recherchées
+     */
+  }
+
+  Future<List<dynamic>> getRecentSearch() async {
+    List recentSearches = [];
+
+    /**
+     * @todo quand catégories selectionnée, ajouter des rows dans les categoryHistory
+     * @todo trier pour que chaque category n'apparaisse qu'une fois par ordre chrono
+     * @todo injecter ca dans le widget recent search
+     */
+
+    return recentSearches;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -61,13 +81,13 @@ class _StoreListTabState extends State<StoreListTab> {
     loadStores();
   }
 
-  void setSelectedCats(List<dynamic>selectedCats) async {
+  void setSelectedCats(List<dynamic> selectedCats) async {
     setState(() {
       selectedCategoriesId = selectedCats;
     });
-    print("changed selected categories");
-    print(selectedCategoriesId);
     loadStores();
+
+    // @todo ajouter dans categoryHistory (associer par datetime) + save dans storage
     // @todo reload les stores a afficher
   }
 
@@ -78,18 +98,33 @@ class _StoreListTabState extends State<StoreListTab> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(25,20,25,20),
-            child: DropdownMenu(categories: categories, setSelectedCats: setSelectedCats),
+            padding: const EdgeInsets.fromLTRB(25, 20, 25, 20),
+            child: DropdownMenu(
+                categories: categories, setSelectedCats: setSelectedCats),
           ),
-          Padding(padding: EdgeInsets.only(left: 10),
-            child: RecentResearch(),
-          ),
+          Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: FutureBuilder(
+                builder: (context, snapshot) {
+                  print(snapshot);
+                  if (snapshot.connectionState == ConnectionState.none &&
+                      snapshot.hasData == null) {
+                    return Container();
+                  }
+                  return RecentResearch(
+                      categories: categories, recentSearches: snapshot.data);
+                },
+                future: getRecentSearch(),
+              )),
           // Padding(padding: EdgeInsets.fromLTRB(10,20,0,0),
           // child: Recommended(),),
-          Padding(padding: EdgeInsets.fromLTRB(10,20,0,0),
-          child: AroundYou(),),
+          Padding(
+            padding: EdgeInsets.fromLTRB(10, 20, 0, 0),
+            child: AroundYou(
+                categories: categories, setSelectedCats: setSelectedCats),
+          ),
         ],
       ),
-);
+    );
   }
 }

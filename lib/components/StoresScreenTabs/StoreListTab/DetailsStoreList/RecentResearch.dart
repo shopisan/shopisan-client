@@ -1,16 +1,30 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopisan/models/Category.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class RecentResearch extends StatelessWidget {
+  const RecentResearch({Key key, @required this.categories,
+    @required this.recentSearches}) : super(key: key);
+
+  final CategoryCollection categories;
+  final List<dynamic> recentSearches;
+
   @override
   Widget build(BuildContext context) {
+    if (null == categories) {
+      return Center(
+        child: Text("No Categories"), // @todo remplacer par un loader
+      );
+    }
+
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "RECENT RESEARCH",
+            AppLocalizations.of(context).recentResearch,
             style: GoogleFonts.poppins(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -27,94 +41,9 @@ class RecentResearch extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: CustomColors.search,
                       borderRadius: BorderRadius.circular(5)),
-                  child: const Center(
+                  child: Center(
                     child: Text(
-                      "LEATHER",
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: CustomColors.textResearch,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                  decoration: BoxDecoration(
-                      color: CustomColors.search,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: const Center(
-                    child: Text(
-                      "LEATHER",
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: CustomColors.textResearch,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                  decoration: BoxDecoration(
-                      color: CustomColors.search,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: const Center(
-                    child: Text(
-                      "LEATHER",
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: CustomColors.textResearch,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                  decoration: BoxDecoration(
-                      color: CustomColors.search,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: const Center(
-                    child: Text(
-                      "LEATHER",
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: CustomColors.textResearch,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                  decoration: BoxDecoration(
-                      color: CustomColors.search,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: const Center(
-                    child: Text(
-                      "LEATHER",
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: CustomColors.textResearch,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                  decoration: BoxDecoration(
-                      color: CustomColors.search,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: const Center(
-                    child: Text(
-                      "LEATHER",
+                      "",
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,

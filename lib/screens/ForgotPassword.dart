@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/theme/colors.dart';
 
@@ -25,13 +26,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Forgot Password", style: GoogleFonts.poppins(
-              fontWeight: FontWeight.bold,
-              fontSize: 30
-            ),),
+            Text(
+              AppLocalizations.of(context).forgotPassword,
+              style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.bold, fontSize: 30),
+            ),
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 20, 0, 40),
-              child: Text("We will send you an email to reset your password. Please enter your email address",
+              padding: EdgeInsets.fromLTRB(10, 20, 10, 40),
+              child: Text(
+                AppLocalizations.of(context).forgPassText,
                 style: GoogleFonts.poppins(
                   fontSize: 14,
                   color: CustomColors.textResearch,
@@ -43,7 +46,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               height: 50,
               width: double.infinity,
               margin: EdgeInsets.fromLTRB(0, 0, 0, 40),
-              padding: EdgeInsets.only(left:10),
+              padding: EdgeInsets.only(left: 10),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(40),
@@ -51,7 +54,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   BoxShadow(
                     color: CustomColors.spreadRegister,
                     spreadRadius: 5,
-                    blurRadius: 15,),
+                    blurRadius: 15,
+                  ),
                 ],
               ),
               child: TextField(
@@ -60,20 +64,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   fontSize: 14,
                 ),
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(40),
-                      borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
-                      ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(40),
+                    borderSide: BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
                     ),
-                    // focusedBorder: OutlineInputBorder(
-                    //   borderSide: BorderSide(
-                    //       color: CustomColors.spread, width: 5),
-                    //   borderRadius: BorderRadius.circular(40),
-                    // ),
-                    labelText: 'Email Adress',
-                    hintText: 'Enter valid mail id as abc@gmail.com'
+                  ),
+                  // focusedBorder: OutlineInputBorder(
+                  //   borderSide: BorderSide(
+                  //       color: CustomColors.spread, width: 5),
+                  //   borderRadius: BorderRadius.circular(40),
+                  // ),
+                  labelText: AppLocalizations.of(context).emailAddress,
+                  hintText: AppLocalizations.of(context).emailHint,
                 ),
               ),
             ),
@@ -98,11 +102,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   // todo send mail ;
                 },
                 child: Text(
-                  " Send Reset Link", style: GoogleFonts.roboto(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                  AppLocalizations.of(context).resetLink,
+                  style: GoogleFonts.roboto(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

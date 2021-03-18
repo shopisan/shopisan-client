@@ -1,3 +1,16 @@
 {
-  "helloWorld": "Bonjour le monde!"
+  "helloWorld": "Bonjour le monde!",
+  "emailAddress": "Adresse E-mail",
+  "emailHint": "abc@gmail.com",
+  "password": "Mot de passe",
+  "passHint": "Entrez un mot de passe sécurisé",
+  "passAgain": "",
+  "forgotPassword": "Mot de passe oublié ?",
+  "forgPassText": "Nous vous enverrons un courriel pour réinitialiser votre mot de passe. Veuillez saisir votre adresse e-mail.",
+  "resetLink": "Envoyer le lien de réinitialisation",
+  "register": "S'inscrire ici",
+  "search": "Recherche",
+  "recentResearch": "RECHERCHES RECENTES",
+  "city": "VILLE",
+  "commercialName": "Nom du Commerce"
 }

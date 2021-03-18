@@ -8,7 +8,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,6 +16,16 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: RouteGenerator.generateRoute,
         initialRoute: '/',
         localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales);
+        supportedLocales: AppLocalizations.supportedLocales
+        // localizationsDelegates: [
+        //   AppLocalizations.delegate,
+        //   GlobalMaterialLocalizations.delegate,
+        //   GlobalWidgetsLocalizations.delegate,
+        //   GlobalCupertinoLocalizations.delegate,
+        // ],
+        // supportedLocales: [
+        //   const Locale('fr', '')
+        // ]
+        );
   }
 }

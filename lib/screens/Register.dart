@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/screens/Login.dart';
 import 'package:shopisan/screens/RegisterCommercial.dart';
@@ -72,8 +73,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         //       color: CustomColors.spread, width: 5),
                         //   borderRadius: BorderRadius.circular(40),
                         // ),
-                        labelText: 'Email Adress',
-                        hintText: 'Enter valid mail id as abc@gmail.com'),
+                        labelText: AppLocalizations.of(context).emailAddress,
+                        hintText: AppLocalizations.of(context).emailHint),
                   ),
                 ),
                 Container(
@@ -111,8 +112,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         //       color: CustomColors.spread, width: 5),
                         //       borderRadius: BorderRadius.circular(40),
                         // ),
-                        labelText: 'Password',
-                        hintText: 'Enter your secure password'),
+                        labelText: AppLocalizations.of(context).password,
+                        hintText: AppLocalizations.of(context).passHint),
                   ),
                 ),
                 Container(

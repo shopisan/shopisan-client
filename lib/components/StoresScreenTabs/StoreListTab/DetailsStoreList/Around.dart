@@ -1,10 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopisan/models/Category.dart';
 import 'package:shopisan/screens/CommercialScreen.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class AroundYou extends StatelessWidget {
+  const AroundYou({Key key, this.setSelectedCats, @required this.categories})
+      : super(key: key);
+
+  final CategoryCollection categories;
+  final ValueChanged<List<dynamic>> setSelectedCats;
+
   @override
   Widget build(BuildContext context) {
     return Container(
