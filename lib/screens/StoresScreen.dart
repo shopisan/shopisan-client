@@ -15,7 +15,6 @@ class StoresScreen extends StatefulWidget {
 }
 
 class _StoresScreenState extends State<StoresScreen> {
-  // todo re-importer les tabs ici
   int _currentIndex = 0;
 
   static List<Widget> _tabs = <Widget>[

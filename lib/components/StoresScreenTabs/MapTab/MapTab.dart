@@ -79,16 +79,16 @@ class _MapTabState extends State<MapTab> {
             child: Icon(Icons.location_searching_outlined),
           ),
         ),
-        Positioned(
-          top: 200,
-          left: 20,
-          child: Text("$latitudeData"),
-        ),
-        Positioned(
-          top: 220,
-          left: 20,
-          child: Text("$longitudeData"),
-        ),
+        // Positioned(
+        //   top: 200,
+        //   left: 20,
+        //   child: Text("$latitudeData"),
+        // ),
+        // Positioned(
+        //   top: 220,
+        //   left: 20,
+        //   child: Text("$longitudeData"),
+        // ),
         Positioned(
           bottom: 0,
           child: MapItem(),

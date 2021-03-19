@@ -1,23 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:shopisan/components/CommercialScreenTab/DescriptionTabCommercial/DescriptionTabCommercial.dart';
 import 'package:shopisan/components/CommercialScreenTab/DetailsCommercialScreenTab/CategoriesCommercial.dart';
+import 'package:shopisan/components/CommercialScreenTab/DetailsCommercialScreenTab/RatingBarCommercial.dart';
 import 'package:shopisan/components/CommercialScreenTab/MapTabCommercial.dart';
 import 'package:shopisan/components/CommercialScreenTab/PostsTabCommercial/PostsTabCommercial.dart';
+import 'package:shopisan/models/Stores.dart';
 import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/theme/icons.dart';
 
 class CommercialScreen extends StatefulWidget {
+  const CommercialScreen({Key key, @required this.storeId}) : super(key: key);
+
+  final int storeId;
+
   @override
   _CommercialScreenState createState() => _CommercialScreenState();
 }
 
 class _CommercialScreenState extends State<CommercialScreen> {
+  List<Store> selectedStore;
+
   int _currentIndex = 0;
 
   static List<Widget> _tabs = <Widget>[
@@ -48,6 +56,20 @@ class _CommercialScreenState extends State<CommercialScreen> {
         // inactiveColor: CustomColors.systemGrey,
       ),
     ];
+  }
+
+  void loadStore() async {
+    final response = await http.get(
+        Uri.http("10.0.2.2:8000", "/api/stores/stores/${widget.storeId},"),
+        headers: {'Accept': 'application/json'});
+
+    print(response.body);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadStore();
   }
 
   void _onTapped(int index) {
@@ -82,32 +104,14 @@ class _CommercialScreenState extends State<CommercialScreen> {
               ],
             ),
             actions: [
-              Container(
-                margin: EdgeInsets.fromLTRB(0, 20, 20, 20),
-                child: RatingBar.builder(
-                  initialRating: 3,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemSize: 15,
-                  itemPadding: EdgeInsets.symmetric(horizontal: 0),
-                  itemBuilder: (context, _) => Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  onRatingUpdate: (rating) {
-                    print(rating);
-                  },
-                ),
-              ),
+              RatingBarCommercial(),
             ]),
         body: Container(
           color: CustomColors.commercialBlue,
           child: Column(
             children: [
               Container(
-                // image commerce
+                // todo image commerce : pouvoir en afficher plusieurs en scroll horizontal ?
                 color: Colors.black,
                 height: 200,
                 width: double.infinity,

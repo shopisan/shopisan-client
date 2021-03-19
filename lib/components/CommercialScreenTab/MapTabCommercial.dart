@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapTabCommercial extends StatefulWidget {
@@ -7,11 +8,31 @@ class MapTabCommercial extends StatefulWidget {
 }
 
 class _MapTabCommercialState extends State<MapTabCommercial> {
-  GoogleMapController mapController;
-  final LatLng _center = const LatLng(50.6325574, 5.5796662);
+  Set<Marker> _markers = {};
+  BitmapDescriptor mapMarker;
 
+  @override
+  void initState() {
+    super.initState();
+    setCustomMarker();
+  }
+
+  void setCustomMarker() async {
+    mapMarker = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(), "assets/icons/pin.png");
+  }
+
+  // todo son logo est sympa mais il contraste pas des masses avec le fond de google map
   void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+    setState(() {
+      _markers.add(Marker(
+          markerId: MarkerId("myMarker"),
+          position: LatLng(50.6325574, 5.5796662),
+          icon: mapMarker,
+          infoWindow: InfoWindow(
+            title: AppLocalizations.of(context).city,
+          )));
+    });
   }
 
   @override
@@ -20,7 +41,9 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
       height: 300,
       child: GoogleMap(
         onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(target: _center, zoom: 15.0),
+        markers: _markers,
+        initialCameraPosition:
+            CameraPosition(zoom: 13.0, target: LatLng(50.6325574, 5.5796662)),
       ),
     );
   }

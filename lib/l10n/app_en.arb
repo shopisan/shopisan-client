@@ -14,5 +14,7 @@
   "search": "Search",
   "recentResearch": "RECENT RESEARCH",
   "city": "CITY",
-  "commercialName": "Commercial Name"
+  "commercialName": "Commercial Name",
+  "commercialAddress": "Store address",
+  "evaluation": "Give us your evaluation"
 }

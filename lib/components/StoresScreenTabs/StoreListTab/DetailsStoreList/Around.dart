@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/models/Category.dart';
-import 'package:shopisan/screens/CommercialScreen.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class AroundYou extends StatelessWidget {
@@ -31,11 +30,14 @@ class AroundYou extends StatelessWidget {
             child: ListView(
               scrollDirection: Axis.vertical,
               children: [
+                // @todo adapter selon le store affiché
                 // ignore: deprecated_member_use
                 FlatButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => CommercialScreen()));
+                    Navigator.pushNamed(context, "/store_detail",
+                        arguments: 800);
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (_) => CommercialScreen()));
                   },
                   padding: EdgeInsets.all(0),
                   child: Row(

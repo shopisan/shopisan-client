@@ -13,17 +13,14 @@ class DescriptionPostsCommercial extends StatelessWidget {
         children: [
           Container(
             width: 250,
-            height: 100,
-            child: SingleChildScrollView(
-              child: Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu quam nec erat feugiat sollicitudin non vitae nisl."
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu quam nec erat feugiat sollicitudin non vitae nisl.",
-                style: GoogleFonts.poppins(
-                  color: CustomColors.textDescription,
-                  fontSize: 14,
-                ),
-                textAlign: TextAlign.left,
+            child: Text(
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu quam nec erat feugiat sollicitudin non vitae nisl."
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu quam nec erat feugiat sollicitudin non vitae nisl.",
+              style: GoogleFonts.poppins(
+                color: CustomColors.textDescription,
+                fontSize: 14,
               ),
+              textAlign: TextAlign.left,
             ),
           ),
           Text(

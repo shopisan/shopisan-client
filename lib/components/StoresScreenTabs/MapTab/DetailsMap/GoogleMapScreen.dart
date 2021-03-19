@@ -8,29 +8,29 @@ class GoogleMapScreen extends StatefulWidget {
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
-  GoogleMapController mapController;
   Set<Marker> _markers = {};
   BitmapDescriptor mapMarker;
 
   @override
   void initState() {
     super.initState();
-    setCustomMarkers();
+    setCustomMarker();
   }
 
-  void setCustomMarkers() async {
+  void setCustomMarker() async {
     mapMarker = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(), "assets/icons/logo_square.svg");
+        ImageConfiguration(), "assets/icons/pin.png");
   }
 
+  // todo son logo est sympa mais il contraste pas des masses avec le fond de google map
   void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
     setState(() {
       _markers.add(Marker(
-          markerId: MarkerId('id-1'),
+          markerId: MarkerId("myMarker"),
+          position: LatLng(50.6325574, 5.5796662),
           icon: mapMarker,
           infoWindow: InfoWindow(
-            title: AppLocalizations.of(context).commercialName,
+            title: AppLocalizations.of(context).city,
           )));
     });
   }
@@ -39,8 +39,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Widget build(BuildContext context) {
     return Container(
       child: GoogleMap(
-        markers: _markers,
         onMapCreated: _onMapCreated,
+        markers: _markers,
         initialCameraPosition:
             CameraPosition(zoom: 13.0, target: LatLng(50.6325574, 5.5796662)),
       ),
