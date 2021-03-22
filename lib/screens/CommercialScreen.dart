@@ -10,7 +10,7 @@ import 'package:shopisan/components/CommercialScreenTab/DetailsCommercialScreenT
 import 'package:shopisan/components/CommercialScreenTab/DetailsCommercialScreenTab/RatingBarCommercial.dart';
 import 'package:shopisan/components/CommercialScreenTab/MapTabCommercial.dart';
 import 'package:shopisan/components/CommercialScreenTab/PostsTabCommercial/PostsTabCommercial.dart';
-import 'package:shopisan/models/Stores.dart';
+import 'package:shopisan/model/Stores.dart';
 import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/theme/icons.dart';
 

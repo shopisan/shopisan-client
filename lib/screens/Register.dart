@@ -173,8 +173,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   // ignore: deprecated_member_use
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => StoresScreen()));
+                      // Navigator.push(context,
+                      //     MaterialPageRoute(builder: (_) => StoresScreen()));
+                      Navigator.pushNamed(context, '/');
                     },
                     child: Text(
                       "Sign Up",
@@ -189,10 +190,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 // ignore: deprecated_member_use
                 FlatButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => RegisterCommercialScreen()));
+                    Navigator.pushNamed(context, '/');
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (_) => RegisterCommercialScreen()));
                   },
                   child: Text(
                     "Sign Up A Store",
@@ -205,8 +207,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 // ignore: deprecated_member_use
                 FlatButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => LoginScreen()));
+                    Navigator.pushNamed(context, '/login');
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (_) => LoginScreen()));
                   },
                   child: Text(
                     "Log In Here",
