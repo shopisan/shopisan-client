@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopisan/models/Address.dart';
 import 'package:shopisan/models/Category.dart';
+import 'package:shopisan/models/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class AroundYou extends StatelessWidget {
-  const AroundYou({Key key, this.setSelectedCats, @required this.categories})
+  const AroundYou(
+      {Key key, @required this.categories, this.addresses, Store store})
       : super(key: key);
 
   final CategoryCollection categories;
-  final ValueChanged<List<dynamic>> setSelectedCats;
+  final AddressCollection addresses;
 
   @override
   Widget build(BuildContext context) {
@@ -40,36 +43,48 @@ class AroundYou extends StatelessWidget {
                     //     MaterialPageRoute(builder: (_) => CommercialScreen()));
                   },
                   padding: EdgeInsets.all(0),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 60,
-                        width: 60,
-                        margin: EdgeInsets.only(right: 10),
-                        decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(5)),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Luckyteam",
-                            style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                  child: FutureBuilder<Store>(
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final store = snapshot.data;
+                        return Row(
+                          children: [
+                            Container(
+                              height: 60,
+                              width: 60,
+                              margin: EdgeInsets.only(right: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(5)),
                             ),
-                          ),
-                          Text(
-                            "52 rue du président Edouard Herriot, 69002 Lyon",
-                            style: GoogleFonts.poppins(
-                              color: CustomColors.textDescription,
-                              fontSize: 12,
-                            ),
-                          )
-                        ],
-                      )
-                    ],
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${store.name}',
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                Text(
+                                  "52 rue du président Edouard Herriot, 69002 Lyon",
+                                  style: GoogleFonts.poppins(
+                                    color: CustomColors.textDescription,
+                                    fontSize: 12,
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text("Error",
+                            style: TextStyle(color: Colors.black));
+                      }
+
+                      return CircularProgressIndicator();
+                    },
                   ),
                 ),
               ],

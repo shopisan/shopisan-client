@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shopisan/models/Address.dart';
 
 class MapTabCommercial extends StatefulWidget {
+  const MapTabCommercial({Key key, this.addresses}) : super(key: key);
+
+  final AddressCollection addresses;
+
   @override
   _MapTabCommercialState createState() => _MapTabCommercialState();
 }
@@ -27,7 +32,8 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
     setState(() {
       _markers.add(Marker(
           markerId: MarkerId("myMarker"),
-          position: LatLng(50.6325574, 5.5796662),
+          // position: LatLng(50.6325574, 5.5796662),
+
           icon: mapMarker,
           infoWindow: InfoWindow(
             title: AppLocalizations.of(context).city,
