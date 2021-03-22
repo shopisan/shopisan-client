@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/components/CommercialScreenTab/DescriptionTabCommercial/DetailsDescriptionTabCommercial/ConnectCommercial.dart';
-import 'package:shopisan/models/OpeningTime.dart';
-import 'package:shopisan/models/Store.dart';
+import 'package:shopisan/model/OpeningTime.dart';
+import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 import 'DetailsDescriptionTabCommercial/TimesCommercial.dart';

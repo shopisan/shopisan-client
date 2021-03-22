@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:shopisan/models/Address.dart';
+import 'package:shopisan/model/Address.dart';
 
 class MapTabCommercial extends StatefulWidget {
   const MapTabCommercial({Key key, this.addresses}) : super(key: key);

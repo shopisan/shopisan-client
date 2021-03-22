@@ -12,9 +12,9 @@ import 'package:shopisan/components/CommercialScreenTab/DetailsCommercialScreenT
 import 'package:shopisan/components/CommercialScreenTab/DetailsCommercialScreenTab/RatingBarCommercial.dart';
 import 'package:shopisan/components/CommercialScreenTab/MapTabCommercial.dart';
 import 'package:shopisan/components/CommercialScreenTab/PostsTabCommercial/PostsTabCommercial.dart';
-import 'package:shopisan/models/Address.dart';
-import 'package:shopisan/models/Category.dart';
-import 'package:shopisan/models/Store.dart';
+import 'package:shopisan/model/Address.dart';
+import 'package:shopisan/model/Category.dart';
+import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/theme/icons.dart';
 

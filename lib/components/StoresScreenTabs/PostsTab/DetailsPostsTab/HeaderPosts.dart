@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopisan/models/Store.dart';
+import 'package:shopisan/model/Store.dart';
 
 class HeaderPosts extends StatefulWidget {
+  // @todo ici, ce n'est pas le storeId que tu veux, mais le post
+  //      Dans ce Post, tu trouvera le Store (normalement)
   const HeaderPosts({Key key, @required this.storeId}) : super(key: key);
 
   final int storeId;
@@ -29,6 +31,9 @@ class _HeaderPostsState extends State<HeaderPosts> {
                 onPressed: () {
                   Navigator.pushNamed(context, "/store_detail", arguments: 800);
                 },
+                // @todo ici, pourquoi tu fais un FutureBuilder?
+                //  Il n'y a pas de requete, ou de fonction async, pas besoin de future builder
+                // Le post sera injecté depuis le widget de la tab avec les posts
                 child: FutureBuilder<Store>(
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shopisan/models/Category.dart';
-import 'package:shopisan/models/Store.dart';
+import 'package:shopisan/model/Category.dart';
+import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class CategoriesCommercial extends StatefulWidget {

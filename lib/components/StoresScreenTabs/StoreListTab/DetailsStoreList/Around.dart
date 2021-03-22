@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopisan/models/Address.dart';
+import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
-import 'package:shopisan/models/Store.dart';
+import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class AroundYou extends StatelessWidget {
+  // @todo la liste des elements sera injecté depuis le widget parent
+  // C'est le parent qui va charger la liste des stores
+  // Cette liste sera injectée ici, pour faire un .map des elements
+  // ==> Pas besoin d'un future builder, juste faire un .map des stores
   const AroundYou(
       {Key key, @required this.categories, this.addresses, Store store})
       : super(key: key);

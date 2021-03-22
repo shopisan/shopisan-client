@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shopisan/components/StoresScreenTabs/StoreListTab/DetailsStoreList/Around.dart';
-import 'package:shopisan/models/Address.dart';
-import 'package:shopisan/models/Category.dart';
-import 'package:shopisan/models/Store.dart';
+import 'package:shopisan/model/Address.dart';
+import 'package:shopisan/model/Category.dart';
+import 'package:shopisan/model/Store.dart';
 
 import 'DetailsStoreList/Dropdown.dart';
 import 'DetailsStoreList/RecentResearch.dart';

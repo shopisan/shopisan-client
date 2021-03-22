@@ -1,5 +1,5 @@
-import 'package:shopisan/models/Address.dart';
-import 'package:shopisan/models/Category.dart';
+import 'package:shopisan/model/Address.dart';
+import 'package:shopisan/model/Category.dart';
 
 class Store {
   final int id;
