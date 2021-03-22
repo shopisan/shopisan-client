@@ -16,5 +16,7 @@
   "city": "CITY",
   "commercialName": "Commercial Name",
   "commercialAddress": "Store address",
-  "evaluation": "Give us your evaluation"
+  "evaluation": "Give us your evaluation",
+  "scheduleStore": "STORE SCHEDULE",
+  "connectCommercial": "CONNECT WITH US"
 }

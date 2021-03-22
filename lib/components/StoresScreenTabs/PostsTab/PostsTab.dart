@@ -14,14 +14,14 @@ class _PostsTabState extends State<PostsTab> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top:10),
+      padding: EdgeInsets.only(top: 10),
       child: SizedBox(
         width: double.infinity,
         child: ListView(
           children: [
             Container(
               padding: EdgeInsets.all(20),
-              margin: EdgeInsets.fromLTRB(20,10,20,10),
+              margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: CustomColors.search,
@@ -36,7 +36,7 @@ class _PostsTabState extends State<PostsTab> {
             ),
             Container(
               padding: EdgeInsets.all(20),
-              margin: EdgeInsets.fromLTRB(20,10,20,10),
+              margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: CustomColors.search,
@@ -51,7 +51,7 @@ class _PostsTabState extends State<PostsTab> {
             ),
             Container(
               padding: EdgeInsets.all(20),
-              margin: EdgeInsets.fromLTRB(20,10,20,10),
+              margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: CustomColors.search,
@@ -66,7 +66,7 @@ class _PostsTabState extends State<PostsTab> {
             ),
             Container(
               padding: EdgeInsets.all(20),
-              margin: EdgeInsets.fromLTRB(20,10,20,10),
+              margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: CustomColors.search,
@@ -81,7 +81,7 @@ class _PostsTabState extends State<PostsTab> {
             ),
             Container(
               padding: EdgeInsets.all(20),
-              margin: EdgeInsets.fromLTRB(20,10,20,10),
+              margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: CustomColors.search,
