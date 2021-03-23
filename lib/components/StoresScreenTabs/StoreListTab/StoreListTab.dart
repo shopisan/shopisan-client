@@ -1,8 +1,5 @@
-import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/components/StoresScreenTabs/StoreListTab/DetailsStoreList/Around.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
@@ -12,51 +9,29 @@ import 'DetailsStoreList/Dropdown.dart';
 import 'DetailsStoreList/RecentResearch.dart';
 
 class StoreListTab extends StatefulWidget {
+  final ValueChanged<List<dynamic>> setSelectedCats;
+  final List<Store> stores;
+
+  const StoreListTab(
+      {Key key, @required this.setSelectedCats, @required this.stores})
+      : super(key: key);
+
   @override
   _StoreListTabState createState() => _StoreListTabState();
 }
 
 class _StoreListTabState extends State<StoreListTab> {
-  Store store;
-  CategoryCollection categories;
+  CategoryCollection categories = CategoryCollection(categories: []);
   AddressCollection addresses;
-  List<dynamic> selectedCategoriesId;
+
   Map<DateTime, Category> categoryHistory;
 
-  void loadStores() async {
-    print(selectedCategoriesId);
-    // @todo reste à définir la localisation
-    Map<String, dynamic> params = {};
+  void getCategories() async {
+    CategoryCollection catColl = await fetchCategories();
 
-    if (selectedCategoriesId != null) {
-      params['categories'] = selectedCategoriesId.join(",");
-    }
-
-    final response = await http.get(
-        Uri.http("10.0.2.2:8000", "/api/stores_geo/", params),
-        headers: {'Accept': 'application/json'});
-
-    if (response.statusCode == 200) {
-      print(response.statusCode);
-      print(response.body);
-    } else {
-      throw Exception('Failed to load stores');
-    }
-  }
-
-  void fetchCategories() async {
-    final response = await http.get(
-        Uri.http("10.0.2.2:8000", "/api/stores/categories/"),
-        headers: {'Accept': 'application/json'});
-
-    if (response.statusCode == 200) {
-      setState(() {
-        categories = CategoryCollection.fromJson(jsonDecode(response.body));
-      });
-    } else {
-      throw Exception(
-          'Failed to load categories, ca serait bien de faire quelque chose dans ce cas la');
-    }
+    setState(() {
+      categories = catColl;
+    });
   }
 
   void saveSearchHistory(List<dynamic> catIds) {
@@ -81,18 +56,7 @@ class _StoreListTabState extends State<StoreListTab> {
   @override
   void initState() {
     super.initState();
-    fetchCategories();
-    loadStores();
-  }
-
-  void setSelectedCats(List<dynamic> selectedCats) async {
-    setState(() {
-      selectedCategoriesId = selectedCats;
-    });
-    loadStores();
-
-    // @todo ajouter dans categoryHistory (associer par datetime) + save dans storage
-    // @todo reload les stores a afficher
+    getCategories();
   }
 
   @override
@@ -104,7 +68,8 @@ class _StoreListTabState extends State<StoreListTab> {
           Padding(
             padding: const EdgeInsets.fromLTRB(25, 20, 25, 20),
             child: DropdownMenu(
-                categories: categories, setSelectedCats: setSelectedCats),
+                categories: categories,
+                setSelectedCats: widget.setSelectedCats),
           ),
           Padding(
               padding: EdgeInsets.only(left: 10),
@@ -125,7 +90,9 @@ class _StoreListTabState extends State<StoreListTab> {
           Padding(
             padding: EdgeInsets.fromLTRB(10, 20, 0, 0),
             child: AroundYou(
-                categories: categories, addresses: addresses, store: store),
+              categories: categories,
+              stores: widget.stores,
+            ),
           ),
         ],
       ),

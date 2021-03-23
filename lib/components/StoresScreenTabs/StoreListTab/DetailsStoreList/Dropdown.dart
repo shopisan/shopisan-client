@@ -7,7 +7,8 @@ import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class DropdownMenu extends StatefulWidget {
-  const DropdownMenu({Key key, this.setSelectedCats, @required this.categories})
+  const DropdownMenu(
+      {Key key, @required this.setSelectedCats, @required this.categories})
       : super(key: key);
 
   final CategoryCollection categories;

@@ -1,31 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shopisan/authentication/authentication_bloc.dart';
+import 'package:shopisan/repository/user_repository.dart';
 import 'package:shopisan/theme/style.dart';
 import 'package:shopisan/utils/router_generator.dart';
-
-import 'package:bloc/bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopisan/repository/user_repository.dart';
-
-import 'package:shopisan/authentication/authentication_bloc.dart';
-import 'package:shopisan/screens/Login.dart';
-import 'package:shopisan/utils/common.dart';
 
 void main() {
   // BlocSupervisor.delegate = SimpleBlocDelegate();
   final userRepository = UserRepository();
 
-  runApp(
-      BlocProvider<AuthenticationBloc>(
-        create: (context) {
-          return AuthenticationBloc(
-              userRepository: userRepository
-          )..add(AppStarted());
-        },
-        child: App(userRepository: userRepository),
-      )
-  );
+  runApp(BlocProvider<AuthenticationBloc>(
+    create: (context) {
+      return AuthenticationBloc(userRepository: userRepository)
+        ..add(AppStarted());
+    },
+    child: App(userRepository: userRepository),
+  ));
 }
 
 class App extends StatelessWidget {
@@ -55,7 +46,7 @@ class App extends StatelessWidget {
         //     }
         //   },
         // ),
-        onGenerateRoute: RouteGenerator.generateRoute, // @todo deplacer le router dans un child?
+        onGenerateRoute: RouteGenerator.generateRoute,
         initialRoute: '/',
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales

@@ -1,22 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class AroundYou extends StatelessWidget {
-  // @todo la liste des elements sera injecté depuis le widget parent
-  // C'est le parent qui va charger la liste des stores
-  // Cette liste sera injectée ici, pour faire un .map des elements
-  // ==> Pas besoin d'un future builder, juste faire un .map des stores
-  const AroundYou(
-      {Key key, @required this.categories, this.addresses, Store store})
+  const AroundYou({Key key, @required this.categories, @required this.stores})
       : super(key: key);
 
   final CategoryCollection categories;
-  final AddressCollection addresses;
+  final List<Store> stores;
 
   @override
   Widget build(BuildContext context) {
@@ -36,22 +30,14 @@ class AroundYou extends StatelessWidget {
             width: double.infinity,
             child: ListView(
               scrollDirection: Axis.vertical,
-              children: [
-                // @todo adapter selon le store affiché
-                // ignore: deprecated_member_use
-                FlatButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/store_detail",
-                        arguments: 800);
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (_) => CommercialScreen()));
-                  },
-                  padding: EdgeInsets.all(0),
-                  child: FutureBuilder<Store>(
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        final store = snapshot.data;
-                        return Row(
+              children: stores
+                  .map((store) => TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/store_detail",
+                              arguments: store.id);
+                        },
+                        // padding: EdgeInsets.all(0),
+                        child: Row(
                           children: [
                             Container(
                               height: 60,
@@ -81,17 +67,9 @@ class AroundYou extends StatelessWidget {
                               ],
                             )
                           ],
-                        );
-                      } else if (snapshot.hasError) {
-                        return Text("Error",
-                            style: TextStyle(color: Colors.black));
-                      }
-
-                      return CircularProgressIndicator();
-                    },
-                  ),
-                ),
-              ],
+                        ),
+                      ))
+                  .toList(),
             ),
           )
         ],

@@ -73,7 +73,6 @@ class _CommercialScreenState extends State<CommercialScreen> {
     try {
       if (response.statusCode == 200) {
         store = Store.fromJson(json.decode(response.body));
-        print("store: $store");
         return store;
       }
     } catch (Exception) {
@@ -112,6 +111,7 @@ class _CommercialScreenState extends State<CommercialScreen> {
                     ],
                   );
                 } else if (snapshot.hasError) {
+                  print('error $store');
                   return Text("Error", style: TextStyle(color: Colors.black));
                 }
 
