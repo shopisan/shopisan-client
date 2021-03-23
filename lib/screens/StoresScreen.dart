@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -36,21 +38,29 @@ class _StoresScreenState extends State<StoresScreen> {
 
   // Récupérer la géolocalisation
   getCurrentLocation() async {
-    SharedPreferences prefsLocation = await SharedPreferences.getInstance();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     print("getting location");
     final geoposition = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     print(geoposition);
     setState(() {
-      latitudeData = prefsLocation.getString("${geoposition.latitude}");
-      longitudeData = prefsLocation.getString("${geoposition.longitude}");
+      latitudeData = "${geoposition.latitude}";
+      longitudeData = "${geoposition.longitude}";
     });
+
     // @todo il faudrait sauvegarder la dernière location dans le storage de l'appareil en DB :D
     loadStores();
+
+    prefs.setString(
+        'last_geolocation',
+        json.encode({
+          "latitude": geoposition.latitude,
+          "longitude": geoposition.longitude
+        }));
   }
 
   void loadStores() async {
-    Map<String, dynamic> params = {};
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     List<Store> storeList =
         await fetchStores(selectedCategoriesId, latitudeData, longitudeData);
@@ -58,11 +68,37 @@ class _StoresScreenState extends State<StoresScreen> {
     setState(() {
       stores = storeList;
     });
+
+    // prefs.setString('last_stores', json.encode(storeList));
+  }
+
+  void getOldPosition() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey('last_geolocation')) {
+      var geoloc = json.decode(prefs.getString('last_geolocation'));
+      print("geoloc: $geoloc");
+      setState(() {
+        latitudeData = "${geoloc['latitude']}";
+        longitudeData = "${geoloc['longitude']}";
+      });
+    }
+  }
+
+  void getOldStores() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey('last_stores')) {
+      var lesStores = json.decode(prefs.getString('last_stores'));
+      setState(() {
+        stores = lesStores;
+      });
+    }
   }
 
   @override
   void initState() {
     super.initState();
+    getOldPosition();
+    getOldStores();
     // @todo récupérer la derniere location ++ afficher les stores
     getCurrentLocation();
     // @todo si des catégories ont été choisies, les enregistrer en DB ++ aller rechercher les infos
@@ -113,7 +149,7 @@ class _StoresScreenState extends State<StoresScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _tabs = <Widget>[
-      PostsTab(),
+      PostsTab(stores: stores),
       StoreListTab(setSelectedCats: setSelectedCats, stores: stores),
       MapTab(
         stores: stores,

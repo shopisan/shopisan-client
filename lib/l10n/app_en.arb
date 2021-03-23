@@ -3,6 +3,8 @@
   "@helloWorld": {
     "description": "WTF???"
   },
+  "logIn": "Log In",
+  "logOut": "Log Out",
   "emailAddress": "Email Address",
   "emailHint": "abc@gmail.com",
   "password": "Password",

@@ -47,7 +47,9 @@ Future<List<Store>> fetchStores(
     params['categories'] = categories.join(",");
   }
 
-  params['position'] = "$latitude,$longitude";
+  if (latitude != null && longitude != null) {
+    params['position'] = "$latitude,$longitude";
+  }
 
   print("URL: ${Uri.http(_base, "/api/stores_geo/", params)}");
   final response = await http.get(Uri.http(_base, "/api/stores_geo/", params),
