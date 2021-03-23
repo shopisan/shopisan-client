@@ -1,18 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:shopisan/components/Login/login_form.dart';
-import 'package:shopisan/screens/ForgotPassword.dart';
-import 'package:shopisan/screens/Register.dart';
-import 'package:shopisan/screens/StoresScreen.dart';
-import 'package:shopisan/theme/colors.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopisan/repository/user_repository.dart';
 import 'package:shopisan/authentication/authentication_bloc.dart';
+import 'package:shopisan/components/Login/login_form.dart';
 import 'package:shopisan/login/login_bloc.dart';
-
+import 'package:shopisan/repository/user_repository.dart';
 
 class LoginPage extends StatelessWidget {
   final UserRepository userRepository;
@@ -24,9 +16,38 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login | Home Hub'),
-      ),
+      // body: Column(
+      //   children: [
+      //     Container(
+      //       //@todo condition pour connecté / déconneter
+      //       padding: EdgeInsets.all(10),
+      //       width: double.infinity,
+      //       decoration: BoxDecoration(boxShadow: [
+      //         BoxShadow(
+      //             color: CustomColors.spread,
+      //             blurRadius: 15.0,
+      //             offset: Offset(0.0, 0.75))
+      //       ]),
+      //       child: TextButton(
+      //           child: Row(
+      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //         children: [
+      //           Text(
+      //             AppLocalizations.of(context).logIn,
+      //             style: GoogleFonts.poppins(
+      //                 fontWeight: FontWeight.bold,
+      //                 fontSize: 16,
+      //                 color: Colors.black),
+      //           ),
+      //           Icon(
+      //             Icons.arrow_right,
+      //             color: Colors.black,
+      //           )
+      //         ],
+      //       )),
+      //     )
+      //   ],
+      // ),
       body: BlocProvider(
         create: (context) {
           return LoginBloc(

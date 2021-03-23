@@ -15,13 +15,15 @@ class MapTab extends StatefulWidget {
 }
 
 class _MapTabState extends State<MapTab> {
+  List<Store> stores = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
       children: [
         Positioned.fill(
-          child: GoogleMapScreen(),
+          child: GoogleMapScreen(stores: stores),
         ),
         Positioned(
           top: 10,
@@ -47,21 +49,28 @@ class _MapTabState extends State<MapTab> {
         ),
         Positioned(
           bottom: 100,
-          right: 10,
-          // ignore: deprecated_member_use
-          child: FlatButton(
-            color: CustomColors.iconsActive,
-            height: 40,
-            minWidth: 20,
+          right: 0,
+          child: TextButton(
+            child: Container(
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: CustomColors.iconsActive,
+              ),
+              child: Icon(
+                Icons.location_searching_outlined,
+                color: Colors.black,
+              ),
+            ),
             onPressed: () {
               // @todo plutot replacer la map sur sa position actuelle
             },
-            child: Icon(Icons.location_searching_outlined),
           ),
         ),
         // Positioned(
         //   top: 200,
-        //   left: 20,
+        //   left: 20,r
         //   child: Text("$latitudeData"),
         // ),
         // Positioned(
@@ -70,8 +79,8 @@ class _MapTabState extends State<MapTab> {
         //   child: Text("$longitudeData"),
         // ),
         Positioned(
-          bottom: 0,
-          child: MapItem(),
+          bottom: 10,
+          child: MapItem(stores: stores),
         )
       ],
     ));

@@ -1,5 +1,7 @@
 {
   "helloWorld": "Bonjour le monde!",
+  "logIn": "Se connecter",
+  "logOut": "Se déconnecter",
   "emailAddress": "Adresse E-mail",
   "emailHint": "abc@gmail.com",
   "password": "Mot de passe",

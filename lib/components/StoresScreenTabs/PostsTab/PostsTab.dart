@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 import 'DetailsPostsTab/DescriptionPosts.dart';
@@ -6,11 +7,17 @@ import 'DetailsPostsTab/HeaderPosts.dart';
 import 'DetailsPostsTab/PicturePosts.dart';
 
 class PostsTab extends StatefulWidget {
+  const PostsTab({Key key, @required this.stores}) : super(key: key);
+
+  final List<Store> stores;
+
   @override
   _PostsTabState createState() => _PostsTabState();
 }
 
 class _PostsTabState extends State<PostsTab> {
+  List<Store> stores = [];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,6 +25,7 @@ class _PostsTabState extends State<PostsTab> {
       child: SizedBox(
         width: double.infinity,
         child: ListView(
+          // @todo map des posts
           children: [
             Container(
               padding: EdgeInsets.all(20),
@@ -28,7 +36,7 @@ class _PostsTabState extends State<PostsTab> {
               ),
               child: Column(
                 children: [
-                  HeaderPosts(),
+                  HeaderPosts(stores: stores),
                   PicturePosts(),
                   DescriptionPosts(),
                 ],

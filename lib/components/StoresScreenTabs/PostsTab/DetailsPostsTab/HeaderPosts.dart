@@ -2,8 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopisan/model/Store.dart';
 
 class HeaderPosts extends StatefulWidget {
+  const HeaderPosts({Key key, @required this.stores}) : super(key: key);
+
+  final List<Store> stores;
+
   // @todo ici, ce n'est pas le storeId que tu veux, mais le post
   //      Dans ce Post, tu trouvera le Store (normalement)
 
@@ -16,6 +21,8 @@ class HeaderPosts extends StatefulWidget {
 }
 
 class _HeaderPostsState extends State<HeaderPosts> {
+  List<Store> stores = [];
+
   @override
   Widget build(BuildContext context) {
     return Container(
