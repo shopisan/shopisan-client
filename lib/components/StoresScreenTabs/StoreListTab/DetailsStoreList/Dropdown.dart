@@ -24,8 +24,9 @@ class _DropdownMenuState extends State<DropdownMenu> {
   @override
   Widget build(BuildContext context) {
     if (null == widget.categories) {
-      return Center(
-        child: Text("Oh, no!"), // @todo remplacer par un loader
+      return Container(
+        height: 50,
+        child: LinearProgressIndicator(),
       );
     }
 

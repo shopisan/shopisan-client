@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/login/login_bloc.dart';
+import 'package:shopisan/theme/colors.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -34,43 +38,149 @@ class _LoginFormState extends State<LoginForm> {
           return Container(
             child: Form(
               child: Padding(
-                padding: EdgeInsets.all(40.0),
+                padding: EdgeInsets.all(20.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    TextFormField(
-                      decoration: InputDecoration(
-                          labelText: 'Email', icon: Icon(Icons.person)),
-                      controller: _usernameController,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          labelText: 'Password', icon: Icon(Icons.security)),
-                      controller: _passwordController,
-                      obscureText: true,
+                    Text(
+                      AppLocalizations.of(context).logIn,
+                      style: GoogleFonts.poppins(
+                          color: CustomColors.textResearch,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.width * 0.22,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 30.0),
-                        child: RaisedButton(
-                          onPressed: state is! LoginLoading
-                              ? _onLoginButtonPressed
-                              : null,
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 24.0,
-                            ),
+                      height: 50,
+                      width: double.infinity,
+                      margin: EdgeInsets.fromLTRB(0, 50, 0, 20),
+                      padding: EdgeInsets.only(left: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(40),
+                        boxShadow: [
+                          BoxShadow(
+                            color: CustomColors.spreadRegister,
+                            spreadRadius: 5,
+                            blurRadius: 10,
                           ),
-                          shape: StadiumBorder(
-                            side: BorderSide(
-                              color: Colors.black,
-                              width: 2,
+                        ],
+                      ),
+                      child: TextFormField(
+                        controller: _usernameController,
+                        style: GoogleFonts.roboto(
+                          color: CustomColors.textDescription,
+                          fontSize: 14,
+                        ),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                              borderSide: BorderSide(
+                                width: 0,
+                                style: BorderStyle.none,
+                              ),
                             ),
+                            labelText:
+                                AppLocalizations.of(context).emailAddress,
+                            labelStyle: GoogleFonts.roboto(fontSize: 16),
+                            hintText: AppLocalizations.of(context).emailHint),
+                      ),
+                    ),
+                    Container(
+                      height: 50,
+                      width: double.infinity,
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
+                      padding: EdgeInsets.only(left: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(40),
+                        boxShadow: [
+                          BoxShadow(
+                            color: CustomColors.spreadRegister,
+                            spreadRadius: 5,
+                            blurRadius: 15,
                           ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        controller: _passwordController,
+                        obscureText: true,
+                        style: GoogleFonts.roboto(
+                          color: CustomColors.textDescription,
+                          fontSize: 14,
+                        ),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                              borderSide: BorderSide(
+                                width: 0,
+                                style: BorderStyle.none,
+                              ),
+                            ),
+                            labelText: AppLocalizations.of(context).password,
+                            labelStyle: GoogleFonts.roboto(fontSize: 16),
+                            hintText: AppLocalizations.of(context).passHint),
+                      ),
+                    ),
+                    Container(
+                      height: 50,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: CustomColors.textResearch,
+                        boxShadow: [
+                          BoxShadow(
+                            color: CustomColors.spreadRegister,
+                            spreadRadius: 5,
+                            blurRadius: 15,
+                          ),
+                        ],
+                      ),
+                      child: TextButton(
+                        onPressed: state is! LoginLoading
+                            ? _onLoginButtonPressed
+                            : null,
+                        child: Text(
+                          AppLocalizations.of(context).logIn,
+                          style: GoogleFonts.roboto(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        // shape: StadiumBorder(
+                        //   side: BorderSide(
+                        //     color: Colors.black,
+                        //     width: 2,
+                        //   ),
+                        // ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(20),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/forgot_password');
+                        },
+                        child: Text(
+                          AppLocalizations.of(context).forgotPassword,
+                          style: GoogleFonts.roboto(
+                            fontSize: 14,
+                            color: CustomColors.textDescription,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/register');
+                      },
+                      child: Text(
+                        AppLocalizations.of(context).register,
+                        style: GoogleFonts.roboto(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: CustomColors.textResearch,
                         ),
                       ),
                     ),

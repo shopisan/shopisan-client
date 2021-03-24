@@ -5,9 +5,18 @@
   },
   "logIn": "Log In",
   "logOut": "Log Out",
+  "editProfile": "Edit my profile",
+  "editStore" : "Edit my store",
+  "signUp": "Sign Up",
+  "signUpStore": "Sign Up A Store",
+  "userName": "User Name",
+  "name": "Name",
+  "lastName": "LastName",
+  "birthday": "Add your birthday",
   "emailAddress": "Email Address",
   "emailHint": "abc@gmail.com",
   "password": "Password",
+  "passwordConfirm": "Please type your password again",
   "passHint": "Enter a secure password",
   "forgotPassword": "Forgot Password ?",
   "forgPassText": "We will send you an email to reset your password. Please enter your email address",
@@ -20,5 +29,8 @@
   "commercialAddress": "Store address",
   "evaluation": "Give us your evaluation",
   "scheduleStore": "STORE SCHEDULE",
-  "connectCommercial": "CONNECT WITH US"
+  "connectCommercial": "CONNECT WITH US",
+  "choosePicture": "Choose profile photo",
+  "camera": "Camera",
+  "gallery": "Gallery"
 }

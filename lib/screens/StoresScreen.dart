@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,7 +12,6 @@ import 'package:shopisan/components/StoresScreenTabs/SettingsTab/SettingsTab.dar
 import 'package:shopisan/components/StoresScreenTabs/StoreListTab/StoreListTab.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
-import 'package:shopisan/theme/icons.dart';
 
 class StoresScreen extends StatefulWidget {
   @override
@@ -114,26 +112,28 @@ class _StoresScreenState extends State<StoresScreen> {
       ),
       BottomNavigationBarItem(
         backgroundColor: Colors.white,
-        icon: SvgPicture.asset(storeIcon),
+        // icon: SvgPicture.asset(storeIcon),
+        icon: Icon(Icons.store_outlined, size: 40),
         label: ("Store"),
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
       ),
       BottomNavigationBarItem(
-        icon: SvgPicture.asset(mapIcon),
+        // icon: SvgPicture.asset(mapIcon),
+        icon: Icon(Icons.map_outlined, size: 40),
         label: ("Map"),
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
       ),
       BottomNavigationBarItem(
-        icon: SvgPicture.asset(heartIcon),
+        icon: Icon(Icons.favorite_border_outlined, size: 40),
         label: ("Favorite"),
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
       ),
       BottomNavigationBarItem(
-        icon: SvgPicture.asset(settingsIcon),
-        label: "Settings",
+        icon: Icon(Icons.account_circle_outlined, size: 40),
+        label: "Profile",
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
       ),
@@ -158,7 +158,6 @@ class _StoresScreenState extends State<StoresScreen> {
       SettingsTab(),
     ];
 
-    // todo style la bottom nav bar
     return SafeArea(
         child: Scaffold(
             appBar: null,

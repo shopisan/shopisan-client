@@ -53,9 +53,9 @@ class AroundYou extends StatelessWidget {
                                 Text(
                                   '${store.name}',
                                   style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                  ),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: Colors.black),
                                 ),
                                 Text(
                                   "52 rue du président Edouard Herriot, 69002 Lyon",
