@@ -23,7 +23,7 @@ class SettingsTab extends StatelessWidget {
           );
         }
         if (state is AuthenticationUnauthenticated) {
-          return ProfilePage();
+          return ProfileScreen();
         }
         return LoadingIndicator();
       },

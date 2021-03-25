@@ -63,6 +63,8 @@ class _StoresScreenState extends State<StoresScreen> {
     List<Store> storeList =
         await fetchStores(selectedCategoriesId, latitudeData, longitudeData);
 
+    print("store list: $storeList");
+
     setState(() {
       stores = storeList;
     });

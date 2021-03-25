@@ -7,9 +7,16 @@
   "signUp": "S'inscrire",
   "signUpStore": "Inscrire un commerce",
   "userName": "Nom d'utilisateur",
+  "storeName": "Nom du commerce",
+  "street": "Rue",
+  "city": "Ville",
+  "land": "Pays",
+  "postCode": "Code Postale",
+  "number": "Numéro",
   "name": "Name",
   "lastName": "LastName",
   "birthday": "Ajouter votre anniversaire",
+  "profile": "Profil",
   "emailAddress": "Adresse E-mail",
   "emailHint": "abc@gmail.com",
   "password": "Mot de passe",
@@ -22,7 +29,6 @@
   "register": "S'enregistrer ici",
   "search": "Recherche",
   "recentResearch": "RECHERCHES RECENTES",
-  "city": "VILLE",
   "commercialName": "Nom du Commerce",
   "commercialAddress": "Adresse du commerce",
   "evaluation": "Donnez-nous votre avis",
@@ -30,5 +36,6 @@
   "connectCommercial": "RESTEZ CONNECTÉS",
   "choosePicture": "Choisissez une photo de profil",
   "camera": "Camera",
-  "gallery": "Gallerie"
+  "gallery": "Gallerie",
+  "save": "Enregistrer"
 }

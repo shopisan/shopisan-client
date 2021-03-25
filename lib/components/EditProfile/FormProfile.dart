@@ -14,6 +14,14 @@ class FormProfile extends StatelessWidget {
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
+              child: Text(
+                "User Name",
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+            ),
             Container(
               height: 50,
               width: double.infinity,
@@ -37,7 +45,7 @@ class FormProfile extends StatelessWidget {
                 ),
                 decoration: InputDecoration(
                     prefixIcon: Icon(
-                      Icons.verified_user,
+                      Icons.verified_user_outlined,
                       color: CustomColors.iconsActive,
                     ),
                     border: OutlineInputBorder(
@@ -156,7 +164,7 @@ class FormProfile extends StatelessWidget {
               height: 50,
               width: double.infinity,
               margin: EdgeInsets.only(top: 10),
-              padding: EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 10),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(40),
@@ -171,6 +179,10 @@ class FormProfile extends StatelessWidget {
               child: DateTimeField(
                 format: format,
                 decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.cake_outlined,
+                    color: CustomColors.iconsActive,
+                  ),
                   border: InputBorder.none,
                   // labelText: AppLocalizations.of(context).birthday
                 ),

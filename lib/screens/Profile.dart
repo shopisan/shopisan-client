@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/theme/colors.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,17 +17,28 @@ class ProfilePage extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: CustomColors.spread),
+                  color: CustomColors.search),
               child: TextButton(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      AppLocalizations.of(context).logOut,
-                      style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.logout,
+                          color: Colors.red,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(
+                            AppLocalizations.of(context).logOut,
+                            style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                        ),
+                      ],
                     ),
                     Icon(
                       Icons.arrow_right_outlined,
@@ -45,17 +56,28 @@ class ProfilePage extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: CustomColors.spread),
+                  color: CustomColors.search),
               child: TextButton(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      AppLocalizations.of(context).editProfile,
-                      style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.account_circle_outlined,
+                          color: Colors.black,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(
+                            AppLocalizations.of(context).editProfile,
+                            style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                        ),
+                      ],
                     ),
                     Icon(
                       Icons.arrow_right_outlined,
@@ -73,17 +95,28 @@ class ProfilePage extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: CustomColors.spread),
+                  color: CustomColors.search),
               child: TextButton(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      AppLocalizations.of(context).editStore,
-                      style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.store_outlined,
+                          color: Colors.black,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(
+                            AppLocalizations.of(context).editStore,
+                            style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                        ),
+                      ],
                     ),
                     Icon(
                       Icons.arrow_right_outlined,
@@ -91,7 +124,9 @@ class ProfilePage extends StatelessWidget {
                     )
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/edit_commercial');
+                },
               ))
         ],
       ),

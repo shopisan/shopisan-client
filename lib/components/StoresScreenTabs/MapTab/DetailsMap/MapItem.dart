@@ -2,21 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class MapItem extends StatelessWidget {
-  const MapItem({Key key, @required this.stores}) : super(key: key);
+  const MapItem({Key key, @required this.stores, @required this.categories})
+      : super(key: key);
 
   final List<Store> stores;
+  final CategoryCollection categories;
 
   @override
   Widget build(BuildContext context) {
+    print(stores);
     return Container(
       margin: EdgeInsets.all(10),
       child: SizedBox(
+        height: 100,
         width: 400,
-        height: 60,
         child: ListView(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
@@ -27,7 +31,6 @@ class MapItem extends StatelessWidget {
                           arguments: store.id);
                     },
                     child: Container(
-                      height: 50,
                       width: 150,
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(

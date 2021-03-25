@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopisan/screens/CommercialScreen.dart';
+import 'package:shopisan/screens/EditCommercial.dart';
 import 'package:shopisan/screens/EditProfile.dart';
 import 'package:shopisan/screens/ForgotPassword.dart';
 import 'package:shopisan/screens/Login.dart';
@@ -42,6 +43,11 @@ class RouteGenerator {
       case '/edit_profile':
         return MaterialPageRoute(builder: (_) {
           return EditProfile();
+        });
+
+      case '/edit_commercial':
+        return MaterialPageRoute(builder: (_) {
+          return EditCommercial();
         });
 
       default:

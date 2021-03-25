@@ -10,9 +10,16 @@
   "signUp": "Sign Up",
   "signUpStore": "Sign Up A Store",
   "userName": "User Name",
+  "storeName": "Store Name",
+  "street": "Street",
+  "city": "City",
+  "land": "Land",
+  "postCode": "Post Codee",
+  "number": "Number",
   "name": "Name",
   "lastName": "LastName",
   "birthday": "Add your birthday",
+  "profile": "Profile",
   "emailAddress": "Email Address",
   "emailHint": "abc@gmail.com",
   "password": "Password",
@@ -24,7 +31,6 @@
   "register": "Register Here",
   "search": "Search",
   "recentResearch": "RECENT RESEARCH",
-  "city": "CITY",
   "commercialName": "Commercial Name",
   "commercialAddress": "Store address",
   "evaluation": "Give us your evaluation",
@@ -32,5 +38,6 @@
   "connectCommercial": "CONNECT WITH US",
   "choosePicture": "Choose profile photo",
   "camera": "Camera",
-  "gallery": "Gallery"
+  "gallery": "Gallery",
+  "save": "Save"
 }

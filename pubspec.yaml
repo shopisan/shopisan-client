@@ -43,6 +43,7 @@ dependencies:
   url_launcher: ^6.0.2
   image_picker: ^0.7.3
   datetime_picker_formfield: ^2.0.0
+  address_search_field: ^3.0.10
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -72,6 +73,7 @@ flutter:
   assets:
     - assets/img/bg_login.jpg
     - assets/img/profile.jpg
+    - assets/img/store.jpg
     - assets/icons/store.svg
     - assets/icons/map.svg
     - assets/icons/settings.svg
