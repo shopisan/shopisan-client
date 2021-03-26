@@ -11,7 +11,7 @@ class DropdownMenu extends StatefulWidget {
       {Key key, @required this.setSelectedCats, @required this.categories})
       : super(key: key);
 
-  final CategoryCollection categories;
+  final List<Category> categories;
   final ValueChanged<List<dynamic>> setSelectedCats;
 
   @override
@@ -24,8 +24,9 @@ class _DropdownMenuState extends State<DropdownMenu> {
   @override
   Widget build(BuildContext context) {
     if (null == widget.categories) {
-      return Center(
-        child: Text("Oh, no!"), // @todo remplacer par un loader
+      return Container(
+        height: 50,
+        child: LinearProgressIndicator(),
       );
     }
 
@@ -56,7 +57,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
                       color: CustomColors.iconsActive,
                     ),
                   ),
-                  items: widget.categories.categories
+                  items: widget.categories
                       .map((e) => MultiSelectItem(e.id, e.fr))
                       .toList(),
                   listType: MultiSelectListType.LIST,

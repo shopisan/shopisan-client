@@ -5,12 +5,11 @@ import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class CategoriesCommercial extends StatefulWidget {
-  const CategoriesCommercial(
-      {Key key, @required this.storeId, Store store, this.categories})
+  const CategoriesCommercial({Key key, @required this.store, this.categories})
       : super(key: key);
 
-  final int storeId;
-  final CategoryCollection categories;
+  final Store store;
+  final List<Category> categories;
 
   @override
   _CategoriesCommercialState createState() => _CategoriesCommercialState();
@@ -18,11 +17,16 @@ class CategoriesCommercial extends StatefulWidget {
 
 class _CategoriesCommercialState extends State<CategoriesCommercial> {
   Store store;
+  Category category;
 
   @override
   Widget build(BuildContext context) {
     if (null == widget.categories) {
-      return LinearProgressIndicator();
+      print("categories ${widget.categories}");
+      return Container(
+        height: 15,
+        child: LinearProgressIndicator(),
+      );
     }
 
     return Padding(

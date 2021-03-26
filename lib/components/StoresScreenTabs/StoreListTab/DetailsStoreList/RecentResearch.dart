@@ -1,21 +1,23 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class RecentResearch extends StatelessWidget {
-  const RecentResearch({Key key, @required this.categories,
-    @required this.recentSearches}) : super(key: key);
+  const RecentResearch(
+      {Key key, @required this.categories, @required this.recentSearches})
+      : super(key: key);
 
-  final CategoryCollection categories;
+  final List<Category> categories;
   final List<dynamic> recentSearches;
 
   @override
   Widget build(BuildContext context) {
     if (null == categories) {
-      return Center(
-        child: Text("No Categories"), // @todo remplacer par un loader
+      return SizedBox(
+        height: 10,
       );
     }
 
@@ -43,7 +45,7 @@ class RecentResearch extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5)),
                   child: Center(
                     child: Text(
-                      "",
+                      "$recentSearches",
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,

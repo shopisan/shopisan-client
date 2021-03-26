@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopisan/post_creation/post_creation_bloc.dart';
 import 'package:shopisan/screens/CommercialScreen.dart';
+import 'package:shopisan/screens/EditCommercial.dart';
+import 'package:shopisan/screens/EditProfile.dart';
+import 'package:shopisan/screens/ForgotPassword.dart';
+import 'package:shopisan/screens/Login.dart';
+import 'package:shopisan/screens/Register.dart';
 import 'package:shopisan/screens/StoresScreen.dart';
 import 'package:shopisan/screens/post_creation.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
+    final userRepository = settings.arguments;
 
     switch (settings.name) {
       case '/':
@@ -32,6 +38,32 @@ class RouteGenerator {
               child: Scaffold(
                 body: SingleChildScrollView(child: PostCreation(),),
               ));
+        });
+
+      case '/login':
+        return MaterialPageRoute(builder: (_) {
+          print(userRepository);
+          return LoginPage(userRepository: userRepository);
+        });
+
+      case '/register':
+        return MaterialPageRoute(builder: (_) {
+          return RegisterScreen();
+        });
+
+      case '/forgot_password':
+        return MaterialPageRoute(builder: (_) {
+          return ForgotPasswordScreen();
+        });
+
+      case '/edit_profile':
+        return MaterialPageRoute(builder: (_) {
+          return EditProfile();
+        });
+
+      case '/edit_commercial':
+        return MaterialPageRoute(builder: (_) {
+          return EditCommercial();
         });
 
       default:

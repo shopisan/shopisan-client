@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/components/CommercialScreenTab/DescriptionTabCommercial/DescriptionTabCommercial.dart';
 import 'package:shopisan/components/CommercialScreenTab/DetailsCommercialScreenTab/CategoriesCommercial.dart';
 import 'package:shopisan/components/CommercialScreenTab/DetailsCommercialScreenTab/RatingBarCommercial.dart';
@@ -16,7 +16,6 @@ import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
-import 'package:shopisan/theme/icons.dart';
 
 class CommercialScreen extends StatefulWidget {
   const CommercialScreen({Key key, @required this.storeId}) : super(key: key);
@@ -30,11 +29,11 @@ class CommercialScreen extends StatefulWidget {
 class _CommercialScreenState extends State<CommercialScreen> {
   Store store;
   AddressCollection addresses;
-  CategoryCollection categories;
+  List<Category> categories;
 
   int _currentIndex = 0;
 
-  static List<Widget> _tabs = <Widget>[
+  List<Widget> _tabs = <Widget>[
     DescriptionTabCommercial(),
     PostsTabCommercial(),
     // MapTabCommercial(addresses: addresses),
@@ -45,7 +44,7 @@ class _CommercialScreenState extends State<CommercialScreen> {
     return [
       BottomNavigationBarItem(
         backgroundColor: Colors.white,
-        icon: SvgPicture.asset(storeIcon),
+        icon: Icon(Icons.store_outlined, size: 40),
         label: ("About"),
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
@@ -57,7 +56,7 @@ class _CommercialScreenState extends State<CommercialScreen> {
         // inactiveColor: CustomColors.systemGrey,
       ),
       BottomNavigationBarItem(
-        icon: SvgPicture.asset(mapIcon),
+        icon: Icon(Icons.map_outlined, size: 40),
         label: ("Map"),
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
@@ -80,10 +79,26 @@ class _CommercialScreenState extends State<CommercialScreen> {
     }
   }
 
+  void getCategories() async {
+    List<Category> categoryList = await fetchCategories();
+
+    print("category list : $categoryList");
+
+    setState(() {
+      categories = categoryList;
+    });
+  }
+
   void _onTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
+  }
+
+  @override
+  void initState() async {
+    // store = await loadStore
+    super.initState();
   }
 
   @override
@@ -101,13 +116,14 @@ class _CommercialScreenState extends State<CommercialScreen> {
                   return Column(
                     children: [
                       Text(
-                          // AppLocalizations.of(context).commercialName,
-                          "${store.name}",
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          )),
+                        // AppLocalizations.of(context).commercialName,
+                        "${store.name}",
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
                     ],
                   );
                 } else if (snapshot.hasError) {
@@ -131,7 +147,9 @@ class _CommercialScreenState extends State<CommercialScreen> {
                 height: 200,
                 width: double.infinity,
               ),
-              CategoriesCommercial(categories: categories),
+              CategoriesCommercial(
+                categories: categories,
+              ),
               _tabs.elementAt(_currentIndex),
             ],
           ),

@@ -11,9 +11,13 @@ import 'DetailsStoreList/RecentResearch.dart';
 class StoreListTab extends StatefulWidget {
   final ValueChanged<List<dynamic>> setSelectedCats;
   final List<Store> stores;
+  final List<Category> categories;
 
   const StoreListTab(
-      {Key key, @required this.setSelectedCats, @required this.stores})
+      {Key key,
+      @required this.setSelectedCats,
+      @required this.stores,
+      @required this.categories})
       : super(key: key);
 
   @override
@@ -21,13 +25,13 @@ class StoreListTab extends StatefulWidget {
 }
 
 class _StoreListTabState extends State<StoreListTab> {
-  CategoryCollection categories = CategoryCollection(categories: []);
+  List<Category> categories = [];
   AddressCollection addresses;
 
   Map<DateTime, Category> categoryHistory;
 
   void getCategories() async {
-    CategoryCollection catColl = await fetchCategories();
+    List<Category> catColl = await fetchCategories();
 
     setState(() {
       categories = catColl;
@@ -81,7 +85,8 @@ class _StoreListTabState extends State<StoreListTab> {
                     return Container();
                   }
                   return RecentResearch(
-                      categories: categories, recentSearches: snapshot.data);
+                      categories: widget.categories,
+                      recentSearches: snapshot.data);
                 },
                 future: getRecentSearch(),
               )),
@@ -90,7 +95,7 @@ class _StoreListTabState extends State<StoreListTab> {
           Padding(
             padding: EdgeInsets.fromLTRB(10, 20, 0, 0),
             child: AroundYou(
-              categories: categories,
+              categories: widget.categories,
               stores: widget.stores,
             ),
           ),

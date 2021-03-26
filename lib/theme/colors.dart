@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
 
-// todo mettre les bonnes couleurs + rename selon la couleur
 class CustomColors {
-  // static const lightRed = Colors.redAccent;
-  // static const purple = Colors.purple;
-  // static const lightPurple = Colors.deepPurpleAccent;
-  // static const activePink = Colors.redAccent;
-  // static const systemGrey = Colors.blueGrey;
-  // static const background = Colors.white;
-
   static const search = Color(0xFFFFF9F9);
   static const iconsActive = Color(0xFFFF6565);
   static const iconsFaded = Color(0xFF717171);

@@ -9,7 +9,7 @@ class AroundYou extends StatelessWidget {
   const AroundYou({Key key, @required this.categories, @required this.stores})
       : super(key: key);
 
-  final CategoryCollection categories;
+  final List<Category> categories;
   final List<Store> stores;
 
   @override
@@ -53,9 +53,9 @@ class AroundYou extends StatelessWidget {
                                 Text(
                                   '${store.name}',
                                   style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                  ),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: Colors.black),
                                 ),
                                 Text(
                                   "52 rue du président Edouard Herriot, 69002 Lyon",
