@@ -15,7 +15,6 @@ class MapItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(stores);
     return Container(
       margin: EdgeInsets.all(10),
       child: SizedBox(

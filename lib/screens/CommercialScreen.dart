@@ -64,19 +64,18 @@ class _CommercialScreenState extends State<CommercialScreen> {
     ];
   }
 
-  // ignore: missing_return
   Future<Store> getStore() async {
     final response = await http.get(
         Uri.http("10.0.2.2:8000", "/api/stores/stores/${widget.storeId}/"),
         headers: {'Accept': 'application/json'});
     try {
       if (response.statusCode == 200) {
-        store = Store.fromJson(json.decode(response.body));
-        return store;
+        return Store.fromJson(json.decode(response.body));
       }
     } catch (Exception) {
       print("Oops: $Exception");
     }
+    return null;
   }
 
   void getCategories() async {
@@ -96,66 +95,75 @@ class _CommercialScreenState extends State<CommercialScreen> {
   }
 
   @override
-  void initState() async {
-    Store storeObj = await fetchStore(widget.storeId);
-    setState(() {
-      store = storeObj;
+  void initState() {
+    fetchStore(widget.storeId).then((value) {
+      print("$value");
+      setState(() {
+        store = value;
+      });
     });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (null == store) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
             backgroundColor: CustomColors.commercialBlue,
             iconTheme: IconThemeData(color: Colors.black),
-            title: FutureBuilder<Store>(
+            title:
+                /*FutureBuilder<Store>(
               future: getStore(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   final store = snapshot.data;
-                  return Column(
-                    children: [
-                      Text(
-                        // AppLocalizations.of(context).commercialName,
-                        "${store.name}",
-                        style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  );
+                  return*/
+                Column(
+              children: [
+                Text(
+                  "${store.name}",
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+            /*;
                 } else if (snapshot.hasError) {
                   print('error $store');
                   return Text("Error", style: TextStyle(color: Colors.black));
                 }
-
                 return CircularProgressIndicator();
-              },
-            ),
+              },*/
             actions: [
               RatingBarCommercial(),
             ]),
-        body: Container(
-          color: CustomColors.commercialBlue,
-          child: Column(
-            children: [
-              Container(
-                // todo image commerce : pouvoir en afficher plusieurs en scroll horizontal ?
-                color: Colors.black,
-                height: 200,
-                width: double.infinity,
-              ),
-              CategoriesCommercial(
-                store: store,
-                categories: categories,
-              ),
-              _tabs.elementAt(_currentIndex),
-            ],
+        body: SingleChildScrollView(
+          child: Container(
+            color: CustomColors.commercialBlue,
+            child: Column(
+              children: [
+                Container(
+                  color: Colors.black,
+                  height: 200,
+                  width: double.infinity,
+                ),
+                CategoriesCommercial(
+                  store: store,
+                ),
+                _tabs.elementAt(_currentIndex),
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: Container(
