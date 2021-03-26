@@ -66,6 +66,18 @@ Future<List<Store>> fetchStores(
   }
 }
 
+Future<Store> fetchStore(int storeId) async {
+  Map<String, dynamic> headers = await getHeaders();
+  final response = await http.get(Uri.http(_base, "/api/stores/stores/${storeId.toString()}"),
+      headers: headers);
+
+  if (response.statusCode == 200) {
+    return Store.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to load stores');
+  }
+}
+
 Future<Post> createPost(Post post) async {
   Map<String, String> headers = await getHeaders();
 

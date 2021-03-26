@@ -2,25 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopisan/model/OpeningTime.dart';
 import 'package:shopisan/model/Store.dart';
 
 class OpeningTimeCommercial extends StatelessWidget {
   const OpeningTimeCommercial({
     Key key,
-    @required this.storeId,
-    Store store,
-    this.openingTimes,
-    // @required this.store
+    @required this.store,
   }) : super(key: key);
 
-  final int storeId;
-  final List<OpeningTime> openingTimes;
+  final Store store;
   // final Store store;
 
   @override
   Widget build(BuildContext context) {
-    if (null == openingTimes) {
+    if (null == store) {
       return Center(
           child: Container(
         margin: EdgeInsets.all(20),

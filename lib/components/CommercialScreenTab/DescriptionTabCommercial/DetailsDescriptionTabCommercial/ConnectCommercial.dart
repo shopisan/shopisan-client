@@ -8,9 +8,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ConnectCommercial extends StatefulWidget {
   // ignore: non_constant_identifier_names
-  const ConnectCommercial({Key, key, @required this.storeId}) : super(key: key);
+  const ConnectCommercial({Key, key, @required this.store}) : super(key: key);
 
-  final int storeId;
+  final Store store;
 
   @override
   _ConnectCommercialState createState() => _ConnectCommercialState();

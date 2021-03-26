@@ -97,7 +97,10 @@ class _CommercialScreenState extends State<CommercialScreen> {
 
   @override
   void initState() async {
-    // store = await loadStore
+    Store storeObj = await fetchStore(widget.storeId);
+    setState(() {
+      store = storeObj;
+    });
     super.initState();
   }
 
@@ -148,6 +151,7 @@ class _CommercialScreenState extends State<CommercialScreen> {
                 width: double.infinity,
               ),
               CategoriesCommercial(
+                store: store,
                 categories: categories,
               ),
               _tabs.elementAt(_currentIndex),

@@ -123,20 +123,6 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.width * 0.22,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 30.0),
-                        child: ElevatedButton(
-                          onPressed: state is! LoginLoading
-                              ? _onLoginButtonPressed
-                              : null,
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 24.0,
-                            ),
-                          ),
                       height: 50,
                       width: double.infinity,
                       decoration: BoxDecoration(

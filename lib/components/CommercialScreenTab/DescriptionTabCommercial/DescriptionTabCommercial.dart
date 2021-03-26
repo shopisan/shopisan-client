@@ -11,11 +11,10 @@ import 'DetailsDescriptionTabCommercial/OpeningTimeCommercial.dart';
 
 class DescriptionTabCommercial extends StatefulWidget {
   const DescriptionTabCommercial(
-      {Key key, @required this.storeId, @required this.openingTimes})
+      {Key key, @required this.store})
       : super(key: key);
 
-  final int storeId;
-  final List<OpeningTime> openingTimes;
+  final Store store;
 
   @override
   _DescriptionTabCommercialState createState() =>
@@ -74,10 +73,9 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                 ),
               ),
               OpeningTimeCommercial(
-                openingTimes: widget.openingTimes,
                 store: store,
               ),
-              ConnectCommercial(),
+              ConnectCommercial(store: store,),
             ],
           ),
         ));
