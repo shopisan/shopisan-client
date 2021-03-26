@@ -16,6 +16,14 @@ class File {
         file: json['file']
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "fileType": fileType,
+      "file": url,
+      "id": id
+    };
+  }
 }
 
 class FileCollection {

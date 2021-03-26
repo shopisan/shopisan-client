@@ -42,4 +42,9 @@ class UserRepository {
     bool result = await userDao.checkUser(0);
     return result;
   }
+
+  Future <String> getAuthToken() async {
+    Map<dynamic, dynamic> user = await userDao.getUser(0);
+    return user['token'];
+  }
 }

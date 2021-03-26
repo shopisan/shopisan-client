@@ -20,5 +20,7 @@
   "commercialAddress": "Store address",
   "evaluation": "Give us your evaluation",
   "scheduleStore": "STORE SCHEDULE",
-  "connectCommercial": "CONNECT WITH US"
+  "connectCommercial": "CONNECT WITH US",
+  "createPost": "Create post",
+  "editPost": "Edit post"
 }

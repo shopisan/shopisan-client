@@ -55,7 +55,7 @@ class _LoginFormState extends State<LoginForm> {
                       height: MediaQuery.of(context).size.width * 0.22,
                       child: Padding(
                         padding: EdgeInsets.only(top: 30.0),
-                        child: RaisedButton(
+                        child: ElevatedButton(
                           onPressed: state is! LoginLoading
                               ? _onLoginButtonPressed
                               : null,
@@ -63,12 +63,6 @@ class _LoginFormState extends State<LoginForm> {
                             'Login',
                             style: TextStyle(
                               fontSize: 24.0,
-                            ),
-                          ),
-                          shape: StadiumBorder(
-                            side: BorderSide(
-                              color: Colors.black,
-                              width: 2,
                             ),
                           ),
                         ),

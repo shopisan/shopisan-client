@@ -1,4 +1,5 @@
 import 'package:shopisan/database/user_database.dart';
+import 'package:shopisan/model/api_model.dart';
 import 'package:shopisan/model/user_model.dart';
 
 class UserDao {
@@ -30,6 +31,21 @@ class UserDao {
       }
     } catch (error) {
       return false;
+    }
+  }
+
+  Future<Map<dynamic, dynamic>> getUser(int id) async {
+    final db = await dbProvider.database;
+    try {
+      List<Map> users = await db
+          .query(userTable, where: 'id = ?', whereArgs: [id]);
+      if (users.length > 0) {
+        return users.elementAt(0);
+      } else {
+        return null;
+      }
+    } catch (error) {
+      return null;
     }
   }
 }

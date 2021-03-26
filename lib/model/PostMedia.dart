@@ -1,11 +1,15 @@
-import 'package:shopisan/model/File.dart';
+import 'package:shopisan/model/File.dart' as FileModel;
+import 'dart:io';
+
 
 class PostMedia {
-  final int id;
-  final String description;
-  final double price;
-  final int post;
-  final File media;
+  int id;
+  String description;
+  double price;
+  int post;
+  FileModel.File media;
+  File uploadFile;
+
 
   PostMedia({this.id, this.description, this.price, this.post, this.media});
 
@@ -15,8 +19,17 @@ class PostMedia {
         description: json['description'],
         price: json['price'],
         post: json['post'],
-        media: File.fromJson(json['media'])
+        media: FileModel.File.fromJson(json['media'])
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "description": description,
+      "price": price,
+      "media": media.url
+    };
   }
 }
 

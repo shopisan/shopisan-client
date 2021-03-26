@@ -34,8 +34,7 @@ class _MapTabState extends State<MapTab> {
               borderRadius: BorderRadius.circular(10),
               color: Colors.white,
             ),
-            child: Expanded(
-              child: TextField(
+            child: TextField(
                 cursorColor: Colors.black,
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.go,
@@ -44,7 +43,6 @@ class _MapTabState extends State<MapTab> {
                     contentPadding: EdgeInsets.symmetric(horizontal: 15),
                     hintText: "Search..."),
               ),
-            ),
           ),
         ),
         Positioned(

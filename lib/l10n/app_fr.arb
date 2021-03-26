@@ -18,5 +18,7 @@
   "commercialAddress": "Adresse du commerce",
   "evaluation": "Donnez-nous votre avis",
   "scheduleStore": "HORAIRES D'OUVERTURE",
-  "connectCommercial": "RESTEZ CONNECTÉS"
+  "connectCommercial": "RESTEZ CONNECTÉS",
+  "createPost": "Créer post",
+  "editPost": "Modifier post"
 }

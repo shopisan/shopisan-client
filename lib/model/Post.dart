@@ -5,7 +5,7 @@ class Post {
   final String url;
   final String created;
   final String store;
-  final List postMedia;
+  final List<PostMedia> postMedia;
 
   Post({this.id, this.url, this.created, this.store, this.postMedia});
 
