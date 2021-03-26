@@ -1,18 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/components/CommercialScreenTab/DescriptionTabCommercial/DetailsDescriptionTabCommercial/ConnectCommercial.dart';
 import 'package:shopisan/model/OpeningTime.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
-import 'DetailsDescriptionTabCommercial/TimesCommercial.dart';
+import 'DetailsDescriptionTabCommercial/OpeningTimeCommercial.dart';
 
 class DescriptionTabCommercial extends StatefulWidget {
-  const DescriptionTabCommercial({Key key, @required this.storeId})
+  const DescriptionTabCommercial(
+      {Key key, @required this.storeId, @required this.openingTimes})
       : super(key: key);
 
   final int storeId;
+  final List<OpeningTime> openingTimes;
 
   @override
   _DescriptionTabCommercialState createState() =>
@@ -21,12 +24,12 @@ class DescriptionTabCommercial extends StatefulWidget {
 
 class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
   Store store;
-  OpeningTimeCollection openingTimes;
+  List<OpeningTime> openingTimes;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 300,
+        height: 320,
         margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -48,7 +51,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                   bottom: BorderSide(color: CustomColors.spread),
                 )),
                 child: Text(
-                  "DESCRIPTION",
+                  AppLocalizations.of(context).description,
                   style: GoogleFonts.poppins(
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
@@ -57,7 +60,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
               ),
               Container(
                 width: double.infinity,
-                height: 120,
+                height: 150,
                 padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 child: SingleChildScrollView(
                   child: Text(
@@ -70,8 +73,9 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                   ),
                 ),
               ),
-              TimesCommercial(
-                openingTimes: openingTimes,
+              OpeningTimeCommercial(
+                openingTimes: widget.openingTimes,
+                store: store,
               ),
               ConnectCommercial(),
             ],

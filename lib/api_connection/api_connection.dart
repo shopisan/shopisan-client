@@ -27,12 +27,12 @@ Future<Token> getToken(UserLogin userLogin) async {
   }
 }
 
-Future<CategoryCollection> fetchCategories() async {
+Future<List<Category>> fetchCategories() async {
   final response = await http.get(Uri.http(_base, "/api/stores/categories/"),
       headers: {'Accept': 'application/json'});
 
   if (response.statusCode == 200) {
-    return CategoryCollection.fromJson(jsonDecode(response.body));
+    return CategoryCollection.fromJson(jsonDecode(response.body)).categories;
   } else {
     throw Exception(
         'Failed to load categories, ca serait bien de faire quelque chose dans ce cas la');

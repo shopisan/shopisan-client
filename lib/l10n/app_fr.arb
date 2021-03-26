@@ -32,6 +32,7 @@
   "commercialName": "Nom du Commerce",
   "commercialAddress": "Adresse du commerce",
   "evaluation": "Donnez-nous votre avis",
+  "description": "DESCRIPTION",
   "scheduleStore": "HORAIRES D'OUVERTURE",
   "connectCommercial": "RESTEZ CONNECTÉS",
   "choosePicture": "Choisissez une photo de profil",

@@ -10,15 +10,14 @@ class RecentResearch extends StatelessWidget {
       {Key key, @required this.categories, @required this.recentSearches})
       : super(key: key);
 
-  final CategoryCollection categories;
+  final List<Category> categories;
   final List<dynamic> recentSearches;
 
   @override
   Widget build(BuildContext context) {
     if (null == categories) {
       return SizedBox(
-        height: 40,
-        child: LinearProgressIndicator(),
+        height: 10,
       );
     }
 
@@ -46,7 +45,7 @@ class RecentResearch extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5)),
                   child: Center(
                     child: Text(
-                      "",
+                      "$recentSearches",
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,

@@ -5,25 +5,27 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/model/OpeningTime.dart';
 import 'package:shopisan/model/Store.dart';
 
-class TimesCommercial extends StatefulWidget {
-  const TimesCommercial(
-      {Key key, @required this.storeId, Store store, this.openingTimes})
-      : super(key: key);
+class OpeningTimeCommercial extends StatelessWidget {
+  const OpeningTimeCommercial({
+    Key key,
+    @required this.storeId,
+    Store store,
+    this.openingTimes,
+    // @required this.store
+  }) : super(key: key);
 
   final int storeId;
-  final OpeningTimeCollection openingTimes;
-
-  @override
-  _TimesCommercialState createState() => _TimesCommercialState();
-}
-
-class _TimesCommercialState extends State<TimesCommercial> {
-  Store store;
+  final List<OpeningTime> openingTimes;
+  // final Store store;
 
   @override
   Widget build(BuildContext context) {
-    if (null == widget.storeId) {
-      return CircularProgressIndicator();
+    if (null == openingTimes) {
+      return Center(
+          child: Container(
+        margin: EdgeInsets.all(20),
+        child: CircularProgressIndicator(),
+      ));
     }
 
     return Container(
@@ -42,7 +44,9 @@ class _TimesCommercialState extends State<TimesCommercial> {
           ),
           Row(
             children: [
-              Text("${store.openingTimes}",
+              Text(
+                  // "${store.openingTimes}",
+                  "hello",
                   style: TextStyle(color: Colors.black)),
             ],
           )

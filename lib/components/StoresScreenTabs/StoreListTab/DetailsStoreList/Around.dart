@@ -9,7 +9,7 @@ class AroundYou extends StatelessWidget {
   const AroundYou({Key key, @required this.categories, @required this.stores})
       : super(key: key);
 
-  final CategoryCollection categories;
+  final List<Category> categories;
   final List<Store> stores;
 
   @override

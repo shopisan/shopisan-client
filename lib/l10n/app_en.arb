@@ -34,6 +34,7 @@
   "commercialName": "Commercial Name",
   "commercialAddress": "Store address",
   "evaluation": "Give us your evaluation",
+  "description": "DESCRIPTION",
   "scheduleStore": "STORE SCHEDULE",
   "connectCommercial": "CONNECT WITH US",
   "choosePicture": "Choose profile photo",
