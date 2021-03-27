@@ -36,21 +36,22 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
         );
       } else {
         Post post = await loadPost(postId);
-        print("bloc post: ${post.id}");
         yield StartedPostCreationState(post: post);
       }
     } else if (event is ChangePost) {
       // yield emet des state
       Post post = event.post;
       yield StartedPostCreationState(post: event.post);
-      yield LoadingPostCreationState();
+      yield LoadingPostCreationState(post: event.post);
 
       try {
         Post created = await createPost(event.post);
         post = await loadPost(created.id);
-        yield DonePostCreationState(success: true, message: "post created");
+        yield DonePostCreationState(success: true, message: "post created",
+            post: post);
       } catch (error) {
-        yield DonePostCreationState(success: false, message: error.toString());
+        yield DonePostCreationState(success: false, message: error.toString(),
+            post: post);
       }
       yield StartedPostCreationState(post: post);
     } else if (event is ChangePostMedia) {
@@ -64,19 +65,21 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
       postMedia.description = event.description;
 
       if (postMedia.media != event.uploadFile && event.uploadFile is File) {
-        final resp = await uploadFile(event.uploadFile);
-        postMedia.media = ModelFile.File.fromJson(resp);
+        final ModelFile.File resp = await uploadFile(event.uploadFile, "post_picture");
+        postMedia.media = resp;
       }  
 
       post.postMedia[event.index] = postMedia;
       yield StartedPostCreationState(post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
     } else if (event is DeletePost) {
-      yield InitialPostCreationState();
-      yield LoadingPostCreationState();
+      Post post = state.post;
 
-      // @todo faire la requete delete
-
-      yield InitialPostCreationState();
+      try {
+        await deletePost(post.id);
+        yield RedirectPostCreationState();
+      } catch (e){
+        yield DonePostCreationState(success: false, message: e.toString(), post: post);
+      }
     } else if (event is AddPostMedia) {
       Post post = state.post;
 
@@ -85,10 +88,7 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
       yield StartedPostCreationState(post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
     } else if (event is DeletePostMedia){
       Post post = state.post;
-      print("delete post media at index: ${event.index}");
-      print("post media to delete: ${post.postMedia[event.index].id}");
-      PostMedia removedValue = post.postMedia.removeAt(event.index);
-      print("post media deleted: ${removedValue.id}");
+      post.postMedia.removeAt(event.index);
       yield StartedPostCreationState(post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
     }
   }

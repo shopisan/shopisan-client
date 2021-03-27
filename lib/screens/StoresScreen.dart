@@ -38,7 +38,7 @@ class _StoresScreenState extends State<StoresScreen> {
   getCurrentLocation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print("getting location");
-    final geoposition = await Geolocator()
+    final geoposition = await Geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     print(geoposition);
     setState(() {
@@ -62,8 +62,6 @@ class _StoresScreenState extends State<StoresScreen> {
 
     List<Store> storeList =
         await fetchStores(selectedCategoriesId, latitudeData, longitudeData);
-
-    print("store list: $storeList");
 
     setState(() {
       stores = storeList;

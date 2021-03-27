@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopisan/components/Feed/post_media_form.dart';
+import 'package:shopisan/components/Utils/confirm.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/PostMedia.dart';
 import 'package:shopisan/post_creation/post_creation_bloc.dart';
@@ -24,13 +25,37 @@ class _PostCreationState extends State<PostCreation> {
     final Post post = context.select((PostCreationBloc bloc) => bloc.state.post);
     final state = context.select((PostCreationBloc bloc) => bloc.state);
 
-    print("1st media: ${post.postMedia[0].description}");
+    if (state is RedirectPostCreationState) {
+      Navigator.of(context).pop();
+    }
+
+    if (state is DonePostCreationState && state.success) {
+      Navigator.of(context).pushNamed("/manage_post", arguments: state.post.id);
+    }
 
     _sendForm(){
       print(postMedias);
       BlocProvider.of<PostCreationBloc>(context).add(ChangePost(
         post: post
       ));
+    }
+
+    _submitDeletePost(){
+      BlocProvider.of<PostCreationBloc>(context).add(DeletePost());
+    }
+
+    _deletePost(){
+      print(postMedias);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Confirm(
+            executeFct: _submitDeletePost,
+            title: AppLocalizations.of(context).deletePostTitle,
+            text: AppLocalizations.of(context).deletePostText,
+          );
+        },
+      );
     }
 
     _addPostMedia(){
@@ -78,6 +103,24 @@ class _PostCreationState extends State<PostCreation> {
                   child: Text(
                     post.id == null ? AppLocalizations.of(context).createPost :
                       AppLocalizations.of(context).editPost,
+                    style: TextStyle(
+                      fontSize: 24.0,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.85,
+              height: MediaQuery.of(context).size.width * 0.22,
+              child: Padding(
+                padding: EdgeInsets.only(top: 30.0),
+                child: ElevatedButton(
+                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.red)),
+                  onPressed: _deletePost,
+                  child: Text(
+                    post.id == null ? AppLocalizations.of(context).createPost :
+                    AppLocalizations.of(context).delete,
                     style: TextStyle(
                       fontSize: 24.0,
                     ),

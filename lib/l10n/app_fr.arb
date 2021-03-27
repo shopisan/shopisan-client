@@ -40,5 +40,11 @@
   "gallery": "Gallerie",
   "save": "Enregistrer",
   "createPost": "Créer post",
-  "editPost": "Modifier post"
+  "editPost": "Modifier post",
+  "delete": "Supprimer",
+  "deletePostTitle": "Supprimer le post",
+  "deletePostText": "Êtes-vous certain de vouloir supprimer ce post?",
+  "profileSaved": "Profil sauvegardé",
+  "profileError": "Une erreur est survenue lors de l'enregistrement, veuillez réessayer",
+  "profilePicError": "Erreur lors du changement de photo, veuillez réessayer"
 }

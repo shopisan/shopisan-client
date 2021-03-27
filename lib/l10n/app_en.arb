@@ -42,5 +42,11 @@
   "gallery": "Gallery",
   "save": "Save",
   "createPost": "Create post",
-  "editPost": "Edit post"
+  "editPost": "Edit post",
+  "delete": "Delete",
+  "deletePostTitle": "Delete post",
+  "deletePostText": "Are you certain you wish to delete this post?",
+  "profileSaved": "Profile saved",
+  "profileError": "An error occurred, please try again",
+  "profilePicError": "An error occurred, please try again"
 }

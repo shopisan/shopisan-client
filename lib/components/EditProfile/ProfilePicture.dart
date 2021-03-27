@@ -3,13 +3,19 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shopisan/model/File.dart' as FileModel;
+import 'package:shopisan/model/UserProfile.dart';
+import 'package:shopisan/profile_edit/profile_edit_bloc.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class ProfilePicture extends StatefulWidget {
-  ProfilePicture({Key key}) : super(key: key);
+  final UserProfile user;
+  
+  ProfilePicture({Key key, @required this.user}) : super(key: key);
 
   @override
   ProfilePictureState createState() => ProfilePictureState();
@@ -19,25 +25,27 @@ class ProfilePictureState extends State<ProfilePicture> {
   PickedFile _imageFile;
   final ImagePicker picker = ImagePicker();
 
-  void takePhoto(ImageSource source) async {
-    final pickedFile = await picker.getImage(source: source);
-    setState(() {
-      _imageFile = pickedFile;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    _takePhoto(ImageSource source) async {
+      final pickedFile = await picker.getImage(source: source);
+      Navigator.of(context).pop();
+      BlocProvider.of<ProfileEditBloc>(context).add(ChangePictureEvent(picture: File(pickedFile.path)));
+      setState(() {
+        _imageFile = pickedFile;
+      });
+    }
+
     return Center(
       child: Stack(
         children: [
           CircleAvatar(
             radius: 80.0,
-            backgroundImage: _imageFile == null
-                ? AssetImage("assets/img/profile.jpg")
-                : FileImage(
+            backgroundImage: widget.user.profile.picture is FileModel.File
+                ? /*AssetImage("assets/img/profile.jpg")*/NetworkImage(widget.user.profile.picture.file)
+                : _imageFile != null ? FileImage(
                     File(_imageFile.path),
-                  ),
+                  ): AssetImage("assets/img/profile.jpg"),
           ),
           Positioned(
             bottom: 5,
@@ -74,7 +82,7 @@ class ProfilePictureState extends State<ProfilePicture> {
                                             MaterialStateProperty.all<Color>(
                                                 CustomColors.iconsActive)),
                                     onPressed: () {
-                                      takePhoto(ImageSource.camera);
+                                      _takePhoto(ImageSource.camera);
                                     },
                                     icon:
                                         Icon(Icons.camera, color: Colors.black),
@@ -90,7 +98,7 @@ class ProfilePictureState extends State<ProfilePicture> {
                                             MaterialStateProperty.all<Color>(
                                                 CustomColors.iconsActive)),
                                     onPressed: () {
-                                      takePhoto(ImageSource.gallery);
+                                      _takePhoto(ImageSource.gallery);
                                     },
                                     icon:
                                         Icon(Icons.image, color: Colors.black),

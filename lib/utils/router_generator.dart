@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopisan/post_creation/post_creation_bloc.dart';
+import 'package:shopisan/profile_edit/profile_edit_bloc.dart';
+import 'package:shopisan/profile_edit/profile_edit_bloc.dart';
 import 'package:shopisan/screens/CommercialScreen.dart';
 import 'package:shopisan/screens/EditCommercial.dart';
 import 'package:shopisan/screens/EditProfile.dart';
@@ -58,7 +60,14 @@ class RouteGenerator {
 
       case '/edit_profile':
         return MaterialPageRoute(builder: (_) {
-          return EditProfile();
+          return BlocProvider<ProfileEditBloc>(
+              create: (context) {
+                return ProfileEditBloc()
+                  ..add(InitEvent());
+              },
+              child: Scaffold(
+                body: EditProfile(),
+              ));
         });
 
       case '/edit_commercial':

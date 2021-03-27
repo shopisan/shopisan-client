@@ -82,12 +82,12 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
 
   void searchAndNavigate() {
-    Geolocator().placemarkFromAddress(searchAddress).then((result) {
-      mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-          target:
-              LatLng(result[0].position.latitude, result[0].position.longitude),
-          zoom: 14)));
-    });
+    // Geolocator.placemarkFromAddress(searchAddress).then((result) {
+    //   mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+    //       target:
+    //           LatLng(result[0].position.latitude, result[0].position.longitude),
+    //       zoom: 14)));
+    // });
   }
 
   @override

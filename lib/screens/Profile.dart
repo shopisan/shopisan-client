@@ -25,45 +25,6 @@ class ProfileScreen extends StatelessWidget {
                     Row(
                       children: [
                         Icon(
-                          Icons.logout,
-                          color: Colors.red,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Text(
-                            AppLocalizations.of(context).logOut,
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Icon(
-                      Icons.arrow_right_outlined,
-                      color: Colors.black,
-                    )
-                  ],
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login');
-                },
-              )),
-          Container(
-              height: 80,
-              padding: EdgeInsets.all(20),
-              margin: EdgeInsets.only(bottom: 10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: CustomColors.search),
-              child: TextButton(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
                           Icons.account_circle_outlined,
                           color: Colors.black,
                         ),
@@ -127,7 +88,47 @@ class ProfileScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, '/edit_commercial');
                 },
-              ))
+              )),
+          Container(
+              height: 80,
+              padding: EdgeInsets.all(20),
+              margin: EdgeInsets.only(bottom: 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: CustomColors.search),
+              child: TextButton(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.logout,
+                          color: Colors.red,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(
+                            AppLocalizations.of(context).logOut,
+                            style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Icon(
+                      Icons.arrow_right_outlined,
+                      color: Colors.black,
+                    )
+                  ],
+                ),
+                onPressed: () {
+                  // @todo faire la déconnexion
+                  // Navigator.pushNamed(context, '/login');
+                },
+              )),
         ],
       ),
     );

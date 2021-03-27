@@ -7,15 +7,17 @@ import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/PostMedia.dart';
 import 'package:shopisan/model/Store.dart';
+import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/model/api_model.dart';
 import 'package:shopisan/repository/user_repository.dart';
+import 'package:shopisan/model/File.dart' as FileModel;
+
 
 final _base = "10.0.2.2:8000";
 final _tokenEndpoint = "/api/token-auth/";
 final _tokenURL = Uri.http(_base, _tokenEndpoint);
 
 Future<Token> getToken(UserLogin userLogin) async {
-  print(_tokenURL);
   final http.Response response = await http.post(
     _tokenURL,
     headers: <String, String>{
@@ -26,6 +28,62 @@ Future<Token> getToken(UserLogin userLogin) async {
 
   if (response.statusCode == 200) {
     return Token.fromJson(json.decode(response.body));
+  } else {
+    throw Exception(json.decode(response.body));
+  }
+}
+
+Future<UserProfile> getUserProfile() async {
+  Map<String, dynamic> headers = await getHeaders();
+
+  final http.Response response = await http.get(
+    Uri.http(_base, "/api/get_user"),
+    headers: headers
+  );
+
+  if (response.statusCode == 200) {
+    return UserProfile.fromJson(json.decode(response.body));
+  } else {
+    throw Exception(json.decode(response.body));
+  }
+}
+
+Future<bool> editUserProfile(UserProfile user) async {
+  Map<String, dynamic> headers = await getHeaders();
+
+  print("file: ${user.toJson()}");
+
+  final http.Response response = await http.put(
+      Uri.http(_base, "/api/users/users/${user.id}/"),
+      body: jsonEncode(user.toJson()),
+      headers: headers
+  );
+
+  print("response: ${json.decode(response.body)}");
+  // reload les infos?
+  // comment remettre la profile pic a son état initial?
+
+  if (response.statusCode == 200) {
+    return true;
+    // return UserProfile.fromJson(json.decode(response.body));
+  } else {
+    throw Exception(json.decode(response.body));
+  }
+}
+
+Future<UserProfile> editUserProfilePicture(UserProfile user) async {
+  Map<String, dynamic> headers = await getHeaders();
+
+  print("file: ${user.toJson()}");
+
+  final http.Response response = await http.put(
+      Uri.http(_base, "/api/users/users/${user.id}/"),
+      body: jsonEncode(user.toJson()),
+      headers: headers
+  );
+
+  if (response.statusCode == 200) {
+    return UserProfile.fromJson(json.decode(response.body));
   } else {
     throw Exception(json.decode(response.body));
   }
@@ -124,7 +182,7 @@ Future<Post> loadPost(int postId) async {
   Map<String, String> headers = await getHeaders();
 
   final response = await http.get(
-      Uri.http(_base, "/api/posts/posts/$postId"),
+      Uri.http(_base, "/api/posts/posts/$postId/"),
       headers: headers
   );
 
@@ -135,7 +193,22 @@ Future<Post> loadPost(int postId) async {
   }
 }
 
-Future<Map<String, dynamic>> uploadFile(File file) async {
+Future<bool> deletePost(int postId) async {
+  Map<String, String> headers = await getHeaders();
+
+  final response = await http.delete(
+      Uri.http(_base, "/api/posts/posts/$postId/"),
+      headers: headers
+  );
+
+  if (response.statusCode == 200) {
+    return true;
+  } else {
+    throw Exception('Failed to load post');
+  }
+}
+
+Future<FileModel.File> uploadFile(File file, String type) async {
   Map<String, String> headers = await getHeaders();
 
   var request = http.MultipartRequest('POST',
@@ -147,15 +220,15 @@ Future<Map<String, dynamic>> uploadFile(File file) async {
           filename: file.toString()
       )
   );
-  request.fields['file_type'] = "post_picture";
+  request.fields['file_type'] = type;
   request.headers.addAll(headers);
 
   http.Response response = await http.Response.fromStream(await request.send());
 
   if (response.statusCode == 201) {
     print("json response: ${json.decode(response.body)}");
-    // return Post.fromJson(json.decode(response.body));
-    return json.decode(response.body);
+    // return Post.fromJson(json.decode(response.body));.
+    return FileModel.File.fromJson(json.decode(response.body));
   } else {
     throw Exception('Failed to upload file');
   }

@@ -27,14 +27,27 @@ class StartedPostCreationState extends PostCreationState {
   List<Object> get props => [post, refresh];
 }
 
-class LoadingPostCreationState extends PostCreationState {}
+class LoadingPostCreationState extends PostCreationState {
+  final Post post;
+  LoadingPostCreationState({@required this.post});
+
+  @override
+  List<Object> get props => [post];
+}
 
 class DonePostCreationState extends PostCreationState {
   final String message;
   final bool success;
+  final Post post;
 
-  const DonePostCreationState({@required this.success, @required this.message});
+  const DonePostCreationState({
+    @required this.success,
+    @required this.message,
+    @required this.post
+  });
 
   @override
-  List<Object> get props => [success, message];
+  List<Object> get props => [success, message, post];
 }
+
+class RedirectPostCreationState extends PostCreationState {}
