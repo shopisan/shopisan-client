@@ -11,7 +11,6 @@ class OpeningTimeCommercial extends StatelessWidget {
   }) : super(key: key);
 
   final Store store;
-  // final Store store;
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +38,7 @@ class OpeningTimeCommercial extends StatelessWidget {
           ),
           Row(
             children: [
-              Text(
-                  // "${store.openingTimes}",
-                  "hello",
+              Text("${store.openingTimes}",
                   style: TextStyle(color: Colors.black)),
             ],
           )

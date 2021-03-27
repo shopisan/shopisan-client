@@ -28,26 +28,6 @@ class _MapTabState extends State<MapTab> {
           child: GoogleMapScreen(stores: widget.stores, categories: categories),
         ),
         Positioned(
-          top: 10,
-          right: 15,
-          left: 15,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-            ),
-            child: TextField(
-                cursorColor: Colors.black,
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.go,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 15),
-                    hintText: "Search..."),
-              ),
-          ),
-        ),
-        Positioned(
           bottom: 10,
           child: MapItem(stores: widget.stores, categories: categories),
         )

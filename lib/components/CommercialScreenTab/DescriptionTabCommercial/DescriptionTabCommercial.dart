@@ -3,15 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/components/CommercialScreenTab/DescriptionTabCommercial/DetailsDescriptionTabCommercial/ConnectCommercial.dart';
-import 'package:shopisan/model/OpeningTime.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 import 'DetailsDescriptionTabCommercial/OpeningTimeCommercial.dart';
 
 class DescriptionTabCommercial extends StatefulWidget {
-  const DescriptionTabCommercial(
-      {Key key, @required this.store})
+  const DescriptionTabCommercial({Key key, @required this.store})
       : super(key: key);
 
   final Store store;
@@ -23,13 +21,11 @@ class DescriptionTabCommercial extends StatefulWidget {
 
 class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
   Store store;
-  List<OpeningTime> openingTimes;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 320,
-        margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+        margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -40,7 +36,6 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            // mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
                 width: double.infinity,
@@ -59,7 +54,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
               ),
               Container(
                 width: double.infinity,
-                height: 150,
+                height: 200,
                 padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 child: SingleChildScrollView(
                   child: Text(
@@ -75,7 +70,9 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
               OpeningTimeCommercial(
                 store: store,
               ),
-              ConnectCommercial(store: store,),
+              ConnectCommercial(
+                store: store,
+              ),
             ],
           ),
         ));

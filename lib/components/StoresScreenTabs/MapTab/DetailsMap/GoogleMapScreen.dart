@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
@@ -25,59 +26,76 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   GoogleMapController mapController;
 
   Set<Marker> _markers = {};
-  // BitmapDescriptor mapMarker;
+  BitmapDescriptor mapMarker;
   String searchAddress;
 
   @override
   void initState() {
     super.initState();
-    // setCustomMarker();
+    setCustomMarker();
   }
 
-  // void setCustomMarker() async {
-  //   mapMarker = await BitmapDescriptor.fromAssetImage(
-  //       ImageConfiguration(), "assets/icons/pin.png");
-  // }
+  void setCustomMarker() async {
+    mapMarker = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(), "assets/icons/pin.png");
+  }
 
   void _onMapCreated(GoogleMapController controller) {
     setState(() {
       mapController = controller;
-      String style1 = jsonEncode([
-        [
-          {
-            "stylers": [
-              {"visibility": "simplified"}
-            ]
-          },
-          {
-            "featureType": "landscape.man_made",
-            "stylers": [
-              {"visibility": "on"}
-            ]
-          },
-          {
-            "featureType": "poi.business",
-            "stylers": [
-              {"visibility": "off"}
-            ]
-          },
-          {
-            "featureType": "poi.park",
-            "stylers": [
-              {"visibility": "on"}
-            ]
-          }
-        ]
+      // String style1 = jsonEncode([
+      //   [
+      //     {
+      //       "stylers": [
+      //         {"visibility": "simplified"}
+      //       ]
+      //     },
+      //     {
+      //       "featureType": "landscape.man_made",
+      //       "stylers": [
+      //         {"visibility": "on"}
+      //       ]
+      //     },
+      //     {
+      //       "featureType": "poi.business",
+      //       "stylers": [
+      //         {"visibility": "off"}
+      //       ]
+      //     },
+      //     {
+      //       "featureType": "poi.park",
+      //       "stylers": [
+      //         {"visibility": "on"}
+      //       ]
+      //     }
+      //   ]
+      // ]);
+
+      String style2 = jsonEncode([
+        {
+          "featureType": "poi.business",
+          "stylers": [
+            {"visibility": "off"}
+          ]
+        },
+        {
+          "featureType": "poi.park",
+          "elementType": "labels.text",
+          "stylers": [
+            {"visibility": "off"}
+          ]
+        }
       ]);
 
-      mapController.setMapStyle(style1);
-      // _markers.add(Marker(
-      //     markerId: MarkerId("myMarker"),
-      //     icon: mapMarker,
-      //     position: LatLng(50.6325574, 5.5796662),
-      //     infoWindow: InfoWindow(
-      //       title: searchAddress,
-      //     )));
+      mapController.setMapStyle(style2);
+
+      _markers.add(Marker(
+          markerId: MarkerId("myMarker"),
+          icon: mapMarker,
+          position: LatLng(50.6325574, 5.5796662),
+          infoWindow: InfoWindow(
+            title: searchAddress,
+          )));
     });
   }
 
@@ -90,17 +108,40 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     // });
   }
 
+  Set<Marker> getMarkers(List<Store> stores) {
+    // print("les ptn de store: $stores");
+
+    for (Store store in stores) {
+      // print("un store???: ${store.id}");
+      for (Address address in store.addresses) {
+        if (address.latitude != null && address.longitude != null) {
+          _markers.add(Marker(
+              markerId: MarkerId(address.id.toString()),
+              icon: mapMarker,
+              position: LatLng(double.parse(address.latitude),
+                  double.parse(address.longitude)),
+              infoWindow: InfoWindow(
+                title: store.name,
+              )));
+        }
+      }
+    }
+
+    return _markers;
+  }
+
   @override
   Widget build(BuildContext context) {
+    print("markers: $_markers");
+
     return Scaffold(
         body: Stack(
       children: [
         GoogleMap(
           onMapCreated: _onMapCreated,
-          // markers: _markers,
+          markers: getMarkers(widget.stores),
           myLocationEnabled: true,
           zoomControlsEnabled: false,
-
           initialCameraPosition:
               CameraPosition(zoom: 14.0, target: LatLng(50.6325574, 5.5796662)),
         ),
