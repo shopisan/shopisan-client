@@ -40,7 +40,6 @@ class ProfileEditBloc extends Bloc<ProfileEditEvent, ProfileEditState> {
       try {
         await editUserProfile(user);
         yield SuccessProfileEditState(user: user);
-        // yield StartedProfileEditState(user: user);
       } catch (exception){
         yield ErrorProfileEditState(error: 'submit', user: user);
       }

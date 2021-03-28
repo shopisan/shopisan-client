@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopisan/components/CommercialScreenTab/PostsTabCommercial/PostsCommercialScreen/DetailsPostsCommercialScreen/DescriptionPostsCommercial.dart';
-import 'package:shopisan/components/CommercialScreenTab/PostsTabCommercial/PostsCommercialScreen/DetailsPostsCommercialScreen/HeaderPostsCommercial.dart';
-import 'package:shopisan/components/CommercialScreenTab/PostsTabCommercial/PostsCommercialScreen/DetailsPostsCommercialScreen/PicturesPostsCommercial.dart';
+import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/DetailsPostsCommercialScreen/DescriptionPostsCommercial.dart';
+import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/DetailsPostsCommercialScreen/HeaderPostsCommercial.dart';
+import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/DetailsPostsCommercialScreen/PicturesPostsCommercial.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class PostsCommercialScreen extends StatefulWidget {

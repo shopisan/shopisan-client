@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopisan/model/File.dart' as FileModel;
 import 'package:shopisan/model/UserProfile.dart';
-import 'package:shopisan/profile_edit/profile_edit_bloc.dart';
+import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class ProfilePicture extends StatefulWidget {

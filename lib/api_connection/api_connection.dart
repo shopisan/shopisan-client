@@ -51,17 +51,12 @@ Future<UserProfile> getUserProfile() async {
 Future<bool> editUserProfile(UserProfile user) async {
   Map<String, dynamic> headers = await getHeaders();
 
-  print("file: ${user.toJson()}");
 
   final http.Response response = await http.put(
       Uri.http(_base, "/api/users/users/${user.id}/"),
       body: jsonEncode(user.toJson()),
       headers: headers
   );
-
-  print("response: ${json.decode(response.body)}");
-  // reload les infos?
-  // comment remettre la profile pic a son état initial?
 
   if (response.statusCode == 200) {
     return true;
@@ -73,8 +68,6 @@ Future<bool> editUserProfile(UserProfile user) async {
 
 Future<UserProfile> editUserProfilePicture(UserProfile user) async {
   Map<String, dynamic> headers = await getHeaders();
-
-  print("file: ${user.toJson()}");
 
   final http.Response response = await http.put(
       Uri.http(_base, "/api/users/users/${user.id}/"),
@@ -136,18 +129,35 @@ Future<Store> fetchStore(int storeId) async {
   }
 }
 
+Future<UserProfile> manageFavouriteStore(int storeId) async {
+  Map<String, dynamic> headers = await getHeaders();
+
+  final http.Response response = await http.post(
+      Uri.http(_base, "/api/manage_favourite_store/"),
+      body: jsonEncode({
+        "favourite_store": storeId
+      }),
+      headers: headers
+  );
+
+  if (response.statusCode == 200) {
+    // return true;
+    return UserProfile.fromJson(json.decode(response.body));
+  } else {
+    throw Exception(json.decode(response.body));
+  }
+}
+
 Future<Post> createPost(Post post) async {
   Map<String, String> headers = await getHeaders();
 
   List<Map<String, dynamic>> jsonMedias = [];
   for (PostMedia postMedia in post.postMedia){
     jsonMedias.add(postMedia.toJson());
-    print("post media: ${postMedia.id}");
   }
 
   http.Response response;
 
-  print("post id request: ${post.id}");
 
   if (post.id == null) {
     response = await http.post(
@@ -168,8 +178,6 @@ Future<Post> createPost(Post post) async {
         headers: headers
     );
   }
-
-  print("response= ${response.body}");
 
   if (response.statusCode == 201) {
     return Post.fromJson(json.decode(response.body));
@@ -226,8 +234,6 @@ Future<FileModel.File> uploadFile(File file, String type) async {
   http.Response response = await http.Response.fromStream(await request.send());
 
   if (response.statusCode == 201) {
-    print("json response: ${json.decode(response.body)}");
-    // return Post.fromJson(json.decode(response.body));.
     return FileModel.File.fromJson(json.decode(response.body));
   } else {
     throw Exception('Failed to upload file');

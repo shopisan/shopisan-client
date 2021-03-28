@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopisan/login/login_bloc.dart';
+import 'package:shopisan/blocs/login/login_bloc.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class LoginForm extends StatefulWidget {

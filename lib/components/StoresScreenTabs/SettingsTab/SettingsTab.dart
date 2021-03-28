@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopisan/authentication/authentication_bloc.dart';
+import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/repository/user_repository.dart';
 import 'package:shopisan/screens/Login.dart';
 import 'package:shopisan/screens/Profile.dart';
@@ -11,18 +11,15 @@ class SettingsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-      builder: (context, state) {
-        if (state is AuthenticationAuthenticated) {
-          return ProfileScreen();
-        }
-        if (state is AuthenticationUnauthenticated) {
-          return LoginPage(
-            userRepository: userRepository,
-          );
-        }
-        return LoadingIndicator();
-      },
-    );
+    final state = context.select((AuthenticationBloc bloc) => bloc.state);
+    if (state is AuthenticationAuthenticated) {
+      return ProfileScreen();
+    }
+    if (state is AuthenticationUnauthenticated) {
+      return LoginPage(
+        userRepository: userRepository,
+      );
+    }
+    return LoadingIndicator();
   }
 }

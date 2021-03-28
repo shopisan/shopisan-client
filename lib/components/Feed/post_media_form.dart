@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopisan/model/PostMedia.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopisan/post_creation/post_creation_bloc.dart';
+import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 
 class PostMediaForm extends StatefulWidget {
   final PostMedia postMedia;

@@ -4,7 +4,7 @@ import 'package:shopisan/components/Feed/post_media_form.dart';
 import 'package:shopisan/components/Utils/confirm.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/PostMedia.dart';
-import 'package:shopisan/post_creation/post_creation_bloc.dart';
+import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PostCreation extends StatefulWidget {

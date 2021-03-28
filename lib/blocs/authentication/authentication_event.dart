@@ -18,7 +18,19 @@ class LoggedIn extends AuthenticationEvent {
   List<Object> get props => [user];
 
   @override
-  String toString() => 'LoggedIn { user: $user.username.toString() }';
+  String toString() => 'LoggedIn { user: ${user.username.toString()} }';
 }
 
 class LoggedOut extends AuthenticationEvent {}
+
+class UserChangedEvent extends AuthenticationEvent {
+  final UserProfile user;
+
+  const UserChangedEvent({@required this.user});
+
+  @override
+  List<Object> get props => [user];
+
+  @override
+  String toString() => 'User changed { user: ${user.username.toString()} }';
+}

@@ -8,7 +8,7 @@ import 'package:shopisan/components/Form/date_input.dart';
 import 'package:shopisan/components/Form/text_input.dart';
 import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/model/UserProfileProfile.dart';
-import 'package:shopisan/profile_edit/profile_edit_bloc.dart';
+import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
 
 class FormProfile extends StatelessWidget {
   final format = DateFormat("yyyy-MM-dd");

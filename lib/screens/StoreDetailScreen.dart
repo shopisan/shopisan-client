@@ -3,42 +3,38 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shopisan/api_connection/api_connection.dart';
-import 'package:shopisan/components/CommercialScreenTab/DescriptionTabCommercial/DescriptionTabCommercial.dart';
-import 'package:shopisan/components/CommercialScreenTab/DetailsCommercialScreenTab/CategoriesCommercial.dart';
-import 'package:shopisan/components/CommercialScreenTab/DetailsCommercialScreenTab/RatingBarCommercial.dart';
-import 'package:shopisan/components/CommercialScreenTab/MapTabCommercial.dart';
-import 'package:shopisan/components/CommercialScreenTab/PostsTabCommercial/PostsTabCommercial.dart';
+import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
+import 'package:shopisan/components/StoreDetailScreenTab/DescriptionTabCommercial/DescriptionTabCommercial.dart';
+import 'package:shopisan/components/StoreDetailScreenTab/DetailsCommercialScreenTab/CategoriesCommercial.dart';
+import 'package:shopisan/components/StoreDetailScreenTab/DetailsCommercialScreenTab/RatingBarCommercial.dart';
+import 'package:shopisan/components/StoreDetailScreenTab/MapTabCommercial.dart';
+import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsTabCommercial.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
+import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/theme/colors.dart';
 
-class CommercialScreen extends StatefulWidget {
-  const CommercialScreen({Key key, @required this.storeId}) : super(key: key);
+class StoreDetailScreen extends StatefulWidget {
+  const StoreDetailScreen({Key key, @required this.storeId}) : super(key: key);
 
   final int storeId;
 
   @override
-  _CommercialScreenState createState() => _CommercialScreenState();
+  _StoreDetailScreenState createState() => _StoreDetailScreenState();
 }
 
-class _CommercialScreenState extends State<CommercialScreen> {
+class _StoreDetailScreenState extends State<StoreDetailScreen> {
   Store store;
   AddressCollection addresses;
   List<Category> categories;
 
   int _currentIndex = 0;
-
-  List<Widget> _tabs = <Widget>[
-    DescriptionTabCommercial(),
-    PostsTabCommercial(),
-    // MapTabCommercial(addresses: addresses),
-    MapTabCommercial(),
-  ];
 
   List<BottomNavigationBarItem> _navBarsItems() {
     return [
@@ -81,8 +77,6 @@ class _CommercialScreenState extends State<CommercialScreen> {
   void getCategories() async {
     List<Category> categoryList = await fetchCategories();
 
-    print("category list : $categoryList");
-
     setState(() {
       categories = categoryList;
     });
@@ -97,7 +91,6 @@ class _CommercialScreenState extends State<CommercialScreen> {
   @override
   void initState() {
     fetchStore(widget.storeId).then((value) {
-      print("$value");
       setState(() {
         store = value;
       });
@@ -114,18 +107,19 @@ class _CommercialScreenState extends State<CommercialScreen> {
       );
     }
 
+    List<Widget> _tabs = <Widget>[
+      DescriptionTabCommercial(store: store,),
+      PostsTabCommercial(),
+      // MapTabCommercial(addresses: addresses),
+      MapTabCommercial(addresses: store.addresses,),
+    ];
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
             backgroundColor: CustomColors.commercialBlue,
             iconTheme: IconThemeData(color: Colors.black),
             title:
-                /*FutureBuilder<Store>(
-              future: getStore(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  final store = snapshot.data;
-                  return*/
                 Column(
               children: [
                 Text(
@@ -138,13 +132,6 @@ class _CommercialScreenState extends State<CommercialScreen> {
                 ),
               ],
             ),
-            /*;
-                } else if (snapshot.hasError) {
-                  print('error $store');
-                  return Text("Error", style: TextStyle(color: Colors.black));
-                }
-                return CircularProgressIndicator();
-              },*/
             actions: [
               RatingBarCommercial(),
             ]),
@@ -183,6 +170,17 @@ class _CommercialScreenState extends State<CommercialScreen> {
             onTap: _onTapped,
             unselectedItemColor: CustomColors.iconsFaded,
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.favorite),
+          onPressed: () async {
+            try {
+              UserProfile user = await manageFavouriteStore(store.id);
+              BlocProvider.of<AuthenticationBloc>(context).add(UserChangedEvent(user: user));
+            } catch (exception){
+              print("Oops, error during handling favourite store adding");
+            }
+          },
         ),
       ),
     );

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopisan/authentication/authentication_bloc.dart';
+import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/components/Login/login_form.dart';
-import 'package:shopisan/login/login_bloc.dart';
+import 'package:shopisan/blocs/login/login_bloc.dart';
 import 'package:shopisan/repository/user_repository.dart';
 
 class LoginPage extends StatelessWidget {
@@ -85,7 +85,7 @@ class LoginPage extends StatelessWidget {
 //               mainAxisAlignment: MainAxisAlignment.center,
 //               crossAxisAlignment: CrossAxisAlignment.center,
 //               children: [
-//                 // aussi traduire le text login
+//                 // aussi traduire le text blocs.login
 //                 Text(
 //                   "Log In",
 //                   style: GoogleFonts.poppins(

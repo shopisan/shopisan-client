@@ -2,18 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopisan/components/EditCommercial/CommercialPicture.dart';
-import 'package:shopisan/components/EditCommercial/ProfileCommercial.dart';
+import 'package:shopisan/components/EditStore/CommercialPicture.dart';
+import 'package:shopisan/components/EditStore/ProfileCommercial.dart';
+import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
-class EditCommercial extends StatefulWidget {
-  @override
-  _EditCommercialState createState() => _EditCommercialState();
-}
+class EditStore extends StatelessWidget {
+  final int storeId;
 
-class _EditCommercialState extends State<EditCommercial> {
+  EditStore({@required this.storeId});
+
   @override
   Widget build(BuildContext context) {
+    //todo récupérer le store depuis le state
+    // todo créer le bloc
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

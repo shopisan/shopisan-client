@@ -6,7 +6,7 @@ import 'package:shopisan/model/Address.dart';
 class MapTabCommercial extends StatefulWidget {
   const MapTabCommercial({Key key, @required this.addresses}) : super(key: key);
 
-  final AddressCollection addresses;
+  final List<Address> addresses;
 
   @override
   _MapTabCommercialState createState() => _MapTabCommercialState();

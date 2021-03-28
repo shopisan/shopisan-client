@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shopisan/authentication/authentication_bloc.dart';
+import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/repository/user_repository.dart';
 import 'package:shopisan/theme/style.dart';
 import 'package:shopisan/utils/router_generator.dart';

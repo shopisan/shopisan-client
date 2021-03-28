@@ -41,62 +41,35 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    setState(() {
-      mapController = controller;
-      // String style1 = jsonEncode([
-      //   [
-      //     {
-      //       "stylers": [
-      //         {"visibility": "simplified"}
-      //       ]
-      //     },
-      //     {
-      //       "featureType": "landscape.man_made",
-      //       "stylers": [
-      //         {"visibility": "on"}
-      //       ]
-      //     },
-      //     {
-      //       "featureType": "poi.business",
-      //       "stylers": [
-      //         {"visibility": "off"}
-      //       ]
-      //     },
-      //     {
-      //       "featureType": "poi.park",
-      //       "stylers": [
-      //         {"visibility": "on"}
-      //       ]
-      //     }
-      //   ]
-      // ]);
+    mapController = controller;
 
-      String style2 = jsonEncode([
-        {
-          "featureType": "poi.business",
-          "stylers": [
-            {"visibility": "off"}
-          ]
-        },
-        {
-          "featureType": "poi.park",
-          "elementType": "labels.text",
-          "stylers": [
-            {"visibility": "off"}
-          ]
-        }
-      ]);
+    String style2 = jsonEncode([
+      {
+        "featureType": "poi.business",
+        "stylers": [
+          {"visibility": "off"}
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text",
+        "stylers": [
+          {"visibility": "off"}
+        ]
+      }
+    ]);
 
-      mapController.setMapStyle(style2);
+    mapController.setMapStyle(style2);
 
-      _markers.add(Marker(
-          markerId: MarkerId("myMarker"),
-          icon: mapMarker,
-          position: LatLng(50.6325574, 5.5796662),
-          infoWindow: InfoWindow(
-            title: searchAddress,
-          )));
-    });
+    // _markers.add(Marker(
+    //     markerId: MarkerId("myMarker"),
+    //     icon: mapMarker,
+    //     position: LatLng(50.6325574, 5.5796662),
+    //     infoWindow: InfoWindow(
+    //       title: searchAddress,
+    //     )));
+
+    getMarkers(widget.stores);
   }
 
   void searchAndNavigate() {
@@ -109,10 +82,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
 
   Set<Marker> getMarkers(List<Store> stores) {
-    // print("les ptn de store: $stores");
-
     for (Store store in stores) {
-      // print("un store???: ${store.id}");
       for (Address address in store.addresses) {
         if (address.latitude != null && address.longitude != null) {
           _markers.add(Marker(
@@ -127,6 +97,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       }
     }
 
+    setState(() {
+      _markers = _markers;
+    });
+
     return _markers;
   }
 
@@ -139,7 +113,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       children: [
         GoogleMap(
           onMapCreated: _onMapCreated,
-          markers: getMarkers(widget.stores),
+          markers: _markers,
           myLocationEnabled: true,
           zoomControlsEnabled: false,
           initialCameraPosition:

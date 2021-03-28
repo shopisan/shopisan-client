@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:shopisan/authentication/authentication_bloc.dart';
+import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/repository/user_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
