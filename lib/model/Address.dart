@@ -1,12 +1,12 @@
 class Address {
-  final int id;
-  final String streetAvenue;
-  final String postalCode;
-  final String city;
-  final String country;
-  final String latitude;
-  final String longitude;
-  final int store;
+  int id;
+  String streetAvenue;
+  String postalCode;
+  String city;
+  String country;
+  String latitude;
+  String longitude;
+  int store;
 
   Address(
       {this.id,

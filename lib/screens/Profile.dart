@@ -88,7 +88,7 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/edit_commercial');
+                  Navigator.pushNamed(context, '/edit_stores');
                 },
               )),
           Container(
@@ -128,8 +128,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
-                  // @todo faire la déconnexion
-                  // Navigator.pushNamed(context, '/login');
                 },
               )),
         ],

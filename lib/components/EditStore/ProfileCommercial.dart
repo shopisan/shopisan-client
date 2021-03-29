@@ -1,85 +1,82 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
+import 'package:shopisan/components/EditStore/opening_hours_form.dart';
+import 'package:shopisan/components/EditStore/store_address_row.dart';
+import 'package:shopisan/components/Form/text_input.dart';
+import 'package:shopisan/model/Address.dart';
+import 'package:shopisan/model/Category.dart';
+import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class ProfileCommercial extends StatelessWidget {
+  final Store store;
+  final List<Category> categories;
+
+  ProfileCommercial({@required this.store, @required this.categories});
+
+  final _nameController = TextEditingController();
+  final _websiteController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    _addAddress(){
+      BlocProvider.of<EditStoreBloc>(context).add(AddAddressEvent());
+    }
+
     return Container(
       child: Column(
         children: [
-          Container(
-            height: 50,
-            width: double.infinity,
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(40),
-              boxShadow: [
-                BoxShadow(
-                  color: CustomColors.spreadRegister,
-                  spreadRadius: 5,
-                  blurRadius: 15,
-                ),
-              ],
+          TextInput(
+              controller: _nameController,
+              icon: Icons.store_outlined,
+              label: AppLocalizations.of(context).storeName),
+          TextInput(
+              controller: _websiteController,
+              icon: Icons.web,
+              label: AppLocalizations.of(context).website),
+          MultiSelectDialogField(
+            buttonIcon: Icon(
+              Icons.search,
+              color: CustomColors.iconsActive,
             ),
-            child: TextFormField(
-              style: GoogleFonts.roboto(
-                color: CustomColors.textDescription,
-                fontSize: 14,
+            buttonText: Text(
+              AppLocalizations.of(context).search,
+              style: GoogleFonts.poppins(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: CustomColors.iconsActive,
               ),
-              decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.store_outlined,
-                    color: CustomColors.iconsActive,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(40),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
-                    ),
-                  ),
-                  labelText: AppLocalizations.of(context).storeName),
+            ),
+            items: null != categories
+                ? categories.map((e) => MultiSelectItem(e.id, e.fr)).toList()
+                : [],
+            listType: MultiSelectListType.LIST,
+            chipDisplay: MultiSelectChipDisplay.none(),
+            onConfirm: (values) {
+              //@todo update les catégories depuis le bloc
+            },
+            backgroundColor: CustomColors.search,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
             ),
           ),
-          Container(
-            height: 50,
-            width: double.infinity,
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(40),
-              boxShadow: [
-                BoxShadow(
-                  color: CustomColors.spreadRegister,
-                  spreadRadius: 5,
-                  blurRadius: 15,
-                ),
-              ],
-            ),
-            child: TextFormField(
-              style: GoogleFonts.roboto(
-                color: CustomColors.textDescription,
-                fontSize: 14,
-              ),
-              decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.streetview_outlined,
-                    color: CustomColors.iconsActive,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(40),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
-                    ),
-                  ),
-                  labelText: AppLocalizations.of(context).street),
-            ),
-          ),
+          OpeningHoursForm(),
+          Column(children:
+              store.addresses.asMap().map((index, Address address) => MapEntry(index,
+                  StoreAddressRow(address: address, index: index)
+              )
+
+              ).values.toList()
+            ,),
+          ElevatedButton(onPressed: _addAddress, child: Icon(Icons.add)),
+          // @todo ajouter une input pour gérer les heures d'ouvertures
+          // @todo ajouter une collection pour gérer les addresses
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
+import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
 import 'package:shopisan/screens/StoreDetailScreen.dart';
@@ -10,6 +11,7 @@ import 'package:shopisan/screens/ForgotPassword.dart';
 import 'package:shopisan/screens/Login.dart';
 import 'package:shopisan/screens/Register.dart';
 import 'package:shopisan/screens/StoresScreen.dart';
+import 'package:shopisan/screens/edit_store_selection_screen.dart';
 import 'package:shopisan/screens/post_creation.dart';
 
 class RouteGenerator {
@@ -59,10 +61,13 @@ class RouteGenerator {
                     body: EditProfile(),
                   ));
 
-            case '/edit_commercial':
-              return BlocProvider<PostCreationBloc>(
+            case '/edit_stores':
+              return EditStoreSelectionScreen();
+
+            case '/edit_store':
+              return BlocProvider<EditStoreBloc>(
                   create: (context) {
-                    return PostCreationBloc()..add(IsStarted(postId: args));
+                    return EditStoreBloc()..add(AppStartedEvent(storeId: args));
                   },
                   child: EditStore()
               );

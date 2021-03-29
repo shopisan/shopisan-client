@@ -48,5 +48,9 @@
   "deletePostText": "Are you certain you wish to delete this post?",
   "profileSaved": "Profile saved",
   "profileError": "An error occurred, please try again",
-  "profilePicError": "An error occurred, please try again"
+  "profilePicError": "An error occurred, please try again",
+  "addStore": "Add new store",
+  "website": "Website",
+  "country": "Country",
+  "appointmentOnly": "Appointment only"
 }

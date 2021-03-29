@@ -1,21 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/components/EditStore/CommercialPicture.dart';
 import 'package:shopisan/components/EditStore/ProfileCommercial.dart';
+import 'package:shopisan/components/Form/save_button.dart';
+import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class EditStore extends StatelessWidget {
-  final int storeId;
-
-  EditStore({@required this.storeId});
-
   @override
   Widget build(BuildContext context) {
-    //todo récupérer le store depuis le state
-    // todo créer le bloc
+    final state = context.select((EditStoreBloc bloc) => bloc.state);
+    final Store store = state.store;
+    final List<Category> categories = state.categories;
 
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +30,7 @@ class EditStore extends StatelessWidget {
           padding: EdgeInsets.all(10),
           child: Column(
             children: [
-              CommercialPicture(),
+              CommercialPicture(store: store,),
               Container(
                 padding: EdgeInsets.fromLTRB(10, 30, 10, 20),
                 child: Column(
@@ -41,11 +42,12 @@ class EditStore extends StatelessWidget {
                       style: GoogleFonts.poppins(
                           fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    ProfileCommercial(),
+
+                    ProfileCommercial(store: store, categories: categories,),
                   ],
                 ),
               ),
-              Container(
+             /* Container(
                 margin: EdgeInsets.all(10),
                 height: 50,
                 width: double.infinity,
@@ -63,7 +65,8 @@ class EditStore extends StatelessWidget {
                         color: Colors.black),
                   ),
                 ),
-              ),
+              ),*/
+              SaveButton(callback: null)
             ],
           ),
         ),

@@ -5,9 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class CommercialPicture extends StatefulWidget {
+  final Store store;
+
+  CommercialPicture({@required this.store});
+
   @override
   _CommercialPictureState createState() => _CommercialPictureState();
 }
@@ -25,6 +30,9 @@ class _CommercialPictureState extends State<CommercialPicture> {
 
   @override
   Widget build(BuildContext context) {
+    final storeImage = widget.store?.profilePicture;
+    print("storeImage: $storeImage");
+
     return Center(
       child: Stack(
         children: [
@@ -35,11 +43,13 @@ class _CommercialPictureState extends State<CommercialPicture> {
                 // color: CustomColors.search,
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: _imageFile == null
-                      ? AssetImage("assets/img/store.jpg")
-                      : FileImage(
-                          File(_imageFile.path),
-                        ),
+                  image: null == storeImage
+                      ? _imageFile == null
+                          ? AssetImage("assets/img/store.jpg")
+                          : FileImage(
+                              File(_imageFile.path),
+                            )
+                      : Image.network(storeImage.file),
                 )),
           ),
           Positioned(

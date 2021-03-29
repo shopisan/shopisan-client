@@ -46,5 +46,9 @@
   "deletePostText": "Êtes-vous certain de vouloir supprimer ce post?",
   "profileSaved": "Profil sauvegardé",
   "profileError": "Une erreur est survenue lors de l'enregistrement, veuillez réessayer",
-  "profilePicError": "Erreur lors du changement de photo, veuillez réessayer"
+  "profilePicError": "Erreur lors du changement de photo, veuillez réessayer",
+  "addStore": "Ajouter un magasin",
+  "website": "Site web",
+  "country": "Pays",
+  "appointmentOnly": "Sur rendez-vous uniquement"
 }

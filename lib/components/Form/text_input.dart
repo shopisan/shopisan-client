@@ -14,7 +14,7 @@ class TextInput extends StatelessWidget {
     return Container(
       height: 50,
       width: double.infinity,
-      padding: EdgeInsets.only(left: 10),
+      // padding: EdgeInsets.only(left: 10),
       margin: EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
         color: Colors.white,
