@@ -1,11 +1,11 @@
 class OpeningTime {
-  final List<dynamic> MO;
-  final List<dynamic> TU;
-  final List<dynamic> WE;
-  final List<dynamic> TH;
-  final List<dynamic> FR;
-  final List<dynamic> SA;
-  final List<dynamic> SU;
+  final List<String> MO;
+  final List<String> TU;
+  final List<String> WE;
+  final List<String> TH;
+  final List<String> FR;
+  final List<String> SA;
+  final List<String> SU;
 
   OpeningTime({this.MO, this.TU, this.WE, this.TH, this.FR, this.SA, this.SU});
 

@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/model/UserProfile.dart';
-
-import 'package:shopisan/repository/user_repository.dart';
 import 'package:shopisan/model/user_model.dart';
+import 'package:shopisan/repository/user_repository.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
@@ -17,17 +16,19 @@ class AuthenticationBloc
   final UserRepository userRepository;
 
   AuthenticationBloc({@required this.userRepository})
-      : assert(UserRepository != null), super(null);
+      : assert(UserRepository != null),
+        super(null);
 
   AuthenticationState get initialState => AuthenticationUnintialized();
 
   Future<AuthenticationState> _getUser() async {
-    try{
+    try {
       UserProfile user = await getUserProfile();
+      print("user profile: $user");
       return AuthenticationAuthenticated(user: user);
-    } catch(exception){
+    } catch (exception) {
       // yield AuthenticationUnauthenticated();
-      print("Issue during user fetch");
+      print("Issue during user fetch $exception");
     }
 
     return AuthenticationUnauthenticated();
@@ -35,7 +36,8 @@ class AuthenticationBloc
 
   @override
   Stream<AuthenticationState> mapEventToState(
-      AuthenticationEvent event,) async* {
+    AuthenticationEvent event,
+  ) async* {
     if (event is AppStarted) {
       final bool hasToken = await userRepository.hasToken();
 
@@ -49,9 +51,9 @@ class AuthenticationBloc
     if (event is LoggedIn) {
       yield AuthenticationLoading();
 
-      await userRepository.persistToken(
-          user: event.user
-      );
+      print("user id : ${event.user.id}");
+
+      await userRepository.persistToken(user: event.user);
       yield await _getUser();
     }
 

@@ -16,6 +16,7 @@ import 'package:shopisan/components/StoreDetailScreenTab/MapTabCommercial.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsTabCommercial.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
+import 'package:shopisan/model/OpeningTime.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/theme/colors.dart';
@@ -33,6 +34,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
   Store store;
   AddressCollection addresses;
   List<Category> categories;
+  OpeningTime openingTime;
 
   int _currentIndex = 0;
 
@@ -90,7 +92,10 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
 
   List<Widget> _getListTab(Store store) {
     return <Widget>[
-      DescriptionTabCommercial(store: store),
+      DescriptionTabCommercial(
+        store: store,
+        openingTime: openingTime,
+      ),
       PostsTabCommercial(),
       // MapTabCommercial(addresses: addresses),
       MapTabCommercial(store: store),
@@ -174,18 +179,21 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
             unselectedItemColor: CustomColors.iconsFaded,
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: CustomColors.iconsFaded,
-          child: Icon(Icons.favorite),
-          onPressed: () async {
-            try {
-              UserProfile user = await manageFavouriteStore(store.id);
-              BlocProvider.of<AuthenticationBloc>(context)
-                  .add(UserChangedEvent(user: user));
-            } catch (exception) {
-              print("Oops, error during handling favourite store adding");
-            }
-          },
+        floatingActionButton: Align(
+          child: FloatingActionButton(
+            backgroundColor: CustomColors.iconsFaded,
+            child: Icon(Icons.favorite),
+            onPressed: () async {
+              try {
+                UserProfile user = await manageFavouriteStore(store.id);
+                BlocProvider.of<AuthenticationBloc>(context)
+                    .add(UserChangedEvent(user: user));
+              } catch (exception) {
+                print("Oops, error during handling favourite store adding");
+              }
+            },
+          ),
+          alignment: Alignment(1, -0.2),
         ),
       ),
     );

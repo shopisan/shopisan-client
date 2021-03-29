@@ -7,14 +7,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
 import 'package:shopisan/model/File.dart' as FileModel;
 import 'package:shopisan/model/UserProfile.dart';
-import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class ProfilePicture extends StatefulWidget {
   final UserProfile user;
-  
+
   ProfilePicture({Key key, @required this.user}) : super(key: key);
 
   @override
@@ -30,7 +30,8 @@ class ProfilePictureState extends State<ProfilePicture> {
     _takePhoto(ImageSource source) async {
       final pickedFile = await picker.getImage(source: source);
       Navigator.of(context).pop();
-      BlocProvider.of<ProfileEditBloc>(context).add(ChangePictureEvent(picture: File(pickedFile.path)));
+      BlocProvider.of<ProfileEditBloc>(context)
+          .add(ChangePictureEvent(picture: File(pickedFile.path)));
       setState(() {
         _imageFile = pickedFile;
       });
@@ -42,10 +43,13 @@ class ProfilePictureState extends State<ProfilePicture> {
           CircleAvatar(
             radius: 80.0,
             backgroundImage: widget.user.profile.picture is FileModel.File
-                ? /*AssetImage("assets/img/profile.jpg")*/NetworkImage(widget.user.profile.picture.file)
-                : _imageFile != null ? FileImage(
-                    File(_imageFile.path),
-                  ): AssetImage("assets/img/profile.jpg"),
+                ? /*AssetImage("assets/img/profile.jpg")*/ NetworkImage(
+                    widget.user.profile.picture.file)
+                : _imageFile != null
+                    ? FileImage(
+                        File(_imageFile.path),
+                      )
+                    : AssetImage("assets/img/profile.jpg"),
           ),
           Positioned(
             bottom: 5,

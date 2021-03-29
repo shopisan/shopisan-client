@@ -7,6 +7,7 @@ import 'package:shopisan/screens/EditProfile.dart';
 import 'package:shopisan/screens/EditStoreScreen.dart';
 import 'package:shopisan/screens/ForgotPassword.dart';
 import 'package:shopisan/screens/Login.dart';
+import 'package:shopisan/screens/ManagePost.dart';
 import 'package:shopisan/screens/Register.dart';
 import 'package:shopisan/screens/StoreDetailScreen.dart';
 import 'package:shopisan/screens/StoresScreen.dart';
@@ -23,15 +24,6 @@ class RouteGenerator {
           print("state $state");
           switch (settings.name) {
             case '/':
-              // return BlocProvider<PostCreationBloc>(
-              //     create: (context) {
-              //       return PostCreationBloc()..add(IsStarted(postId: null));
-              //     },
-              //     child: Scaffold(
-              //       body: SingleChildScrollView(
-              //         child: PostCreation(),
-              //       ),
-              //     ));
               return StoresScreen();
 
             case '/store_detail':
@@ -39,9 +31,13 @@ class RouteGenerator {
               return StoreDetailScreen(storeId: args);
 
             case '/manage_post':
+              return ManagePost();
+
+            case '/create_post':
               return BlocProvider<PostCreationBloc>(
                   create: (context) {
-                    return PostCreationBloc()..add(IsStarted(postId: args));
+                    return PostCreationBloc()
+                      ..add(IsStarted(postId: null /*args*/));
                   },
                   child: Scaffold(
                     body: SingleChildScrollView(

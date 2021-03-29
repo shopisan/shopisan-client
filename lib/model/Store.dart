@@ -1,12 +1,13 @@
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
+import 'package:shopisan/model/OpeningTime.dart';
 
 class Store {
   final int id;
   final String name;
   final String url;
   final String website;
-  final Map<String, dynamic> openingTimes;
+  final List<OpeningTime> openingTimes;
   final String profilePicture;
   final List<Category> categories;
   final List<Address> addresses;

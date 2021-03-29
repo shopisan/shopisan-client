@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
@@ -27,12 +28,36 @@ class StorePreview extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '${store.name}',
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                    color: Colors.black),
+              Row(
+                children: [
+                  Text(
+                    '${store.name}',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Colors.black),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: RatingBar.builder(
+                      initialRating: 3,
+                      minRating: 0,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemSize: 10,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        print(rating);
+                      },
+                      glow: true,
+                    ),
+                  ),
+                ],
               ),
               Text(
                 "${store.categories.map((category) => '${" " + category.fr + " "}')}",

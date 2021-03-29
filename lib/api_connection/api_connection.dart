@@ -4,14 +4,13 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:shopisan/model/Category.dart';
+import 'package:shopisan/model/File.dart' as FileModel;
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/PostMedia.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/model/api_model.dart';
 import 'package:shopisan/repository/user_repository.dart';
-import 'package:shopisan/model/File.dart' as FileModel;
-
 
 final _base = "10.0.2.2:8000";
 final _tokenEndpoint = "/api/token-auth/";
@@ -36,10 +35,8 @@ Future<Token> getToken(UserLogin userLogin) async {
 Future<UserProfile> getUserProfile() async {
   Map<String, dynamic> headers = await getHeaders();
 
-  final http.Response response = await http.get(
-    Uri.http(_base, "/api/get_user"),
-    headers: headers
-  );
+  final http.Response response =
+      await http.get(Uri.http(_base, "/api/get_user"), headers: headers);
 
   if (response.statusCode == 200) {
     return UserProfile.fromJson(json.decode(response.body));
@@ -51,12 +48,10 @@ Future<UserProfile> getUserProfile() async {
 Future<bool> editUserProfile(UserProfile user) async {
   Map<String, dynamic> headers = await getHeaders();
 
-
   final http.Response response = await http.put(
       Uri.http(_base, "/api/users/users/${user.id}/"),
       body: jsonEncode(user.toJson()),
-      headers: headers
-  );
+      headers: headers);
 
   if (response.statusCode == 200) {
     return true;
@@ -72,8 +67,7 @@ Future<UserProfile> editUserProfilePicture(UserProfile user) async {
   final http.Response response = await http.put(
       Uri.http(_base, "/api/users/users/${user.id}/"),
       body: jsonEncode(user.toJson()),
-      headers: headers
-  );
+      headers: headers);
 
   if (response.statusCode == 200) {
     return UserProfile.fromJson(json.decode(response.body));
@@ -119,7 +113,8 @@ Future<List<Store>> fetchStores(
 
 Future<Store> fetchStore(int storeId) async {
   Map<String, dynamic> headers = await getHeaders();
-  final response = await http.get(Uri.http(_base, "/api/stores/stores/${storeId.toString()}"),
+  final response = await http.get(
+      Uri.http(_base, "/api/stores/stores/${storeId.toString()}"),
       headers: headers);
 
   if (response.statusCode == 200) {
@@ -134,11 +129,8 @@ Future<UserProfile> manageFavouriteStore(int storeId) async {
 
   final http.Response response = await http.post(
       Uri.http(_base, "/api/manage_favourite_store/"),
-      body: jsonEncode({
-        "favourite_store": storeId
-      }),
-      headers: headers
-  );
+      body: jsonEncode({"favourite_store": storeId}),
+      headers: headers);
 
   if (response.statusCode == 200) {
     // return true;
@@ -152,31 +144,26 @@ Future<Post> createPost(Post post) async {
   Map<String, String> headers = await getHeaders();
 
   List<Map<String, dynamic>> jsonMedias = [];
-  for (PostMedia postMedia in post.postMedia){
+  for (PostMedia postMedia in post.postMedia) {
     jsonMedias.add(postMedia.toJson());
   }
 
   http.Response response;
 
-
   if (post.id == null) {
-    response = await http.post(
-        Uri.http(_base, "/api/posts/posts/"),
+    response = await http.post(Uri.http(_base, "/api/posts/posts/"),
         body: jsonEncode({
           "store": "http://127.0.0.1:8000/api/stores/stores/4304/",
           "post_media": jsonMedias,
         }),
-        headers: headers
-    );
+        headers: headers);
   } else {
-    response = await http.put(
-        Uri.http(_base, "/api/posts/posts/${post.id}/"),
+    response = await http.put(Uri.http(_base, "/api/posts/posts/${post.id}/"),
         body: jsonEncode({
           "store": "http://127.0.0.1:8000/api/stores/stores/4304/",
           "post_media": jsonMedias,
         }),
-        headers: headers
-    );
+        headers: headers);
   }
 
   if (response.statusCode == 201) {
@@ -189,10 +176,8 @@ Future<Post> createPost(Post post) async {
 Future<Post> loadPost(int postId) async {
   Map<String, String> headers = await getHeaders();
 
-  final response = await http.get(
-      Uri.http(_base, "/api/posts/posts/$postId/"),
-      headers: headers
-  );
+  final response = await http.get(Uri.http(_base, "/api/posts/posts/$postId/"),
+      headers: headers);
 
   if (response.statusCode == 200) {
     return Post.fromJson(json.decode(response.body));
@@ -204,10 +189,8 @@ Future<Post> loadPost(int postId) async {
 Future<bool> deletePost(int postId) async {
   Map<String, String> headers = await getHeaders();
 
-  final response = await http.delete(
-      Uri.http(_base, "/api/posts/posts/$postId/"),
-      headers: headers
-  );
+  final response = await http
+      .delete(Uri.http(_base, "/api/posts/posts/$postId/"), headers: headers);
 
   if (response.statusCode == 200) {
     return true;
@@ -219,15 +202,9 @@ Future<bool> deletePost(int postId) async {
 Future<FileModel.File> uploadFile(File file, String type) async {
   Map<String, String> headers = await getHeaders();
 
-  var request = http.MultipartRequest('POST',
-      Uri.http(_base, "/api/files/"));
-  request.files.add(
-      http.MultipartFile.fromBytes(
-          'file',
-          file.readAsBytesSync(),
-          filename: file.toString()
-      )
-  );
+  var request = http.MultipartRequest('POST', Uri.http(_base, "/api/files/"));
+  request.files.add(http.MultipartFile.fromBytes('file', file.readAsBytesSync(),
+      filename: file.toString()));
   request.fields['file_type'] = type;
   request.headers.addAll(headers);
 
@@ -241,7 +218,10 @@ Future<FileModel.File> uploadFile(File file, String type) async {
 }
 
 Future<Map<String, String>> getHeaders() async {
-  Map<String, String> headers = {'Accept': 'application/json', 'Content-type': 'application/json'};
+  Map<String, String> headers = {
+    'Accept': 'application/json',
+    'Content-type': 'application/json'
+  };
 
   final UserRepository userRepo = UserRepository();
   bool hasUser = await userRepo.hasToken();

@@ -8,21 +8,20 @@ class File {
   File({this.id, this.url, this.contentType, this.fileType, this.file});
 
   factory File.fromJson(Map<String, dynamic> json) {
-    return File(
-        id: json['id'],
-        url: json['url'],
-        contentType: json['content_type'],
-        fileType: json['file_type'],
-        file: json['file']
-    );
+    if (null != json) {
+      return File(
+          id: json['id'],
+          url: json['url'],
+          contentType: json['content_type'],
+          fileType: json['file_type'],
+          file: json['file']);
+    }
+
+    return null;
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      "fileType": fileType,
-      "file": url,
-      "id": id
-    };
+    return {"fileType": fileType, "file": url, "id": id};
   }
 }
 
@@ -33,7 +32,9 @@ class FileCollection {
 
   factory FileCollection.fromJson(json) {
     return FileCollection(
-      files: json.map<File>((json) => File.fromJson(json as Map<String, dynamic>)).toList(),
+      files: json
+          .map<File>((json) => File.fromJson(json as Map<String, dynamic>))
+          .toList(),
     );
   }
 }
