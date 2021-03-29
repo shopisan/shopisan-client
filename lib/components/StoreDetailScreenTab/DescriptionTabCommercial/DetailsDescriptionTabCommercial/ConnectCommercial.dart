@@ -7,8 +7,7 @@ import 'package:shopisan/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ConnectCommercial extends StatefulWidget {
-  // ignore: non_constant_identifier_names
-  const ConnectCommercial({Key, key, @required this.store}) : super(key: key);
+  const ConnectCommercial({Key key, @required this.store}) : super(key: key);
 
   final Store store;
 
@@ -57,7 +56,7 @@ class _ConnectCommercialState extends State<ConnectCommercial> {
                           color: Colors.white,
                         ),
                         Text(
-                          "WEBSITE",
+                          AppLocalizations.of(context).website,
                           style: GoogleFonts.poppins(
                             color: Colors.white,
                             fontSize: 12,

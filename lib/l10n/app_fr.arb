@@ -35,6 +35,7 @@
   "description": "DESCRIPTION",
   "scheduleStore": "HORAIRES D'OUVERTURE",
   "connectCommercial": "RESTEZ CONNECTÉS",
+  "website": "SITE WEB",
   "choosePicture": "Choisissez une photo de profil",
   "camera": "Camera",
   "gallery": "Gallerie",
@@ -46,5 +47,6 @@
   "deletePostText": "Êtes-vous certain de vouloir supprimer ce post?",
   "profileSaved": "Profil sauvegardé",
   "profileError": "Une erreur est survenue lors de l'enregistrement, veuillez réessayer",
-  "profilePicError": "Erreur lors du changement de photo, veuillez réessayer"
+  "profilePicError": "Erreur lors du changement de photo, veuillez réessayer",
+  "aroundYou": "AUTOUR DE TOI"
 }

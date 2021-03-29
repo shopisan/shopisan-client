@@ -37,6 +37,7 @@
   "description": "DESCRIPTION",
   "scheduleStore": "STORE SCHEDULE",
   "connectCommercial": "CONNECT WITH US",
+  "website": "WEBSITE",
   "choosePicture": "Choose profile photo",
   "camera": "Camera",
   "gallery": "Gallery",
@@ -48,5 +49,6 @@
   "deletePostText": "Are you certain you wish to delete this post?",
   "profileSaved": "Profile saved",
   "profileError": "An error occurred, please try again",
-  "profilePicError": "An error occurred, please try again"
+  "profilePicError": "An error occurred, please try again",
+  "aroundYou": "AROUND YOU"
 }

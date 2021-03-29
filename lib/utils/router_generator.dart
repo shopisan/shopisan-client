@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
-import 'package:shopisan/screens/StoreDetailScreen.dart';
-import 'package:shopisan/screens/EditStoreScreen.dart';
 import 'package:shopisan/screens/EditProfile.dart';
+import 'package:shopisan/screens/EditStoreScreen.dart';
 import 'package:shopisan/screens/ForgotPassword.dart';
 import 'package:shopisan/screens/Login.dart';
 import 'package:shopisan/screens/Register.dart';
+import 'package:shopisan/screens/StoreDetailScreen.dart';
 import 'package:shopisan/screens/StoresScreen.dart';
 import 'package:shopisan/screens/post_creation.dart';
 
@@ -23,6 +23,15 @@ class RouteGenerator {
           print("state $state");
           switch (settings.name) {
             case '/':
+              // return BlocProvider<PostCreationBloc>(
+              //     create: (context) {
+              //       return PostCreationBloc()..add(IsStarted(postId: null));
+              //     },
+              //     child: Scaffold(
+              //       body: SingleChildScrollView(
+              //         child: PostCreation(),
+              //       ),
+              //     ));
               return StoresScreen();
 
             case '/store_detail':
@@ -64,8 +73,7 @@ class RouteGenerator {
                   create: (context) {
                     return PostCreationBloc()..add(IsStarted(postId: args));
                   },
-                  child: EditStore()
-              );
+                  child: EditStore());
 
             default:
               return _errorRoute();

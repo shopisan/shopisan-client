@@ -88,6 +88,15 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
     });
   }
 
+  List<Widget> _getListTab(Store store) {
+    return <Widget>[
+      DescriptionTabCommercial(store: store),
+      PostsTabCommercial(),
+      // MapTabCommercial(addresses: addresses),
+      MapTabCommercial(store: store),
+    ];
+  }
+
   @override
   void initState() {
     fetchStore(widget.storeId).then((value) {
@@ -107,20 +116,14 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
       );
     }
 
-    List<Widget> _tabs = <Widget>[
-      DescriptionTabCommercial(store: store,),
-      PostsTabCommercial(),
-      // MapTabCommercial(addresses: addresses),
-      MapTabCommercial(addresses: store.addresses,),
-    ];
+    print("store from screen $store");
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
             backgroundColor: CustomColors.commercialBlue,
             iconTheme: IconThemeData(color: Colors.black),
-            title:
-                Column(
+            title: Column(
               children: [
                 Text(
                   "${store.name}",
@@ -148,7 +151,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                 CategoriesCommercial(
                   store: store,
                 ),
-                _tabs.elementAt(_currentIndex),
+                _getListTab(store).elementAt(_currentIndex),
               ],
             ),
           ),
@@ -172,12 +175,14 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: CustomColors.iconsFaded,
           child: Icon(Icons.favorite),
           onPressed: () async {
             try {
               UserProfile user = await manageFavouriteStore(store.id);
-              BlocProvider.of<AuthenticationBloc>(context).add(UserChangedEvent(user: user));
-            } catch (exception){
+              BlocProvider.of<AuthenticationBloc>(context)
+                  .add(UserChangedEvent(user: user));
+            } catch (exception) {
               print("Oops, error during handling favourite store adding");
             }
           },

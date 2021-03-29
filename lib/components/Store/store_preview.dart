@@ -12,8 +12,7 @@ class StorePreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        Navigator.pushNamed(context, "/store_detail",
-            arguments: store.id);
+        Navigator.pushNamed(context, "/store_detail", arguments: store.id);
       },
       // padding: EdgeInsets.all(0),
       child: Row(
@@ -23,8 +22,7 @@ class StorePreview extends StatelessWidget {
             width: 60,
             margin: EdgeInsets.only(right: 10),
             decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(5)),
+                color: Colors.black, borderRadius: BorderRadius.circular(5)),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +35,7 @@ class StorePreview extends StatelessWidget {
                     color: Colors.black),
               ),
               Text(
-                "52 rue du président Edouard Herriot, 69002 Lyon",
+                "${store.categories.map((category) => '${" " + category.fr + " "}')}",
                 style: GoogleFonts.poppins(
                   color: CustomColors.textDescription,
                   fontSize: 12,
