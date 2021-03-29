@@ -46,7 +46,7 @@ class EditStore extends StatelessWidget {
                     ProfileCommercial(store: store, categories: categories,),
                   ],
                 ),
-              )
+              ),
              /* Container(
                 margin: EdgeInsets.all(10),
                 height: 50,

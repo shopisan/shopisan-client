@@ -4,17 +4,17 @@ import 'package:shopisan/model/OpeningTime.dart';
 import 'package:shopisan/model/File.dart';
 
 class Store {
-  final int id;
-  final String name;
-  final String url;
-  final String website;
-  final List<OpeningTime> openingTimes;
-  final File profilePicture;
-  final List<Category> categories;
-  final List<Address> addresses;
+  int id;
+  String name;
+  String url;
+  String website;
+  List<OpeningTime> openingTimes;
+  File profilePicture;
+  List<Category> categories;
+  List<Address> addresses;
   String description;
   bool appointmentOnly;
-  final double evaluation;
+  double evaluation;
   // final String evaluation;
 
   Store({
