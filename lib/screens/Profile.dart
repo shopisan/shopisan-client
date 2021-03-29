@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -125,6 +127,7 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
                 onPressed: () {
+                  BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
                   // @todo faire la déconnexion
                   // Navigator.pushNamed(context, '/login');
                 },
