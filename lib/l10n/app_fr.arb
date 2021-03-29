@@ -34,14 +34,18 @@
   "evaluation": "Donnez-nous votre avis",
   "description": "DESCRIPTION",
   "scheduleStore": "HORAIRES D'OUVERTURE",
+  "noSchedule" : "Pas d'horaire disponible",
   "connectCommercial": "RESTEZ CONNECTÉS",
   "choosePicture": "Choisissez une photo de profil",
   "camera": "Camera",
   "gallery": "Gallerie",
+  "price": "PRIX",
   "save": "Enregistrer",
   "createPost": "Créer post",
   "editPost": "Modifier post",
+  "deletePost": "Supprimer",
   "delete": "Supprimer",
+  "yourPost": "Tes posts",
   "deletePostTitle": "Supprimer le post",
   "deletePostText": "Êtes-vous certain de vouloir supprimer ce post?",
   "profileSaved": "Profil sauvegardé",
@@ -50,5 +54,6 @@
   "addStore": "Ajouter un magasin",
   "website": "Site web",
   "country": "Pays",
-  "appointmentOnly": "Sur rendez-vous uniquement"
+  "appointmentOnly": "Sur rendez-vous uniquement",
+  "aroundYou": "AUTOUR DE TOI"
 }

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
@@ -117,7 +116,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           myLocationEnabled: true,
           zoomControlsEnabled: false,
           initialCameraPosition:
-              CameraPosition(zoom: 14.0, target: LatLng(50.6325574, 5.5796662)),
+              CameraPosition(zoom: 14.0, target: LatLng(45.75, 4.85)),
         ),
         Positioned(
           top: 10,

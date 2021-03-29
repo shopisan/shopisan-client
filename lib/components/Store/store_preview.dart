@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
@@ -12,8 +13,7 @@ class StorePreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        Navigator.pushNamed(context, "/store_detail",
-            arguments: store.id);
+        Navigator.pushNamed(context, "/store_detail", arguments: store.id);
       },
       // padding: EdgeInsets.all(0),
       child: Row(
@@ -23,21 +23,44 @@ class StorePreview extends StatelessWidget {
             width: 60,
             margin: EdgeInsets.only(right: 10),
             decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(5)),
+                color: Colors.black, borderRadius: BorderRadius.circular(5)),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '${store.name}',
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                    color: Colors.black),
+              Row(
+                children: [
+                  Text(
+                    '${store.name}',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Colors.black),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: RatingBar.builder(
+                      initialRating: 3,
+                      minRating: 0,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemSize: 10,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        print(rating);
+                      },
+                      glow: true,
+                    ),
+                  ),
+                ],
               ),
               Text(
-                "52 rue du président Edouard Herriot, 69002 Lyon",
+                "${store.categories.map((category) => '${" " + category.fr + " "}')}",
                 style: GoogleFonts.poppins(
                   color: CustomColors.textDescription,
                   fontSize: 12,

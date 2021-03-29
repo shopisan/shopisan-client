@@ -1,19 +1,21 @@
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
+import 'package:shopisan/model/OpeningTime.dart';
 import 'package:shopisan/model/File.dart';
 
 class Store {
-  int id;
-  String name;
-  String url;
-  String website;
-  Map<String, dynamic> openingTimes;
-  File profilePicture;
-  List<Category> categories;
-  List<Address> addresses;
+  final int id;
+  final String name;
+  final String url;
+  final String website;
+  final List<OpeningTime> openingTimes;
+  final File profilePicture;
+  final List<Category> categories;
+  final List<Address> addresses;
   String description;
   bool appointmentOnly;
   final double evaluation;
+  // final String evaluation;
 
   Store({
     this.id,

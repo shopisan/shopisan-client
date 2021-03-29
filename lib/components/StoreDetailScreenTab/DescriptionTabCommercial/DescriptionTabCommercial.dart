@@ -3,16 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/DescriptionTabCommercial/DetailsDescriptionTabCommercial/ConnectCommercial.dart';
+import 'package:shopisan/model/OpeningTime.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 import 'DetailsDescriptionTabCommercial/OpeningTimeCommercial.dart';
 
 class DescriptionTabCommercial extends StatefulWidget {
-  const DescriptionTabCommercial({Key key, @required this.store})
-      : super(key: key);
+  const DescriptionTabCommercial({
+    Key key,
+    @required this.store,
+    @required this.openingTime,
+  }) : super(key: key);
 
   final Store store;
+  final OpeningTime openingTime;
 
   @override
   _DescriptionTabCommercialState createState() =>
@@ -21,11 +26,12 @@ class DescriptionTabCommercial extends StatefulWidget {
 
 class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
   Store store;
+  OpeningTime openingTime;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
+        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -68,7 +74,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                 ),
               ),
               OpeningTimeCommercial(
-                store: store,
+                openingTime: widget.openingTime,
               ),
               ConnectCommercial(
                 store: store,

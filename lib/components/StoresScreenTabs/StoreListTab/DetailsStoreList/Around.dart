@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/components/Store/store_preview.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
-import 'package:shopisan/theme/colors.dart';
 
 class AroundYou extends StatelessWidget {
   const AroundYou({Key key, @required this.categories, @required this.stores})
@@ -20,7 +20,7 @@ class AroundYou extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "AROUND YOU",
+            AppLocalizations.of(context).aroundYou,
             style: GoogleFonts.poppins(
               fontSize: 16,
               fontWeight: FontWeight.w600,

@@ -4,12 +4,13 @@ import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
-import 'package:shopisan/screens/StoreDetailScreen.dart';
-import 'package:shopisan/screens/EditStoreScreen.dart';
 import 'package:shopisan/screens/EditProfile.dart';
+import 'package:shopisan/screens/EditStoreScreen.dart';
 import 'package:shopisan/screens/ForgotPassword.dart';
 import 'package:shopisan/screens/Login.dart';
+import 'package:shopisan/screens/ManagePost.dart';
 import 'package:shopisan/screens/Register.dart';
+import 'package:shopisan/screens/StoreDetailScreen.dart';
 import 'package:shopisan/screens/StoresScreen.dart';
 import 'package:shopisan/screens/edit_store_selection_screen.dart';
 import 'package:shopisan/screens/post_creation.dart';
@@ -32,9 +33,13 @@ class RouteGenerator {
               return StoreDetailScreen(storeId: args);
 
             case '/manage_post':
+              return ManagePost();
+
+            case '/create_post':
               return BlocProvider<PostCreationBloc>(
                   create: (context) {
-                    return PostCreationBloc()..add(IsStarted(postId: args));
+                    return PostCreationBloc()
+                      ..add(IsStarted(postId: null /*args*/));
                   },
                   child: Scaffold(
                     body: SingleChildScrollView(
@@ -69,8 +74,7 @@ class RouteGenerator {
                   create: (context) {
                     return EditStoreBloc()..add(AppStartedEvent(storeId: args));
                   },
-                  child: EditStore()
-              );
+                  child: EditStore());
 
             default:
               return _errorRoute();
