@@ -1,16 +1,16 @@
-import 'dart:io';
 import 'dart:async';
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/model/File.dart' as ModelFile;
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/PostMedia.dart';
 
-
 part 'post_creation_event.dart';
-
 part 'post_creation_state.dart';
 
 class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
@@ -20,20 +20,16 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
   Stream<PostCreationState> mapEventToState(
     PostCreationEvent event,
   ) async* {
-    if (event is IsStarted){
+    if (event is IsStarted) {
       int postId = event.postId;
       if (null == postId) {
         yield StartedPostCreationState(
             post: Post(
                 id: null,
-                store: "url du store",
-                postMedia: [
-                  PostMedia()
-                ],
+                store: "http://10.0.2.2:8000/api/stores/stores/800/",
+                postMedia: [PostMedia()],
                 created: null,
-                url: null
-            )
-        );
+                url: null));
       } else {
         Post post = await loadPost(postId);
         yield StartedPostCreationState(post: post);
@@ -45,15 +41,19 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
       yield LoadingPostCreationState(post: event.post);
 
       try {
-        Post created = await createPost(event.post);
-        post = await loadPost(created.id);
-        yield DonePostCreationState(success: true, message: "post created",
-            post: post);
+        int created = await createPost(event.post);
+        post = await loadPost(created);
+        yield DonePostCreationState(
+            success: true,
+            message: "post created",
+            post: post,
+            redirect: event.post.id == null ? true : false);
       } catch (error) {
-        yield DonePostCreationState(success: false, message: error.toString(),
-            post: post);
+        print(error.toString());
+        yield DonePostCreationState(
+            success: false, message: error.toString(), post: post);
       }
-      yield StartedPostCreationState(post: post);
+      // yield StartedPostCreationState(post: post);
     } else if (event is ChangePostMedia) {
       Post post = state.post;
       PostMedia postMedia = post.postMedia.elementAt(event.index);
@@ -64,32 +64,43 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
 
       postMedia.description = event.description;
 
-      if (postMedia.media != event.uploadFile && event.uploadFile is File) {
-        final ModelFile.File resp = await uploadFile(event.uploadFile, "post_picture");
-        postMedia.media = resp;
-      }  
+      post.postMedia[event.index] = postMedia;
+      yield StartedPostCreationState(
+          post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
+    } else if (event is ChangePostMediaPicture) {
+      Post post = state.post;
+      PostMedia postMedia = post.postMedia.elementAt(event.index);
+
+      final ModelFile.File resp =
+          await uploadFile(event.uploadFile, "post_picture");
+      postMedia.media = resp;
+      postMedia.uploadFile = null;
 
       post.postMedia[event.index] = postMedia;
-      yield StartedPostCreationState(post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
+      yield StartedPostCreationState(
+          post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
     } else if (event is DeletePost) {
       Post post = state.post;
 
       try {
         await deletePost(post.id);
         yield RedirectPostCreationState();
-      } catch (e){
-        yield DonePostCreationState(success: false, message: e.toString(), post: post);
+      } catch (e) {
+        yield DonePostCreationState(
+            success: false, message: e.toString(), post: post);
       }
     } else if (event is AddPostMedia) {
       Post post = state.post;
 
       post.postMedia.add(PostMedia());
 
-      yield StartedPostCreationState(post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
-    } else if (event is DeletePostMedia){
+      yield StartedPostCreationState(
+          post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
+    } else if (event is DeletePostMedia) {
       Post post = state.post;
       post.postMedia.removeAt(event.index);
-      yield StartedPostCreationState(post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
+      yield StartedPostCreationState(
+          post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
     }
   }
 }

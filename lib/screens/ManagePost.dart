@@ -1,10 +1,37 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/theme/colors.dart';
 
-class ManagePost extends StatelessWidget {
+class ManagePost extends StatefulWidget {
+  const ManagePost({Key key, @required this.postId}) : super(key: key);
+
+  final int postId;
+
+  @override
+  _ManagePostState createState() => _ManagePostState();
+}
+
+class _ManagePostState extends State<ManagePost> {
+  Future<Post> getPost() async {
+    final response = await http.get(
+        Uri.http("10.0.2.2:8000", "/api/posts/posts/"),
+        headers: {'Accept': 'application/json'});
+    try {
+      if (response.statusCode == 200) {
+        return Post.fromJson(json.decode(response.body));
+      }
+    } catch (Exception) {
+      print("Oops: $Exception");
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,10 +47,13 @@ class ManagePost extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: 300,
+              margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+              height: 50,
+              width: double.infinity,
               decoration: BoxDecoration(
-                  color: CustomColors.iconsActive,
-                  borderRadius: BorderRadius.circular(10)),
+                borderRadius: BorderRadius.circular(50),
+                color: CustomColors.iconsActive,
+              ),
               child: TextButton.icon(
                 icon: Icon(
                   Icons.post_add_outlined,
@@ -41,6 +71,34 @@ class ManagePost extends StatelessWidget {
                 },
               ),
             ),
+            // SingleChildScrollView(
+            //   child: Container(
+            //     width: double.infinity,
+            //     margin: EdgeInsets.fromLTRB(20, 20, 0, 20),
+            //     child: Column(
+            //       mainAxisAlignment: MainAxisAlignment.start,
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         Text(
+            //           AppLocalizations.of(context).yourPosts,
+            //           style: GoogleFonts.poppins(
+            //               fontSize: 16, fontWeight: FontWeight.bold),
+            //         ),
+            //         Padding(
+            //             padding: EdgeInsets.all(10),
+            //             child: SizedBox(
+            //               height: (MediaQuery.of(context).size.height),
+            //               width: double.infinity,
+            //               child: ListView(
+            //                   scrollDirection: Axis.vertical,
+            //                   children: [
+            //                     MyPosts(),
+            //                   ]),
+            //             )),
+            //       ],
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),

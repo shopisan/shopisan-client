@@ -1,15 +1,13 @@
 part of 'post_creation_bloc.dart';
 
-abstract class PostCreationEvent extends Equatable{
+abstract class PostCreationEvent extends Equatable {
   const PostCreationEvent();
 }
 
 class IsStarted extends PostCreationEvent {
   final int postId;
 
-  const IsStarted({
-    @required this.postId
-  });
+  const IsStarted({@required this.postId});
 
   @override
   List<Object> get props => [postId];
@@ -21,9 +19,7 @@ class IsStarted extends PostCreationEvent {
 class ChangePost extends PostCreationEvent {
   final Post post;
 
-  const ChangePost({
-    @required this.post
-  });
+  const ChangePost({@required this.post});
 
   @override
   List<Object> get props => [post];
@@ -40,23 +36,33 @@ class DeletePost extends PostCreationEvent {
 }
 
 class ChangePostMedia extends PostCreationEvent {
-  final File uploadFile;
   final String description;
   final String price;
   final int index;
 
-  const ChangePostMedia({
-    @required this.uploadFile,
-    @required this.description,
-    @required this.price,
-    @required this.index
-  });
+  const ChangePostMedia(
+      {@required this.description, @required this.price, @required this.index});
 
   @override
   List<Object> get props => [uploadFile, description, price, index];
 
   @override
-  String toString() => 'Post edited { media: $uploadFile, description: $description, price: $price }';
+  String toString() =>
+      'Post edited { media: $uploadFile, description: $description, price: $price }';
+}
+
+class ChangePostMediaPicture extends PostCreationEvent {
+  final File uploadFile;
+  final int index;
+
+  const ChangePostMediaPicture(
+      {@required this.uploadFile, @required this.index});
+
+  @override
+  List<Object> get props => [uploadFile, index];
+
+  @override
+  String toString() => 'Post edited { media: $uploadFile }';
 }
 
 class AddPostMedia extends PostCreationEvent {

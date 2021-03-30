@@ -13,10 +13,9 @@ class Post {
     return Post(
         id: json['id'],
         url: json['url'],
-        created: json['en'],
-        store: json['fr'],
-        postMedia: PostMediaCollection.fromJson(json['post_media']).postMedias
-    );
+        created: json['created'],
+        store: json['store'],
+        postMedia: PostMediaCollection.fromJson(json['post_media']).postMedias);
   }
 }
 
@@ -27,7 +26,9 @@ class PostCollection {
 
   factory PostCollection.fromJson(json) {
     return PostCollection(
-      posts: json.map<Post>((json) => Post.fromJson(json as Map<String, dynamic>)).toList(),
+      posts: json
+          .map<Post>((json) => Post.fromJson(json as Map<String, dynamic>))
+          .toList(),
     );
   }
 }

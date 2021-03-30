@@ -140,7 +140,7 @@ Future<UserProfile> manageFavouriteStore(int storeId) async {
   }
 }
 
-Future<Post> createPost(Post post) async {
+Future<int> createPost(Post post) async {
   Map<String, String> headers = await getHeaders();
 
   List<Map<String, dynamic>> jsonMedias = [];
@@ -153,21 +153,24 @@ Future<Post> createPost(Post post) async {
   if (post.id == null) {
     response = await http.post(Uri.http(_base, "/api/posts/posts/"),
         body: jsonEncode({
-          "store": "http://127.0.0.1:8000/api/stores/stores/4304/",
+          "store": post.store,
           "post_media": jsonMedias,
         }),
         headers: headers);
   } else {
     response = await http.put(Uri.http(_base, "/api/posts/posts/${post.id}/"),
         body: jsonEncode({
-          "store": "http://127.0.0.1:8000/api/stores/stores/4304/",
+          "store": post.store,
           "post_media": jsonMedias,
         }),
         headers: headers);
   }
 
-  if (response.statusCode == 201) {
-    return Post.fromJson(json.decode(response.body));
+  print("yup: ${response.statusCode} ${response.body}");
+
+  if (response.statusCode >= 200 && response.statusCode < 300) {
+    return json.decode(response.body)['id'];
+    // return Post.fromJson(json.decode(response.body));
   } else {
     throw Exception('Failed to load stores');
   }
@@ -178,6 +181,9 @@ Future<Post> loadPost(int postId) async {
 
   final response = await http.get(Uri.http(_base, "/api/posts/posts/$postId/"),
       headers: headers);
+
+  print(Uri.http(_base, "/api/posts/posts/$postId/"));
+  print(response.body);
 
   if (response.statusCode == 200) {
     return Post.fromJson(json.decode(response.body));
@@ -192,7 +198,8 @@ Future<bool> deletePost(int postId) async {
   final response = await http
       .delete(Uri.http(_base, "/api/posts/posts/$postId/"), headers: headers);
 
-  if (response.statusCode == 200) {
+  print("statuc code: ${response.statusCode}");
+  if (response.statusCode >= 200 && response.statusCode < 300) {
     return true;
   } else {
     throw Exception('Failed to load post');

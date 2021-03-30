@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
+import 'package:shopisan/components/Form/text_input.dart' as CustomInput;
 import 'package:shopisan/model/PostMedia.dart';
 import 'package:shopisan/theme/colors.dart';
 
@@ -23,7 +24,7 @@ class PostMediaForm extends StatefulWidget {
 class _PostMediaFormState extends State<PostMediaForm> {
   final ImagePicker picker = ImagePicker();
 
-  // final _descriptionController = TextEditingController();
+  final _descriptionController = TextEditingController();
   final _priceController = TextEditingController();
   File _image;
 
@@ -53,6 +54,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
 
   @override
   void initState() {
+    _descriptionController.text = widget.postMedia.description;
     if (null != widget.postMedia.price) {
       _priceController.text = widget.postMedia.price.toString();
     }
@@ -60,17 +62,11 @@ class _PostMediaFormState extends State<PostMediaForm> {
     super.initState();
   }
 
-  ///**
-  ///* @todo les controllers ne semblent pas etre mis a jour, soit s'en débarrasser,
-  ///         Soit permettre de mettre a jour a chaque changement
-  ///*////
-
   @override
   Widget build(BuildContext context) {
     void _updateValues() {
       BlocProvider.of<PostCreationBloc>(context).add(ChangePostMedia(
-          description: widget.postMedia.description,
-          uploadFile: _image,
+          description: _descriptionController.text,
           price: _priceController.text,
           index: widget.index));
     }
@@ -86,6 +82,8 @@ class _PostMediaFormState extends State<PostMediaForm> {
       setState(() {
         _image = File(pickedFile.path);
       });
+      BlocProvider.of<PostCreationBloc>(context)
+          .add(ChangePostMediaPicture(uploadFile: _image, index: widget.index));
     }
 
     return BlocBuilder<PostCreationBloc, PostCreationState>(
@@ -93,195 +91,168 @@ class _PostMediaFormState extends State<PostMediaForm> {
       return Container(
         child: Column(
           children: [
-            Container(
-              height: 150,
-              width: double.infinity,
-              child: _image == null
-                  ? (widget.postMedia.media != null
-                      ? Image.network(widget.postMedia.media.file)
-                      : Text('No image selected.'))
-                  : Image.file(_image),
-            ),
-            Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: CustomColors.iconsActive),
-              child: InkWell(
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: ((builder) => Container(
-                          height: 150,
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context).choosePicture,
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  TextButton.icon(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                CustomColors.iconsActive)),
-                                    onPressed: () {
-                                      _takePhoto(ImageSource.camera);
-                                    },
-                                    icon:
-                                        Icon(Icons.camera, color: Colors.black),
-                                    label: Text(
-                                      AppLocalizations.of(context).camera,
+            Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              Container(
+                width: 50,
+                height: 50,
+                margin: EdgeInsets.only(bottom: 10),
+                child: ElevatedButton(
+                  onPressed: _deletePostMedia,
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(CustomColors.error),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)))),
+                  child: Icon(
+                    Icons.delete,
+                    size: 19,
+                    color: Colors.black,
+                  ),
+                ),
+              )
+            ]),
+            Stack(
+              children: [
+                Container(
+                  height: 250,
+                  width: double.infinity,
+                  // color: Colors.red,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                          color: CustomColors.commercialBlue, width: 3)),
+                  child: _image == null
+                      ? (widget.postMedia.media != null
+                          ? Image.network(widget.postMedia.media.file)
+                          : Center(
+                              child: Text(
+                              AppLocalizations.of(context).noImage,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            )))
+                      : Image.file(_image),
+                ),
+                Positioned(
+                  bottom: 15,
+                  right: 20,
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: CustomColors.iconsActive),
+                    child: InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: ((builder) => Container(
+                                height: 150,
+                                width: MediaQuery.of(context).size.width,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 20),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      AppLocalizations.of(context)
+                                          .choosePicture,
                                       style: GoogleFonts.poppins(
-                                          fontSize: 14, color: Colors.black),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
                                     ),
-                                  ),
-                                  TextButton.icon(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                CustomColors.iconsActive)),
-                                    onPressed: () {
-                                      _takePhoto(ImageSource.gallery);
-                                    },
-                                    icon:
-                                        Icon(Icons.image, color: Colors.black),
-                                    label: Text(
-                                      AppLocalizations.of(context).gallery,
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 14, color: Colors.black),
-                                    ),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        )),
-                  );
-                },
-                child: Icon(
-                  Icons.camera_alt_outlined,
-                  color: Colors.black,
-                  size: 30,
-                ),
-              ),
-            ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     ElevatedButton(
-            //         onPressed: () async {
-            //           await takePicture();
-            //           _updateValues();
-            //         },
-            //         child: Icon(Icons.add_a_photo)),
-            //     SizedBox(
-            //       width: 10,
-            //     ),
-            //     ElevatedButton(
-            //       onPressed: uploadImage,
-            //       child: Icon(Icons.storage),
-            //     ),
-            //   ],
-            // ),
-
-            Container(
-              height: 50,
-              width: double.infinity,
-              margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
-              padding: EdgeInsets.only(left: 10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(40),
-                boxShadow: [
-                  BoxShadow(
-                    color: CustomColors.spreadRegister,
-                    spreadRadius: 5,
-                    blurRadius: 15,
-                  ),
-                ],
-              ),
-              child: TextFormField(
-                style: GoogleFonts.roboto(
-                  color: CustomColors.textDescription,
-                  fontSize: 14,
-                ),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(40),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
-                    ),
-                  ),
-                  labelText: AppLocalizations.of(context).description,
-                  icon: Icon(Icons.text_snippet),
-                ),
-                // controller: _descriptionController,
-                initialValue: widget.postMedia.description,
-                onChanged: (value) {
-                  widget.postMedia.description = value;
-                  _updateValues();
-                },
-              ),
-            ),
-            Container(
-              height: 50,
-              width: double.infinity,
-              margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-              padding: EdgeInsets.only(left: 10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(40),
-                boxShadow: [
-                  BoxShadow(
-                    color: CustomColors.spreadRegister,
-                    spreadRadius: 5,
-                    blurRadius: 15,
-                  ),
-                ],
-              ),
-              child: TextFormField(
-                style: GoogleFonts.roboto(
-                  color: CustomColors.textDescription,
-                  fontSize: 14,
-                ),
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(40),
-                      borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        TextButton.icon(
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty
+                                                      .all<Color>(CustomColors
+                                                          .iconsActive)),
+                                          onPressed: () {
+                                            _takePhoto(ImageSource.camera);
+                                          },
+                                          icon: Icon(Icons.camera,
+                                              color: Colors.black),
+                                          label: Text(
+                                            AppLocalizations.of(context).camera,
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                color: Colors.black),
+                                          ),
+                                        ),
+                                        TextButton.icon(
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty
+                                                      .all<Color>(CustomColors
+                                                          .iconsActive)),
+                                          onPressed: () {
+                                            _takePhoto(ImageSource.gallery);
+                                          },
+                                          icon: Icon(Icons.image,
+                                              color: Colors.black),
+                                          label: Text(
+                                            AppLocalizations.of(context)
+                                                .gallery,
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                color: Colors.black),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              )),
+                        );
+                      },
+                      child: Icon(
+                        Icons.camera_alt_outlined,
+                        color: Colors.black,
+                        size: 30,
                       ),
                     ),
-                    labelText: AppLocalizations.of(context).price,
-                    icon: Icon(Icons.attach_money_outlined)),
-                controller: _priceController,
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.allow(RegExp(r'^[0-9\.\,]+$'))
-                ],
-                onChanged: (value) {
-                  _updateValues();
-                },
-              ),
+                  ),
+                )
+              ],
             ),
-
-            ElevatedButton(
-              onPressed: _deletePostMedia,
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.red)),
-              child: Icon(Icons.delete),
-            ),
+            Container(
+                margin: EdgeInsets.fromLTRB(10, 20, 10, 30),
+                padding: EdgeInsets.only(bottom: 30),
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom:
+                            BorderSide(color: CustomColors.spread, width: 2))),
+                child: Column(
+                  children: [
+                    CustomInput.TextInput(
+                      controller: _descriptionController,
+                      icon: Icons.text_snippet_outlined,
+                      label: AppLocalizations.of(context).description,
+                      // initialValue: widget.postMedia.description,
+                      callback: (value) {
+                        _updateValues();
+                      },
+                    ),
+                    CustomInput.TextInput(
+                      controller: _priceController,
+                      icon: Icons.attach_money_outlined,
+                      label: AppLocalizations.of(context).price,
+                      keyboardType: TextInputType.number,
+                      inputFormatter: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'^[0-9\.\,]+$'))
+                      ],
+                      callback: (value) {
+                        _updateValues();
+                      },
+                    ),
+                  ],
+                )),
           ],
         ),
       );
