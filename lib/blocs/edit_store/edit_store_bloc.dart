@@ -36,7 +36,15 @@ class EditStoreBloc extends Bloc<EditStoreEvent, EditStoreState> {
           var s = fetchStore(event.storeId);
           store = await s;
         }  else {
-          store = Store();
+          store = Store(openingTimes: {
+            "MO": [["09:00", "18:00"]],
+            "TU": [["09:00", "18:00"]],
+            "WE": [["09:00", "18:00"]],
+            "TH": [["09:00", "18:00"]],
+            "FR": [["09:00", "18:00"]],
+            "SA": [["09:00", "18:00"]],
+            "SU": [["09:00", "18:00"]],
+          });
           store.addresses = [];
           store.addresses.add(Address());
         }
@@ -75,6 +83,30 @@ class EditStoreBloc extends Bloc<EditStoreEvent, EditStoreState> {
       Store store = state.store;
       // @todo envoyer le form
       print("Store submitted");
+    } else if (event is AddHourEvent){
+      Store store = state.store;
+      String day = event.day;
+
+      store.openingTimes[day].add(["09:00", "18:00"]);
+
+      yield StartedEditStoreState(store: store, categories: state.categories, index: _incrementIndex());
+    } else if (event is DeleteHourEvent){
+      Store store = state.store;
+      String day = event.day;
+      int index = event.index;
+
+      store.openingTimes[day].removeAt(index);
+
+      yield StartedEditStoreState(store: store, categories: state.categories, index: _incrementIndex());
+    } else if (event is ChangeHourEvent){
+      Store store = state.store;
+      String day = event.day;
+      int index = event.index;
+      List<String> values = event.values;
+
+      store.openingTimes[day][index] = values;
+
+      yield StartedEditStoreState(store: store, categories: state.categories, index: _incrementIndex());
     }
   }
 }

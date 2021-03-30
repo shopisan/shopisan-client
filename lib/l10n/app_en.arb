@@ -57,5 +57,12 @@
   "addStore": "Add new store",
   "website": "Website",
   "country": "Country",
-  "appointmentOnly": "Appointment only"
+  "appointmentOnly": "Appointment only",
+  "mo": "Monday",
+  "tu": "Tuesday",
+  "we": "Wednesday",
+  "th": "Thursday",
+  "fr": "Friday",
+  "sa": "Saturday",
+  "su": "Sunday"
 }

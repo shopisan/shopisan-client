@@ -12,7 +12,7 @@ class TextInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      // height: 50,
       width: double.infinity,
       // padding: EdgeInsets.only(left: 10),
       margin: EdgeInsets.only(top: 10),
@@ -28,6 +28,7 @@ class TextInput extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        maxLines: null,
         controller: controller,
         style: GoogleFonts.roboto(
           color: CustomColors.textDescription,

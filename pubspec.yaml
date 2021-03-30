@@ -48,6 +48,7 @@ dependencies:
   geolocator: ^7.0.1
   http: ^0.13.1
   equatable: ^2.0.0
+  time_range_picker: ^2.0.1
 
 
 dev_dependencies:

@@ -65,3 +65,37 @@ class StoreSubmitEvent extends EditStoreEvent{
   @override
   List<Object> get props => [store];
 }
+
+class AddHourEvent extends EditStoreEvent{
+  final String day;
+
+  AddHourEvent({@required this.day});
+
+  @override
+  List<Object> get props => [day];
+}
+
+class DeleteHourEvent extends EditStoreEvent{
+  final String day;
+  final int index;
+
+  DeleteHourEvent({@required this.day, @required this.index});
+
+  @override
+  List<Object> get props => [day, index];
+}
+
+class ChangeHourEvent extends EditStoreEvent{
+  final String day;
+  final int index;
+  final List<String> values;
+
+  ChangeHourEvent({
+    @required this.day,
+    @required this.index,
+    @required this.values
+  });
+
+  @override
+  List<Object> get props => [day, index, values];
+}

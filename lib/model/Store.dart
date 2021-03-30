@@ -1,6 +1,5 @@
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
-import 'package:shopisan/model/OpeningTime.dart';
 import 'package:shopisan/model/File.dart';
 
 class Store {
@@ -8,14 +7,13 @@ class Store {
   String name;
   String url;
   String website;
-  List<OpeningTime> openingTimes;
+  Map<String, dynamic> openingTimes;
   File profilePicture;
   List<Category> categories;
   List<Address> addresses;
   String description;
   bool appointmentOnly;
   double evaluation;
-  // final String evaluation;
 
   Store({
     this.id,
@@ -27,7 +25,7 @@ class Store {
     this.categories,
     this.addresses,
     this.description,
-    this.appointmentOnly,
+    this.appointmentOnly = false,
     this.evaluation
   });
 
@@ -43,7 +41,7 @@ class Store {
       name: json['name'],
       url: json['url'],
       website: json['website'],
-      // openingTimes: [],
+      openingTimes: json['openingTimes'],
       profilePicture: json['profilePicture'],
       description: json['description'],
       appointmentOnly: json['appointmentOnly'],

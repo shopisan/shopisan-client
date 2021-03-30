@@ -13,6 +13,7 @@ import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 
 class ProfileCommercial extends StatelessWidget {
   final Store store;
@@ -29,9 +30,17 @@ class ProfileCommercial extends StatelessWidget {
       BlocProvider.of<EditStoreBloc>(context).add(AddAddressEvent());
     }
 
+    if (null == store) {
+      return LoadingIndicator();
+    }
+
     return Container(
       child: Column(
         children: [
+          TextInput(
+              controller: _nameController,
+              icon: Icons.store_outlined,
+              label: AppLocalizations.of(context).storeName),
           TextInput(
               controller: _nameController,
               icon: Icons.store_outlined,
@@ -66,7 +75,15 @@ class ProfileCommercial extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          OpeningHoursForm(),
+          CheckboxListTile(
+              value: store.appointmentOnly,
+              title: Text(AppLocalizations.of(context).appointmentOnly),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (value) {
+                store.appointmentOnly = value;
+                BlocProvider.of<EditStoreBloc>(context).add(StoreEditEvent(store: store));
+              }),
+          store.appointmentOnly ? Column() : OpeningHoursForm(store: store,),
           Column(children:
               store.addresses.asMap().map((index, Address address) => MapEntry(index,
                   StoreAddressRow(address: address, index: index)

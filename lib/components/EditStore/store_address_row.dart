@@ -77,7 +77,7 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
               label: AppLocalizations.of(context).country),
           ElevatedButton(
             onPressed: _deleteAddress,
-            child: Icon(Icons.add),
+            child: Icon(Icons.delete),
             style: ButtonStyle(
                 backgroundColor:
                 MaterialStateProperty.all<Color>(CustomColors.error)),

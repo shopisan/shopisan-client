@@ -55,5 +55,12 @@
   "website": "Site web",
   "country": "Pays",
   "appointmentOnly": "Sur rendez-vous uniquement",
-  "aroundYou": "AUTOUR DE TOI"
+  "aroundYou": "AUTOUR DE TOI",
+  "mo": "Lundi",
+  "tu": "Mardi",
+  "we": "Mercredi",
+  "th": "Jeudi",
+  "fr": "Vendredi",
+  "sa": "Samedi",
+  "su": "Dimanche"
 }
