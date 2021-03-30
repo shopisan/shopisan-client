@@ -33,7 +33,9 @@ class RouteGenerator {
               return StoreDetailScreen(storeId: args);
 
             case '/manage_post':
-              return ManagePost();
+              return ManagePost(
+                postId: args,
+              );
 
             case '/create_post':
               return BlocProvider<PostCreationBloc>(
@@ -42,6 +44,12 @@ class RouteGenerator {
                       ..add(IsStarted(postId: null /*args*/));
                   },
                   child: Scaffold(
+                    appBar: AppBar(
+                      backgroundColor: Colors.white,
+                      bottomOpacity: 0.0,
+                      elevation: 0,
+                      iconTheme: IconThemeData(color: Colors.black),
+                    ),
                     body: SingleChildScrollView(
                       child: PostCreation(),
                     ),

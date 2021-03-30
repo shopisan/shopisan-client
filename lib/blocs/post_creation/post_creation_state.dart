@@ -39,15 +39,16 @@ class DonePostCreationState extends PostCreationState {
   final String message;
   final bool success;
   final Post post;
+  final bool redirect;
 
-  const DonePostCreationState({
-    @required this.success,
-    @required this.message,
-    @required this.post
-  });
+  const DonePostCreationState(
+      {@required this.success,
+      @required this.message,
+      @required this.post,
+      this.redirect});
 
   @override
-  List<Object> get props => [success, message, post];
+  List<Object> get props => [success, message, post, redirect];
 }
 
 class RedirectPostCreationState extends PostCreationState {}

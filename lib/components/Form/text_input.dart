@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/theme/colors.dart';
 
@@ -6,8 +7,17 @@ class TextInput extends StatelessWidget {
   final TextEditingController controller;
   final IconData icon;
   final String label;
+  final Function callback;
+  final TextInputType keyboardType;
+  final List<dynamic> inputFormatter;
 
-  TextInput({@required this.controller, @required this.icon, @required this.label});
+  TextInput(
+      {@required this.controller,
+      @required this.icon,
+      @required this.label,
+      this.callback,
+      this.inputFormatter,
+      this.keyboardType});
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +43,9 @@ class TextInput extends StatelessWidget {
           color: CustomColors.textDescription,
           fontSize: 14,
         ),
+        onChanged: callback,
+        keyboardType: keyboardType,
+        inputFormatters: inputFormatter,
         decoration: InputDecoration(
             prefixIcon: Icon(
               icon,

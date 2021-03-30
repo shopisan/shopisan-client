@@ -111,7 +111,7 @@ class ProfileScreen extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: 10),
                           child: Text(
-                            AppLocalizations.of(context).yourPost,
+                            AppLocalizations.of(context).yourPosts,
                             style: GoogleFonts.poppins(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,

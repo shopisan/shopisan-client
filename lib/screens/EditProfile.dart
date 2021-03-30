@@ -41,15 +41,17 @@ class _EditProfileState extends State<EditProfile> {
       return LoadingIndicator();
     } else if (state is ErrorProfileEditState) {
       // @todo afficher une snackbar avec l'erreur
-      print("${state.error}");
+      print("error message : ${state.error}");
       WidgetsBinding.instance.addPostFrameCallback((_) {
         // comme la snackbar est appelée avant le build du widget scaffold
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(state.error == 'submit'
-              ? AppLocalizations.of(context).profileError
-              : AppLocalizations.of(context).profilePicError),
-          backgroundColor: CustomColors.error,
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.error == 'submit'
+                ? AppLocalizations.of(context).profileError
+                : AppLocalizations.of(context).profilePicError),
+            backgroundColor: CustomColors.error,
+          ),
+        );
       });
     } else if (state is SuccessProfileEditState) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

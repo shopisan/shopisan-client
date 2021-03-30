@@ -10,6 +10,6 @@ class CustomColors {
   static const spreadRegister = Color(0xFFECF0FF);
   static const commercialBlue = Color(0xFFF5F9FE);
   static const commercialTag = Color(0xFFFFCFCF);
-  static const success = Color(0xFF517F40);
-  static const error = Color(0xFF8B4848);
+  static const success = Color(0xFF60D234);
+  static const error = Color(0xFFFA3C3C);
 }
