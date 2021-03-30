@@ -23,6 +23,7 @@ class ProfileCommercial extends StatelessWidget {
 
   final _nameController = TextEditingController();
   final _websiteController = TextEditingController();
+  final _descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +43,12 @@ class ProfileCommercial extends StatelessWidget {
               icon: Icons.store_outlined,
               label: AppLocalizations.of(context).storeName),
           TextInput(
-              controller: _nameController,
+              controller: _descriptionController,
               icon: Icons.store_outlined,
-              label: AppLocalizations.of(context).storeName),
+              label: AppLocalizations.of(context).description,
+              keyboardType: TextInputType.multiline,
+              isTextarea: true,
+          ),
           TextInput(
               controller: _websiteController,
               icon: Icons.web,

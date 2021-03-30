@@ -10,6 +10,7 @@ class TextInput extends StatelessWidget {
   final Function callback;
   final TextInputType keyboardType;
   final List<dynamic> inputFormatter;
+  final bool isTextarea;
 
   TextInput(
       {@required this.controller,
@@ -17,12 +18,13 @@ class TextInput extends StatelessWidget {
       @required this.label,
       this.callback,
       this.inputFormatter,
-      this.keyboardType});
+      this.keyboardType,
+      this.isTextarea = false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 50,
+      height: isTextarea ? null :  50,
       width: double.infinity,
       // padding: EdgeInsets.only(left: 10),
       margin: EdgeInsets.only(top: 10),
