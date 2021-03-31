@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 import 'package:shopisan/components/Feed/post_media_form.dart';
 import 'package:shopisan/components/Utils/confirm.dart';
@@ -153,14 +152,10 @@ class _PostCreationState extends State<PostCreation> {
                     : TextButton(
                         onPressed: _sendForm,
                         child: Text(
-                          post.id == null
-                              ? AppLocalizations.of(context).createPost
-                              : AppLocalizations.of(context).editPost,
-                          style: GoogleFonts.poppins(
-                              fontSize: 24.0,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),
-                        ),
+                            post.id == null
+                                ? AppLocalizations.of(context).createPost
+                                : AppLocalizations.of(context).editPost,
+                            style: Theme.of(context).textTheme.headline3),
                       ),
               ),
               post.id == null
@@ -175,13 +170,8 @@ class _PostCreationState extends State<PostCreation> {
                       ),
                       child: TextButton(
                         onPressed: _deletePost,
-                        child: Text(
-                          AppLocalizations.of(context).deletePost,
-                          style: GoogleFonts.poppins(
-                              fontSize: 24.0,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),
-                        ),
+                        child: Text(AppLocalizations.of(context).deletePost,
+                            style: Theme.of(context).textTheme.headline3),
                       ),
                     ),
             ],

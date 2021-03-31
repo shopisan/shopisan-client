@@ -26,11 +26,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              AppLocalizations.of(context).forgotPassword,
-              style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold, fontSize: 30),
-            ),
+            Text(AppLocalizations.of(context).forgotPassword,
+                style: Theme.of(context).textTheme.headline5),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 20, 10, 40),
               child: Text(
@@ -59,10 +56,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ],
               ),
               child: TextField(
-                style: GoogleFonts.roboto(
-                  color: CustomColors.textDescription,
-                  fontSize: 14,
-                ),
+                style: Theme.of(context).textTheme.bodyText1,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(40),

@@ -38,10 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     Text(
                       AppLocalizations.of(context).signUp,
-                      style: GoogleFonts.poppins(
-                          color: CustomColors.textResearch,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30),
+                      style: Theme.of(context).textTheme.headline5,
                     ),
                     Container(
                       height: 50,
@@ -60,10 +57,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ],
                       ),
                       child: TextFormField(
-                        style: GoogleFonts.roboto(
-                          color: CustomColors.textDescription,
-                          fontSize: 14,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText1,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(40),
@@ -100,10 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       child: TextFormField(
                         obscureText: true,
-                        style: GoogleFonts.roboto(
-                          color: CustomColors.textDescription,
-                          fontSize: 14,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText1,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(40),
@@ -139,10 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       child: TextFormField(
                         obscureText: true,
-                        style: GoogleFonts.roboto(
-                          color: CustomColors.textDescription,
-                          fontSize: 14,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText1,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(40),
@@ -204,10 +192,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                       child: Text(
                         AppLocalizations.of(context).signUpStore,
-                        style: GoogleFonts.roboto(
-                          fontSize: 14,
-                          color: CustomColors.textDescription,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
                     // ignore: deprecated_member_use

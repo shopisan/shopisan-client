@@ -1,36 +1,19 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
+import 'package:shopisan/api_connection/api_connection.dart';
+import 'package:shopisan/components/ManagePost/my_posts.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 
 class ManagePost extends StatefulWidget {
-  const ManagePost({Key key, @required this.postId}) : super(key: key);
-
-  final int postId;
-
   @override
   _ManagePostState createState() => _ManagePostState();
 }
 
 class _ManagePostState extends State<ManagePost> {
-  Future<Post> getPost() async {
-    final response = await http.get(
-        Uri.http("10.0.2.2:8000", "/api/posts/posts/"),
-        headers: {'Accept': 'application/json'});
-    try {
-      if (response.statusCode == 200) {
-        return Post.fromJson(json.decode(response.body));
-      }
-    } catch (Exception) {
-      print("Oops: $Exception");
-    }
-    return null;
-  }
+  List<Post> posts = [];
 
   @override
   Widget build(BuildContext context) {
@@ -59,46 +42,39 @@ class _ManagePostState extends State<ManagePost> {
                   Icons.post_add_outlined,
                   color: Colors.black,
                 ),
-                label: Text(
-                  AppLocalizations.of(context).createPost,
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.black),
-                ),
+                label: Text(AppLocalizations.of(context).createPost,
+                    style: Theme.of(context).textTheme.headline3),
                 onPressed: () {
                   Navigator.pushNamed(context, '/create_post');
                 },
               ),
             ),
-            // SingleChildScrollView(
-            //   child: Container(
-            //     width: double.infinity,
-            //     margin: EdgeInsets.fromLTRB(20, 20, 0, 20),
-            //     child: Column(
-            //       mainAxisAlignment: MainAxisAlignment.start,
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       children: [
-            //         Text(
-            //           AppLocalizations.of(context).yourPosts,
-            //           style: GoogleFonts.poppins(
-            //               fontSize: 16, fontWeight: FontWeight.bold),
-            //         ),
-            //         Padding(
-            //             padding: EdgeInsets.all(10),
-            //             child: SizedBox(
-            //               height: (MediaQuery.of(context).size.height),
-            //               width: double.infinity,
-            //               child: ListView(
-            //                   scrollDirection: Axis.vertical,
-            //                   children: [
-            //                     MyPosts(),
-            //                   ]),
-            //             )),
-            //       ],
-            //     ),
-            //   ),
-            // )
+            Container(
+              width: double.infinity,
+              margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              child: Text(AppLocalizations.of(context).post,
+                  style: Theme.of(context).textTheme.headline4),
+            ),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    // color: Colors.red,
+                    height: 550,
+                    margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                    child: FutureBuilder(
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return MyPosts(posts: snapshot.data);
+                        }
+                        return LoadingIndicator();
+                      },
+                      future: getPosts(),
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

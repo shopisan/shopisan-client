@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
 
 class HeaderPostsCommercial extends StatelessWidget {
   @override
@@ -9,13 +9,7 @@ class HeaderPostsCommercial extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
-              "Product Name",
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text("Product Name", style: Theme.of(context).textTheme.headline1),
           ],
         ));
   }

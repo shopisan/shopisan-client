@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/theme/colors.dart';
 
@@ -32,13 +31,8 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
-                          child: Text(
-                            AppLocalizations.of(context).editProfile,
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
+                          child: Text(AppLocalizations.of(context).editProfile,
+                              style: Theme.of(context).textTheme.headline3),
                         ),
                       ],
                     ),
@@ -71,13 +65,8 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
-                          child: Text(
-                            AppLocalizations.of(context).editStore,
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
+                          child: Text(AppLocalizations.of(context).editStore,
+                              style: Theme.of(context).textTheme.headline3),
                         ),
                       ],
                     ),
@@ -110,13 +99,8 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
-                          child: Text(
-                            AppLocalizations.of(context).yourPosts,
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
+                          child: Text(AppLocalizations.of(context).editPosts,
+                              style: Theme.of(context).textTheme.headline3),
                         ),
                       ],
                     ),
@@ -149,13 +133,8 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
-                          child: Text(
-                            AppLocalizations.of(context).logOut,
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
+                          child: Text(AppLocalizations.of(context).logOut,
+                              style: Theme.of(context).textTheme.headline3),
                         ),
                       ],
                     ),

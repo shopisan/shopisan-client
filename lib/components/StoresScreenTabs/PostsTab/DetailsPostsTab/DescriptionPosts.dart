@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopisan/theme/colors.dart';
 
 class DescriptionPosts extends StatefulWidget {
   @override
@@ -23,10 +23,7 @@ class _DescriptionPostsState extends State<DescriptionPosts> {
               child: Text(
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu quam nec erat feugiat sollicitudin non vitae nisl."
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu quam nec erat feugiat sollicitudin non vitae nisl.",
-                style: GoogleFonts.poppins(
-                  color: CustomColors.textDescription,
-                  fontSize: 14,
-                ),
+                style: Theme.of(context).textTheme.bodyText1,
                 textAlign: TextAlign.left,
               ),
             ),

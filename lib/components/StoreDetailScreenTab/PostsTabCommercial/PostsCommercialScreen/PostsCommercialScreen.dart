@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/DetailsPostsCommercialScreen/DescriptionPostsCommercial.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/DetailsPostsCommercialScreen/HeaderPostsCommercial.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/DetailsPostsCommercialScreen/PicturesPostsCommercial.dart';
@@ -18,14 +17,8 @@ class _PostsCommercialScreenState extends State<PostsCommercialScreen> {
       appBar: AppBar(
         backgroundColor: CustomColors.commercialBlue,
         iconTheme: IconThemeData(color: Colors.black),
-        title: Text(
-          "Commercial Name",
-          style: GoogleFonts.poppins(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
+        title: Text("Commercial Name",
+            style: Theme.of(context).textTheme.headline2),
       ),
       body: Container(
         color: CustomColors.commercialBlue,

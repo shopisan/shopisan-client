@@ -10,6 +10,7 @@ import 'package:shopisan/components/StoresScreenTabs/MapTab/MapTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/PostsTab/PostsTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/SettingsTab/SettingsTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/StoreListTab/StoreListTab.dart';
+import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
@@ -23,6 +24,7 @@ class _StoresScreenState extends State<StoresScreen> {
   String latitudeData;
   String longitudeData;
   List<Store> stores = [];
+  List<Post> posts = [];
   List<dynamic> selectedCategoriesId;
 
   void setSelectedCats(List<dynamic> selectedCats) async {
@@ -38,8 +40,8 @@ class _StoresScreenState extends State<StoresScreen> {
   getCurrentLocation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print("getting location");
-    final geoposition = await Geolocator
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    final geoposition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
     print(geoposition);
     setState(() {
       latitudeData = "${geoposition.latitude}";
@@ -149,7 +151,7 @@ class _StoresScreenState extends State<StoresScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _tabs = <Widget>[
-      PostsTab(stores: stores),
+      PostsTab(stores: stores, posts: posts),
       StoreListTab(setSelectedCats: setSelectedCats, stores: stores),
       MapTab(
         stores: stores,

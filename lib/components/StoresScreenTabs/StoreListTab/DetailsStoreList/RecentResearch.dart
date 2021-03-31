@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/theme/colors.dart';
 
@@ -25,13 +24,8 @@ class RecentResearch extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            AppLocalizations.of(context).recentResearch,
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          Text(AppLocalizations.of(context).recentResearch.toUpperCase(),
+              style: Theme.of(context).textTheme.headline4),
           SizedBox(
             height: 40,
             child: ListView(

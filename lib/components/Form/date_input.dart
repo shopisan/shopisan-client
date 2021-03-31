@@ -1,6 +1,5 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shopisan/theme/colors.dart';
 
@@ -9,12 +8,13 @@ class DateInput extends StatelessWidget {
   final IconData icon;
   final DateFormat format;
 
-  DateInput({@required this.controller, @required this.icon, @required this.format});
+  DateInput(
+      {@required this.controller, @required this.icon, @required this.format});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 60,
       width: double.infinity,
       padding: EdgeInsets.only(left: 10),
       margin: EdgeInsets.only(top: 10),
@@ -30,10 +30,7 @@ class DateInput extends StatelessWidget {
         ],
       ),
       child: DateTimeField(
-        style: GoogleFonts.roboto(
-          color: CustomColors.textDescription,
-          fontSize: 14,
-        ),
+        style: Theme.of(context).textTheme.bodyText1,
         controller: controller,
         format: format,
         decoration: InputDecoration(

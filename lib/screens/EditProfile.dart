@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
 import 'package:shopisan/components/EditProfile/FormProfile.dart';
@@ -86,7 +85,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
               Container(
                 margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                height: 50,
+                height: 60,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
@@ -96,13 +95,8 @@ class _EditProfileState extends State<EditProfile> {
                     ? LoadingIndicator()
                     : TextButton(
                         onPressed: _submitUser,
-                        child: Text(
-                          AppLocalizations.of(context).save,
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.black),
-                        ),
+                        child: Text(AppLocalizations.of(context).save,
+                            style: Theme.of(context).textTheme.headline2),
                       ),
               ),
             ],

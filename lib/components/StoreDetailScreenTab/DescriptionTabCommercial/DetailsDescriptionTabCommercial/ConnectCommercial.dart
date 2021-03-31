@@ -26,13 +26,8 @@ class _ConnectCommercialState extends State<ConnectCommercial> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              AppLocalizations.of(context).connectCommercial,
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            Text(AppLocalizations.of(context).connectCommercial.toUpperCase(),
+                style: Theme.of(context).textTheme.headline3),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
