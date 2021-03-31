@@ -65,8 +65,6 @@ class EditStore extends StatelessWidget {
                       store: store,
                       categories: categories,
                     ),
-
-                    ProfileCommercial(store: store, categories: categories,),
                   ],
                 ),
               ),

@@ -156,7 +156,7 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)))),
-        ),
+        ),)
         ],
       ),
     );
