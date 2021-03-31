@@ -205,6 +205,22 @@ Future<int> createPost(Post post) async {
   }
 }
 
+Future<List<Post>> getPosts() async {
+  Map<String, String> headers = await getHeaders();
+
+  try {
+    final response =
+        await http.get(Uri.http(_base, "/api/posts/posts/"), headers: headers);
+
+    if (response.statusCode == 200) {
+      return PostCollection.fromJson(jsonDecode(response.body)).posts;
+    }
+  } catch (Exception) {
+    print("Oops: $Exception");
+  }
+  return null;
+}
+
 Future<Post> loadPost(int postId) async {
   Map<String, String> headers = await getHeaders();
 

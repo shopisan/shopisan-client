@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'colors.dart';
 
@@ -11,8 +12,29 @@ class CustomTheme {
         fontFamily: 'Poppins',
         buttonTheme: ButtonThemeData(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-          buttonColor: CustomColors.textResearch,
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          buttonColor: CustomColors.iconsActive,
+        ),
+        textTheme: TextTheme(
+          headline1:
+              GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold),
+          headline2: GoogleFonts.poppins(
+              fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+          headline3: GoogleFonts.poppins(
+              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+          headline4: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+          headline5: GoogleFonts.poppins(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: CustomColors.textResearch),
+          bodyText1: GoogleFonts.poppins(
+              fontSize: 14, color: CustomColors.textDescription),
+          bodyText2: GoogleFonts.poppins(
+              fontSize: 12, color: CustomColors.textDescription),
         ));
   }
 }

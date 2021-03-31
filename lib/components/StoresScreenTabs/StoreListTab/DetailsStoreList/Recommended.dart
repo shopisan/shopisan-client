@@ -13,13 +13,7 @@ class Recommended extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "RECOMMENDED",
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              Text("RECOMMENDED", style: Theme.of(context).textTheme.headline1),
               Container(
                 padding: EdgeInsets.only(right: 30),
                 child: Row(

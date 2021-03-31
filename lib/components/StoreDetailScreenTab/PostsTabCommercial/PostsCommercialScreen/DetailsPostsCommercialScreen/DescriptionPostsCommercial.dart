@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopisan/theme/colors.dart';
 
 class DescriptionPostsCommercial extends StatelessWidget {
   @override
@@ -16,10 +16,7 @@ class DescriptionPostsCommercial extends StatelessWidget {
             child: Text(
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu quam nec erat feugiat sollicitudin non vitae nisl."
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu quam nec erat feugiat sollicitudin non vitae nisl.",
-              style: GoogleFonts.poppins(
-                color: CustomColors.textDescription,
-                fontSize: 14,
-              ),
+              style: Theme.of(context).textTheme.bodyText1,
               textAlign: TextAlign.left,
             ),
           ),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 import 'package:shopisan/components/Form/text_input.dart' as CustomInput;
@@ -126,11 +125,9 @@ class _PostMediaFormState extends State<PostMediaForm> {
                       ? (widget.postMedia.media != null
                           ? Image.network(widget.postMedia.media.file)
                           : Center(
-                              child: Text(
-                              AppLocalizations.of(context).noImage,
-                              style: GoogleFonts.poppins(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            )))
+                              child: Text(AppLocalizations.of(context).noImage,
+                                  style: Theme.of(context).textTheme.headline1),
+                            ))
                       : Image.file(_image),
                 ),
                 Positioned(
@@ -156,12 +153,11 @@ class _PostMediaFormState extends State<PostMediaForm> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
-                                      AppLocalizations.of(context)
-                                          .choosePicture,
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16),
-                                    ),
+                                        AppLocalizations.of(context)
+                                            .choosePicture,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline1),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -178,11 +174,11 @@ class _PostMediaFormState extends State<PostMediaForm> {
                                           icon: Icon(Icons.camera,
                                               color: Colors.black),
                                           label: Text(
-                                            AppLocalizations.of(context).camera,
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 14,
-                                                color: Colors.black),
-                                          ),
+                                              AppLocalizations.of(context)
+                                                  .camera,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline3),
                                         ),
                                         TextButton.icon(
                                           style: ButtonStyle(
@@ -196,12 +192,11 @@ class _PostMediaFormState extends State<PostMediaForm> {
                                           icon: Icon(Icons.image,
                                               color: Colors.black),
                                           label: Text(
-                                            AppLocalizations.of(context)
-                                                .gallery,
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 14,
-                                                color: Colors.black),
-                                          ),
+                                              AppLocalizations.of(context)
+                                                  .gallery,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline2),
                                         )
                                       ],
                                     )
@@ -230,6 +225,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
                 child: Column(
                   children: [
                     CustomInput.TextInput(
+                      isTextarea: true,
                       controller: _descriptionController,
                       icon: Icons.text_snippet_outlined,
                       label: AppLocalizations.of(context).description,

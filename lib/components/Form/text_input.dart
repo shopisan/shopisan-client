@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class TextInput extends StatelessWidget {
@@ -24,10 +23,10 @@ class TextInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: isTextarea ? null :  50,
+      height: isTextarea ? null : 60,
       width: double.infinity,
       // padding: EdgeInsets.only(left: 10),
-      margin: EdgeInsets.only(top: 10),
+      margin: EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(40),
@@ -42,10 +41,7 @@ class TextInput extends StatelessWidget {
       child: TextFormField(
         maxLines:  isTextarea ? null : 1,
         controller: controller,
-        style: GoogleFonts.roboto(
-          color: CustomColors.textDescription,
-          fontSize: 14,
-        ),
+        style: Theme.of(context).textTheme.bodyText1,
         onChanged: callback,
         keyboardType: keyboardType,
         inputFormatters: inputFormatter,

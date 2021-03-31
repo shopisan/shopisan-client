@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/model/Store.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/theme/colors.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/utils/common.dart';
 
 class EditStoreSelectionScreen extends StatelessWidget {
@@ -19,12 +18,11 @@ class EditStoreSelectionScreen extends StatelessWidget {
       print(user.profile.ownedStores);
 
       final List<Widget> storeList = [];
-      for (Store store in user.profile.ownedStores){
+      for (Store store in user.profile.ownedStores) {
         storeList.add(EditStoreLink(storeName: store.name, storeId: store.id));
       }
       storeList.add(EditStoreLink(
-          storeName: AppLocalizations.of(context).addStore,
-          storeId: null));
+          storeName: AppLocalizations.of(context).addStore, storeId: null));
 
       return Scaffold(
           appBar: AppBar(
@@ -51,7 +49,7 @@ class EditStoreLink extends StatelessWidget {
     return Container(
         height: 80,
         padding: EdgeInsets.all(20),
-        margin: EdgeInsets.only(bottom: 10),
+        margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: CustomColors.search),
@@ -67,13 +65,8 @@ class EditStoreLink extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 10),
-                    child: Text(
-                      storeName,
-                      style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
+                    child: Text(storeName,
+                        style: Theme.of(context).textTheme.headline2),
                   ),
                 ],
               ),

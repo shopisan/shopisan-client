@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
 import 'package:shopisan/model/File.dart' as FileModel;
@@ -71,11 +70,8 @@ class ProfilePictureState extends State<ProfilePicture> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(
-                                AppLocalizations.of(context).choosePicture,
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
+                              Text(AppLocalizations.of(context).choosePicture,
+                                  style: Theme.of(context).textTheme.headline1),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -91,10 +87,10 @@ class ProfilePictureState extends State<ProfilePicture> {
                                     icon:
                                         Icon(Icons.camera, color: Colors.black),
                                     label: Text(
-                                      AppLocalizations.of(context).camera,
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 14, color: Colors.black),
-                                    ),
+                                        AppLocalizations.of(context).camera,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2),
                                   ),
                                   TextButton.icon(
                                     style: ButtonStyle(
@@ -107,10 +103,10 @@ class ProfilePictureState extends State<ProfilePicture> {
                                     icon:
                                         Icon(Icons.image, color: Colors.black),
                                     label: Text(
-                                      AppLocalizations.of(context).gallery,
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 14, color: Colors.black),
-                                    ),
+                                        AppLocalizations.of(context).gallery,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2),
                                   )
                                 ],
                               )

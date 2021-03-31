@@ -30,13 +30,8 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  "Sign Up A Store",
-                  style: GoogleFonts.poppins(
-                      color: CustomColors.textResearch,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30),
-                ),
+                Text("Sign Up A Store",
+                    style: Theme.of(context).textTheme.headline5),
                 Container(
                   height: 50,
                   width: double.infinity,
@@ -54,10 +49,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                     ],
                   ),
                   child: TextField(
-                    style: GoogleFonts.roboto(
-                      color: CustomColors.textDescription,
-                      fontSize: 14,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
@@ -93,10 +85,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                   ),
                   child: TextField(
                     obscureText: true,
-                    style: GoogleFonts.roboto(
-                      color: CustomColors.textDescription,
-                      fontSize: 14,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
@@ -133,10 +122,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                   ),
                   child: TextField(
                     obscureText: true,
-                    style: GoogleFonts.roboto(
-                      color: CustomColors.textDescription,
-                      fontSize: 14,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),

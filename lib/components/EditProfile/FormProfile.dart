@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shopisan/components/Form/date_input.dart';
 import 'package:shopisan/components/Form/text_input.dart';
@@ -47,11 +46,8 @@ class FormProfile extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
-              child: Text(
-                user.username,
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.bold, fontSize: 16),
-              ),
+              child: Text(user.username,
+                  style: Theme.of(context).textTheme.headline1),
             ),
             TextInput(
               controller: _userNameController,

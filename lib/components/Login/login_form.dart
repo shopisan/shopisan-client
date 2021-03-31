@@ -43,13 +43,8 @@ class _LoginFormState extends State<LoginForm> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text(
-                      AppLocalizations.of(context).logIn,
-                      style: GoogleFonts.poppins(
-                          color: CustomColors.textResearch,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30),
-                    ),
+                    Text(AppLocalizations.of(context).logIn,
+                        style: Theme.of(context).textTheme.headline5),
                     Container(
                       height: 50,
                       width: double.infinity,
@@ -68,10 +63,7 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                       child: TextFormField(
                         controller: _usernameController,
-                        style: GoogleFonts.roboto(
-                          color: CustomColors.textDescription,
-                          fontSize: 14,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText1,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(40),
@@ -105,10 +97,7 @@ class _LoginFormState extends State<LoginForm> {
                       child: TextFormField(
                         controller: _passwordController,
                         obscureText: true,
-                        style: GoogleFonts.roboto(
-                          color: CustomColors.textDescription,
-                          fontSize: 14,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText1,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(40),
@@ -164,10 +153,7 @@ class _LoginFormState extends State<LoginForm> {
                         },
                         child: Text(
                           AppLocalizations.of(context).forgotPassword,
-                          style: GoogleFonts.roboto(
-                            fontSize: 14,
-                            color: CustomColors.textDescription,
-                          ),
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
                     ),

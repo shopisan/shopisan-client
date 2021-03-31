@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/DescriptionTabCommercial/DetailsDescriptionTabCommercial/ConnectCommercial.dart';
 import 'package:shopisan/model/OpeningTime.dart';
 import 'package:shopisan/model/Store.dart';
@@ -51,12 +50,8 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                   bottom: BorderSide(color: CustomColors.spread),
                 )),
                 child: Text(
-                  AppLocalizations.of(context).description,
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
+                    AppLocalizations.of(context).description.toUpperCase(),
+                    style: Theme.of(context).textTheme.headline3),
               ),
               Container(
                 width: double.infinity,
@@ -66,10 +61,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                   child: Text(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at sapien non nulla vestibulum elementum et sed eros. Proin et metus vel urna elementum euismod."
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at sapien non nulla vestibulum elementum et sed eros. Proin et metus vel urna elementum euismod.",
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      color: CustomColors.textDescription,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
               ),

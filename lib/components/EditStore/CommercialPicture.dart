@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/model/Store.dart';
@@ -76,11 +75,8 @@ class _CommercialPictureState extends State<CommercialPicture> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(
-                                AppLocalizations.of(context).choosePicture,
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
+                              Text(AppLocalizations.of(context).choosePicture,
+                                  style: Theme.of(context).textTheme.headline1),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -96,10 +92,10 @@ class _CommercialPictureState extends State<CommercialPicture> {
                                     icon:
                                         Icon(Icons.camera, color: Colors.black),
                                     label: Text(
-                                      AppLocalizations.of(context).camera,
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 14, color: Colors.black),
-                                    ),
+                                        AppLocalizations.of(context).camera,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2),
                                   ),
                                   TextButton.icon(
                                     style: ButtonStyle(
@@ -112,10 +108,10 @@ class _CommercialPictureState extends State<CommercialPicture> {
                                     icon:
                                         Icon(Icons.image, color: Colors.black),
                                     label: Text(
-                                      AppLocalizations.of(context).gallery,
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 14, color: Colors.black),
-                                    ),
+                                        AppLocalizations.of(context).gallery,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2),
                                   )
                                 ],
                               )

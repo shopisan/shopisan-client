@@ -43,7 +43,7 @@ class ProfileCommercial extends StatelessWidget {
       _nameController, _descriptionController, _websiteController
     ];
 
-    _addAddress(){
+    _addAddress() {
       BlocProvider.of<EditStoreBloc>(context).add(AddAddressEvent());
     }
 
@@ -66,6 +66,8 @@ class ProfileCommercial extends StatelessWidget {
 
     return Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextInput(
               controller: _nameController,
@@ -73,16 +75,23 @@ class ProfileCommercial extends StatelessWidget {
               label: AppLocalizations.of(context).storeName,
           ),
           TextInput(
-              controller: _descriptionController,
-              icon: Icons.store_outlined,
-              label: AppLocalizations.of(context).description,
-              keyboardType: TextInputType.multiline,
-              isTextarea: true,
+            controller: _descriptionController,
+            icon: Icons.store_outlined,
+            label: AppLocalizations.of(context).description,
+            keyboardType: TextInputType.multiline,
+            isTextarea: true,
           ),
           TextInput(
               controller: _websiteController,
               icon: Icons.web,
               label: AppLocalizations.of(context).website,),
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 40, 0, 10),
+            child: Text(
+              AppLocalizations.of(context).searchCat.toUpperCase(),
+              style: Theme.of(context).textTheme.headline3,
+            ),
+          ),
           MultiSelectDialogField(
             buttonIcon: Icon(
               Icons.search,
@@ -101,7 +110,7 @@ class ProfileCommercial extends StatelessWidget {
                 : [],
             initialValue: _initialCats,
             listType: MultiSelectListType.LIST,
-            chipDisplay: MultiSelectChipDisplay.none(),
+            // chipDisplay: MultiSelectChipDisplay.none(),
             onConfirm: (values) {
               print('cats $values');
               BlocProvider.of<EditStoreBloc>(context).add(StoreEditCategoriesEvent(categoriesIds: values));
@@ -111,23 +120,75 @@ class ProfileCommercial extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          CheckboxListTile(
-              value: store.appointmentOnly,
-              title: Text(AppLocalizations.of(context).appointmentOnly),
-              controlAffinity: ListTileControlAffinity.leading,
-              onChanged: (value) {
-                store.appointmentOnly = value;
-                BlocProvider.of<EditStoreBloc>(context).add(StoreEditEvent(store: store));
-              }),
-          store.appointmentOnly ? Column() : OpeningHoursForm(store: store,),
-          Column(children:
-              store.addresses.asMap().map((index, Address address) => MapEntry(index,
-                  StoreAddressRow(address: address, index: index)
-              )
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 20),
+            child: Text(
+              AppLocalizations.of(context).selectHours.toUpperCase(),
+              style: Theme.of(context).textTheme.headline3,
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: CustomColors.search,
+                borderRadius: BorderRadius.circular(10)),
+            margin: EdgeInsets.only(bottom: 10),
+            padding: EdgeInsets.all(5),
+            child: CheckboxListTile(
+                checkColor: Colors.white,
+                activeColor: CustomColors.iconsActive,
+                value: store.appointmentOnly,
+                title: Text(
+                  AppLocalizations.of(context).appointmentOnly.toUpperCase(),
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+                controlAffinity: ListTileControlAffinity.leading,
+                onChanged: (value) {
+                  store.appointmentOnly = value;
+                  BlocProvider.of<EditStoreBloc>(context)
+                      .add(StoreEditEvent(store: store));
+                }),
+          ),
+
+          store.appointmentOnly
+              ? Column()
+              : OpeningHoursForm(
+                  store: store,
+                ),
+          Column(
+            children: store.addresses
+                .asMap()
+                .map((index, Address address) => MapEntry(
+                    index, StoreAddressRow(address: address, index: index)))
+                .values
+                .toList(),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                width: 50,
+                child: ElevatedButton(
+                  onPressed: _addAddress,
+                  child: Icon(
+                    Icons.add,
+                    size: 15,
+                  ),
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(CustomColors.success),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)))),
+                ),
+              ),
+            ],
+          )
 
               ).values.toList()
             ,),
           ElevatedButton(onPressed: _addAddress, child: Icon(Icons.add)),
+          // @todo ajouter une input pour gérer les heures d'ouvertures
+          // @todo ajouter une collection pour gérer les addresses
         ],
       ),
     );

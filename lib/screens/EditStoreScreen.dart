@@ -50,17 +50,20 @@ class EditStore extends StatelessWidget {
           padding: EdgeInsets.all(10),
           child: Column(
             children: [
-              CommercialPicture(store: store,),
+              CommercialPicture(
+                store: store,
+              ),
               Container(
                 padding: EdgeInsets.fromLTRB(10, 30, 10, 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      AppLocalizations.of(context).profile,
-                      style: GoogleFonts.poppins(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                    Text(AppLocalizations.of(context).profile.toUpperCase(),
+                        style: Theme.of(context).textTheme.headline3),
+                    ProfileCommercial(
+                      store: store,
+                      categories: categories,
                     ),
 
                     ProfileCommercial(store: store, categories: categories,),

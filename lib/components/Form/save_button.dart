@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:shopisan/theme/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shopisan/theme/colors.dart';
 
 class SaveButton extends StatelessWidget {
   final Function callback;
@@ -22,13 +21,8 @@ class SaveButton extends StatelessWidget {
         onPressed: () {
           callback();
         },
-        child: Text(
-          AppLocalizations.of(context).save,
-          style: GoogleFonts.poppins(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              color: Colors.black),
-        ),
+        child: Text(AppLocalizations.of(context).save,
+            style: Theme.of(context).textTheme.headline3),
       ),
     );
   }

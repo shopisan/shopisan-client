@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
-import 'package:shopisan/theme/colors.dart';
 
 class MapItem extends StatelessWidget {
   const MapItem({Key key, @required this.stores, @required this.categories})
@@ -18,7 +16,7 @@ class MapItem extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(10),
       child: SizedBox(
-        height: 100,
+        height: double.infinity,
         width: 400,
         child: ListView(
           shrinkWrap: true,
@@ -36,7 +34,7 @@ class MapItem extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white,
                       ),
-                      margin: EdgeInsets.only(right: 10),
+                      margin: EdgeInsets.only(right: 5),
                       child: Column(
                         children: [
                           Container(
@@ -70,10 +68,7 @@ class MapItem extends StatelessWidget {
                                 Text(
                                   "${store.name}",
                                   // AppLocalizations.of(context).commercialName,
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 12,
-                                    color: CustomColors.textDescription,
-                                  ),
+                                  style: Theme.of(context).textTheme.bodyText2,
                                 ),
                               ],
                             ),

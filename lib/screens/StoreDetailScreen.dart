@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
@@ -130,14 +129,8 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
             iconTheme: IconThemeData(color: Colors.black),
             title: Column(
               children: [
-                Text(
-                  "${store.name}",
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
+                Text("${store.name}",
+                    style: Theme.of(context).textTheme.headline2),
               ],
             ),
             actions: [

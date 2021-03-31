@@ -33,15 +33,12 @@ class RouteGenerator {
               return StoreDetailScreen(storeId: args);
 
             case '/manage_post':
-              return ManagePost(
-                postId: args,
-              );
+              return ManagePost();
 
             case '/create_post':
               return BlocProvider<PostCreationBloc>(
                   create: (context) {
-                    return PostCreationBloc()
-                      ..add(IsStarted(postId: null /*args*/));
+                    return PostCreationBloc()..add(IsStarted(postId: args));
                   },
                   child: Scaffold(
                     appBar: AppBar(

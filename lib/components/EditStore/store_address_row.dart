@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/components/Form/text_input.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/theme/colors.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:country_picker/src/res/country_codes.dart' as CountryCodes;
-
 
 class StoreAddressRow extends StatefulWidget {
   final Address address;
@@ -36,25 +35,28 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
     selectedCountry = address.country;
 
     List<TextEditingController> controllers = [
-      _streetController, _cityController, _postalCodeController
+      _streetController, _cityController,
+      _postalCodeController
     ];
 
-    _updateAddress(){
+    _updateAddress() {
       address.streetAvenue = _streetController.text;
       address.postalCode = _postalCodeController.text;
       address.city = _cityController.text;
       address.country = selectedCountry;
-      BlocProvider.of<EditStoreBloc>(context).add(StoreAddressEditEvent(address: address, index: index));
+      BlocProvider.of<EditStoreBloc>(context)
+          .add(StoreAddressEditEvent(address: address, index: index));
     }
 
-    for (TextEditingController ctrl in controllers){
+    for (TextEditingController ctrl in controllers) {
       ctrl.addListener(() {
         _updateAddress();
       });
     }
 
-    _deleteAddress(){
-      BlocProvider.of<EditStoreBloc>(context).add(RemoveAddressEvent(address: address));
+    _deleteAddress() {
+      BlocProvider.of<EditStoreBloc>(context)
+          .add(RemoveAddressEvent(address: address));
     }
 
     _getCountryText(countryCode){
@@ -73,9 +75,21 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
     print("getCountryText: ${_getCountryText(selectedCountry)}");
 
     return Container(
-      decoration: BoxDecoration(border: Border.all(width: 1)),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
+                child: Text(
+                  AppLocalizations.of(context).local.toUpperCase(),
+                  style: Theme.of(context).textTheme.headline3,
+                ),
+              )
+            ],
+          ),
           TextInput(
               controller: _streetController,
               icon: Icons.location_pin,
@@ -127,16 +141,24 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
                 Padding(padding: EdgeInsets.all(8)),
                 Text(_getCountryText(selectedCountry), style: TextStyle(color: CustomColors.textDescription),)
               ],))),
-          ElevatedButton(
-            onPressed: _deleteAddress,
-            child: Icon(Icons.delete),
-            style: ButtonStyle(
-                backgroundColor:
-                MaterialStateProperty.all<Color>(CustomColors.error)),
-          )
+      Container(
+        margin: EdgeInsets.only(top: 10),
+        width: 50,
+        child: ElevatedButton(
+          onPressed: _deleteAddress,
+          child: Icon(
+            Icons.delete,
+            size: 15,
+          ),
+          style: ButtonStyle(
+              backgroundColor:
+              MaterialStateProperty.all(CustomColors.error),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)))),
+        ),
         ],
       ),
     );
   }
 }
-
