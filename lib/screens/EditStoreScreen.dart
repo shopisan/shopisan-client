@@ -10,6 +10,7 @@ import 'package:shopisan/components/Form/save_button.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 
 class EditStore extends StatelessWidget {
   @override
@@ -17,6 +18,25 @@ class EditStore extends StatelessWidget {
     final state = context.select((EditStoreBloc bloc) => bloc.state);
     final Store store = state.store;
     final List<Category> categories = state.categories;
+
+    if (state is DoneEditStoreState) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context).storeSaved),
+            backgroundColor: CustomColors.success,
+          ),
+        );
+      });
+    }
+
+    if (state is InitialEditStoreState) {
+      return LoadingIndicator();
+    }
+
+    _submitForm() {
+      BlocProvider.of<EditStoreBloc>(context).add(StoreSubmitEvent());
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -47,26 +67,7 @@ class EditStore extends StatelessWidget {
                   ],
                 ),
               ),
-             /* Container(
-                margin: EdgeInsets.all(10),
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: CustomColors.iconsActive,
-                ),
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    AppLocalizations.of(context).save,
-                    style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Colors.black),
-                  ),
-                ),
-              ),*/
-              SaveButton(callback: null)
+              SaveButton(callback: _submitForm),
             ],
           ),
         ),

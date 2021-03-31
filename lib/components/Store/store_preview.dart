@@ -11,6 +11,8 @@ class StorePreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String _image = store.profilePicture?.file;
+
     return TextButton(
       onPressed: () {
         Navigator.pushNamed(context, "/store_detail", arguments: store.id);
@@ -23,7 +25,10 @@ class StorePreview extends StatelessWidget {
             width: 60,
             margin: EdgeInsets.only(right: 10),
             decoration: BoxDecoration(
-                color: Colors.black, borderRadius: BorderRadius.circular(5)),
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(5),
+                image: _image != null ? DecorationImage(
+                    image: NetworkImage(_image)) : null),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

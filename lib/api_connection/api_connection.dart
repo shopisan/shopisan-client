@@ -114,13 +114,42 @@ Future<List<Store>> fetchStores(
 Future<Store> fetchStore(int storeId) async {
   Map<String, dynamic> headers = await getHeaders();
   final response = await http.get(
-      Uri.http(_base, "/api/stores/stores/${storeId.toString()}"),
+      Uri.http(_base, "/api/stores/stores/${storeId.toString()}/"),
       headers: headers);
 
   if (response.statusCode == 200) {
     return Store.fromJson(json.decode(response.body));
   } else {
     throw Exception('Failed to load stores');
+  }
+}
+
+Future<int> editStore(Store store) async {
+  Map<String, dynamic> headers = await getHeaders();
+  http.Response response;
+
+  print(jsonEncode(store.toJson()));
+
+  if (store.id == null) {
+    response = await http.post(
+        Uri.http(_base, "/api/stores/stores/"),
+        body: jsonEncode(store.toJson()),
+        headers: headers
+    );
+  } else {
+    response = await http.put(
+        Uri.http(_base, "/api/stores/stores/${store.id.toString()}/"),
+        body: jsonEncode(store.toJson()),
+        headers: headers
+    );
+  }
+
+  print("response: ${response.body}");
+
+  if (response.statusCode >= 200 && response.statusCode < 300) {
+    return json.decode(response.body)['id'];
+  } else {
+    throw Exception(response.body);
   }
 }
 

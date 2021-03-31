@@ -21,6 +21,15 @@ class StoreEditEvent extends EditStoreEvent{
   List<Object> get props => [store];
 }
 
+class StoreEditCategoriesEvent extends EditStoreEvent{
+  final List<dynamic> categoriesIds;
+
+  StoreEditCategoriesEvent({@required this.categoriesIds});
+
+  @override
+  List<Object> get props => [categoriesIds];
+}
+
 class StoreAddressEditEvent extends EditStoreEvent{
   final Address address;
   final int index;
@@ -58,12 +67,10 @@ class RemoveAddressEvent extends EditStoreEvent{
 }
 
 class StoreSubmitEvent extends EditStoreEvent{
-  final Store store;
-
-  StoreSubmitEvent({@required this.store});
+  StoreSubmitEvent();
 
   @override
-  List<Object> get props => [store];
+  List<Object> get props => [];
 }
 
 class AddHourEvent extends EditStoreEvent{

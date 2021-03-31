@@ -47,8 +47,9 @@ class LoadingEditStoreState extends EditStoreState {
 
 class DoneEditStoreState extends EditStoreState {
   final Store store;
+  final List<Category> categories;
 
-  DoneEditStoreState({@required this.store});
+  DoneEditStoreState({@required this.store, @required this.categories});
 
   @override
   List<Object> get props => [store];

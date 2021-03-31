@@ -5,6 +5,8 @@ import 'package:shopisan/components/Form/text_input.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:country_picker/country_picker.dart';
+import 'package:country_picker/src/res/country_codes.dart' as CountryCodes;
 
 
 class StoreAddressRow extends StatefulWidget {
@@ -21,7 +23,7 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
   final _streetController = TextEditingController();
   final _cityController = TextEditingController();
   final _postalCodeController = TextEditingController();
-  final _countryController = TextEditingController();
+  String selectedCountry;
 
   @override
   Widget build(BuildContext context) {
@@ -31,17 +33,17 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
     _streetController.text = address.streetAvenue;
     _cityController.text = address.city;
     _postalCodeController.text = address.postalCode;
-    _countryController.text = address.country;
+    selectedCountry = address.country;
 
     List<TextEditingController> controllers = [
-      _streetController, _cityController, _countryController, _postalCodeController
+      _streetController, _cityController, _postalCodeController
     ];
 
     _updateAddress(){
       address.streetAvenue = _streetController.text;
       address.postalCode = _postalCodeController.text;
       address.city = _cityController.text;
-      address.country = _countryController.text;
+      address.country = selectedCountry;
       BlocProvider.of<EditStoreBloc>(context).add(StoreAddressEditEvent(address: address, index: index));
     }
 
@@ -54,6 +56,21 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
     _deleteAddress(){
       BlocProvider.of<EditStoreBloc>(context).add(RemoveAddressEvent(address: address));
     }
+
+    _getCountryText(countryCode){
+      String text = AppLocalizations.of(context).country;
+      if (null != countryCode) {
+        CountryCodes.countryCodes.forEach((element) {
+          if (element['iso2_cc'] == countryCode) {
+            text = element['name'];
+          }
+        });
+      }
+
+      return text;
+    }
+
+    print("getCountryText: ${_getCountryText(selectedCountry)}");
 
     return Container(
       decoration: BoxDecoration(border: Border.all(width: 1)),
@@ -71,10 +88,45 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
               controller: _postalCodeController,
               icon: Icons.location_searching,
               label: AppLocalizations.of(context).postCode),
-          TextInput(
+          /*TextInput(
               controller: _countryController,
               icon: Icons.flag,
-              label: AppLocalizations.of(context).country),
+              label: AppLocalizations.of(context).country),*/
+          TextButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.white),
+                padding: MaterialStateProperty.all(EdgeInsets.all(0))),
+              onPressed: (){
+            showCountryPicker(context: context, onSelect: (Country country){
+              setState(() {
+                selectedCountry = country.countryCode;
+              });
+              _updateAddress();
+            });
+          }, child: Container(
+              height: 50,
+              width: double.infinity,
+              padding: EdgeInsets.only(left: 10),
+              margin: EdgeInsets.only(top: 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(40),
+                boxShadow: [
+                  BoxShadow(
+                    color: CustomColors.spreadRegister,
+                    spreadRadius: 5,
+                    blurRadius: 15,
+                  ),
+                ],
+              ),
+              child: Row(children: [
+                Icon(
+                  Icons.flag,
+                  color: CustomColors.iconsActive,
+                ),
+                Padding(padding: EdgeInsets.all(8)),
+                Text(_getCountryText(selectedCountry), style: TextStyle(color: CustomColors.textDescription),)
+              ],))),
           ElevatedButton(
             onPressed: _deleteAddress,
             child: Icon(Icons.delete),

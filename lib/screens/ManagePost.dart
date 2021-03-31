@@ -71,34 +71,6 @@ class _ManagePostState extends State<ManagePost> {
                 },
               ),
             ),
-            // SingleChildScrollView(
-            //   child: Container(
-            //     width: double.infinity,
-            //     margin: EdgeInsets.fromLTRB(20, 20, 0, 20),
-            //     child: Column(
-            //       mainAxisAlignment: MainAxisAlignment.start,
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       children: [
-            //         Text(
-            //           AppLocalizations.of(context).yourPosts,
-            //           style: GoogleFonts.poppins(
-            //               fontSize: 16, fontWeight: FontWeight.bold),
-            //         ),
-            //         Padding(
-            //             padding: EdgeInsets.all(10),
-            //             child: SizedBox(
-            //               height: (MediaQuery.of(context).size.height),
-            //               width: double.infinity,
-            //               child: ListView(
-            //                   scrollDirection: Axis.vertical,
-            //                   children: [
-            //                     MyPosts(),
-            //                   ]),
-            //             )),
-            //       ],
-            //     ),
-            //   ),
-            // )
           ],
         ),
       ),

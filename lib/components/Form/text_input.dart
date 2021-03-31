@@ -40,7 +40,7 @@ class TextInput extends StatelessWidget {
         ],
       ),
       child: TextFormField(
-        maxLines: null,
+        maxLines:  isTextarea ? null : 1,
         controller: controller,
         style: GoogleFonts.roboto(
           color: CustomColors.textDescription,

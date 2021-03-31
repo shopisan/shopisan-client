@@ -10,6 +10,15 @@ class Category {
     return Category(
         id: json['id'], url: json['url'], en: json['en'], fr: json['fr']);
   }
+
+  Map<String, dynamic> toJson(){
+    return {
+      "id": id,
+      "url": url,
+      "en": en,
+      "fr": fr
+    };
+  }
 }
 
 class CategoryCollection {

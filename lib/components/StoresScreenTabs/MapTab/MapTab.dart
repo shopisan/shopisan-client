@@ -7,9 +7,11 @@ import 'package:shopisan/model/Store.dart';
 import 'DetailsMap/MapItem.dart';
 
 class MapTab extends StatefulWidget {
-  const MapTab({Key key, @required this.stores}) : super(key: key);
+  const MapTab({Key key, @required this.stores, @required this.latitude, @required this.longitude}) : super(key: key);
 
   final List<Store> stores;
+  final double latitude;
+  final double longitude;
 
   @override
   _MapTabState createState() => _MapTabState();
@@ -25,7 +27,8 @@ class _MapTabState extends State<MapTab> {
         body: Stack(
       children: [
         Positioned.fill(
-          child: GoogleMapScreen(stores: widget.stores, categories: categories),
+          child: GoogleMapScreen(stores: widget.stores, categories: categories,
+          latitude: widget.latitude, longitude: widget.longitude),
         ),
         Positioned(
           bottom: 10,

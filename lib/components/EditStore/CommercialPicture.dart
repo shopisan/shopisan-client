@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
@@ -26,12 +28,14 @@ class _CommercialPictureState extends State<CommercialPicture> {
     setState(() {
       _imageFile = pickedFile;
     });
+    BlocProvider.of<EditStoreBloc>(context)
+        .add(ChangePictureEvent(picture: File(pickedFile.path)));
+    // @todo upload + update la photo
   }
 
   @override
   Widget build(BuildContext context) {
     final storeImage = widget.store?.profilePicture;
-    print("storeImage: $storeImage");
 
     return Center(
       child: Stack(
@@ -49,7 +53,7 @@ class _CommercialPictureState extends State<CommercialPicture> {
                           : FileImage(
                               File(_imageFile.path),
                             )
-                      : Image.network(storeImage.file),
+                      : NetworkImage(storeImage.file),
                 )),
           ),
           Positioned(

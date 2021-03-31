@@ -42,13 +42,42 @@ class Store {
       url: json['url'],
       website: json['website'],
       openingTimes: json['openingTimes'],
-      profilePicture: json['profilePicture'],
+      profilePicture: File.fromJson(json['profilePicture']),
       description: json['description'],
       appointmentOnly: json['appointmentOnly'],
       categories: categoriesList,
       addresses: addressesList,
       evaluation: json['average_score']['score__avg'],
     );
+  }
+
+  Map<String, dynamic> toJson(){
+    List<String> categoryList = [];
+    if (null != categories) {
+      for (Category category in this.categories) {
+        categoryList.add(category.url);
+      }
+    }
+
+    List<Map<String, dynamic>> addressList = [];
+    if (null != addresses) {
+      for (Address address in addresses) {
+        addressList.add(address.toJson());
+      }
+    }
+
+    return {
+      "id": id,
+      "name": name,
+      "url": url,
+      "website": website,
+      "openingTimes": openingTimes,
+      "profilePicture": profilePicture.url,
+      "description": description,
+      "appointmentOnly": appointmentOnly,
+      "categories": categoryList,
+      "addresses": addressList,
+    };
   }
 }
 

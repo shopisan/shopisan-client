@@ -29,6 +29,16 @@ class Address {
         longitude: json['longitude'],
         store: json['store']);
   }
+
+  Map<String, dynamic> toJson(){
+    return {
+    "id": id ?? 0,
+    "streetAvenue": streetAvenue,
+    "postalCode": postalCode,
+    "city": city,
+    "country": country
+    };
+  }
 }
 
 class AddressCollection {

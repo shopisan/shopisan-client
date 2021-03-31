@@ -66,5 +66,6 @@
   "th": "Thursday",
   "fr": "Friday",
   "sa": "Saturday",
-  "su": "Sunday"
+  "su": "Sunday",
+  "storeSaved": "Store saved"
 }

@@ -60,6 +60,8 @@ class _StoresScreenState extends State<StoresScreen> {
   void loadStores() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    print("Latitude: $latitudeData, Longitude: $longitudeData");
+
     List<Store> storeList =
         await fetchStores(selectedCategoriesId, latitudeData, longitudeData);
 
@@ -150,9 +152,11 @@ class _StoresScreenState extends State<StoresScreen> {
   Widget build(BuildContext context) {
     List<Widget> _tabs = <Widget>[
       PostsTab(stores: stores),
-      StoreListTab(setSelectedCats: setSelectedCats, stores: stores),
+      StoreListTab(setSelectedCats: setSelectedCats, stores: stores,),
       MapTab(
         stores: stores,
+        latitude: double.parse(latitudeData),
+        longitude: double.parse(longitudeData),
       ),
       FavoriteTab(),
       SettingsTab(),

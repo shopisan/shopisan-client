@@ -11,11 +11,13 @@ import 'package:shopisan/theme/colors.dart';
 
 class GoogleMapScreen extends StatefulWidget {
   const GoogleMapScreen(
-      {Key key, @required this.stores, @required this.categories})
+      {Key key, @required this.stores, @required this.categories, @required this.latitude, @required this.longitude})
       : super(key: key);
 
   final List<Store> stores;
   final CategoryCollection categories;
+  final double latitude;
+  final double longitude;
 
   @override
   _GoogleMapScreenState createState() => _GoogleMapScreenState();
@@ -59,14 +61,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     ]);
 
     mapController.setMapStyle(style2);
-
-    // _markers.add(Marker(
-    //     markerId: MarkerId("myMarker"),
-    //     icon: mapMarker,
-    //     position: LatLng(50.6325574, 5.5796662),
-    //     infoWindow: InfoWindow(
-    //       title: searchAddress,
-    //     )));
 
     getMarkers(widget.stores);
   }
@@ -116,7 +110,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           myLocationEnabled: true,
           zoomControlsEnabled: false,
           initialCameraPosition:
-              CameraPosition(zoom: 14.0, target: LatLng(45.75, 4.85)),
+              CameraPosition(zoom: 14.0, target: LatLng(widget.latitude, widget.longitude)),
         ),
         Positioned(
           top: 10,

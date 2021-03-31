@@ -14,7 +14,6 @@ class OpeningHoursForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("opening times: ${store.openingTimes}");
     _getTrans(day) {
       switch (day) {
         case 'MO':
@@ -43,14 +42,12 @@ class OpeningHoursForm extends StatelessWidget {
     }
 
     _getWidgetList(hourList, day) {
-      print(hourList);
       List<Widget> list = [];
 
       for (int index = 0; index < hourList.length; index++) {
-        List<String> hour = hourList[index];
-        print(hour);
-        List<String> start = hour[0].split(":");
-        List<String> end = hour[1].split(":");
+        List<dynamic> hour = hourList[index];
+        List<dynamic> start = hour[0].split(":");
+        List<dynamic> end = hour[1].split(":");
         list.add(Row(children: [
           TextButton(
               onPressed: () async {
@@ -66,7 +63,6 @@ class OpeningHoursForm extends StatelessWidget {
               },
               child: Text("${hour[0]} - ${hour[1]}")),
           ElevatedButton(onPressed: (){
-            print(index);
             _deleteHour(day, index);
           }, child: Icon(Icons.delete), style: ButtonStyle(backgroundColor: MaterialStateProperty.all(CustomColors.error)),)
         ],));

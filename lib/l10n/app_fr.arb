@@ -11,7 +11,7 @@
   "street": "Rue",
   "city": "Ville",
   "land": "Pays",
-  "postCode": "Code Postale",
+  "postCode": "Code Postal",
   "number": "Numéro",
   "name": "Name",
   "lastName": "LastName",
@@ -64,5 +64,6 @@
   "th": "Jeudi",
   "fr": "Vendredi",
   "sa": "Samedi",
-  "su": "Dimanche"
+  "su": "Dimanche",
+  "storeSaved": "Magasin sauvegardé"
 }
