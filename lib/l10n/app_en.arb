@@ -74,7 +74,6 @@
   "storeSaved": "Store saved",
   "favorite" : "Your favorite stores",
   "noFav": "No saved stores",
-  "uploadImg": "Upload image"
-
-
+  "uploadImg": "Upload image",
+  "storePost": "Post for store"
 }

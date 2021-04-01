@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 import 'package:shopisan/components/Feed/post_media_form.dart';
+import 'package:shopisan/components/Form/select_input.dart';
 import 'package:shopisan/components/Utils/confirm.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/PostMedia.dart';
+import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
 
@@ -23,6 +26,11 @@ class _PostCreationState extends State<PostCreation> {
   Widget build(BuildContext context) {
     final Post post =
         context.select((PostCreationBloc bloc) => bloc.state.post);
+    AuthenticationState authState =
+        context.select((AuthenticationBloc bloc) => bloc.state);
+    final List<Store> stores = authState is AuthenticationAuthenticated
+        ? authState.user.profile.ownedStores
+        : null;
     final state = context.select((PostCreationBloc bloc) => bloc.state);
 
     if (state is RedirectPostCreationState) {
@@ -40,6 +48,10 @@ class _PostCreationState extends State<PostCreation> {
           ),
         );
       });
+    }
+
+    if (post == null) {
+      return LoadingIndicator();
     }
 
     _sendForm() {
@@ -83,8 +95,8 @@ class _PostCreationState extends State<PostCreation> {
       });
     }
 
-    if (post == null) {
-      return LoadingIndicator();
+    _updateStore(String storeUrl) {
+      BlocProvider.of<PostCreationBloc>(context).add(ChangePostStore(storeUrl: storeUrl));
     }
 
     return Container(
@@ -95,6 +107,20 @@ class _PostCreationState extends State<PostCreation> {
             // mainAxisAlignment: MainAxisAlignment.center,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
+              Container(
+                child: SelectInput(
+                  value: post.store,
+                  callback: _updateStore,
+                  items: stores
+                      .map((Store store) => DropdownMenuItem<String>(
+                            value: store.url,
+                            child: Text(store.name),
+                          ))
+                      .toList(),
+                  label: AppLocalizations.of(context).storePost,
+                  icon: Icons.store,
+                ),
+              ),
               Container(
                 child: ListView(
                   scrollDirection: Axis.vertical,

@@ -12,11 +12,9 @@ class DescriptionTabCommercial extends StatefulWidget {
   const DescriptionTabCommercial({
     Key key,
     @required this.store,
-    @required this.openingTime,
   }) : super(key: key);
 
   final Store store;
-  final OpeningTime openingTime;
 
   @override
   _DescriptionTabCommercialState createState() =>
@@ -24,11 +22,11 @@ class DescriptionTabCommercial extends StatefulWidget {
 }
 
 class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
-  Store store;
-  OpeningTime openingTime;
 
   @override
   Widget build(BuildContext context) {
+    Store store = widget.store;
+
     return Container(
         margin: EdgeInsets.fromLTRB(10, 30, 10, 0),
         decoration: BoxDecoration(
@@ -39,6 +37,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
           ),
         ),
         child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -59,14 +58,13 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                 padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 child: SingleChildScrollView(
                   child: Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at sapien non nulla vestibulum elementum et sed eros. Proin et metus vel urna elementum euismod."
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at sapien non nulla vestibulum elementum et sed eros. Proin et metus vel urna elementum euismod.",
+                    store?.description ?? "",
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
               ),
               OpeningTimeCommercial(
-                openingTime: widget.openingTime,
+                store: store,
               ),
               ConnectCommercial(
                 store: store,

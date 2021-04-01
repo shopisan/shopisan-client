@@ -57,7 +57,8 @@ class TextInput extends StatelessWidget {
                 style: BorderStyle.none,
               ),
             ),
-            labelText: label),
+            labelText: label
+        ),
       ),
     );
   }

@@ -16,10 +16,9 @@ class OpeningHoursTab extends StatefulWidget {
 }
 
 class _OpeningHoursTabState extends State<OpeningHoursTab> {
-  Store store;
-
   @override
   Widget build(BuildContext context) {
+    Store store = widget.store;
     return Container(
         child: Column(
       children: [
@@ -42,7 +41,7 @@ class _OpeningHoursTabState extends State<OpeningHoursTab> {
             onChanged: (value) {
               store.appointmentOnly = value;
               BlocProvider.of<EditStoreBloc>(context)
-                  .add(StoreEditEvent(store: store));
+                  .add(StoreEditAppointmentOnlyEvent(store: store));
             }),
         store.appointmentOnly
             ? Column()

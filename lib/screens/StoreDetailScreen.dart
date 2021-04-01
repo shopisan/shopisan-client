@@ -95,7 +95,6 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
     return <Widget>[
       DescriptionTabCommercial(
         store: store,
-        openingTime: openingTime,
       ),
       PostsTabCommercial(),
       // MapTabCommercial(addresses: addresses),
@@ -136,7 +135,11 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                   child: Stack(
                     children: [
                       Image(
-                        image: AssetImage("assets/img/store.jpg"),
+                        image: store.profilePicture != null ?
+                            NetworkImage(store.profilePicture.file) :
+                        AssetImage("assets/img/store.jpg"),
+                        fit: BoxFit.cover,
+                        width: double.infinity,
                       ),
                       Positioned(
                           top: 30,
@@ -188,7 +191,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                RatingBarCommercial(),
+                                RatingBarCommercial(store: store,),
                                 Container(
                                   height: 40,
                                   width: 40,

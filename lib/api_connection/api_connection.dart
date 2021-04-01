@@ -169,6 +169,25 @@ Future<UserProfile> manageFavouriteStore(int storeId) async {
   }
 }
 
+Future<bool> postEvaluation(int storeId, double score) async {
+  Map<String, dynamic> headers = await getHeaders();
+
+  final http.Response response = await http.post(
+      Uri.http(_base, "/api/stores/evals/"),
+      body: jsonEncode({
+        "store": storeId,
+        "score": score
+      }),
+      headers: headers
+  );
+
+  if (response.statusCode >= 200 && response.statusCode < 300) {
+    return true;
+  } else {
+    throw Exception(json.decode(response.body));
+  }
+}
+
 Future<int> createPost(Post post) async {
   Map<String, String> headers = await getHeaders();
 

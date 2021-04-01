@@ -21,6 +21,15 @@ class StoreEditEvent extends EditStoreEvent{
   List<Object> get props => [store];
 }
 
+class StoreEditAppointmentOnlyEvent extends EditStoreEvent{
+  final Store store;
+
+  StoreEditAppointmentOnlyEvent({@required this.store});
+
+  @override
+  List<Object> get props => [store];
+}
+
 class StoreEditCategoriesEvent extends EditStoreEvent{
   final List<dynamic> categoriesIds;
 

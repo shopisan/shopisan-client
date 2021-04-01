@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart';
+import 'package:shopisan/theme/colors.dart';
+
+class SelectInput extends StatelessWidget {
+  final String value;
+  final Function callback;
+  final List<DropdownMenuItem> items;
+  final IconData icon;
+  final String label;
+
+  SelectInput(
+      {@required this.value,
+      @required this.callback,
+      @required this.items,
+      @required this.label,
+      @required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 50,
+        width: double.infinity,
+        padding: EdgeInsets.all(0),
+        // margin: EdgeInsets.only(top: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(40),
+          boxShadow: [
+            BoxShadow(
+              color: CustomColors.spreadRegister,
+              spreadRadius: 5,
+              blurRadius: 15,
+            ),
+          ],
+        ),
+        child: FormField<String>(
+          builder: (FormFieldState<String> state) {
+            return InputDecorator(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(0),
+                  prefixIcon: Icon(
+                    icon,
+                    color: CustomColors.iconsActive,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(40),
+                    borderSide: BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
+                    ),
+                  ),
+                  labelText: label,
+              labelStyle: TextStyle(color: CustomColors.iconsActive)),
+              isEmpty: value == '',
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: value,
+                  isDense: true,
+                  onChanged: (String newValue) {
+                    callback(newValue);
+                  },
+                  items: items ?? [],
+                ),
+              ),
+            );
+          },
+        ));
+  }
+}

@@ -115,6 +115,10 @@ class EditStoreBloc extends Bloc<EditStoreEvent, EditStoreState> {
     } else if (event is StoreEditEvent) {
       Store store = event.store;
       yield StartedEditStoreState(store: store, categories: state.categories);
+    } else if (event is StoreEditAppointmentOnlyEvent) {
+      Store store = event.store;
+      yield StartedEditStoreState(store: store, categories: state.categories,
+          index: _incrementIndex(state));
     } else if (event is StoreEditCategoriesEvent) {
       Store store = state.store;
 

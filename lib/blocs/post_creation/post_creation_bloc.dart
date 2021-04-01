@@ -26,7 +26,7 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
         yield StartedPostCreationState(
             post: Post(
                 id: null,
-                store: "http://10.0.2.2:8000/api/stores/stores/800/",
+                store: null,
                 postMedia: [PostMedia()],
                 created: null,
                 url: null));
@@ -99,6 +99,13 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
     } else if (event is DeletePostMedia) {
       Post post = state.post;
       post.postMedia.removeAt(event.index);
+      yield StartedPostCreationState(
+          post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
+    } else if (event is ChangePostStore) {
+      Post post = state.post;
+
+      post.store = event.storeUrl;
+
       yield StartedPostCreationState(
           post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
     }

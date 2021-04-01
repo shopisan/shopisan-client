@@ -16,10 +16,9 @@ class ConnectCommercial extends StatefulWidget {
 }
 
 class _ConnectCommercialState extends State<ConnectCommercial> {
-  Store store;
-
   @override
   Widget build(BuildContext context) {
+    Store store = widget.store;
     return Container(
         width: double.infinity,
         padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
@@ -34,7 +33,7 @@ class _ConnectCommercialState extends State<ConnectCommercial> {
                 TextButton(
                   // color: Colors.transparent,
                   // padding: EdgeInsets.all(0),
-                  onPressed: _launcherURL,
+                  onPressed: (){_launcherURL(store);},
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -68,7 +67,11 @@ class _ConnectCommercialState extends State<ConnectCommercial> {
         ));
   }
 
-  void _launcherURL() async => await canLaunch("${store.website}")
-      ? await launch("${store.website}")
-      : throw "Could not launch ('${store.website}')";
+  void _launcherURL(store) async {
+    bool resp = await canLaunch("${store.website}");
+    print(resp);
+    await canLaunch("${store.website}")
+        ? await launch("${store.website}")
+        : throw "Could not launch ('${store.website}')";
+  }
 }

@@ -65,6 +65,16 @@ class ChangePostMediaPicture extends PostCreationEvent {
   String toString() => 'Post edited { media: $uploadFile }';
 }
 
+class ChangePostStore extends PostCreationEvent {
+  final String storeUrl;
+
+  const ChangePostStore(
+      {@required this.storeUrl});
+
+  @override
+  List<Object> get props => [storeUrl];
+}
+
 class AddPostMedia extends PostCreationEvent {
   @override
   List<Object> get props => [];

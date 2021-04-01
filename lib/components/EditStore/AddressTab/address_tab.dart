@@ -16,10 +16,10 @@ class AddressTab extends StatefulWidget {
 }
 
 class _AddressTabState extends State<AddressTab> {
-  Store store;
 
   @override
   Widget build(BuildContext context) {
+    Store store = widget.store;
     _addAddress() {
       BlocProvider.of<EditStoreBloc>(context).add(AddAddressEvent());
     }

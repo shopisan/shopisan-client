@@ -72,5 +72,6 @@
   "storeSaved": "Magasin sauvegardé",
   "favorite" : "Tes stores préférés",
   "noFav": "Pas de stores sauvegardés",
-  "uploadImg": "Télécharger une image"
+  "uploadImg": "Télécharger une image",
+  "storePost": "Magasin pour lequel poster"
 }

@@ -1,11 +1,11 @@
 import 'package:shopisan/model/PostMedia.dart';
 
 class Post {
-  final int id;
-  final String url;
-  final String created;
-  final String store;
-  final List<PostMedia> postMedia;
+  int id;
+  String url;
+  String created;
+  String store;
+  List<PostMedia> postMedia;
 
   Post({this.id, this.url, this.created, this.store, this.postMedia});
 
