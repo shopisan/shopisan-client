@@ -23,25 +23,25 @@ class _CategoriesCommercialState extends State<CategoriesCommercial> {
         height: 40,
         child: ListView(
           scrollDirection: Axis.horizontal,
-          children: [
-            Container(
-              padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-              margin: EdgeInsets.only(right: 10),
-              decoration: BoxDecoration(
-                  color: CustomColors.commercialTag,
-                  borderRadius: BorderRadius.circular(20)),
-              child: Center(
-                child: Text(
-                  "${widget.store.categories.map((category) => '${" " + category.fr + " "}')}",
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: CustomColors.textResearch,
+          children: widget.store.categories.map((category) =>
+              Container(
+                padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                margin: EdgeInsets.only(right: 10),
+                decoration: BoxDecoration(
+                    color: CustomColors.commercialTag,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Center(
+                  child: Text(
+                    category.fr,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: CustomColors.textResearch,
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ],
+              )
+          ).toList(),
         ),
       ),
     );

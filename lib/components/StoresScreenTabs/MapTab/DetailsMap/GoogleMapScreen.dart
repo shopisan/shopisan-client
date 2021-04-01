@@ -34,6 +34,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   void initState() {
     super.initState();
     setCustomMarker();
+    getMarkers(widget.stores);
   }
 
   void setCustomMarker() async {
@@ -61,8 +62,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     ]);
 
     mapController.setMapStyle(style2);
-
-    getMarkers(widget.stores);
   }
 
   void searchAndNavigate() {
@@ -74,12 +73,13 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     // });
   }
 
-  Set<Marker> getMarkers(List<Store> stores) {
+  void getMarkers(List<Store> stores) {
+    Set<Marker> newMarkers = {};
     for (Store store in stores) {
       for (Address address in store.addresses) {
         if (address.latitude != null && address.longitude != null) {
-          _markers.add(Marker(
-              markerId: MarkerId(address.id.toString()),
+          newMarkers.add(Marker(
+              markerId: MarkerId(address.id.toString() + " " + address.streetAvenue),
               icon: mapMarker,
               position: LatLng(double.parse(address.latitude),
                   double.parse(address.longitude)),
@@ -91,18 +91,15 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     }
 
     setState(() {
-      _markers = _markers;
+      _markers = newMarkers;
     });
-
-    return _markers;
   }
 
   @override
   Widget build(BuildContext context) {
-    print("markers: $_markers");
+    getMarkers(widget.stores);
 
-    return Scaffold(
-        body: Stack(
+    return Stack(
       children: [
         GoogleMap(
           onMapCreated: _onMapCreated,
@@ -139,7 +136,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             ),
           ),
         )
-      ],
-    ));
+      ],);
   }
 }

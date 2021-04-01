@@ -26,6 +26,7 @@ class StorePreview extends StatelessWidget {
                 color: Colors.black,
                 borderRadius: BorderRadius.circular(5),
                 image: _image != null ? DecorationImage(
+                  fit: BoxFit.cover,
                     image: NetworkImage(_image)) : null),
           ),
           Column(
@@ -46,22 +47,17 @@ class StorePreview extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
-                    child: RatingBar.builder(
-                      initialRating: 3,
-                      minRating: 0,
+                    child: RatingBarIndicator(
+                      rating: store.evaluation != null ? store.evaluation : 2.5,
                       direction: Axis.horizontal,
-                      allowHalfRating: true,
                       itemCount: 5,
                       itemSize: 10,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 0),
+                      itemPadding:
+                      EdgeInsets.symmetric(horizontal: 0),
                       itemBuilder: (context, _) => Icon(
                         Icons.star,
                         color: Colors.amber,
                       ),
-                      onRatingUpdate: (rating) {
-                        print(rating);
-                      },
-                      glow: true,
                     ),
                   ),
                 ],

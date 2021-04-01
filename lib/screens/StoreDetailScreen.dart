@@ -120,8 +120,6 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
       );
     }
 
-    print("store from screen $store");
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

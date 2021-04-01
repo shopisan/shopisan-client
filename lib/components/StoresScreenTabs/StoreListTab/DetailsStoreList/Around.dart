@@ -2,14 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/components/Store/store_preview.dart';
-import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
 
 class AroundYou extends StatelessWidget {
-  const AroundYou({Key key, @required this.categories, @required this.stores})
+  const AroundYou({Key key, @required this.stores})
       : super(key: key);
 
-  final List<Category> categories;
   final List<Store> stores;
 
   @override

@@ -20,6 +20,12 @@ class RecentResearch extends StatelessWidget {
       );
     }
 
+    Map<int, Category> categoryById = {};
+
+    for (Category cat in categories){
+      categoryById[cat.id] = cat;
+    }
+
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,26 +35,30 @@ class RecentResearch extends StatelessWidget {
           SizedBox(
             height: 40,
             child: ListView(
+              // reverse: true,
               scrollDirection: Axis.horizontal,
-              children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                  decoration: BoxDecoration(
-                      color: CustomColors.search,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Center(
-                    child: Text(
-                      "$recentSearches",
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: CustomColors.textResearch,
+
+              children:
+                recentSearches.reversed.map((categoryId) =>
+                  categoryById.containsKey(categoryId) ?
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                      margin: EdgeInsets.only(right: 10),
+                      decoration: BoxDecoration(
+                          color: CustomColors.commercialTag,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Center(
+                        child: Text(
+                          "${categoryById[categoryId].fr}",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: CustomColors.textResearch,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              ],
+                    ) : Container(),
+                ).toList(),
             ),
           ),
         ],

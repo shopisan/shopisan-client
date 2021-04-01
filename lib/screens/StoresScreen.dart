@@ -26,14 +26,34 @@ class _StoresScreenState extends State<StoresScreen> {
   List<Store> stores = [];
   List<Post> posts = [];
   List<dynamic> selectedCategoriesId;
+  List<dynamic> history = [];
 
   void setSelectedCats(List<dynamic> selectedCats) async {
+    print(selectedCats);
     setState(() {
       selectedCategoriesId = selectedCats;
     });
     loadStores();
 
-    // @todo ajouter dans categoryHistory (associer par datetime) + save dans storage
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey('search_history')) {
+      history = jsonDecode(prefs.getString("search_history"));
+      for (int id in selectedCats){
+        history.remove(id);
+      }
+    }
+
+    for (int id in selectedCats){
+      history.add(id);
+    }
+
+    setState(() {
+      history = history;
+    });
+
+    prefs.setString(
+        'search_history',
+        json.encode(history));
   }
 
   // Récupérer la géolocalisation
@@ -96,6 +116,15 @@ class _StoresScreenState extends State<StoresScreen> {
     }
   }
 
+  void getSearchHistory() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey('search_history')) {
+      setState(() {
+        history = jsonDecode(prefs.getString("search_history"));
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -103,7 +132,7 @@ class _StoresScreenState extends State<StoresScreen> {
     getOldStores();
     // @todo récupérer la derniere location ++ afficher les stores
     getCurrentLocation();
-    // @todo si des catégories ont été choisies, les enregistrer en DB ++ aller rechercher les infos
+    getSearchHistory();
   }
 
   List<BottomNavigationBarItem> _navBarsItems() {
@@ -154,11 +183,11 @@ class _StoresScreenState extends State<StoresScreen> {
   Widget build(BuildContext context) {
     List<Widget> _tabs = <Widget>[
       PostsTab(stores: stores, posts: posts),
-      StoreListTab(setSelectedCats: setSelectedCats, stores: stores,),
+      StoreListTab(setSelectedCats: setSelectedCats, stores: stores, history: history,),
       MapTab(
         stores: stores,
-        latitude: double.parse(latitudeData),
-        longitude: double.parse(longitudeData),
+        latitude: latitudeData != null ? double.tryParse(latitudeData) : null,
+        longitude: longitudeData != null ?  double.tryParse(longitudeData) : null,
       ),
       FavoriteTab(),
       SettingsTab(),

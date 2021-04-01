@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Store.dart';
+import 'package:shopisan/utils/common.dart';
 
 class MapTabCommercial extends StatefulWidget {
   const MapTabCommercial({Key key, @required this.store}) : super(key: key);
@@ -15,27 +16,16 @@ class MapTabCommercial extends StatefulWidget {
 class _MapTabCommercialState extends State<MapTabCommercial> {
   GoogleMapController mapController;
 
-  Set<Marker> _markers = {};
   BitmapDescriptor mapMarker;
 
-  @override
-  void initState() {
-    super.initState();
-    setCustomMarker();
-  }
-
-  void setCustomMarker() async {
-    mapMarker = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(), "assets/icons/pin.png");
-  }
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+  _getMarkers() async {
+    Set<Marker> _newMarkers = {};
+    mapMarker = await setCustomMarker();
     for (Address address in widget.store.addresses) {
       if (address.latitude != null && address.longitude != null) {
-        _markers.add(
+        _newMarkers.add(
           Marker(
-            markerId: MarkerId("myMarker"),
+            markerId: MarkerId(address.id.toString()),
             icon: mapMarker,
             position: LatLng(double.parse(address.latitude),
                 double.parse(address.longitude)),
@@ -47,9 +37,18 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
       }
     }
 
-    setState(() {
-      _markers = _markers;
-    });
+    return _newMarkers;
+  }
+
+  Future setCustomMarker() async {
+    mapMarker = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(), "assets/icons/pin.png");
+
+    return mapMarker;
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
   }
 
   @override
@@ -63,14 +62,22 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
             double.parse(store.addresses[0].longitude)));
 
     return Container(
-      height: 340,
-      child: GoogleMap(
-        onMapCreated: _onMapCreated,
-        markers: _markers,
-        myLocationEnabled: true,
-        zoomControlsEnabled: false,
-        initialCameraPosition: _initialPosition,
-      ),
+        height: 340,
+        child: FutureBuilder(builder: (context, snapshot){
+          if (snapshot.hasData) {
+            print(snapshot.data);
+            return GoogleMap(
+              onMapCreated: _onMapCreated,
+              markers: snapshot.data,
+              myLocationEnabled: true,
+              zoomControlsEnabled: false,
+              initialCameraPosition: _initialPosition,
+            );
+          }
+
+          return LoadingIndicator();
+        },
+        future: _getMarkers(),)
     );
   }
 }

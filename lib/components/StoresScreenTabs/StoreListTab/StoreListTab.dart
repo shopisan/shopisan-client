@@ -11,13 +11,13 @@ import 'DetailsStoreList/RecentResearch.dart';
 class StoreListTab extends StatefulWidget {
   final ValueChanged<List<dynamic>> setSelectedCats;
   final List<Store> stores;
-  final List<Category> categories;
+  final List<dynamic> history;
 
   const StoreListTab(
       {Key key,
       @required this.setSelectedCats,
       @required this.stores,
-      @required this.categories})
+      @required this.history})
       : super(key: key);
 
   @override
@@ -36,25 +36,6 @@ class _StoreListTabState extends State<StoreListTab> {
     setState(() {
       categories = catColl;
     });
-  }
-
-  void saveSearchHistory(List<dynamic> catIds) {
-    /**
-     * @todo categories --> selon les ids retrouver la bonne cat
-     * @todo dans le storage save les dernières cats recherchées
-     */
-  }
-
-  Future<List<dynamic>> getRecentSearch() async {
-    List recentSearches = [];
-
-    /**
-     * @todo quand catégories selectionnée, ajouter des rows dans les categoryHistory
-     * @todo trier pour que chaque category n'apparaisse qu'une fois par ordre chrono
-     * @todo injecter ca dans le widget recent search
-     */
-
-    return recentSearches;
   }
 
   @override
@@ -77,25 +58,14 @@ class _StoreListTabState extends State<StoreListTab> {
           ),
           Padding(
               padding: EdgeInsets.only(left: 10),
-              child: FutureBuilder(
-                builder: (context, snapshot) {
-                  print(snapshot);
-                  if (snapshot.connectionState == ConnectionState.none &&
-                      snapshot.hasData == null) {
-                    return Container();
-                  }
-                  return RecentResearch(
-                      categories: widget.categories,
-                      recentSearches: snapshot.data);
-                },
-                future: getRecentSearch(),
-              )),
+              child: RecentResearch(
+                  categories: categories,
+                  recentSearches: widget.history)),
           // Padding(padding: EdgeInsets.fromLTRB(10,20,0,0),
           // child: Recommended(),),
           Padding(
             padding: EdgeInsets.fromLTRB(10, 20, 0, 0),
             child: AroundYou(
-              categories: widget.categories,
               stores: widget.stores,
             ),
           ),

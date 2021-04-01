@@ -16,7 +16,7 @@ class MapItem extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(10),
       child: SizedBox(
-        height: double.infinity,
+        height: 70,
         width: 400,
         child: ListView(
           shrinkWrap: true,
@@ -29,52 +29,43 @@ class MapItem extends StatelessWidget {
                     },
                     child: Container(
                       width: 150,
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white,
                       ),
                       margin: EdgeInsets.only(right: 5),
-                      child: Column(
-                        children: [
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                      child: /*Flexible(child:*/ Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
                               children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      // margin: EdgeInsets.only(left: 10),
-                                      child: RatingBar.builder(
-                                        initialRating: 3,
-                                        minRating: 1,
-                                        direction: Axis.horizontal,
-                                        allowHalfRating: true,
-                                        itemCount: 5,
-                                        itemSize: 15,
-                                        itemPadding:
-                                            EdgeInsets.symmetric(horizontal: 0),
-                                        itemBuilder: (context, _) => Icon(
-                                          Icons.star,
-                                          color: Colors.amber,
-                                        ),
-                                        onRatingUpdate: (rating) {
-                                          print(rating);
-                                        },
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Text(
-                                  "${store.name}",
-                                  // AppLocalizations.of(context).commercialName,
-                                  style: Theme.of(context).textTheme.bodyText2,
-                                ),
+                                Container(
+                                  // margin: EdgeInsets.only(left: 10),
+                                  child: RatingBarIndicator(
+                                    rating: store.evaluation != null ? store.evaluation : 2.5,
+                                    direction: Axis.horizontal,
+                                    itemCount: 5,
+                                    itemSize: 15,
+                                    itemPadding:
+                                    EdgeInsets.symmetric(horizontal: 0),
+                                    itemBuilder: (context, _) => Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                  ),
+                                )
                               ],
                             ),
-                          ),
-                        ],
-                      ),
+                            Text(
+                              "${store.name}",
+                              style: Theme.of(context).textTheme.bodyText2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),/*),*/
                     ),
                   ))
               .toList(),

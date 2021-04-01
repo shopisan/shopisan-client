@@ -23,8 +23,8 @@ class _MapTabState extends State<MapTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(
+    return /*Scaffold(
+        body: */Stack(
       children: [
         Positioned.fill(
           child: GoogleMapScreen(stores: widget.stores, categories: categories,
@@ -35,6 +35,6 @@ class _MapTabState extends State<MapTab> {
           child: MapItem(stores: widget.stores, categories: categories),
         )
       ],
-    ));
+    )/*)*/;
   }
 }
