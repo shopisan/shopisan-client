@@ -23,7 +23,7 @@ class TextInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: isTextarea ? null : 60,
+      height: isTextarea ? null : 50,
       width: double.infinity,
       // padding: EdgeInsets.only(left: 10),
       margin: EdgeInsets.only(top: 20),
@@ -39,7 +39,7 @@ class TextInput extends StatelessWidget {
         ],
       ),
       child: TextFormField(
-        maxLines:  isTextarea ? null : 1,
+        maxLines: isTextarea ? null : 1,
         controller: controller,
         style: Theme.of(context).textTheme.bodyText1,
         onChanged: callback,

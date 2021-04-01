@@ -16,7 +16,7 @@ class MapItem extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(10),
       child: SizedBox(
-        height: double.infinity,
+        height: 100,
         width: 400,
         child: ListView(
           shrinkWrap: true,

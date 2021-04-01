@@ -6,6 +6,7 @@ import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
 import 'package:shopisan/components/EditProfile/FormProfile.dart';
 import 'package:shopisan/components/EditProfile/ProfilePicture.dart';
+import 'package:shopisan/components/Form/save_button.dart';
 import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/model/UserProfileProfile.dart';
 import 'package:shopisan/theme/colors.dart';
@@ -66,14 +67,17 @@ class _EditProfileState extends State<EditProfile> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        bottomOpacity: 0.0,
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
-      ),
+          backgroundColor: Colors.white,
+          bottomOpacity: 0.0,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Text(
+            AppLocalizations.of(context).editProfile,
+            style: Theme.of(context).textTheme.headline4,
+          )),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.fromLTRB(10, 30, 10, 20),
           child: Column(
             children: [
               ProfilePicture(
@@ -84,21 +88,16 @@ class _EditProfileState extends State<EditProfile> {
                 setUser: _setUser,
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                height: 60,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: CustomColors.iconsActive,
-                ),
-                child: state is LoadingProfileEditState
-                    ? LoadingIndicator()
-                    : TextButton(
-                        onPressed: _submitUser,
-                        child: Text(AppLocalizations.of(context).save,
-                            style: Theme.of(context).textTheme.headline2),
-                      ),
-              ),
+                  margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: CustomColors.textDark,
+                  ),
+                  child: state is LoadingProfileEditState
+                      ? LoadingIndicator()
+                      : SaveButton(callback: _submitUser()))
             ],
           ),
         ),

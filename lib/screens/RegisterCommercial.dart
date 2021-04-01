@@ -147,7 +147,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                   margin: EdgeInsets.only(bottom: 30),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    color: CustomColors.textResearch,
+                    color: CustomColors.textDark,
                     boxShadow: [
                       BoxShadow(
                         color: CustomColors.spreadRegister,

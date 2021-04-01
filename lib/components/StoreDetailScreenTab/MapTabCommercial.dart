@@ -64,6 +64,7 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
 
     return Container(
       height: 340,
+      margin: EdgeInsets.only(top: 30),
       child: GoogleMap(
         onMapCreated: _onMapCreated,
         markers: _markers,

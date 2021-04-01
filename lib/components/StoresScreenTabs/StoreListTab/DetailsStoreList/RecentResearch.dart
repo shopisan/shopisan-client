@@ -43,7 +43,7 @@ class RecentResearch extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
-                        color: CustomColors.textResearch,
+                        color: CustomColors.textDark,
                       ),
                     ),
                   ),

@@ -30,7 +30,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+        margin: EdgeInsets.fromLTRB(10, 30, 10, 0),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(

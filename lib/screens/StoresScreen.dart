@@ -13,6 +13,7 @@ import 'package:shopisan/components/StoresScreenTabs/StoreListTab/StoreListTab.d
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/loading_indicator.dart';
 
 class StoresScreen extends StatefulWidget {
   @override
@@ -153,8 +154,20 @@ class _StoresScreenState extends State<StoresScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _tabs = <Widget>[
-      PostsTab(stores: stores, posts: posts),
-      StoreListTab(setSelectedCats: setSelectedCats, stores: stores,),
+      FutureBuilder(
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            print("posts $posts");
+            return PostsTab(posts: snapshot.data, stores: stores);
+          }
+          return LoadingIndicator();
+        },
+        future: getPosts(),
+      ),
+      StoreListTab(
+        setSelectedCats: setSelectedCats,
+        stores: stores,
+      ),
       MapTab(
         stores: stores,
         latitude: double.parse(latitudeData),
@@ -165,26 +178,28 @@ class _StoresScreenState extends State<StoresScreen> {
     ];
 
     return SafeArea(
-        child: Scaffold(
-            appBar: null,
-            body: _tabs.elementAt(_currentIndex),
-            bottomNavigationBar: Container(
-              decoration: BoxDecoration(
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    spreadRadius: 10,
-                    blurRadius: 30,
-                    color: CustomColors.spread,
-                  ),
-                ],
+      child: Scaffold(
+        appBar: null,
+        body: _tabs.elementAt(_currentIndex),
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                spreadRadius: 10,
+                blurRadius: 30,
+                color: CustomColors.spread,
               ),
-              child: BottomNavigationBar(
-                items: _navBarsItems(),
-                currentIndex: _currentIndex,
-                selectedItemColor: CustomColors.iconsActive,
-                onTap: _onTapped,
-                unselectedItemColor: CustomColors.iconsFaded,
-              ),
-            )));
+            ],
+          ),
+          child: BottomNavigationBar(
+            items: _navBarsItems(),
+            currentIndex: _currentIndex,
+            selectedItemColor: CustomColors.iconsActive,
+            onTap: _onTapped,
+            unselectedItemColor: CustomColors.iconsFaded,
+          ),
+        ),
+      ),
+    );
   }
 }

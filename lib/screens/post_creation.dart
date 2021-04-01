@@ -118,7 +118,6 @@ class _PostCreationState extends State<PostCreation> {
                 children: [
                   Container(
                     width: 50,
-                    height: 50,
                     margin: EdgeInsets.only(bottom: 10),
                     child: ElevatedButton(
                       onPressed: _addPostMedia,

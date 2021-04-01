@@ -57,7 +57,7 @@ class LoginPage extends StatelessWidget {
 //                 Text(
 //                   "Log In",
 //                   style: GoogleFonts.poppins(
-//                       color: CustomColors.textResearch,
+//                       color: CustomColors.textDark,
 //                       fontWeight: FontWeight.bold,
 //                       fontSize: 30),
 //                 ),
@@ -79,7 +79,7 @@ class LoginPage extends StatelessWidget {
 //                   ),
 //                   child: TextField(
 //                     style: GoogleFonts.roboto(
-//                       color: CustomColors.textDescription,
+//                       color: CustomColors.textLight,
 //                       fontSize: 14,
 //                     ),
 //                     decoration: InputDecoration(
@@ -118,7 +118,7 @@ class LoginPage extends StatelessWidget {
 //                   child: TextField(
 //                     obscureText: true,
 //                     style: GoogleFonts.roboto(
-//                       color: CustomColors.textDescription,
+//                       color: CustomColors.textLight,
 //                       fontSize: 14,
 //                     ),
 //                     decoration: InputDecoration(
@@ -144,7 +144,7 @@ class LoginPage extends StatelessWidget {
 //                   width: double.infinity,
 //                   decoration: BoxDecoration(
 //                     borderRadius: BorderRadius.circular(40),
-//                     color: CustomColors.textResearch,
+//                     color: CustomColors.textDark,
 //                     boxShadow: [
 //                       BoxShadow(
 //                         color: CustomColors.spreadRegister,
@@ -181,7 +181,7 @@ class LoginPage extends StatelessWidget {
 //                     AppLocalizations.of(context).forgotPassword,
 //                     style: GoogleFonts.roboto(
 //                       fontSize: 14,
-//                       color: CustomColors.textDescription,
+//                       color: CustomColors.textLight,
 //                     ),
 //                   ),
 //                 ),
@@ -196,7 +196,7 @@ class LoginPage extends StatelessWidget {
 //                     style: GoogleFonts.roboto(
 //                       fontSize: 18,
 //                       fontWeight: FontWeight.bold,
-//                       color: CustomColors.textResearch,
+//                       color: CustomColors.textDark,
 //                     ),
 //                   ),
 //                 ),

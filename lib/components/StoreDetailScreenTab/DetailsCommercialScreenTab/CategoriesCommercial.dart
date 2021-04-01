@@ -28,7 +28,7 @@ class _CategoriesCommercialState extends State<CategoriesCommercial> {
               padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
               margin: EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
-                  color: CustomColors.commercialTag,
+                  color: CustomColors.lightPink,
                   borderRadius: BorderRadius.circular(20)),
               child: Center(
                 child: Text(
@@ -36,7 +36,7 @@ class _CategoriesCommercialState extends State<CategoriesCommercial> {
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color: CustomColors.textResearch,
+                    color: CustomColors.textDark,
                   ),
                 ),
               ),

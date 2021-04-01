@@ -26,8 +26,8 @@ class _ConnectCommercialState extends State<ConnectCommercial> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(AppLocalizations.of(context).connectCommercial.toUpperCase(),
-                style: Theme.of(context).textTheme.headline3),
+            // Text(AppLocalizations.of(context).connectCommercial.toUpperCase(),
+            //     style: Theme.of(context).textTheme.headline3),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -38,7 +38,7 @@ class _ConnectCommercialState extends State<ConnectCommercial> {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: CustomColors.commercialTag,
+                      color: CustomColors.lightPink,
                     ),
                     padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                     height: 35,
