@@ -30,6 +30,10 @@ class EditStoreSelectionScreen extends StatelessWidget {
             bottomOpacity: 0.0,
             elevation: 0,
             iconTheme: IconThemeData(color: Colors.black),
+            title: Text(
+              AppLocalizations.of(context).editStore,
+              style: Theme.of(context).textTheme.headline4,
+            ),
           ),
           body: SingleChildScrollView(child: Column(children: storeList)));
     } else {

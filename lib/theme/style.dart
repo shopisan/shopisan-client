@@ -23,18 +23,22 @@ class CustomTheme {
           headline3: GoogleFonts.poppins(
               fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
           headline4: GoogleFonts.poppins(
-            fontSize: 16,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
           headline5: GoogleFonts.poppins(
               fontSize: 30,
               fontWeight: FontWeight.bold,
-              color: CustomColors.textResearch),
-          bodyText1: GoogleFonts.poppins(
-              fontSize: 14, color: CustomColors.textDescription),
-          bodyText2: GoogleFonts.poppins(
-              fontSize: 12, color: CustomColors.textDescription),
+              color: CustomColors.textDark),
+          headline6: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: CustomColors.iconsActive),
+          bodyText1:
+              GoogleFonts.poppins(fontSize: 14, color: CustomColors.textLight),
+          bodyText2:
+              GoogleFonts.poppins(fontSize: 12, color: CustomColors.textLight),
         ));
   }
 }

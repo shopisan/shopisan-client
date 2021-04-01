@@ -18,13 +18,13 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
       // ignore: deprecated_member_use
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(20),
           side: BorderSide(
-            color: CustomColors.commercialBlue,
+            color: CustomColors.lightBlue,
           ),
         ),
         splashColor: Colors.black,
-        color: CustomColors.commercialBlue,
+        color: CustomColors.lightBlue,
         child: RatingBarIndicator(
           rating: 3,
           direction: Axis.horizontal,
@@ -55,7 +55,9 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
                     child: Text(
                       AppLocalizations.of(context).evaluation,
                       style: GoogleFonts.poppins(
-                          fontSize: 25, fontWeight: FontWeight.bold),
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: CustomColors.textDark),
                     ),
                   ),
                   RatingBar.builder(

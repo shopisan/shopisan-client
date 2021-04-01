@@ -116,7 +116,7 @@ class _LoginFormState extends State<LoginForm> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        color: CustomColors.textResearch,
+                        color: CustomColors.textDark,
                         boxShadow: [
                           BoxShadow(
                             color: CustomColors.spreadRegister,
@@ -166,7 +166,7 @@ class _LoginFormState extends State<LoginForm> {
                         style: GoogleFonts.roboto(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: CustomColors.textResearch,
+                          color: CustomColors.textDark,
                         ),
                       ),
                     ),

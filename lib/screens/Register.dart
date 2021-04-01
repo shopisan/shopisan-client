@@ -157,7 +157,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       margin: EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(40),
-                        color: CustomColors.textResearch,
+                        color: CustomColors.textDark,
                         boxShadow: [
                           BoxShadow(
                             color: CustomColors.spreadRegister,
@@ -207,7 +207,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     //     style: GoogleFonts.roboto(
                     //       fontSize: 18,
                     //       fontWeight: FontWeight.bold,
-                    //       color: CustomColors.textResearch,
+                    //       color: CustomColors.textDark,
                     //     ),
                     //   ),
                     // ),

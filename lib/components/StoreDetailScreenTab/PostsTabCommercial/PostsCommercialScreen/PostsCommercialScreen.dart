@@ -15,13 +15,13 @@ class _PostsCommercialScreenState extends State<PostsCommercialScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: CustomColors.commercialBlue,
+        backgroundColor: CustomColors.lightBlue,
         iconTheme: IconThemeData(color: Colors.black),
         title: Text("Commercial Name",
             style: Theme.of(context).textTheme.headline2),
       ),
       body: Container(
-        color: CustomColors.commercialBlue,
+        color: CustomColors.lightBlue,
         child: SizedBox(
           width: double.infinity,
           child: ListView(

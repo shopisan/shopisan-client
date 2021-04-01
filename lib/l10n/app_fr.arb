@@ -38,7 +38,7 @@
   "description": "Description",
   "scheduleStore": "Horaires d'ouverture",
   "noSchedule" : "Pas d'horaire disponible",
-  "connectCommercial": "Restes connectés",
+  "connectCommercial": "Restes connecté",
   "choosePicture": "Choisissez une photo de profil",
   "camera": "Camera",
   "gallery": "Gallerie",
@@ -69,5 +69,8 @@
   "fr": "Vendredi",
   "sa": "Samedi",
   "su": "Dimanche",
-  "storeSaved": "Magasin sauvegardé"
+  "storeSaved": "Magasin sauvegardé",
+  "favorite" : "Tes stores préférés",
+  "noFav": "Pas de stores sauvegardés",
+  "uploadImg": "Télécharger une image"
 }

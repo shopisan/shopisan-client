@@ -71,5 +71,10 @@
   "fr": "Friday",
   "sa": "Saturday",
   "su": "Sunday",
-  "storeSaved": "Store saved"
+  "storeSaved": "Store saved",
+  "favorite" : "Your favorite stores",
+  "noFav": "No saved stores",
+  "uploadImg": "Upload image"
+
+
 }

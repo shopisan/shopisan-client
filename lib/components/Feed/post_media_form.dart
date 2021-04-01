@@ -93,7 +93,6 @@ class _PostMediaFormState extends State<PostMediaForm> {
             Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               Container(
                 width: 50,
-                height: 50,
                 margin: EdgeInsets.only(bottom: 10),
                 child: ElevatedButton(
                   onPressed: _deletePostMedia,
@@ -119,8 +118,8 @@ class _PostMediaFormState extends State<PostMediaForm> {
                   // color: Colors.red,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          color: CustomColors.commercialBlue, width: 3)),
+                      border:
+                          Border.all(color: CustomColors.lightBlue, width: 3)),
                   child: _image == null
                       ? (widget.postMedia.media != null
                           ? Image.network(widget.postMedia.media.file)

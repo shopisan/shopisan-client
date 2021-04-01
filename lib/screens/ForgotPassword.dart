@@ -34,7 +34,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 AppLocalizations.of(context).forgPassText,
                 style: GoogleFonts.poppins(
                   fontSize: 14,
-                  color: CustomColors.textResearch,
+                  color: CustomColors.textDark,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -81,7 +81,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               margin: EdgeInsets.only(bottom: 30),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(40),
-                color: CustomColors.textResearch,
+                color: CustomColors.textDark,
                 boxShadow: [
                   BoxShadow(
                     color: CustomColors.spreadRegister,

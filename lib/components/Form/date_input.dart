@@ -14,10 +14,10 @@ class DateInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: 50,
       width: double.infinity,
       padding: EdgeInsets.only(left: 10),
-      margin: EdgeInsets.only(top: 10),
+      margin: EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(40),

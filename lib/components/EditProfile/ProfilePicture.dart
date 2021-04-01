@@ -48,7 +48,9 @@ class ProfilePictureState extends State<ProfilePicture> {
                     ? FileImage(
                         File(_imageFile.path),
                       )
-                    : AssetImage("assets/img/profile.jpg"),
+                    : AssetImage(
+                        "assets/img/profile.jpg",
+                      ),
           ),
           Positioned(
             bottom: 5,
@@ -118,7 +120,7 @@ class ProfilePictureState extends State<ProfilePicture> {
                 child: Icon(
                   Icons.camera_alt_outlined,
                   color: Colors.black,
-                  size: 30,
+                  size: 25,
                 ),
               ),
             ),

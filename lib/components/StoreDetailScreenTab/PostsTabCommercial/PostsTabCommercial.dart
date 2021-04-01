@@ -14,7 +14,7 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
   Widget build(BuildContext context) {
     return Container(
       height: 340,
-      margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      margin: EdgeInsets.fromLTRB(10, 30, 10, 0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -37,7 +37,7 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
                           builder: (_) => PostsCommercialScreen()));
                 },
                 // margin: EdgeInsets.all(3),
-                color: CustomColors.commercialBlue,
+                color: CustomColors.lightBlue,
                 child: Text(
                   "Pic $index",
                 ),

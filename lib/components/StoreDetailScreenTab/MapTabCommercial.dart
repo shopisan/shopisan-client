@@ -63,7 +63,8 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
 
     return Container(
         height: 340,
-        child: FutureBuilder(builder: (context, snapshot){
+        margin: EdgeInsets.only(top: 30),
+      child: FutureBuilder(builder: (context, snapshot){
           if (snapshot.hasData) {
             print(snapshot.data);
             return GoogleMap(

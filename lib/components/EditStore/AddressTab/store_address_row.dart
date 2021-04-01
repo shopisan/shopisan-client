@@ -1,3 +1,5 @@
+import 'package:country_picker/country_picker.dart';
+import 'package:country_picker/src/res/country_codes.dart' as CountryCodes;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -5,8 +7,6 @@ import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/components/Form/text_input.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/theme/colors.dart';
-import 'package:country_picker/country_picker.dart';
-import 'package:country_picker/src/res/country_codes.dart' as CountryCodes;
 
 class StoreAddressRow extends StatefulWidget {
   final Address address;
@@ -35,7 +35,8 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
     selectedCountry = address.country;
 
     List<TextEditingController> controllers = [
-      _streetController, _cityController,
+      _streetController,
+      _cityController,
       _postalCodeController
     ];
 
@@ -59,7 +60,7 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
           .add(RemoveAddressEvent(address: address));
     }
 
-    _getCountryText(countryCode){
+    _getCountryText(countryCode) {
       String text = AppLocalizations.of(context).country;
       if (null != countryCode) {
         CountryCodes.countryCodes.forEach((element) {
@@ -107,56 +108,68 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
               icon: Icons.flag,
               label: AppLocalizations.of(context).country),*/
           TextButton(
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-                padding: MaterialStateProperty.all(EdgeInsets.all(0))),
-              onPressed: (){
-            showCountryPicker(context: context, onSelect: (Country country){
-              setState(() {
-                selectedCountry = country.countryCode;
-              });
-              _updateAddress();
-            });
-          }, child: Container(
-              height: 50,
-              width: double.infinity,
-              padding: EdgeInsets.only(left: 10),
-              margin: EdgeInsets.only(top: 10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(40),
-                boxShadow: [
-                  BoxShadow(
-                    color: CustomColors.spreadRegister,
-                    spreadRadius: 5,
-                    blurRadius: 15,
-                  ),
-                ],
+              style: ButtonStyle(
+                padding:
+                    MaterialStateProperty.all(EdgeInsets.fromLTRB(0, 10, 0, 0)),
               ),
-              child: Row(children: [
-                Icon(
-                  Icons.flag,
-                  color: CustomColors.iconsActive,
-                ),
-                Padding(padding: EdgeInsets.all(8)),
-                Text(_getCountryText(selectedCountry), style: TextStyle(color: CustomColors.textDescription),)
-              ],))),
-      Container(
-        margin: EdgeInsets.only(top: 10),
-        width: 50,
-        child: ElevatedButton(
-          onPressed: _deleteAddress,
-          child: Icon(
-            Icons.delete,
-            size: 15,
-          ),
-          style: ButtonStyle(
-              backgroundColor:
-              MaterialStateProperty.all(CustomColors.error),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)))),
-        ),)
+              onPressed: () {
+                showCountryPicker(
+                    context: context,
+                    countryListTheme: CountryListThemeData(
+                        textStyle: Theme.of(context).textTheme.headline2),
+                    onSelect: (Country country) {
+                      setState(() {
+                        selectedCountry = country.countryCode;
+                      });
+                      _updateAddress();
+                    });
+              },
+              child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  padding: EdgeInsets.only(left: 10),
+                  margin: EdgeInsets.only(top: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(40),
+                    boxShadow: [
+                      BoxShadow(
+                        color: CustomColors.spreadRegister,
+                        spreadRadius: 5,
+                        blurRadius: 15,
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.flag,
+                        color: CustomColors.iconsActive,
+                      ),
+                      Padding(padding: EdgeInsets.all(10)),
+                      Text(
+                        _getCountryText(selectedCountry),
+                        style: Theme.of(context).textTheme.bodyText1,
+                      )
+                    ],
+                  ))),
+          Container(
+            margin: EdgeInsets.only(top: 10),
+            width: 50,
+            child: ElevatedButton(
+              onPressed: _deleteAddress,
+              child: Icon(
+                Icons.delete,
+                size: 15,
+              ),
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(CustomColors.error),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)))),
+            ),
+          )
         ],
       ),
     );

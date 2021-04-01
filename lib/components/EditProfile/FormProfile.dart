@@ -41,13 +41,13 @@ class FormProfile extends StatelessWidget {
     }
 
     return Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
         child: Column(
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
               child: Text(user.username,
-                  style: Theme.of(context).textTheme.headline1),
+                  style: Theme.of(context).textTheme.headline4),
             ),
             TextInput(
               controller: _userNameController,
@@ -59,7 +59,7 @@ class FormProfile extends StatelessWidget {
               icon: Icons.mail_outline,
               label: AppLocalizations.of(context).emailAddress,
             ),
-            Padding(padding: EdgeInsets.all(10)),
+            Padding(padding: EdgeInsets.all(20)),
             TextInput(
               controller: _nameController,
               icon: Icons.account_circle_outlined,

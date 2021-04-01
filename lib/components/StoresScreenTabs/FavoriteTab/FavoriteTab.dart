@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/components/Store/store_preview.dart';
 import 'package:shopisan/model/Store.dart';
@@ -10,14 +11,33 @@ class FavoriteTab extends StatelessWidget {
     final state = context.select((AuthenticationBloc bloc) => bloc.state);
 
     return Container(
-        child: Center(
-      child: state is AuthenticationAuthenticated
-          ? ListView(
-              children: state.user.profile.favouriteStores
-                  .map((store) => StorePreview(store: Store.fromJson(store)))
-                  .toList(),
-            )
-          : Text("Page des stores préférés"),
-    ));
+        padding: EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 30),
+              child: Text(
+                AppLocalizations.of(context).favorite,
+                style: Theme.of(context).textTheme.headline3,
+              ),
+            ),
+            SizedBox(
+              height: 570,
+              width: double.infinity,
+              child: state is AuthenticationAuthenticated
+                  ? ListView(
+                      children: state.user.profile.favouriteStores
+                          .map((store) =>
+                              StorePreview(store: Store.fromJson(store)))
+                          .toList(),
+                    )
+                  : Text(
+                      AppLocalizations.of(context).noFav,
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+            ),
+          ],
+        ));
   }
 }
