@@ -13,7 +13,7 @@ class MyPosts extends StatelessWidget {
     print("posts: $posts");
 
     return Container(
-      height: (MediaQuery.of(context).size.height),
+      // height: (MediaQuery.of(context).size.height),
       width: double.infinity,
       child: ListView(
         scrollDirection: Axis.vertical,
