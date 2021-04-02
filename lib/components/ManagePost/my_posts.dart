@@ -13,14 +13,15 @@ class MyPosts extends StatelessWidget {
     print("posts: $posts");
 
     return Container(
-      height: (MediaQuery.of(context).size.height),
+      // height: (MediaQuery.of(context).size.height),
       width: double.infinity,
       child: ListView(
         scrollDirection: Axis.vertical,
         children: posts?.map((post) {
               return TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/create_post', arguments: post.id);
+                  Navigator.pushNamed(context, '/create_post',
+                      arguments: post.id);
                 },
                 child: PostPreview(post: post),
               );

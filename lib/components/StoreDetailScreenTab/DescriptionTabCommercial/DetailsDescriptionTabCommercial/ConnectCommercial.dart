@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,7 +32,9 @@ class _ConnectCommercialState extends State<ConnectCommercial> {
                 TextButton(
                   // color: Colors.transparent,
                   // padding: EdgeInsets.all(0),
-                  onPressed: (){_launcherURL(store);},
+                  onPressed: () {
+                    _launcherURL(store);
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -47,14 +48,14 @@ class _ConnectCommercialState extends State<ConnectCommercial> {
                       children: [
                         Icon(
                           Icons.pageview_outlined,
-                          color: Colors.white,
+                          color: CustomColors.textDark,
                         ),
                         Text(
                           AppLocalizations.of(context).website,
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontSize: 12,
+                          style: TextStyle(
+                            fontSize: 14,
                             fontWeight: FontWeight.bold,
+                            color: CustomColors.textDark,
                           ),
                         ),
                       ],

@@ -122,7 +122,10 @@ class _PostMediaFormState extends State<PostMediaForm> {
                           Border.all(color: CustomColors.lightPink, width: 3)),
                   child: _image == null
                       ? (widget.postMedia.media != null
-                          ? Image.network(widget.postMedia.media.file)
+                          ? Image.network(
+                              widget.postMedia.media.file,
+                              fit: BoxFit.contain,
+                            )
                           : Center(
                               child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
