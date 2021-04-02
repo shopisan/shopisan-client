@@ -5,8 +5,7 @@ import 'package:shopisan/components/Store/store_preview.dart';
 import 'package:shopisan/model/Store.dart';
 
 class AroundYou extends StatelessWidget {
-  const AroundYou({Key key, @required this.stores})
-      : super(key: key);
+  const AroundYou({Key key, @required this.stores}) : super(key: key);
 
   final List<Store> stores;
 
@@ -16,8 +15,11 @@ class AroundYou extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(AppLocalizations.of(context).aroundYou.toUpperCase(),
-              style: Theme.of(context).textTheme.headline4),
+          Padding(
+            padding: EdgeInsets.only(bottom: 10),
+            child: Text(AppLocalizations.of(context).aroundYou.toUpperCase(),
+                style: Theme.of(context).textTheme.headline4),
+          ),
           SizedBox(
             height: (MediaQuery.of(context).size.height),
             width: double.infinity,

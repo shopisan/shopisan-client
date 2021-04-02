@@ -25,19 +25,19 @@ class _EditStoreState extends State<EditStore> {
       BottomNavigationBarItem(
           icon: Icon(
             Icons.store_outlined,
-            size: 40,
+            size: 35,
           ),
           label: "Profile"),
       BottomNavigationBarItem(
           icon: Icon(
             Icons.lock_clock,
-            size: 40,
+            size: 35,
           ),
           label: "Time"),
       BottomNavigationBarItem(
           icon: Icon(
             Icons.location_pin,
-            size: 40,
+            size: 35,
           ),
           label: "Address")
     ];
@@ -86,23 +86,28 @@ class _EditStoreState extends State<EditStore> {
       BlocProvider.of<EditStoreBloc>(context).add(StoreSubmitEvent());
     }
 
-    return Scaffold(
+    return SafeArea(
+        child: Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         bottomOpacity: 0.0,
-        elevation: 0,
+        elevation: 8,
         iconTheme: IconThemeData(color: Colors.black),
+        title: Text(
+          AppLocalizations.of(context).editStore,
+          style: Theme.of(context).textTheme.headline4,
+        ),
       ),
       body: SingleChildScrollView(
-          child: Stack(
-        children: [
-          _getListTab(store).elementAt(_currentIndex),
-          /*Positioned(
-            bottom: 0,
-            child: SaveButton(callback: _submitForm),
-          )*/
-        ],
-      )),
+          child: Column(
+              // padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+              children: [
+            _getListTab(store).elementAt(_currentIndex),
+            Container(
+              padding: EdgeInsets.all(20),
+              child: SaveButton(callback: _submitForm),
+            )
+          ])),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: <BoxShadow>[
@@ -119,9 +124,9 @@ class _EditStoreState extends State<EditStore> {
           selectedItemColor: CustomColors.iconsActive,
           onTap: _onTapped,
           unselectedItemColor: CustomColors.iconsFaded,
+          showUnselectedLabels: false,
         ),
       ),
-      floatingActionButton: SaveButton(callback: _submitForm),
 
       // SingleChildScrollView(
       //   child: Container(
@@ -151,6 +156,6 @@ class _EditStoreState extends State<EditStore> {
       //     ),
       //   ),
       // ),
-    );
+    ));
   }
 }

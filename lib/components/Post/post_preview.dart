@@ -41,7 +41,7 @@ class PostPreview extends StatelessWidget {
                             right: BorderSide(
                                 color: CustomColors.spread, width: 2))),
                     child: Text("${post.postMedia[0].description}",
-                        style: Theme.of(context).textTheme.headline1),
+                        style: Theme.of(context).textTheme.bodyText1),
                   ),
                 ),
                 Column(
@@ -51,10 +51,9 @@ class PostPreview extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 10),
                       child: post.postMedia[0].price == null
-                          ? Text("x €",
-                              style: Theme.of(context).textTheme.headline1)
+                          ? Text("")
                           : Text("${post.postMedia[0].price} €",
-                              style: Theme.of(context).textTheme.headline1),
+                              style: Theme.of(context).textTheme.headline2),
                     ),
                   ],
                 )

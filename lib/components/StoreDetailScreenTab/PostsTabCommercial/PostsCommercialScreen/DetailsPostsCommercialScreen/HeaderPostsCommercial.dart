@@ -9,7 +9,7 @@ class HeaderPostsCommercial extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("Product Name", style: Theme.of(context).textTheme.headline1),
+            Text("Product Name", style: Theme.of(context).textTheme.headline3),
           ],
         ));
   }

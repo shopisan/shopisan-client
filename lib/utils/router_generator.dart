@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
@@ -44,8 +45,12 @@ class RouteGenerator {
                     appBar: AppBar(
                       backgroundColor: Colors.white,
                       bottomOpacity: 0.0,
-                      elevation: 0,
+                      elevation: 8,
                       iconTheme: IconThemeData(color: Colors.black),
+                      title: Text(
+                        AppLocalizations.of(context).editPost,
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
                     ),
                     body: SingleChildScrollView(
                       child: PostCreation(),

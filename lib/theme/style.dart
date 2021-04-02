@@ -16,8 +16,8 @@ class CustomTheme {
           buttonColor: CustomColors.iconsActive,
         ),
         textTheme: TextTheme(
-          headline1:
-              GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold),
+          headline1: GoogleFonts.poppins(
+              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
           headline2: GoogleFonts.poppins(
               fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
           headline3: GoogleFonts.poppins(
@@ -33,7 +33,7 @@ class CustomTheme {
               color: CustomColors.textDark),
           headline6: GoogleFonts.poppins(
               fontSize: 16,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
               color: CustomColors.iconsActive),
           bodyText1:
               GoogleFonts.poppins(fontSize: 14, color: CustomColors.textLight),

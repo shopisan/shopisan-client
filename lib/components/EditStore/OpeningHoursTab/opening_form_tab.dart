@@ -26,7 +26,7 @@ class _OpeningHoursTabState extends State<OpeningHoursTab> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.fromLTRB(0, 30, 10, 10),
+              padding: EdgeInsets.all(20),
               child: Text(
                 AppLocalizations.of(context).scheduleStore.toUpperCase(),
                 style: Theme.of(context).textTheme.headline3,
@@ -36,7 +36,10 @@ class _OpeningHoursTabState extends State<OpeningHoursTab> {
         ),
         CheckboxListTile(
             value: store.appointmentOnly,
-            title: Text(AppLocalizations.of(context).appointmentOnly),
+            title: Text(
+              AppLocalizations.of(context).appointmentOnly,
+              style: Theme.of(context).textTheme.headline2,
+            ),
             controlAffinity: ListTileControlAffinity.leading,
             onChanged: (value) {
               store.appointmentOnly = value;

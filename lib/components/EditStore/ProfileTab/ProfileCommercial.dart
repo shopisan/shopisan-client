@@ -87,7 +87,7 @@ class ProfileCommercial extends StatelessWidget {
             label: AppLocalizations.of(context).website,
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 40, 0, 10),
+            padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
             child: Text(
               AppLocalizations.of(context).searchCat.toUpperCase(),
               style: Theme.of(context).textTheme.headline3,

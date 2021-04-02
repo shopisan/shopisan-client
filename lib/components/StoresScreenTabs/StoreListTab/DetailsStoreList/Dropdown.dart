@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/theme/colors.dart';
@@ -49,14 +48,8 @@ class _DropdownMenuState extends State<DropdownMenu> {
                     Icons.search,
                     color: CustomColors.iconsActive,
                   ),
-                  buttonText: Text(
-                    AppLocalizations.of(context).search,
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: CustomColors.iconsActive,
-                    ),
-                  ),
+                  buttonText: Text(AppLocalizations.of(context).search,
+                      style: Theme.of(context).textTheme.headline6),
                   items: widget.categories
                       .map((e) => MultiSelectItem(e.id, e.fr))
                       .toList(),

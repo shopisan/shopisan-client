@@ -73,7 +73,8 @@ class OpeningHoursForm extends StatelessWidget {
                 )),
             Container(
               width: 50,
-              child:ElevatedButton(onPressed: (){
+              child: ElevatedButton(
+                onPressed: () {
                   _deleteHour(day, index);
                 },
                 child: Icon(
@@ -104,13 +105,13 @@ class OpeningHoursForm extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: CustomColors.search,
                           borderRadius: BorderRadius.circular(10)),
-                      margin: EdgeInsets.only(bottom: 10),
+                      margin: EdgeInsets.fromLTRB(20, 5, 20, 5),
                       padding: EdgeInsets.all(10),
                       child: Row(children: [
                         Expanded(
                             child: Text(
                           _getTrans(day),
-                          style: Theme.of(context).textTheme.headline1,
+                          style: Theme.of(context).textTheme.headline3,
                         )),
                         Expanded(
                           child: Column(

@@ -18,30 +18,30 @@ class _CategoriesCommercialState extends State<CategoriesCommercial> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
       child: SizedBox(
-        height: 40,
+        height: 30,
         child: ListView(
           scrollDirection: Axis.horizontal,
-          children: widget.store.categories.map((category) =>
-              Container(
-                padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                margin: EdgeInsets.only(right: 10),
-                decoration: BoxDecoration(
-                    color: CustomColors.lightPink,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Center(
-                  child: Text(
-                    category.fr,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: CustomColors.textDark,
+          children: widget.store.categories
+              .map((category) => Container(
+                    padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                    margin: EdgeInsets.only(left: 10),
+                    decoration: BoxDecoration(
+                        color: CustomColors.lightPink,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Center(
+                      child: Text(
+                        category.fr.toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: CustomColors.textDark,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              )
-          ).toList(),
+                  ))
+              .toList(),
         ),
       ),
     );

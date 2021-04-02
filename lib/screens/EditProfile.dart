@@ -67,14 +67,15 @@ class _EditProfileState extends State<EditProfile> {
 
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.white,
-          bottomOpacity: 0.0,
-          elevation: 0,
-          iconTheme: IconThemeData(color: Colors.black),
-          title: Text(
-            AppLocalizations.of(context).editProfile,
-            style: Theme.of(context).textTheme.headline4,
-          )),
+        backgroundColor: Colors.white,
+        bottomOpacity: 0.0,
+        elevation: 8,
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text(
+          AppLocalizations.of(context).editProfile,
+          style: Theme.of(context).textTheme.headline4,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.fromLTRB(10, 30, 10, 20),
@@ -88,7 +89,7 @@ class _EditProfileState extends State<EditProfile> {
                 setUser: _setUser,
               ),
               Container(
-                  margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  margin: EdgeInsets.all(20),
                   height: 50,
                   width: double.infinity,
                   decoration: BoxDecoration(

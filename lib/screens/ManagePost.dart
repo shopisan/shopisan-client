@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/components/ManagePost/my_posts.dart';
@@ -21,31 +20,34 @@ class _ManagePostState extends State<ManagePost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        bottomOpacity: 0.0,
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
-      ),
+          bottomOpacity: 0.0,
+          elevation: 8,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Text(
+            AppLocalizations.of(context).editPost,
+            style: Theme.of(context).textTheme.headline3,
+          )),
       body: Container(
-        width: double.infinity,
+        // width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+              margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
               height: 50,
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
-                color: CustomColors.iconsActive,
+                color: CustomColors.textDark,
               ),
               child: TextButton.icon(
                 icon: Icon(
                   Icons.post_add_outlined,
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
                 label: Text(AppLocalizations.of(context).createPost,
-                    style: Theme.of(context).textTheme.headline3),
+                    style: Theme.of(context).textTheme.headline1),
                 onPressed: () {
                   Navigator.pushNamed(context, '/create_post');
                 },
@@ -54,7 +56,7 @@ class _ManagePostState extends State<ManagePost> {
             Container(
               width: double.infinity,
               margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-              child: Text(AppLocalizations.of(context).post,
+              child: Text(AppLocalizations.of(context).post.toUpperCase(),
                   style: Theme.of(context).textTheme.headline4),
             ),
             SingleChildScrollView(
@@ -62,7 +64,7 @@ class _ManagePostState extends State<ManagePost> {
                 children: [
                   Container(
                     // color: Colors.red,
-                    height: 550,
+                    height: 530,
                     margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                     child: FutureBuilder(
                       builder: (context, snapshot) {

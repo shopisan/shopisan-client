@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 import 'package:shopisan/components/Feed/post_media_form.dart';
@@ -96,10 +97,12 @@ class _PostCreationState extends State<PostCreation> {
     }
 
     _updateStore(String storeUrl) {
-      BlocProvider.of<PostCreationBloc>(context).add(ChangePostStore(storeUrl: storeUrl));
+      BlocProvider.of<PostCreationBloc>(context)
+          .add(ChangePostStore(storeUrl: storeUrl));
     }
 
     return Container(
+      width: double.infinity,
       child: Form(
         child: Padding(
           padding: EdgeInsets.all(10.0),
@@ -122,6 +125,7 @@ class _PostCreationState extends State<PostCreation> {
                 ),
               ),
               Container(
+                margin: EdgeInsets.only(top: 20),
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
@@ -170,7 +174,7 @@ class _PostCreationState extends State<PostCreation> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
-                  color: CustomColors.iconsActive,
+                  color: CustomColors.textDark,
                 ),
                 child: state is LoadingPostCreationState
                     ? LoadingIndicator()
@@ -180,7 +184,10 @@ class _PostCreationState extends State<PostCreation> {
                             post.id == null
                                 ? AppLocalizations.of(context).createPost
                                 : AppLocalizations.of(context).editPost,
-                            style: Theme.of(context).textTheme.headline3),
+                            style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold)),
                       ),
               ),
               post.id == null
@@ -191,12 +198,15 @@ class _PostCreationState extends State<PostCreation> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        color: CustomColors.iconsActive,
+                        color: CustomColors.textDark,
                       ),
                       child: TextButton(
                         onPressed: _deletePost,
                         child: Text(AppLocalizations.of(context).deletePost,
-                            style: Theme.of(context).textTheme.headline3),
+                            style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
                       ),
                     ),
             ],

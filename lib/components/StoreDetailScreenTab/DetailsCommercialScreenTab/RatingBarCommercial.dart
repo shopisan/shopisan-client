@@ -87,8 +87,10 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
                       print(rating);
                       print(store);
                       bool rslt = await postEvaluation(store.id, rating);
-                      // @todo afficher snackbar (Merci pour votre évaluation)
-
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(AppLocalizations.of(context).evalMessage),
+                        backgroundColor: CustomColors.success,
+                      ));
                     },
                     glow: true,
                   ),

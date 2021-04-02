@@ -28,7 +28,7 @@ class EditStoreSelectionScreen extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.white,
             bottomOpacity: 0.0,
-            elevation: 0,
+            elevation: 8,
             iconTheme: IconThemeData(color: Colors.black),
             title: Text(
               AppLocalizations.of(context).editStore,
@@ -53,7 +53,7 @@ class EditStoreLink extends StatelessWidget {
     return Container(
         height: 80,
         padding: EdgeInsets.all(20),
-        margin: EdgeInsets.all(10),
+        margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: CustomColors.search),
