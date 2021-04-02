@@ -256,6 +256,19 @@ Future<Post> loadPost(int postId) async {
   }
 }
 
+Future<List<Post>> fetchPostsByStore(int storeId) async {
+  Map<String, dynamic> headers = await getHeaders();
+  final response = await http.get(
+      Uri.http(_base, "/api/posts/by_store/${storeId.toString()}/"),
+      headers: headers);
+
+  if (response.statusCode == 200) {
+    return PostCollection.fromJson(jsonDecode(response.body)).posts;
+  } else {
+    throw Exception('Failed to load stores');
+  }
+}
+
 Future<bool> deletePost(int postId) async {
   Map<String, String> headers = await getHeaders();
 

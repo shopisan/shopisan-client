@@ -1,23 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shopisan/components/Post/post_preview.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/DetailsPostsCommercialScreen/DescriptionPostsCommercial.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/DetailsPostsCommercialScreen/HeaderPostsCommercial.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/DetailsPostsCommercialScreen/PicturesPostsCommercial.dart';
+import 'package:shopisan/model/Post.dart';
+import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
-class PostsCommercialScreen extends StatefulWidget {
-  @override
-  _PostsCommercialScreenState createState() => _PostsCommercialScreenState();
-}
+class PostsCommercialScreen extends StatelessWidget {
+  final Post post;
+  final Store store;
 
-class _PostsCommercialScreenState extends State<PostsCommercialScreen> {
+  PostsCommercialScreen({@required this.post, @required this.store});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: CustomColors.lightBlue,
         iconTheme: IconThemeData(color: Colors.black),
-        title: Text("Commercial Name",
+        title: Text(store.name,
             style: Theme.of(context).textTheme.headline2),
       ),
       body: Container(
@@ -33,13 +36,13 @@ class _PostsCommercialScreenState extends State<PostsCommercialScreen> {
                   borderRadius: BorderRadius.circular(10),
                   color: CustomColors.search,
                 ),
-                child: Column(
+                child: PostPreview(post: post,)/*Column(
                   children: [
-                    HeaderPostsCommercial(),
-                    PicturesPostsCommercial(),
+                    // HeaderPostsCommercial(),
+                    PicturesPostsCommercial(post: post),
                     DescriptionPostsCommercial(),
                   ],
-                ),
+                )*/,
               ),
             ],
           ),

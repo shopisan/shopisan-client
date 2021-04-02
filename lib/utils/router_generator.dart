@@ -4,6 +4,7 @@ import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
+import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/PostsCommercialScreen.dart';
 import 'package:shopisan/screens/EditProfile.dart';
 import 'package:shopisan/screens/EditStoreScreen.dart';
 import 'package:shopisan/screens/ForgotPassword.dart';
@@ -34,6 +35,9 @@ class RouteGenerator {
 
             case '/manage_post':
               return ManagePost();
+
+            case '/post_detail':
+              return PostsCommercialScreen();
 
             case '/create_post':
               return BlocProvider<PostCreationBloc>(

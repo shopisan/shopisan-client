@@ -18,6 +18,7 @@ import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/Post
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/OpeningTime.dart';
+import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/theme/colors.dart';
@@ -36,6 +37,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
   AddressCollection addresses;
   List<Category> categories;
   OpeningTime openingTime;
+  List<Post> posts;
 
   int _currentIndex = 0;
 
@@ -96,7 +98,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
       DescriptionTabCommercial(
         store: store,
       ),
-      PostsTabCommercial(),
+      PostsTabCommercial(store: store, posts: posts,),
       // MapTabCommercial(addresses: addresses),
       MapTabCommercial(store: store),
     ];
@@ -107,6 +109,13 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
     fetchStore(widget.storeId).then((value) {
       setState(() {
         store = value;
+      });
+      return value.id;
+    }).then((storeId){
+      fetchPostsByStore(storeId).then((value){
+        setState(() {
+          posts = value;
+        });
       });
     });
 

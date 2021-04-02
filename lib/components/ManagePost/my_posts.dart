@@ -18,7 +18,12 @@ class MyPosts extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.vertical,
         children: posts?.map((post) {
-              return PostPreview(post: post);
+              return TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/create_post', arguments: post.id);
+                },
+                child: PostPreview(post: post),
+              );
             })?.toList() ??
             [],
       ),

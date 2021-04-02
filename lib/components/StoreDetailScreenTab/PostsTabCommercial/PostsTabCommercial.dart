@@ -1,10 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shopisan/model/Post.dart';
+import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 import 'PostsCommercialScreen/PostsCommercialScreen.dart';
 
 class PostsTabCommercial extends StatefulWidget {
+  final Store store;
+  final List<Post> posts;
+
+  PostsTabCommercial({@required this.store, @required this.posts});
+
   @override
   _PostsTabCommercialState createState() => _PostsTabCommercialState();
 }
@@ -25,21 +32,18 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
       child: GridView.count(
         crossAxisCount: 3,
         children: List.generate(
-          20,
+          widget.posts?.length ?? 0,
           (index) {
             return Center(
               // ignore: deprecated_member_use
               child: FlatButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => PostsCommercialScreen()));
+                  Navigator.pushNamed(context, '/post_detail', arguments: widget.posts[index]);
                 },
                 // margin: EdgeInsets.all(3),
                 color: CustomColors.lightBlue,
                 child: Text(
-                  "Pic $index",
+                  widget.posts[index]?.postMedia[0].description,
                 ),
               ),
             );
