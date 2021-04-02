@@ -13,7 +13,7 @@ class StorePreview extends StatelessWidget {
 
     return TextButton(
       onPressed: () {
-        Navigator.pushNamed(context, "/store_detail", arguments: store.id);
+        Navigator.pushNamed(context, "/store_detail", arguments: {"storeId": store.id});
       },
       // padding: EdgeInsets.all(0),
       child: Row(

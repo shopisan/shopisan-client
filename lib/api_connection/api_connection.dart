@@ -161,6 +161,8 @@ Future<UserProfile> manageFavouriteStore(int storeId) async {
       body: jsonEncode({"favourite_store": storeId}),
       headers: headers);
 
+  print("favourite adding: ${response.body}");
+
   if (response.statusCode == 200) {
     // return true;
     return UserProfile.fromJson(json.decode(response.body));

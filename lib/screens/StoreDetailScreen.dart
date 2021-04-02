@@ -20,6 +20,7 @@ import 'package:shopisan/model/OpeningTime.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/model/UserProfile.dart';
+import 'package:shopisan/model/UserProfileProfile.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class StoreDetailScreen extends StatefulWidget {
@@ -98,7 +99,6 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
         store: store,
       ),
       PostsTabCommercial(store: store, posts: posts,),
-      // MapTabCommercial(addresses: addresses),
       MapTabCommercial(store: store),
     ];
   }
@@ -127,6 +127,39 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
       return Center(
         child: CircularProgressIndicator(),
       );
+    }
+
+    final AuthenticationState state =
+    context.select((AuthenticationBloc bloc) => bloc.state);
+    UserProfileProfile profile;
+    if (state is AuthenticationAuthenticated) {
+      profile = state.user.profile;
+    }
+
+    _submitFavourite() async {
+      try {
+        UserProfile user =
+            await manageFavouriteStore(store.id);
+        BlocProvider.of<AuthenticationBloc>(
+            context)
+            .add(UserChangedEvent(user: user));
+      } catch (exception) {
+        print(
+            "Oops, error during handling favourite store adding");
+      }
+    }
+
+    _isFavourite(){
+      if (null != profile) {
+        for (Map<String, dynamic> storeJson in profile.favouriteStores){
+          print("favorite id: ${storeJson['id']}");
+          if (storeJson['id'] == store.id) {
+            return true;
+          }
+        }
+      }
+
+      return false;
     }
 
     return SafeArea(
@@ -209,18 +242,11 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                     color: CustomColors.lightBlue,
                                     borderRadius: BorderRadius.circular(20)),
                                 child: FavoriteButton(
+                                  isFavorite: _isFavourite(),
                                   iconSize: 30,
-                                  valueChanged: () async {
-                                    try {
-                                      UserProfile user =
-                                          await manageFavouriteStore(store.id);
-                                      BlocProvider.of<AuthenticationBloc>(
-                                              context)
-                                          .add(UserChangedEvent(user: user));
-                                    } catch (exception) {
-                                      print(
-                                          "Oops, error during handling favourite store adding");
-                                    }
+                                  valueChanged: (_favourite) {
+                                    print(_favourite);
+                                    _submitFavourite();
                                   },
                                 ),
                               ),

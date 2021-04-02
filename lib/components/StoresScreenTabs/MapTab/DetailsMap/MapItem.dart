@@ -25,7 +25,7 @@ class MapItem extends StatelessWidget {
               .map((store) => TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, "/store_detail",
-                          arguments: store.id);
+                          arguments: {"storeId": store.id});
                     },
                     child: Container(
                       width: 150,

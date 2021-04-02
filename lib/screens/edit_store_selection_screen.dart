@@ -81,7 +81,7 @@ class EditStoreLink extends StatelessWidget {
             ],
           ),
           onPressed: () {
-            Navigator.pushNamed(context, '/edit_store', arguments: storeId);
+            Navigator.pushNamed(context, '/edit_store', arguments: {"storeId": storeId});
           },
         ));
   }

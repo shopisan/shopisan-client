@@ -34,7 +34,7 @@ class _HeaderPostsState extends State<HeaderPosts> {
               // ignore: deprecated_member_use
               FlatButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, "/store_detail", arguments: 800);
+                  Navigator.pushNamed(context, "/store_detail", arguments: {"storeId": 800});
                 },
                 // @todo Le post sera injecté depuis le widget de la tab avec les posts
                 child: Text(AppLocalizations.of(context).commercialName,

@@ -19,7 +19,7 @@ import 'package:shopisan/screens/post_creation.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    final args = settings.arguments;
+    final Map<String, dynamic> args = settings.arguments;
     final userRepository = settings.arguments;
 
     return MaterialPageRoute(builder: (_) {
@@ -32,18 +32,19 @@ class RouteGenerator {
 
             case '/store_detail':
               print(args);
-              return StoreDetailScreen(storeId: args);
+              return StoreDetailScreen(storeId: args['storeId']);
 
             case '/manage_post':
               return ManagePost();
 
             case '/post_detail':
-              return PostsCommercialScreen();
+              print("argument $args");
+              return PostsCommercialScreen(post: args['post'], store: args['store']);
 
             case '/create_post':
               return BlocProvider<PostCreationBloc>(
                   create: (context) {
-                    return PostCreationBloc()..add(IsStarted(postId: args));
+                    return PostCreationBloc()..add(IsStarted(postId: args['postId']));
                   },
                   child: Scaffold(
                     appBar: AppBar(
@@ -86,7 +87,7 @@ class RouteGenerator {
             case '/edit_store':
               return BlocProvider<EditStoreBloc>(
                   create: (context) {
-                    return EditStoreBloc()..add(AppStartedEvent(storeId: args));
+                    return EditStoreBloc()..add(AppStartedEvent(storeId: args['storeId']));
                   },
                   child: EditStore());
 

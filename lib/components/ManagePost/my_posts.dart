@@ -20,7 +20,7 @@ class MyPosts extends StatelessWidget {
         children: posts?.map((post) {
               return TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/create_post', arguments: post.id);
+                  Navigator.pushNamed(context, '/create_post', arguments: {"postId": post.id});
                 },
                 child: PostPreview(post: post),
               );

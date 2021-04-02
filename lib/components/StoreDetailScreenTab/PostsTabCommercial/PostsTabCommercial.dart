@@ -38,7 +38,7 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
               // ignore: deprecated_member_use
               child: FlatButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/post_detail', arguments: widget.posts[index]);
+                  Navigator.pushNamed(context, '/post_detail', arguments: {"post": widget.posts[index], "store": widget.store});
                 },
                 // margin: EdgeInsets.all(3),
                 color: CustomColors.lightBlue,
