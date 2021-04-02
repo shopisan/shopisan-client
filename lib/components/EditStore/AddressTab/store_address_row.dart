@@ -83,7 +83,7 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
+                padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
                 child: Text(
                   AppLocalizations.of(context).local.toUpperCase(),
                   style: Theme.of(context).textTheme.headline3,

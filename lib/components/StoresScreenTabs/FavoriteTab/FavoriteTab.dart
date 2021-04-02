@@ -16,9 +16,9 @@ class FavoriteTab extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 30),
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: Text(
-                AppLocalizations.of(context).favorite,
+                AppLocalizations.of(context).favorite.toUpperCase(),
                 style: Theme.of(context).textTheme.headline3,
               ),
             ),

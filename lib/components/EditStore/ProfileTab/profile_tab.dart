@@ -21,11 +21,11 @@ class _ProfileTabState extends State<ProfileTab> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(20),
       child: Column(
         children: [
           CommercialPicture(store: widget.store),
-          ProfileCommercial(store: widget.store, categories: categories)
+          ProfileCommercial(store: widget.store, categories: widget.categories)
         ],
       ),
     );

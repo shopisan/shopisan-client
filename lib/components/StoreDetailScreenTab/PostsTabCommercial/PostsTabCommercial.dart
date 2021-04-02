@@ -20,8 +20,8 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 340,
-      margin: EdgeInsets.fromLTRB(10, 30, 10, 0),
+      height: 390,
+      margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(

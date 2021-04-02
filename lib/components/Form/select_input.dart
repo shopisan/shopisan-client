@@ -19,9 +19,9 @@ class SelectInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 50,
-        width: double.infinity,
-        padding: EdgeInsets.all(0),
-        // margin: EdgeInsets.only(top: 20),
+        // width: double.infinity,
+        // padding: EdgeInsets.all(0),
+        margin: EdgeInsets.only(top: 20),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(40),
@@ -37,7 +37,7 @@ class SelectInput extends StatelessWidget {
           builder: (FormFieldState<String> state) {
             return InputDecorator(
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(0),
+                  contentPadding: EdgeInsets.all(0),
                   prefixIcon: Icon(
                     icon,
                     color: CustomColors.iconsActive,
@@ -50,10 +50,11 @@ class SelectInput extends StatelessWidget {
                     ),
                   ),
                   labelText: label,
-              labelStyle: TextStyle(color: CustomColors.iconsActive)),
+                  labelStyle: TextStyle(color: CustomColors.iconsActive)),
               isEmpty: value == '',
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
+                  style: Theme.of(context).textTheme.headline2,
                   value: value,
                   isDense: true,
                   onChanged: (String newValue) {

@@ -62,23 +62,24 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
             double.parse(store.addresses[0].longitude)));
 
     return Container(
-        height: 340,
-        margin: EdgeInsets.only(top: 30),
-      child: FutureBuilder(builder: (context, snapshot){
-          if (snapshot.hasData) {
-            print(snapshot.data);
-            return GoogleMap(
-              onMapCreated: _onMapCreated,
-              markers: snapshot.data,
-              myLocationEnabled: true,
-              zoomControlsEnabled: false,
-              initialCameraPosition: _initialPosition,
-            );
-          }
+        height: 405,
+        // margin: EdgeInsets.only(top: 10),
+        child: FutureBuilder(
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              print(snapshot.data);
+              return GoogleMap(
+                onMapCreated: _onMapCreated,
+                markers: snapshot.data,
+                myLocationEnabled: true,
+                zoomControlsEnabled: false,
+                initialCameraPosition: _initialPosition,
+              );
+            }
 
-          return LoadingIndicator();
-        },
-        future: _getMarkers(),)
-    );
+            return LoadingIndicator();
+          },
+          future: _getMarkers(),
+        ));
   }
 }

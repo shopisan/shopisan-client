@@ -11,7 +11,6 @@ import 'package:http/http.dart' as http;
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/DescriptionTabCommercial/DescriptionTabCommercial.dart';
-import 'package:shopisan/components/StoreDetailScreenTab/DetailsCommercialScreenTab/CategoriesCommercial.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/DetailsCommercialScreenTab/RatingBarCommercial.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/MapTabCommercial.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsTabCommercial.dart';
@@ -45,19 +44,19 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
     return [
       BottomNavigationBarItem(
         backgroundColor: Colors.white,
-        icon: Icon(Icons.store_outlined, size: 40),
+        icon: Icon(Icons.store_outlined, size: 35),
         label: ("About"),
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
       ),
       BottomNavigationBarItem(
-        icon: FaIcon(FontAwesomeIcons.newspaper, size: 40),
+        icon: FaIcon(FontAwesomeIcons.newspaper, size: 35),
         label: ("Posts"),
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.map_outlined, size: 40),
+        icon: Icon(Icons.map_outlined, size: 35),
         label: ("Map"),
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
@@ -132,110 +131,107 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
 
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            color: CustomColors.lightBlue,
-            child: Column(
-              children: [
-                Container(
-                  color: Colors.black,
-                  height: 250,
-                  width: double.infinity,
-                  child: Stack(
-                    children: [
-                      Image(
-                        image: store.profilePicture != null ?
-                            NetworkImage(store.profilePicture.file) :
-                        AssetImage("assets/img/store.jpg"),
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      ),
-                      Positioned(
-                          top: 30,
-                          left: 20,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Container(
-                                height: 45,
-                                width: 45,
-                                child: TextButton(
-                                  style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<
-                                              RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25))),
-                                      backgroundColor:
-                                          MaterialStateProperty.all<Color>(
-                                              CustomColors.lightBlue)),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Icon(
-                                    Icons.keyboard_arrow_left_outlined,
-                                    color: Colors.black,
-                                    size: 30,
-                                  ),
+        body: Container(
+          color: CustomColors.lightBlue,
+          child: Column(
+            children: [
+              Container(
+                color: Colors.black,
+                height: 250,
+                width: double.infinity,
+                child: Stack(
+                  children: [
+                    Image(
+                      image: store.profilePicture != null
+                          ? NetworkImage(store.profilePicture.file)
+                          : AssetImage("assets/img/store.jpg"),
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    ),
+                    Positioned(
+                        top: 30,
+                        left: 20,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Container(
+                              height: 45,
+                              width: 45,
+                              child: TextButton(
+                                style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25))),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            CustomColors.lightBlue)),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Icon(
+                                  Icons.keyboard_arrow_left_outlined,
+                                  color: Colors.black,
+                                  size: 30,
                                 ),
                               ),
-                              Container(
-                                  width: 250,
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    "${store.name}",
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                        color: Colors.white),
-                                    maxLines: 5,
-                                    overflow: TextOverflow.ellipsis,
-                                  ))
-                            ],
-                          )),
-                      Positioned(
-                          bottom: 0,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                RatingBarCommercial(store: store,),
-                                Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      color: CustomColors.lightBlue,
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: FavoriteButton(
-                                    iconSize: 30,
-                                    valueChanged: () async {
-                                      try {
-                                        UserProfile user =
-                                            await manageFavouriteStore(
-                                                store.id);
-                                        BlocProvider.of<AuthenticationBloc>(
-                                                context)
-                                            .add(UserChangedEvent(user: user));
-                                      } catch (exception) {
-                                        print(
-                                            "Oops, error during handling favourite store adding");
-                                      }
-                                    },
-                                  ),
-                                ),
-                              ],
                             ),
-                          )),
-                    ],
-                  ),
+                            Container(
+                                width: 250,
+                                padding: EdgeInsets.only(left: 10),
+                                child: Text(
+                                  "${store.name}",
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Colors.white),
+                                  maxLines: 5,
+                                  overflow: TextOverflow.ellipsis,
+                                ))
+                          ],
+                        )),
+                    Positioned(
+                        bottom: 0,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.only(right: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              RatingBarCommercial(
+                                store: store,
+                              ),
+                              Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                    color: CustomColors.lightBlue,
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: FavoriteButton(
+                                  iconSize: 30,
+                                  valueChanged: () async {
+                                    try {
+                                      UserProfile user =
+                                          await manageFavouriteStore(store.id);
+                                      BlocProvider.of<AuthenticationBloc>(
+                                              context)
+                                          .add(UserChangedEvent(user: user));
+                                    } catch (exception) {
+                                      print(
+                                          "Oops, error during handling favourite store adding");
+                                    }
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+                  ],
                 ),
-                CategoriesCommercial(
-                  store: store,
-                ),
-                _getListTab(store).elementAt(_currentIndex),
-              ],
-            ),
+              ),
+              _getListTab(store).elementAt(_currentIndex),
+            ],
           ),
         ),
         bottomNavigationBar: Container(
@@ -254,6 +250,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
             selectedItemColor: CustomColors.iconsActive,
             onTap: _onTapped,
             unselectedItemColor: CustomColors.iconsFaded,
+            showUnselectedLabels: false,
           ),
         ),
       ),

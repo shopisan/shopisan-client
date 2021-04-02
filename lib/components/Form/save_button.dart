@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class SaveButton extends StatelessWidget {
@@ -11,8 +10,8 @@ class SaveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10),
       height: 50,
+      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
@@ -24,8 +23,7 @@ class SaveButton extends StatelessWidget {
         },
         child: Text(
           AppLocalizations.of(context).save.toUpperCase(),
-          style: GoogleFonts.poppins(
-              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.headline1,
         ),
       ),
     );

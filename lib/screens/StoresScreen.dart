@@ -39,12 +39,12 @@ class _StoresScreenState extends State<StoresScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey('search_history')) {
       history = jsonDecode(prefs.getString("search_history"));
-      for (int id in selectedCats){
+      for (int id in selectedCats) {
         history.remove(id);
       }
     }
 
-    for (int id in selectedCats){
+    for (int id in selectedCats) {
       history.add(id);
     }
 
@@ -52,9 +52,7 @@ class _StoresScreenState extends State<StoresScreen> {
       history = history;
     });
 
-    prefs.setString(
-        'search_history',
-        json.encode(history));
+    prefs.setString('search_history', json.encode(history));
   }
 
   // Récupérer la géolocalisation
@@ -139,37 +137,26 @@ class _StoresScreenState extends State<StoresScreen> {
   List<BottomNavigationBarItem> _navBarsItems() {
     return [
       BottomNavigationBarItem(
-        icon: Icon(FontAwesomeIcons.newspaper, size: 40),
+        icon: Icon(FontAwesomeIcons.newspaper, size: 35),
         label: "Posts",
-        // activeColor: CustomColors.activeBlue,
-        // inactiveColor: CustomColors.systemGrey,
       ),
       BottomNavigationBarItem(
-        backgroundColor: Colors.white,
         // icon: SvgPicture.asset(storeIcon),
-        icon: Icon(Icons.store_outlined, size: 40),
+        icon: Icon(Icons.store_outlined, size: 35),
         label: ("Store"),
-        // activeColor: CustomColors.activeBlue,
-        // inactiveColor: CustomColors.systemGrey,
       ),
       BottomNavigationBarItem(
         // icon: SvgPicture.asset(mapIcon),
-        icon: Icon(Icons.map_outlined, size: 40),
+        icon: Icon(Icons.map_outlined, size: 35),
         label: ("Map"),
-        // activeColor: CustomColors.activeBlue,
-        // inactiveColor: CustomColors.systemGrey,
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.favorite_border_outlined, size: 40),
+        icon: Icon(Icons.favorite_border_outlined, size: 35),
         label: ("Favorite"),
-        // activeColor: CustomColors.activeBlue,
-        // inactiveColor: CustomColors.systemGrey,
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.account_circle_outlined, size: 40),
+        icon: Icon(Icons.account_circle_outlined, size: 35),
         label: "Profile",
-        // activeColor: CustomColors.activeBlue,
-        // inactiveColor: CustomColors.systemGrey,
       ),
     ];
   }
@@ -191,12 +178,18 @@ class _StoresScreenState extends State<StoresScreen> {
           }
           return LoadingIndicator();
         },
-        future: getPosts(),),
-      StoreListTab(setSelectedCats: setSelectedCats, stores: stores, history: history,),
+        future: getPosts(),
+      ),
+      StoreListTab(
+        setSelectedCats: setSelectedCats,
+        stores: stores,
+        history: history,
+      ),
       MapTab(
         stores: stores,
         latitude: latitudeData != null ? double.tryParse(latitudeData) : null,
-        longitude: longitudeData != null ?  double.tryParse(longitudeData) : null,
+        longitude:
+            longitudeData != null ? double.tryParse(longitudeData) : null,
       ),
       FavoriteTab(),
       SettingsTab(),

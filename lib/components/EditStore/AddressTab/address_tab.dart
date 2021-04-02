@@ -16,7 +16,6 @@ class AddressTab extends StatefulWidget {
 }
 
 class _AddressTabState extends State<AddressTab> {
-
   @override
   Widget build(BuildContext context) {
     Store store = widget.store;
@@ -25,6 +24,7 @@ class _AddressTabState extends State<AddressTab> {
     }
 
     return Container(
+      padding: EdgeInsets.all(20),
       child: Column(
         children: [
           Column(

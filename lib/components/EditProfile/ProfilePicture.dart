@@ -73,7 +73,7 @@ class ProfilePictureState extends State<ProfilePicture> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(AppLocalizations.of(context).choosePicture,
-                                  style: Theme.of(context).textTheme.headline1),
+                                  style: Theme.of(context).textTheme.headline3),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,

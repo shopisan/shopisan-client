@@ -22,7 +22,7 @@ class RecentResearch extends StatelessWidget {
 
     Map<int, Category> categoryById = {};
 
-    for (Category cat in categories){
+    for (Category cat in categories) {
       categoryById[cat.id] = cat;
     }
 
@@ -30,35 +30,40 @@ class RecentResearch extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(AppLocalizations.of(context).recentResearch.toUpperCase(),
-              style: Theme.of(context).textTheme.headline4),
+          Padding(
+            padding: EdgeInsets.only(bottom: 10),
+            child: Text(
+                AppLocalizations.of(context).recentResearch.toUpperCase(),
+                style: Theme.of(context).textTheme.headline4),
+          ),
           SizedBox(
-            height: 40,
+            height: 30,
             child: ListView(
               // reverse: true,
               scrollDirection: Axis.horizontal,
-
-              children:
-                recentSearches.reversed.map((categoryId) =>
-                  categoryById.containsKey(categoryId) ?
-                    Container(
-                      padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                      margin: EdgeInsets.only(right: 10),
-                      decoration: BoxDecoration(
-                          color: CustomColors.search,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Center(
-                        child: Text(
-                          "${categoryById[categoryId].fr}",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: CustomColors.textDark,
-                          ),
-                        ),
-                      ),
-                    ) : Container(),
-                ).toList(),
+              children: recentSearches.reversed
+                  .map(
+                    (categoryId) => categoryById.containsKey(categoryId)
+                        ? Container(
+                            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                            margin: EdgeInsets.only(right: 10),
+                            decoration: BoxDecoration(
+                                color: CustomColors.lightPink,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Center(
+                              child: Text(
+                                "${categoryById[categoryId].fr}".toUpperCase(),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: CustomColors.textDark,
+                                ),
+                              ),
+                            ),
+                          )
+                        : Container(),
+                  )
+                  .toList(),
             ),
           ),
         ],

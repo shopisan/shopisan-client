@@ -115,18 +115,32 @@ class _PostMediaFormState extends State<PostMediaForm> {
                 Container(
                   height: 250,
                   width: double.infinity,
-                  // color: Colors.red,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                      color: CustomColors.lightPink,
+                      borderRadius: BorderRadius.circular(20),
                       border:
-                          Border.all(color: CustomColors.lightBlue, width: 3)),
+                          Border.all(color: CustomColors.lightPink, width: 3)),
                   child: _image == null
                       ? (widget.postMedia.media != null
                           ? Image.network(widget.postMedia.media.file)
                           : Center(
-                              child: Text(AppLocalizations.of(context).noImage,
-                                  style: Theme.of(context).textTheme.headline1),
-                            ))
+                              child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.all(20),
+                                  child: Icon(
+                                    Icons.upload_outlined,
+                                    color: Colors.white,
+                                    size: 60,
+                                  ),
+                                ),
+                                Text(AppLocalizations.of(context).noImage,
+                                    style:
+                                        Theme.of(context).textTheme.headline3),
+                              ],
+                            )))
                       : Image.file(_image),
                 ),
                 Positioned(
@@ -156,7 +170,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
                                             .choosePicture,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline1),
+                                            .headline3),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -215,12 +229,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
               ],
             ),
             Container(
-                margin: EdgeInsets.fromLTRB(10, 20, 10, 30),
-                padding: EdgeInsets.only(bottom: 30),
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom:
-                            BorderSide(color: CustomColors.spread, width: 2))),
+                padding: EdgeInsets.fromLTRB(10, 20, 10, 30),
                 child: Column(
                   children: [
                     CustomInput.TextInput(
@@ -248,6 +257,13 @@ class _PostMediaFormState extends State<PostMediaForm> {
                     ),
                   ],
                 )),
+            Container(
+              margin: EdgeInsets.fromLTRB(40, 0, 40, 20),
+              decoration: BoxDecoration(
+                  border: Border(
+                      bottom:
+                          BorderSide(color: CustomColors.lightPink, width: 2))),
+            )
           ],
         ),
       );
