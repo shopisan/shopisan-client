@@ -5,6 +5,7 @@ import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
+import 'package:shopisan/blocs/registration/registration_bloc.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/PostsCommercialScreen.dart';
 import 'package:shopisan/screens/EditProfile.dart';
 import 'package:shopisan/screens/EditStoreScreen.dart';
@@ -12,6 +13,7 @@ import 'package:shopisan/screens/ForgotPassword.dart';
 import 'package:shopisan/screens/Login.dart';
 import 'package:shopisan/screens/ManagePost.dart';
 import 'package:shopisan/screens/Register.dart';
+import 'package:shopisan/screens/RegisterCommercial.dart';
 import 'package:shopisan/screens/StoreDetailScreen.dart';
 import 'package:shopisan/screens/StoresScreen.dart';
 import 'package:shopisan/screens/edit_store_selection_screen.dart';
@@ -67,7 +69,12 @@ class RouteGenerator {
               return LoginPage(userRepository: userRepository);
 
             case '/register':
-              return RegisterScreen();
+              return BlocProvider<RegistrationBloc>(create: (context){
+                return RegistrationBloc();
+              }, child: RegisterScreen(),);
+
+            case '/register_store':
+              return RegisterCommercialScreen();
 
             case '/forgot_password':
               return ForgotPasswordScreen();

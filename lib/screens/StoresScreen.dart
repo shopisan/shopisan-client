@@ -67,7 +67,6 @@ class _StoresScreenState extends State<StoresScreen> {
       longitudeData = "${geoposition.longitude}";
     });
 
-    // @todo il faudrait sauvegarder la dernière location dans le storage de l'appareil en DB :D
     loadStores();
 
     prefs.setString(
@@ -129,7 +128,6 @@ class _StoresScreenState extends State<StoresScreen> {
     super.initState();
     getOldPosition();
     getOldStores();
-    // @todo récupérer la derniere location ++ afficher les stores
     getCurrentLocation();
     getSearchHistory();
   }
