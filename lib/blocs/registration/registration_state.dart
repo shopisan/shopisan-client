@@ -32,7 +32,7 @@ class LoadingRegistrationState extends RegistrationState {
 class DoneRegistrationState extends RegistrationState {
   final Map<String, String> data;
   final bool success;
-  final Map<String ,dynamic> message;
+  final List<String> message;
 
   DoneRegistrationState(
       {@required this.data, @required this.success, this.message});

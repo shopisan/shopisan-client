@@ -33,14 +33,54 @@ Future<bool> registrationUserProfile(Map<String, String> data) async {
   Map<String, dynamic> headers = await getHeaders();
 
   final http.Response response = await http.post(
-      Uri.http(_base, "/api/register"),
-      body: data,
+      Uri.http(_base, "/api/register/"),
+      body: jsonEncode(data),
       headers: headers);
 
   if (response.statusCode == 201) {
     return true;
   } else {
-    throw Exception(json.decode(response.body));
+    throw Exception(response.body);
+  }
+}
+
+Future<bool> forgotPasswordSubmit(Map<String, String> data) async {
+  Map<String, dynamic> headers = await getHeaders();
+
+  final http.Response response = await http.post(
+      Uri.http(_base, "/api/forgot-password/"),
+      body: jsonEncode(data),
+      headers: headers);
+
+  if (response.statusCode == 200) {
+    Map<String, dynamic> rslt = jsonDecode(response.body);
+    if (rslt['success']){
+      return true;
+    }
+    // @ todo return bool selon resultat obtenu dans le body
+    return false;
+  } else {
+    throw Exception(response.body);
+  }
+}
+
+Future<bool> resetPasswordSubmit(Map<String, String> data) async {
+  Map<String, dynamic> headers = await getHeaders();
+
+  final http.Response response = await http.post(
+      Uri.http(_base, "/api/reset-password/"),
+      body: jsonEncode(data),
+      headers: headers);
+
+  if (response.statusCode == 200) {
+    Map<String, dynamic> rslt = jsonDecode(response.body);
+    if (rslt['success']){
+      return true;
+    }
+
+    return false;
+  } else {
+    throw Exception(response.body);
   }
 }
 

@@ -12,9 +12,11 @@ class SettingsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.select((AuthenticationBloc bloc) => bloc.state);
+
     if (state is AuthenticationAuthenticated) {
       return ProfileScreen();
     }
+
     if (state is AuthenticationUnauthenticated) {
       return LoginPage(
         userRepository: userRepository,

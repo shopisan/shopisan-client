@@ -14,6 +14,7 @@ import 'package:shopisan/screens/Login.dart';
 import 'package:shopisan/screens/ManagePost.dart';
 import 'package:shopisan/screens/Register.dart';
 import 'package:shopisan/screens/RegisterCommercial.dart';
+import 'package:shopisan/screens/ResetPasswordScreen.dart';
 import 'package:shopisan/screens/StoreDetailScreen.dart';
 import 'package:shopisan/screens/StoresScreen.dart';
 import 'package:shopisan/screens/edit_store_selection_screen.dart';
@@ -24,7 +25,9 @@ class RouteGenerator {
     final Map<String, dynamic> args = settings.arguments;
     final userRepository = settings.arguments;
 
-    return MaterialPageRoute(builder: (_) {
+    return MaterialPageRoute(
+        settings: RouteSettings(name: settings.name),
+        builder: (_) {
       return BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           print("state $state");
@@ -64,7 +67,7 @@ class RouteGenerator {
                     ),
                   ));
 
-            case '/blocs.login':
+            case '/login':
               print(userRepository);
               return LoginPage(userRepository: userRepository);
 
@@ -78,6 +81,9 @@ class RouteGenerator {
 
             case '/forgot_password':
               return ForgotPasswordScreen();
+
+            case '/reset_password':
+              return ResetPasswordScreen(email: args["email"],);
 
             case '/edit_profile':
               return BlocProvider<ProfileEditBloc>(

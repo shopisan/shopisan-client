@@ -8,6 +8,9 @@ import 'package:shopisan/theme/colors.dart';
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final state = context.select((AuthenticationBloc bloc) => bloc.state);
+
+
     return Container(
       padding: EdgeInsets.all(10),
       child: ListView(

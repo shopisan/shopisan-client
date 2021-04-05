@@ -6,6 +6,8 @@ class TextInput extends StatelessWidget {
   final TextEditingController controller;
   final IconData icon;
   final String label;
+  final Function validator;
+  final String passwordValidation;
   final Function callback;
   final TextInputType keyboardType;
   final List<dynamic> inputFormatter;
@@ -20,6 +22,8 @@ class TextInput extends StatelessWidget {
       {@required this.controller,
       @required this.icon,
       @required this.label,
+      this.validator,
+      this.passwordValidation,
       this.callback,
       this.inputFormatter,
       this.keyboardType,
@@ -32,18 +36,19 @@ class TextInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("passwordValidation: $passwordValidation");
     return Container(
-      height: isTextarea ? null : 50,
+      // height: isTextarea ? null : 50,
       width: double.infinity,
       padding: padding,
       margin: margin ?? EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        // color: Colors.white,
         borderRadius: BorderRadius.circular(40),
         boxShadow: [
           BoxShadow(
             color: CustomColors.spreadRegister,
-            spreadRadius: 5,
+            spreadRadius: 3,
             blurRadius: 15,
           ),
         ],
@@ -53,10 +58,21 @@ class TextInput extends StatelessWidget {
         controller: controller,
         style: Theme.of(context).textTheme.bodyText1,
         onChanged: callback,
+        validator: null != validator ? (value) {
+          if (passwordValidation != null) {
+            return validator(value, passwordValidation, context);
+          }
+          return validator(value, context);
+        } : null,
         keyboardType: keyboardType,
         inputFormatters: inputFormatter,
         obscureText: obscureText,
         decoration: InputDecoration(
+            isDense: true,
+            // Added this
+            contentPadding: EdgeInsets.all(15),
+            filled: true,
+            fillColor: Colors.white,
             prefixIcon: noIcon
                 ? null
                 : Icon(

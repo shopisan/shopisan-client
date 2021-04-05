@@ -76,5 +76,20 @@
   "favorite" : "Your favorite stores",
   "noFav": "No saved stores",
   "uploadImg": "Upload image",
-  "storePost": "Post for store"
+  "storePost": "Post for store",
+  "emptyValidation": "This field cannot be empty",
+  "passwordMatchValidation": "The submitted passwords do not match",
+  "emailValidation": "This field must contain a valid email address",
+  "accountCreated": "Account created",
+  "emailTaken": "This email address is already in use",
+  "userNameTaken": "This username is already in use",
+  "anErrorOccurred": "An error occurred",
+  "forgotPasswordMailSent": "",
+  "resetPassword": "Reset password",
+  "resetPassText": "Texte à faire",
+  "resetPassToken": "Token",
+  "resetPassTokenHint": "Le token fourni depuis le mail reçu",
+  "resetPasswordSuccess": "Password reset",
+  "storeDescription": "Store description",
+  "storeDescriptionHint": "Describe your activity in a few lines"
 }

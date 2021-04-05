@@ -74,5 +74,20 @@
   "favorite" : "Tes stores préférés",
   "noFav": "Pas de stores sauvegardés",
   "uploadImg": "Télécharger une image",
-  "storePost": "Magasin pour lequel poster"
+  "storePost": "Magasin pour lequel poster",
+  "emptyValidation": "Ce champ ne peut être vide",
+  "passwordMatchValidation": "Les mot de passes renseignés ne sont pas identiques",
+  "emailValidation": "Ce champ doit contenir une adresse email valide",
+  "accountCreated": "Votre compte a été créé",
+  "emailTaken": "Cette adresse email est déjà utilisée",
+  "userNameTaken": "Ce nom d'utilisateur est déjà utilisé",
+  "anErrorOccurred": "Une erreur est survenue",
+  "forgotPasswordMailSent": "Le token devrait arriver dans votre boite de réception",
+  "resetPassword": "Reset password",
+  "resetPassText": "Texte à faire",
+  "resetPassToken": "Token",
+  "resetPassTokenHint": "Le token fourni depuis le mail reçu",
+  "resetPasswordSuccess": "Mot de passe réinitialisé",
+  "storeDescription": "Description de votre magasin",
+  "storeDescriptionHint": "Expliquez en quelques lignes en quoi consiste votre activité"
 }

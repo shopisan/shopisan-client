@@ -8,6 +8,7 @@ import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 
 class GoogleMapScreen extends StatefulWidget {
   const GoogleMapScreen(
@@ -25,8 +26,6 @@ class GoogleMapScreen extends StatefulWidget {
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
   GoogleMapController mapController;
-
-  Set<Marker> _markers = {};
   BitmapDescriptor mapMarker;
   String searchAddress;
 
@@ -34,12 +33,12 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   void initState() {
     super.initState();
     setCustomMarker();
-    getMarkers(widget.stores);
   }
 
-  void setCustomMarker() async {
+  Future setCustomMarker() async {
     mapMarker = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(), "assets/icons/pin.png");
+    return mapMarker;
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -73,42 +72,50 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     // });
   }
 
-  void getMarkers(List<Store> stores) {
-    Set<Marker> newMarkers = {};
-    for (Store store in stores) {
-      for (Address address in store.addresses) {
-        if (address.latitude != null && address.longitude != null) {
-          newMarkers.add(Marker(
-              markerId: MarkerId(address.id.toString() + " " + address.streetAvenue),
-              icon: mapMarker,
-              position: LatLng(double.parse(address.latitude),
-                  double.parse(address.longitude)),
-              infoWindow: InfoWindow(
-                title: store.name,
-              )));
-        }
-      }
-    }
-
-    setState(() {
-      _markers = newMarkers;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    getMarkers(widget.stores);
+
+    Future<Set<Marker>> _getMarkers(List<Store> stores) async {
+      if (null == mapMarker) {
+        mapMarker = await setCustomMarker();
+      }
+
+      Set<Marker> newMarkers = {};
+      for (Store store in stores) {
+        for (Address address in store.addresses) {
+          if (address.latitude != null && address.longitude != null) {
+            newMarkers.add(Marker(
+                markerId: MarkerId(address.id.toString() + " " + address.streetAvenue),
+                icon: mapMarker,
+                position: LatLng(double.parse(address.latitude),
+                    double.parse(address.longitude)),
+                infoWindow: InfoWindow(
+                  title: store.name,
+                )));
+          }
+        }
+      }
+
+      return newMarkers;
+    }
+
 
     return Stack(
       children: [
-        GoogleMap(
-          onMapCreated: _onMapCreated,
-          markers: _markers,
-          myLocationEnabled: true,
-          zoomControlsEnabled: false,
-          initialCameraPosition:
+        FutureBuilder(builder: (context, snapshot){
+          if (snapshot.hasData) {
+            return GoogleMap(
+              onMapCreated: _onMapCreated,
+              markers: snapshot.data,
+              myLocationEnabled: true,
+              zoomControlsEnabled: false,
+              initialCameraPosition:
               CameraPosition(zoom: 14.0, target: LatLng(widget.latitude, widget.longitude)),
-        ),
+            );
+          }
+
+          return LoadingIndicator();
+        }, future: _getMarkers(widget.stores),),
         Positioned(
           top: 10,
           left: 10,

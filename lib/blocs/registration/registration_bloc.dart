@@ -1,12 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
 
 part 'registration_event.dart';
-
 part 'registration_state.dart';
 
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
@@ -24,26 +23,36 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       Map<String, String> data = event.data;
 
       yield InitialRegistrationState(data: data);
-    } else if (event is SubmitRegistrationEvent){
-      Map<String, String> data = event.data;
-      print(data);
-      yield LoadingRegistrationState(data: data);
-      if (data["password"] != data['repeatPassword']) {
-        yield DoneRegistrationState(data: data, success: true, message: {
-          "password": [], // todo mettre des key en param, et traduire depuis le widget avec un switch
-          "repeatPassword": []
-        });
-      }
-      // @todo valider le form (tester l'envoi d'une addresse mail mal formée)
-      // @todo envoyer vers le controller
-      try {
-        registrationUserProfile(data);
-        yield DoneRegistrationState(data: data, success: true);
-      } catch (exception){
-        print("exception: $exception");
-        yield DoneRegistrationState(data: data, success: false);
-      }
 
+    } else if (event is SubmitRegistrationEvent) {
+      Map<String, String> data = event.data;
+      yield LoadingRegistrationState(data: data);
+      bool valid = true;
+
+      if (valid) {
+        try {
+          bool rslt = await registrationUserProfile(data);
+          if (rslt) {
+            yield DoneRegistrationState(data: data, success: true);
+          } else {
+            yield DoneRegistrationState(data: data, success: false);
+          }
+        } catch (exception) {
+          Map<String, dynamic> error = jsonDecode(exception.message);
+          List<String> message = [];
+
+          if (error.containsKey("email")) {
+            message.add("email_taken");
+          }
+
+          if (error.containsKey("username")){
+            message.add("userName_taken");
+          }
+          
+          yield DoneRegistrationState(
+              data: data, success: false, message: message); // todo reste a faire une condition sur le contenu de l'exception
+        }
+      }
     }
   }
 }
