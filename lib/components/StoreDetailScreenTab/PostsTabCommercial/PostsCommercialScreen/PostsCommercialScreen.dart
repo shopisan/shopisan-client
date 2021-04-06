@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopisan/components/Post/post_preview.dart';
-import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/DetailsPostsCommercialScreen/DescriptionPostsCommercial.dart';
-import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/DetailsPostsCommercialScreen/HeaderPostsCommercial.dart';
-import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/DetailsPostsCommercialScreen/PicturesPostsCommercial.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
@@ -20,8 +17,7 @@ class PostsCommercialScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: CustomColors.lightBlue,
         iconTheme: IconThemeData(color: Colors.black),
-        title: Text(store.name,
-            style: Theme.of(context).textTheme.headline2),
+        title: Text(store.name, style: Theme.of(context).textTheme.headline2),
       ),
       body: Container(
         color: CustomColors.lightBlue,
@@ -30,19 +26,21 @@ class PostsCommercialScreen extends StatelessWidget {
           child: ListView(
             children: [
               Container(
-                padding: EdgeInsets.all(20),
                 margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: CustomColors.search,
                 ),
-                child: PostPreview(post: post,)/*Column(
+                child: PostPreview(
+                  post: post,
+                ) /*Column(
                   children: [
                     // HeaderPostsCommercial(),
                     PicturesPostsCommercial(post: post),
                     DescriptionPostsCommercial(),
                   ],
-                )*/,
+                )*/
+                ,
               ),
             ],
           ),

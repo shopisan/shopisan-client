@@ -25,6 +25,8 @@ class _PostCreationState extends State<PostCreation> {
 
   @override
   Widget build(BuildContext context) {
+    // print("posts $post");
+
     final Post post =
         context.select((PostCreationBloc bloc) => bloc.state.post);
     AuthenticationState authState =

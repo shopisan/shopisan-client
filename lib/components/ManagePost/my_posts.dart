@@ -17,10 +17,11 @@ class MyPosts extends StatelessWidget {
       width: double.infinity,
       child: ListView(
         scrollDirection: Axis.vertical,
-        children: posts?.map((post) {
+        children: posts.reversed.map((post) {
               return TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/create_post', arguments: {"postId": post.id});
+                  Navigator.pushNamed(context, '/create_post',
+                      arguments: {"postId": post.id});
                 },
                 child: PostPreview(post: post),
               );

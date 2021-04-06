@@ -6,7 +6,6 @@ import 'package:shopisan/repository/user_repository.dart';
 import 'package:shopisan/theme/style.dart';
 import 'package:shopisan/utils/router_generator.dart';
 
-
 void main() {
   // BlocSupervisor.delegate = SimpleBlocDelegate();
   final userRepository = UserRepository();

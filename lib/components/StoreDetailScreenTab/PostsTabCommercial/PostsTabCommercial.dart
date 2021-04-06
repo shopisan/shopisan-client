@@ -4,8 +4,6 @@ import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
-import 'PostsCommercialScreen/PostsCommercialScreen.dart';
-
 class PostsTabCommercial extends StatefulWidget {
   final Store store;
   final List<Post> posts;
@@ -38,12 +36,22 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
               // ignore: deprecated_member_use
               child: FlatButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/post_detail', arguments: {"post": widget.posts[index], "store": widget.store});
+                  Navigator.pushNamed(context, '/post_detail', arguments: {
+                    "post": widget.posts[index],
+                    "store": widget.store
+                  });
                 },
                 // margin: EdgeInsets.all(3),
                 color: CustomColors.lightBlue,
-                child: Text(
-                  widget.posts[index]?.postMedia[0].description,
+                // padding: EdgeInsets.all(10),
+                height: 100,
+                // child: Text(
+                //   widget.posts[index]?.postMedia[0].description,
+                // ),
+                child: Image(
+                  image:
+                      NetworkImage(widget.posts[index]?.postMedia[0].media.url),
+                  fit: BoxFit.cover,
                 ),
               ),
             );
