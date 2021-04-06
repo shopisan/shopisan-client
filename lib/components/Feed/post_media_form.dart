@@ -9,6 +9,7 @@ import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 import 'package:shopisan/components/Form/text_input.dart' as CustomInput;
 import 'package:shopisan/model/PostMedia.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/validators.dart';
 
 class PostMediaForm extends StatefulWidget {
   final PostMedia postMedia;
@@ -244,6 +245,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
                       callback: (value) {
                         _updateValues();
                       },
+                      validator: isEmpty,
                     ),
                     CustomInput.TextInput(
                       controller: _priceController,
@@ -254,9 +256,9 @@ class _PostMediaFormState extends State<PostMediaForm> {
                         FilteringTextInputFormatter.allow(
                             RegExp(r'^[0-9\.\,]+$'))
                       ],
-                      callback: (value) {
-                        _updateValues();
-                      },
+                      // callback: (value) {
+                      //   _updateValues();
+                      // }
                     ),
                   ],
                 )),

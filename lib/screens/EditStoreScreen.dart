@@ -20,6 +20,8 @@ class EditStore extends StatefulWidget {
 class _EditStoreState extends State<EditStore> {
   int _currentIndex = 0;
 
+  final _formKey = GlobalKey<FormState>();
+
   List<BottomNavigationBarItem> _navBarsItems() {
     return [
       BottomNavigationBarItem(
@@ -83,7 +85,9 @@ class _EditStoreState extends State<EditStore> {
     }
 
     _submitForm() {
-      BlocProvider.of<EditStoreBloc>(context).add(StoreSubmitEvent());
+      if (_formKey.currentState.validate()) {
+        BlocProvider.of<EditStoreBloc>(context).add(StoreSubmitEvent());
+      }
     }
 
     return SafeArea(
@@ -99,15 +103,19 @@ class _EditStoreState extends State<EditStore> {
         ),
       ),
       body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
           child: Column(
               // padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
               children: [
-            _getListTab(store).elementAt(_currentIndex),
-            Container(
-              padding: EdgeInsets.all(20),
-              child: SaveButton(callback: _submitForm),
-            )
-          ])),
+                _getListTab(store).elementAt(_currentIndex),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: SaveButton(callback: _submitForm),
+                )
+              ]),
+        ),
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: <BoxShadow>[

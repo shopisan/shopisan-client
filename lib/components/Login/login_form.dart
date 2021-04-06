@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/blocs/login/login_bloc.dart';
+import 'package:shopisan/components/Form/text_input.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/validators.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -15,9 +17,12 @@ class _LoginFormState extends State<LoginForm> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     _onLoginButtonPressed() {
+      _formKey.currentState.validate();
       BlocProvider.of<LoginBloc>(context).add(LoginButtonPressed(
         username: _usernameController.text,
         password: _passwordController.text,
@@ -37,146 +42,99 @@ class _LoginFormState extends State<LoginForm> {
         builder: (context, state) {
           return Container(
             child: Form(
-              child: Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(AppLocalizations.of(context).logIn,
-                        style: Theme.of(context).textTheme.headline5),
-                    Container(
-                      height: 50,
-                      width: double.infinity,
-                      margin: EdgeInsets.fromLTRB(0, 50, 0, 20),
-                      padding: EdgeInsets.only(left: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(40),
-                        boxShadow: [
-                          BoxShadow(
-                            color: CustomColors.spreadRegister,
-                            spreadRadius: 5,
-                            blurRadius: 10,
-                          ),
-                        ],
-                      ),
-                      child: TextFormField(
-                        controller: _usernameController,
-                        style: Theme.of(context).textTheme.bodyText1,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                              borderSide: BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            labelText:
-                                AppLocalizations.of(context).emailAddress,
-                            labelStyle: GoogleFonts.roboto(fontSize: 16),
-                            hintText: AppLocalizations.of(context).emailHint),
-                      ),
-                    ),
-                    Container(
-                      height: 50,
-                      width: double.infinity,
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
-                      padding: EdgeInsets.only(left: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(40),
-                        boxShadow: [
-                          BoxShadow(
-                            color: CustomColors.spreadRegister,
-                            spreadRadius: 5,
-                            blurRadius: 15,
-                          ),
-                        ],
-                      ),
-                      child: TextFormField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        style: Theme.of(context).textTheme.bodyText1,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                              borderSide: BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            labelText: AppLocalizations.of(context).password,
-                            labelStyle: GoogleFonts.roboto(fontSize: 16),
-                            hintText: AppLocalizations.of(context).passHint),
-                      ),
-                    ),
-                    Container(
-                      height: 50,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: CustomColors.textDark,
-                        boxShadow: [
-                          BoxShadow(
-                            color: CustomColors.spreadRegister,
-                            spreadRadius: 5,
-                            blurRadius: 15,
-                          ),
-                        ],
-                      ),
-                      child: TextButton(
-                        onPressed: state is! LoginLoading
-                            ? _onLoginButtonPressed
-                            : null,
-                        child: Text(
-                          AppLocalizations.of(context).logIn,
-                          style: GoogleFonts.roboto(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(AppLocalizations.of(context).logIn,
+                      style: Theme.of(context).textTheme.headline5),
+                  TextInput(
+                    controller: _usernameController,
+                    icon: null,
+                    label: AppLocalizations.of(context).userName,
+                    noIcon: true,
+                    margin: EdgeInsets.fromLTRB(20, 50, 20, 20),
+                    padding: EdgeInsets.only(left: 10),
+                    hint: AppLocalizations.of(context).userName,
+                    validator: isEmpty,
+                  ),
+                  TextInput(
+                    controller: _passwordController,
+                    icon: null,
+                    label: AppLocalizations.of(context).password,
+                    noIcon: true,
+                    margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                    padding: EdgeInsets.only(left: 10),
+                    hint: AppLocalizations.of(context).passHint,
+                    obscureText: true,
+                    validator: isEmpty,
+                  ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: CustomColors.textDark,
+                      boxShadow: [
+                        BoxShadow(
+                          color: CustomColors.spreadRegister,
+                          spreadRadius: 5,
+                          blurRadius: 15,
                         ),
-                        // shape: StadiumBorder(
-                        //   side: BorderSide(
-                        //     color: Colors.black,
-                        //     width: 2,
-                        //   ),
-                        // ),
-                      ),
+                      ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(20),
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/forgot_password');
-                        },
-                        child: Text(
-                          AppLocalizations.of(context).forgotPassword,
-                          style: Theme.of(context).textTheme.bodyText1,
+                    child: TextButton(
+                      onPressed:
+                          state is! LoginLoading ? _onLoginButtonPressed : null,
+                      child: Text(
+                        AppLocalizations.of(context).logIn,
+                        style: GoogleFonts.roboto(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
+                      // shape: StadiumBorder(
+                      //   side: BorderSide(
+                      //     color: Colors.black,
+                      //     width: 2,
+                      //   ),
+                      // ),
                     ),
-                    TextButton(
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(20),
+                    child: TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/register');
+                        Navigator.pushNamed(context, '/forgot_password');
                       },
                       child: Text(
-                        AppLocalizations.of(context).register,
-                        style: GoogleFonts.roboto(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: CustomColors.textDark,
-                        ),
+                        AppLocalizations.of(context).forgotPassword,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
-                    Container(
-                      child: state is LoginLoading
-                          ? CircularProgressIndicator()
-                          : null,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/register');
+                    },
+                    child: Text(
+                      AppLocalizations.of(context).register,
+                      style: GoogleFonts.roboto(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: CustomColors.textDark,
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                  Container(
+                    child: state is LoginLoading
+                        ? CircularProgressIndicator()
+                        : null,
+                  ),
+                ],
               ),
             ),
           );

@@ -28,9 +28,9 @@ class RouteGenerator {
     return MaterialPageRoute(
         settings: RouteSettings(name: settings.name),
         builder: (_) {
-      return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state) {
-          switch (settings.name) {
+          return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            builder: (context, state) {
+              switch (settings.name) {
                 case '/':
                   bool toLogin = null != args ? args['toLogin'] : false;
                   return StoresScreen(toLogin: toLogin);
@@ -45,14 +45,16 @@ class RouteGenerator {
                 case '/post_detail':
                   // print("argument $args");
                   return PostsCommercialScreen(
-                      post: args['post'], store: args['store']);
+                      post: args['post'],
+                      store: null != args ? args['store'] : null);
 
                 case '/create_post':
                   return BlocProvider<PostCreationBloc>(
                       create: (context) {
                         print("arguments $args");
                         return PostCreationBloc()
-                          ..add(IsStarted(postId: args['postId']));
+                          ..add(IsStarted(
+                              postId: null != args ? args['postId'] : null));
                       },
                       child: Scaffold(
                         appBar: AppBar(
@@ -109,7 +111,8 @@ class RouteGenerator {
                   return BlocProvider<EditStoreBloc>(
                       create: (context) {
                         return EditStoreBloc()
-                          ..add(AppStartedEvent(storeId: args['storeId']));
+                          ..add(AppStartedEvent(
+                              storeId: null != args ? args['postId'] : null));
                       },
                       child: EditStore());
 

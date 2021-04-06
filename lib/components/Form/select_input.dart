@@ -7,23 +7,25 @@ class SelectInput extends StatelessWidget {
   final List<DropdownMenuItem> items;
   final IconData icon;
   final String label;
+  final Function validator;
 
   SelectInput(
       {@required this.value,
       @required this.callback,
       @required this.items,
       @required this.label,
-      @required this.icon});
+      @required this.icon,
+      this.validator});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 50,
+        // height: 50,
         // width: double.infinity,
         // padding: EdgeInsets.all(0),
         margin: EdgeInsets.only(top: 20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          // color: Colors.white,
           borderRadius: BorderRadius.circular(40),
           boxShadow: [
             BoxShadow(
@@ -33,7 +35,41 @@ class SelectInput extends StatelessWidget {
             ),
           ],
         ),
-        child: FormField<String>(
+        child: DropdownButtonFormField(
+            items: items ?? [],
+            onChanged: (value) {
+              callback(value);
+            },
+            decoration: InputDecoration(
+              isDense: true,
+              // Added this
+              contentPadding: EdgeInsets.all(15),
+              filled: true,
+              fillColor: Colors.white,
+              prefixIcon: /*noIcon
+                ? null
+                : */
+                  Icon(
+                icon,
+                color: CustomColors.iconsActive,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(40),
+                borderSide: BorderSide(
+                  width: 0,
+                  style: BorderStyle.none,
+                ),
+              ),
+              labelText: label,
+              /*hintText: hint*/
+            ),
+            validator: null != validator
+                ? (value) {
+                    return validator(value, context);
+                  }
+                : null)
+
+        /* FormField<String>(
           builder: (FormFieldState<String> state) {
             return InputDecorator(
               decoration: InputDecoration(
@@ -65,6 +101,12 @@ class SelectInput extends StatelessWidget {
               ),
             );
           },
-        ));
+          validator: null != validator
+              ? (value) {
+                  return validator(value, context);
+                }
+              : null,
+        )*/
+        );
   }
 }

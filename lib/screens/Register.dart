@@ -84,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ? Text(AppLocalizations.of(context).accountCreated)
               : Column(
                   children: _getMsgText(state.message),
-            mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.min,
                 ),
           backgroundColor:
               state.success ? CustomColors.success : CustomColors.error,
@@ -160,101 +160,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         validator: passwordsMatch,
                         passwordValidation: _passwordController.text,
                       ),
-                      // Container(
-                      //   height: 50,
-                      //   width: double.infinity,
-                      //   margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                      //   padding: EdgeInsets.only(left: 10),
-                      //   decoration: BoxDecoration(
-                      //     color: Colors.white,
-                      //     borderRadius: BorderRadius.circular(40),
-                      //     boxShadow: [
-                      //       BoxShadow(
-                      //         color: CustomColors.spreadRegister,
-                      //         spreadRadius: 5,
-                      //         blurRadius: 15,
-                      //       ),
-                      //     ],
-                      //   ),
-                      //   child: TextFormField(
-                      //     style: Theme.of(context).textTheme.bodyText1,
-                      //     decoration: InputDecoration(
-                      //         border: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.circular(40),
-                      //           borderSide: BorderSide(
-                      //             width: 0,
-                      //             style: BorderStyle.none,
-                      //           ),
-                      //         ),
-                      //         labelText:
-                      //             AppLocalizations.of(context).emailAddress,
-                      //         hintText: AppLocalizations.of(context).emailHint),
-                      //   ),
-                      // ),
-                      // Container(
-                      //   height: 50,
-                      //   width: double.infinity,
-                      //   margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                      //   padding: EdgeInsets.only(left: 10),
-                      //   decoration: BoxDecoration(
-                      //     color: Colors.white,
-                      //     borderRadius: BorderRadius.circular(40),
-                      //     boxShadow: [
-                      //       BoxShadow(
-                      //         color: CustomColors.spreadRegister,
-                      //         spreadRadius: 5,
-                      //         blurRadius: 15,
-                      //       ),
-                      //     ],
-                      //   ),
-                      //   child: TextFormField(
-                      //     obscureText: true,
-                      //     style: Theme.of(context).textTheme.bodyText1,
-                      //     decoration: InputDecoration(
-                      //         border: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.circular(40),
-                      //           borderSide: BorderSide(
-                      //             width: 0,
-                      //             style: BorderStyle.none,
-                      //           ),
-                      //         ),
-                      //         labelText: AppLocalizations.of(context).password,
-                      //         hintText: AppLocalizations.of(context).passHint),
-                      //   ),
-                      // ),
-                      // Container(
-                      //   height: 50,
-                      //   width: double.infinity,
-                      //   margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
-                      //   padding: EdgeInsets.only(left: 10),
-                      //   decoration: BoxDecoration(
-                      //     color: Colors.white,
-                      //     borderRadius: BorderRadius.circular(40),
-                      //     boxShadow: [
-                      //       BoxShadow(
-                      //         color: CustomColors.spreadRegister,
-                      //         spreadRadius: 5,
-                      //         blurRadius: 15,
-                      //       ),
-                      //     ],
-                      //   ),
-                      //   child: TextFormField(
-                      //     obscureText: true,
-                      //     style: Theme.of(context).textTheme.bodyText1,
-                      //     decoration: InputDecoration(
-                      //       border: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(40),
-                      //         borderSide: BorderSide(
-                      //           width: 0,
-                      //           style: BorderStyle.none,
-                      //         ),
-                      //       ),
-                      //       labelText:
-                      //           AppLocalizations.of(context).passwordConfirm,
-                      //       hintText: AppLocalizations.of(context).passHint,
-                      //     ),
-                      //   ),
-                      // ),
                       Container(
                         height: 50,
                         width: double.infinity,

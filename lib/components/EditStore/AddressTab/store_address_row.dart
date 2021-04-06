@@ -7,6 +7,7 @@ import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/components/Form/text_input.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/validators.dart';
 
 class StoreAddressRow extends StatefulWidget {
   final Address address;
@@ -23,6 +24,8 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
   final _cityController = TextEditingController();
   final _postalCodeController = TextEditingController();
   String selectedCountry;
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +44,14 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
     ];
 
     _updateAddress() {
-      address.streetAvenue = _streetController.text;
-      address.postalCode = _postalCodeController.text;
-      address.city = _cityController.text;
-      address.country = selectedCountry;
-      BlocProvider.of<EditStoreBloc>(context)
-          .add(StoreAddressEditEvent(address: address, index: index));
+      if (_formKey.currentState.validate()) {
+        address.streetAvenue = _streetController.text;
+        address.postalCode = _postalCodeController.text;
+        address.city = _cityController.text;
+        address.country = selectedCountry;
+        BlocProvider.of<EditStoreBloc>(context)
+            .add(StoreAddressEditEvent(address: address, index: index));
+      }
     }
 
     for (TextEditingController ctrl in controllers) {
@@ -74,101 +79,110 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
     }
 
     return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                child: Text(
-                  AppLocalizations.of(context).local.toUpperCase(),
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-              )
-            ],
-          ),
-          TextInput(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
+                  child: Text(
+                    AppLocalizations.of(context).local.toUpperCase(),
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                )
+              ],
+            ),
+            TextInput(
               controller: _streetController,
               icon: Icons.location_pin,
-              label: AppLocalizations.of(context).street),
-          TextInput(
+              label: AppLocalizations.of(context).street,
+              validator: isEmpty,
+            ),
+            TextInput(
               controller: _cityController,
               icon: Icons.location_city,
-              label: AppLocalizations.of(context).city),
-          TextInput(
+              label: AppLocalizations.of(context).city,
+              validator: isEmpty,
+            ),
+            TextInput(
               controller: _postalCodeController,
               icon: Icons.location_searching,
-              label: AppLocalizations.of(context).postCode),
-          /*TextInput(
+              label: AppLocalizations.of(context).postCode,
+              validator: isEmpty,
+            ),
+            /*TextInput(
               controller: _countryController,
               icon: Icons.flag,
               label: AppLocalizations.of(context).country),*/
-          TextButton(
-              style: ButtonStyle(
-                padding:
-                    MaterialStateProperty.all(EdgeInsets.fromLTRB(0, 10, 0, 0)),
-              ),
-              onPressed: () {
-                showCountryPicker(
-                    context: context,
-                    countryListTheme: CountryListThemeData(
-                        textStyle: Theme.of(context).textTheme.headline2),
-                    onSelect: (Country country) {
-                      setState(() {
-                        selectedCountry = country.countryCode;
+            TextButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                      EdgeInsets.fromLTRB(0, 10, 0, 0)),
+                ),
+                onPressed: () {
+                  showCountryPicker(
+                      context: context,
+                      countryListTheme: CountryListThemeData(
+                          textStyle: Theme.of(context).textTheme.headline2),
+                      onSelect: (Country country) {
+                        setState(() {
+                          selectedCountry = country.countryCode;
+                        });
+                        _updateAddress();
                       });
-                      _updateAddress();
-                    });
-              },
-              child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  padding: EdgeInsets.only(left: 10),
-                  margin: EdgeInsets.only(top: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(40),
-                    boxShadow: [
-                      BoxShadow(
-                        color: CustomColors.spreadRegister,
-                        spreadRadius: 5,
-                        blurRadius: 15,
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.flag,
-                        color: CustomColors.iconsActive,
-                      ),
-                      Padding(padding: EdgeInsets.all(10)),
-                      Text(
-                        _getCountryText(selectedCountry),
-                        style: Theme.of(context).textTheme.bodyText1,
-                      )
-                    ],
-                  ))),
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            width: 50,
-            child: ElevatedButton(
-              onPressed: _deleteAddress,
-              child: Icon(
-                Icons.delete,
-                size: 15,
+                },
+                child: Container(
+                    height: 50,
+                    width: double.infinity,
+                    padding: EdgeInsets.only(left: 10),
+                    margin: EdgeInsets.only(top: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(40),
+                      boxShadow: [
+                        BoxShadow(
+                          color: CustomColors.spreadRegister,
+                          spreadRadius: 5,
+                          blurRadius: 15,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.flag,
+                          color: CustomColors.iconsActive,
+                        ),
+                        Padding(padding: EdgeInsets.all(10)),
+                        Text(
+                          _getCountryText(selectedCountry),
+                          style: Theme.of(context).textTheme.bodyText1,
+                        )
+                      ],
+                    ))),
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              width: 50,
+              child: ElevatedButton(
+                onPressed: _deleteAddress,
+                child: Icon(
+                  Icons.delete,
+                  size: 15,
+                ),
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(CustomColors.error),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)))),
               ),
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(CustomColors.error),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)))),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

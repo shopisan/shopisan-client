@@ -5,12 +5,15 @@ import 'package:intl/intl.dart';
 import 'package:shopisan/components/Form/date_input.dart';
 import 'package:shopisan/components/Form/text_input.dart';
 import 'package:shopisan/model/UserProfile.dart';
+import 'package:shopisan/utils/validators.dart';
 
 class FormProfile extends StatelessWidget {
   final format = DateFormat("yyyy-MM-dd");
   final UserProfile user;
   final Function setUser;
   FormProfile({@required this.user, @required this.setUser});
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +33,10 @@ class FormProfile extends StatelessWidget {
     ];
 
     _updateUser() {
-      setUser(_userNameController.text, _emailController.text,
-          _nameController.text, _surnameController.text, _dobController.text);
+      if (_formKey.currentState.validate()) {
+        setUser(_userNameController.text, _emailController.text,
+            _nameController.text, _surnameController.text, _dobController.text);
+      }
     }
 
     for (TextEditingController ctrl in controllers) {
@@ -41,7 +46,9 @@ class FormProfile extends StatelessWidget {
     }
 
     return Container(
-        padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+      padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+      child: Form(
+        key: _formKey,
         child: Column(
           children: [
             Padding(
@@ -53,22 +60,26 @@ class FormProfile extends StatelessWidget {
               controller: _userNameController,
               icon: Icons.verified_user_outlined,
               label: AppLocalizations.of(context).userName,
+              validator: isEmpty,
             ),
             TextInput(
               controller: _emailController,
               icon: Icons.mail_outline,
               label: AppLocalizations.of(context).emailAddress,
+              validator: isValidEmail,
             ),
             Padding(padding: EdgeInsets.all(20)),
             TextInput(
               controller: _nameController,
               icon: Icons.account_circle_outlined,
               label: AppLocalizations.of(context).name,
+              validator: isEmpty,
             ),
             TextInput(
               controller: _surnameController,
               icon: Icons.account_circle_outlined,
               label: AppLocalizations.of(context).lastName,
+              validator: isEmpty,
             ),
             DateInput(
               controller: _dobController,
@@ -76,6 +87,8 @@ class FormProfile extends StatelessWidget {
               format: format,
             ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

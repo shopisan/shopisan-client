@@ -5,12 +5,14 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/model/Store.dart';
+import 'package:shopisan/model/UserProfileProfile.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class RatingBarCommercial extends StatefulWidget {
   final Store store;
+  final profile;
 
-  RatingBarCommercial({@required this.store});
+  RatingBarCommercial({@required this.store, this.profile});
 
   @override
   _RatingBarCommercialState createState() => _RatingBarCommercialState();
@@ -20,6 +22,7 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
   @override
   Widget build(BuildContext context) {
     final Store store = widget.store;
+    final UserProfileProfile profile = widget.profile;
 
     return Container(
       padding: EdgeInsets.all(10),
@@ -44,7 +47,27 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
             color: Colors.amber,
           ),
         ),
-        onPressed: () => _onButtonPressed(store),
+        // onPressed: () => _onButtonPressed(store),
+
+        onPressed: () {
+          if (null != profile) {
+            _onButtonPressed(store);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              key: Key("yup"),
+              content: Text(AppLocalizations.of(context).loginRequired),
+              backgroundColor: CustomColors.error,
+              action: SnackBarAction(
+                textColor: CustomColors.success,
+                label: AppLocalizations.of(context).logIn.toUpperCase(),
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed("/", arguments: {"toLogin": true});
+                },
+              ),
+            ));
+          }
+        },
       ),
     );
   }

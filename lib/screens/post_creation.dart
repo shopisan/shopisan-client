@@ -12,6 +12,7 @@ import 'package:shopisan/model/PostMedia.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
+import 'package:shopisan/utils/validators.dart';
 
 class PostCreation extends StatefulWidget {
   PostCreation({Key key}) : super(key: key);
@@ -22,6 +23,7 @@ class PostCreation extends StatefulWidget {
 
 class _PostCreationState extends State<PostCreation> {
   List<PostMedia> postMedias = [];
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,9 @@ class _PostCreationState extends State<PostCreation> {
     }
 
     _sendForm() {
-      BlocProvider.of<PostCreationBloc>(context).add(ChangePost(post: post));
+      if (_formKey.currentState.validate()) {
+        BlocProvider.of<PostCreationBloc>(context).add(ChangePost(post: post));
+      }
     }
 
     _submitDeletePost() {
@@ -99,32 +103,33 @@ class _PostCreationState extends State<PostCreation> {
     }
 
     _updateStore(String storeUrl) {
+      print("update store url: $storeUrl");
       BlocProvider.of<PostCreationBloc>(context)
           .add(ChangePostStore(storeUrl: storeUrl));
     }
 
     return Container(
       width: double.infinity,
-      child: Form(
-        child: Padding(
-          padding: EdgeInsets.all(10.0),
+      child: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Form(
+          key: _formKey,
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(
-                child: SelectInput(
-                  value: post.store,
-                  callback: _updateStore,
-                  items: stores
-                      .map((Store store) => DropdownMenuItem<String>(
-                            value: store.url,
-                            child: Text(store.name),
-                          ))
-                      .toList(),
-                  label: AppLocalizations.of(context).storePost,
-                  icon: Icons.store,
-                ),
+              SelectInput(
+                value: post.store,
+                callback: _updateStore,
+                items: stores
+                    .map((Store store) => DropdownMenuItem(
+                          value: store.url,
+                          child: Text(store.name),
+                        ))
+                    .toList(),
+                label: AppLocalizations.of(context).storePost,
+                icon: Icons.store,
+                validator: isEmpty,
               ),
               Container(
                 margin: EdgeInsets.only(top: 20),

@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -99,7 +99,10 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
       DescriptionTabCommercial(
         store: store,
       ),
-      PostsTabCommercial(store: store, posts: posts,),
+      PostsTabCommercial(
+        store: store,
+        posts: posts,
+      ),
       MapTabCommercial(store: store),
     ];
   }
@@ -111,8 +114,8 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
         store = value;
       });
       return value.id;
-    }).then((storeId){
-      fetchPostsByStore(storeId).then((value){
+    }).then((storeId) {
+      fetchPostsByStore(storeId).then((value) {
         setState(() {
           posts = value;
         });
@@ -131,7 +134,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
     }
 
     final AuthenticationState state =
-    context.select((AuthenticationBloc bloc) => bloc.state);
+        context.select((AuthenticationBloc bloc) => bloc.state);
     UserProfileProfile profile;
     if (state is AuthenticationAuthenticated) {
       profile = state.user.profile;
@@ -139,20 +142,17 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
 
     _submitFavourite() async {
       try {
-        UserProfile user =
-            await manageFavouriteStore(store.id);
-        BlocProvider.of<AuthenticationBloc>(
-            context)
+        UserProfile user = await manageFavouriteStore(store.id);
+        BlocProvider.of<AuthenticationBloc>(context)
             .add(UserChangedEvent(user: user));
       } catch (exception) {
-        print(
-            "Oops, error during handling favourite store adding");
+        print("Oops, error during handling favourite store adding");
       }
     }
 
-    _isFavourite(){
+    _isFavourite() {
       if (null != profile) {
-        for (Map<String, dynamic> storeJson in profile.favouriteStores){
+        for (Map<String, dynamic> storeJson in profile.favouriteStores) {
           if (storeJson['id'] == store.id) {
             return true;
           }
@@ -234,6 +234,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                             children: [
                               RatingBarCommercial(
                                 store: store,
+                                profile: profile,
                               ),
                               Container(
                                 height: 40,
@@ -248,13 +249,21 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                     if (null != profile) {
                                       _submitFavourite();
                                     } else {
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                        content: Text(AppLocalizations.of(context).loginRequired),
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        key: Key("yup"),
+                                        content: Text(
+                                            AppLocalizations.of(context)
+                                                .loginRequired),
                                         backgroundColor: CustomColors.error,
                                         action: SnackBarAction(
-                                          label: AppLocalizations.of(context).logIn,
+                                          textColor: CustomColors.success,
+                                          label: AppLocalizations.of(context)
+                                              .logIn
+                                              .toUpperCase(),
                                           onPressed: () {
-                                            Navigator.of(context).pushNamed("/", arguments: {"toLogin": true});
+                                            Navigator.of(context).pushNamed("/",
+                                                arguments: {"toLogin": true});
                                           },
                                         ),
                                       ));

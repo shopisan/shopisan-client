@@ -18,6 +18,8 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final UserProfile user =
@@ -34,7 +36,9 @@ class _EditProfileState extends State<EditProfile> {
     }
 
     _submitUser() {
-      BlocProvider.of<ProfileEditBloc>(context).add(SubmitEvent(user: user));
+      if (_formKey.currentState.validate()) {
+        BlocProvider.of<ProfileEditBloc>(context).add(SubmitEvent(user: user));
+      }
     }
 
     if (state is InitialProfileEditState) {
@@ -77,27 +81,30 @@ class _EditProfileState extends State<EditProfile> {
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.fromLTRB(10, 30, 10, 20),
-          child: Column(
-            children: [
-              ProfilePicture(
-                user: user,
-              ),
-              FormProfile(
-                user: user,
-                setUser: _setUser,
-              ),
-              Container(
-                  margin: EdgeInsets.all(20),
-                  height: 50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: CustomColors.textDark,
-                  ),
-                  child: state is LoadingProfileEditState
-                      ? LoadingIndicator()
-                      : SaveButton(callback: _submitUser()))
-            ],
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                ProfilePicture(
+                  user: user,
+                ),
+                FormProfile(
+                  user: user,
+                  setUser: _setUser,
+                ),
+                Container(
+                    margin: EdgeInsets.all(20),
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: CustomColors.textDark,
+                    ),
+                    child: state is LoadingProfileEditState
+                        ? LoadingIndicator()
+                        : SaveButton(callback: _submitUser()))
+              ],
+            ),
           ),
         ),
       ),

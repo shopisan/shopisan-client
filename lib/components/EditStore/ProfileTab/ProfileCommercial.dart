@@ -10,6 +10,7 @@ import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
+import 'package:shopisan/utils/validators.dart';
 
 class ProfileCommercial extends StatelessWidget {
   final Store store;
@@ -21,9 +22,10 @@ class ProfileCommercial extends StatelessWidget {
   final _websiteController = TextEditingController();
   final _descriptionController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-
     _nameController.text = store.name;
     _descriptionController.text = store.description;
     _websiteController.text = store.website;
@@ -50,10 +52,13 @@ class ProfileCommercial extends StatelessWidget {
     }
 
     _updateValues() {
-      store.name = _nameController.text;
-      store.description = _descriptionController.text;
-      store.website = _websiteController.text;
-      BlocProvider.of<EditStoreBloc>(context).add(StoreEditEvent(store: store));
+      if (_formKey.currentState.validate()) {
+        store.name = _nameController.text;
+        store.description = _descriptionController.text;
+        store.website = _websiteController.text;
+        BlocProvider.of<EditStoreBloc>(context)
+            .add(StoreEditEvent(store: store));
+      }
     }
 
     for (TextEditingController ctrl in controllers) {
@@ -63,121 +68,126 @@ class ProfileCommercial extends StatelessWidget {
     }
 
     return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextInput(
-            controller: _nameController,
-            icon: Icons.store_outlined,
-            label: AppLocalizations.of(context).storeName,
-          ),
-          TextInput(
-            controller: _descriptionController,
-            icon: Icons.store_outlined,
-            label: AppLocalizations.of(context).description,
-            keyboardType: TextInputType.multiline,
-            isTextarea: true,
-          ),
-          TextInput(
-            controller: _websiteController,
-            icon: Icons.web,
-            label: AppLocalizations.of(context).website,
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
-            child: Text(
-              AppLocalizations.of(context).searchCat.toUpperCase(),
-              style: Theme.of(context).textTheme.headline3,
+      child: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextInput(
+              controller: _nameController,
+              icon: Icons.store_outlined,
+              label: AppLocalizations.of(context).storeName,
+              validator: isEmpty,
             ),
-          ),
-          MultiSelectDialogField(
-            buttonIcon: Icon(
-              Icons.search,
-              color: CustomColors.iconsActive,
+            TextInput(
+              controller: _descriptionController,
+              icon: Icons.store_outlined,
+              label: AppLocalizations.of(context).description,
+              keyboardType: TextInputType.multiline,
+              isTextarea: true,
+              validator: isEmpty,
             ),
-            buttonText: Text(AppLocalizations.of(context).search,
-                style: Theme.of(context).textTheme.bodyText1),
-            items: null != categories
-                ? categories.map((e) => MultiSelectItem(e.id, e.fr)).toList()
-                : [],
-            initialValue: _initialCats,
-            listType: MultiSelectListType.LIST,
-            // chipDisplay: MultiSelectChipDisplay.none(),
-            onConfirm: (values) {
-              BlocProvider.of<EditStoreBloc>(context)
-                  .add(StoreEditCategoriesEvent(categoriesIds: values));
-            },
-            backgroundColor: CustomColors.search,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(40),
-              boxShadow: [
-                BoxShadow(
-                  color: CustomColors.spreadRegister,
-                  spreadRadius: 5,
-                  blurRadius: 15,
-                ),
-              ],
+            TextInput(
+              controller: _websiteController,
+              icon: Icons.web,
+              label: AppLocalizations.of(context).website,
             ),
-          ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
+              child: Text(
+                AppLocalizations.of(context).searchCat.toUpperCase(),
+                style: Theme.of(context).textTheme.headline3,
+              ),
+            ),
+            MultiSelectDialogField(
+              buttonIcon: Icon(
+                Icons.search,
+                color: CustomColors.iconsActive,
+              ),
+              buttonText: Text(AppLocalizations.of(context).search,
+                  style: Theme.of(context).textTheme.bodyText1),
+              items: null != categories
+                  ? categories.map((e) => MultiSelectItem(e.id, e.fr)).toList()
+                  : [],
+              initialValue: _initialCats,
+              listType: MultiSelectListType.LIST,
+              // chipDisplay: MultiSelectChipDisplay.none(),
+              onConfirm: (values) {
+                BlocProvider.of<EditStoreBloc>(context)
+                    .add(StoreEditCategoriesEvent(categoriesIds: values));
+              },
+              backgroundColor: CustomColors.search,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(40),
+                boxShadow: [
+                  BoxShadow(
+                    color: CustomColors.spreadRegister,
+                    spreadRadius: 5,
+                    blurRadius: 15,
+                  ),
+                ],
+              ),
+            ),
 
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.start,
-          //   children: [
-          //     Container(
-          //       padding: EdgeInsets.fromLTRB(0, 30, 10, 10),
-          //       child: Text(
-          //         AppLocalizations.of(context).scheduleStore.toUpperCase(),
-          //         style: Theme.of(context).textTheme.headline3,
-          //       ),
-          //     )
-          //   ],
-          // ),
-          // CheckboxListTile(
-          //     value: store.appointmentOnly,
-          //     title: Text(AppLocalizations.of(context).appointmentOnly),
-          //     controlAffinity: ListTileControlAffinity.leading,
-          //     onChanged: (value) {
-          //       store.appointmentOnly = value;
-          //       BlocProvider.of<EditStoreBloc>(context)
-          //           .add(StoreEditEvent(store: store));
-          //     }),
-          // store.appointmentOnly
-          //     ? Column()
-          //     : OpeningHoursForm(
-          //         store: store,
-          //       ),
-          // Column(
-          //   children: store.addresses
-          //       .asMap()
-          //       .map((index, Address address) => MapEntry(
-          //           index, StoreAddressRow(address: address, index: index)))
-          //       .values
-          //       .toList(),
-          // ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.end,
-          //   children: [
-          //     Container(
-          //       width: 50,
-          //       child: ElevatedButton(
-          //         onPressed: _addAddress,
-          //         child: Icon(Icons.add, size: 15),
-          //         style: ButtonStyle(
-          //             backgroundColor: MaterialStateProperty.all<Color>(
-          //                 CustomColors.success),
-          //             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          //                 RoundedRectangleBorder(
-          //                     borderRadius: BorderRadius.circular(25)))),
-          //       ),
-          //     ),
-          //   ],
-          // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //     Container(
+            //       padding: EdgeInsets.fromLTRB(0, 30, 10, 10),
+            //       child: Text(
+            //         AppLocalizations.of(context).scheduleStore.toUpperCase(),
+            //         style: Theme.of(context).textTheme.headline3,
+            //       ),
+            //     )
+            //   ],
+            // ),
+            // CheckboxListTile(
+            //     value: store.appointmentOnly,
+            //     title: Text(AppLocalizations.of(context).appointmentOnly),
+            //     controlAffinity: ListTileControlAffinity.leading,
+            //     onChanged: (value) {
+            //       store.appointmentOnly = value;
+            //       BlocProvider.of<EditStoreBloc>(context)
+            //           .add(StoreEditEvent(store: store));
+            //     }),
+            // store.appointmentOnly
+            //     ? Column()
+            //     : OpeningHoursForm(
+            //         store: store,
+            //       ),
+            // Column(
+            //   children: store.addresses
+            //       .asMap()
+            //       .map((index, Address address) => MapEntry(
+            //           index, StoreAddressRow(address: address, index: index)))
+            //       .values
+            //       .toList(),
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     Container(
+            //       width: 50,
+            //       child: ElevatedButton(
+            //         onPressed: _addAddress,
+            //         child: Icon(Icons.add, size: 15),
+            //         style: ButtonStyle(
+            //             backgroundColor: MaterialStateProperty.all<Color>(
+            //                 CustomColors.success),
+            //             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            //                 RoundedRectangleBorder(
+            //                     borderRadius: BorderRadius.circular(25)))),
+            //       ),
+            //     ),
+            //   ],
+            // ),
 
-          // @todo ajouter une input pour gérer les heures d'ouvertures
-          // @todo ajouter une collection pour gérer les addresses
-        ],
+            // @todo ajouter une input pour gérer les heures d'ouvertures
+            // @todo ajouter une collection pour gérer les addresses
+          ],
+        ),
       ),
     );
   }
