@@ -28,88 +28,97 @@ class RouteGenerator {
     return MaterialPageRoute(
         settings: RouteSettings(name: settings.name),
         builder: (_) {
-      return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state) {
-          print("state $state");
-          switch (settings.name) {
-            case '/':
-              return StoresScreen();
+          return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            builder: (context, state) {
+              print("state $state");
+              switch (settings.name) {
+                case '/':
+                  return StoresScreen();
 
-            case '/store_detail':
-              print(args);
-              return StoreDetailScreen(storeId: args['storeId']);
+                case '/store_detail':
+                  print(args);
+                  return StoreDetailScreen(storeId: args['storeId']);
 
-            case '/manage_post':
-              return ManagePost();
+                case '/manage_post':
+                  return ManagePost();
 
-            case '/post_detail':
-              print("argument $args");
-              return PostsCommercialScreen(post: args['post'], store: args['store']);
+                case '/post_detail':
+                  // print("argument $args");
+                  return PostsCommercialScreen(
+                      post: args['post'], store: args['store']);
 
-            case '/create_post':
-              return BlocProvider<PostCreationBloc>(
-                  create: (context) {
-                    return PostCreationBloc()..add(IsStarted(postId: args['postId']));
-                  },
-                  child: Scaffold(
-                    appBar: AppBar(
-                      backgroundColor: Colors.white,
-                      bottomOpacity: 0.0,
-                      elevation: 8,
-                      iconTheme: IconThemeData(color: Colors.black),
-                      title: Text(
-                        AppLocalizations.of(context).editPost,
-                        style: Theme.of(context).textTheme.headline3,
-                      ),
-                    ),
-                    body: SingleChildScrollView(
-                      child: PostCreation(),
-                    ),
-                  ));
+                case '/create_post':
+                  return BlocProvider<PostCreationBloc>(
+                      create: (context) {
+                        print("arguments $args");
+                        return PostCreationBloc()
+                          ..add(IsStarted(postId: args['postId']));
+                      },
+                      child: Scaffold(
+                        appBar: AppBar(
+                          backgroundColor: Colors.white,
+                          bottomOpacity: 0.0,
+                          elevation: 8,
+                          iconTheme: IconThemeData(color: Colors.black),
+                          title: Text(
+                            AppLocalizations.of(context).editPost,
+                            style: Theme.of(context).textTheme.headline3,
+                          ),
+                        ),
+                        body: SingleChildScrollView(
+                          child: PostCreation(),
+                        ),
+                      ));
 
-            case '/login':
-              print(userRepository);
-              return LoginPage(userRepository: userRepository);
+                case '/login':
+                  print(userRepository);
+                  return LoginPage(userRepository: userRepository);
 
-            case '/register':
-              return BlocProvider<RegistrationBloc>(create: (context){
-                return RegistrationBloc();
-              }, child: RegisterScreen(),);
+                case '/register':
+                  return BlocProvider<RegistrationBloc>(
+                    create: (context) {
+                      return RegistrationBloc();
+                    },
+                    child: RegisterScreen(),
+                  );
 
-            case '/register_store':
-              return RegisterCommercialScreen();
+                case '/register_store':
+                  return RegisterCommercialScreen();
 
-            case '/forgot_password':
-              return ForgotPasswordScreen();
+                case '/forgot_password':
+                  return ForgotPasswordScreen();
 
-            case '/reset_password':
-              return ResetPasswordScreen(email: args["email"],);
+                case '/reset_password':
+                  return ResetPasswordScreen(
+                    email: args["email"],
+                  );
 
-            case '/edit_profile':
-              return BlocProvider<ProfileEditBloc>(
-                  create: (context) {
-                    return ProfileEditBloc()..add(InitEvent());
-                  },
-                  child: Scaffold(
-                    body: EditProfile(),
-                  ));
+                case '/edit_profile':
+                  return BlocProvider<ProfileEditBloc>(
+                      create: (context) {
+                        return ProfileEditBloc()..add(InitEvent());
+                      },
+                      child: Scaffold(
+                        body: EditProfile(),
+                      ));
 
-            case '/edit_stores':
-              return EditStoreSelectionScreen();
+                case '/edit_stores':
+                  return EditStoreSelectionScreen();
 
-            case '/edit_store':
-              return BlocProvider<EditStoreBloc>(
-                  create: (context) {
-                    return EditStoreBloc()..add(AppStartedEvent(storeId: args['storeId']));
-                  },
-                  child: EditStore());
+                case '/edit_store':
+                  return BlocProvider<EditStoreBloc>(
+                      create: (context) {
+                        return EditStoreBloc()
+                          ..add(AppStartedEvent(storeId: args['storeId']));
+                      },
+                      child: EditStore());
 
-            default:
-              return _errorRoute();
-          }
-        },
-      );
-    });
+                default:
+                  return _errorRoute();
+              }
+            },
+          );
+        });
   }
 
   static Widget _errorRoute() {

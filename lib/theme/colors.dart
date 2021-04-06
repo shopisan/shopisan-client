@@ -5,7 +5,7 @@ class CustomColors {
   static const iconsActive = Color(0xFFFF6565);
   static const iconsFaded = Color(0xFF717171);
   static const textDark = Color(0xFF43465c);
-  static const textLight = Color(0xFFBFBFBF);
+  static const textLight = Color(0xFF9A9A9A);
   static const spread = Color(0xFFF7F7F7);
   static const spreadRegister = Color(0xFFECF0FF);
   static const lightBlue = Color(0xFFF5F9FE);
