@@ -24,7 +24,6 @@ class AuthenticationBloc
   Future<AuthenticationState> _getUser() async {
     try {
       UserProfile user = await getUserProfile();
-      print("user profile: $user");
       return AuthenticationAuthenticated(user: user);
     } catch (exception) {
       // yield AuthenticationUnauthenticated();
@@ -50,8 +49,6 @@ class AuthenticationBloc
 
     if (event is LoggedIn) {
       yield AuthenticationLoading();
-
-      print("user id : ${event.user.id}");
 
       await userRepository.persistToken(user: event.user);
       yield await _getUser();

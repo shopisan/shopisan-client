@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
+import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.select((AuthenticationBloc bloc) => bloc.state);
-
+    UserProfile user;
+    if (state is AuthenticationAuthenticated) {
+      user = state.user;
+    }
 
     return Container(
       padding: EdgeInsets.all(10),
@@ -49,6 +53,7 @@ class ProfileScreen extends StatelessWidget {
                   Navigator.pushNamed(context, '/edit_profile');
                 },
               )),
+          user.isOwner ?
           Container(
               height: 80,
               padding: EdgeInsets.all(20),
@@ -82,8 +87,8 @@ class ProfileScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, '/edit_stores');
                 },
-              )),
-          Container(
+              )) : Container(),
+          user.isOwner ? Container(
               height: 80,
               padding: EdgeInsets.all(20),
               margin: EdgeInsets.only(bottom: 10),
@@ -116,7 +121,7 @@ class ProfileScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, '/manage_post');
                 },
-              )),
+              )) : Container(),
           Container(
               height: 80,
               padding: EdgeInsets.all(20),

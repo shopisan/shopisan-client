@@ -91,5 +91,6 @@
   "resetPassTokenHint": "Le token fourni depuis le mail reçu",
   "resetPasswordSuccess": "Password reset",
   "storeDescription": "Store description",
-  "storeDescriptionHint": "Describe your activity in a few lines"
+  "storeDescriptionHint": "Describe your activity in a few lines",
+  "loginRequired": "You need to be logged in to access this feature"
 }

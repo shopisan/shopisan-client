@@ -26,8 +26,6 @@ Future<int> createPost(Post post) async {
         headers: headers);
   }
 
-  print("yup: ${response.statusCode} ${response.body}");
-
   if (response.statusCode >= 200 && response.statusCode < 300) {
     return json.decode(response.body)['id'];
     // return Post.fromJson(json.decode(response.body));
@@ -58,9 +56,6 @@ Future<Post> loadPost(int postId) async {
   final response = await http.get(Uri.http(_base, "/api/posts/posts/$postId/"),
       headers: headers);
 
-  print(Uri.http(_base, "/api/posts/posts/$postId/"));
-  print(response.body);
-
   if (response.statusCode == 200) {
     return Post.fromJson(json.decode(response.body));
   } else {
@@ -87,7 +82,6 @@ Future<bool> deletePost(int postId) async {
   final response = await http
       .delete(Uri.http(_base, "/api/posts/posts/$postId/"), headers: headers);
 
-  print("statuc code: ${response.statusCode}");
   if (response.statusCode >= 200 && response.statusCode < 300) {
     return true;
   } else {

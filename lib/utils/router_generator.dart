@@ -33,7 +33,8 @@ class RouteGenerator {
           print("state $state");
           switch (settings.name) {
             case '/':
-              return StoresScreen();
+              bool toLogin = null != args ? args['toLogin'] : false;
+              return StoresScreen(toLogin: toLogin);
 
             case '/store_detail':
               print(args);

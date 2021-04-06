@@ -40,8 +40,6 @@ class _EditProfileState extends State<EditProfile> {
     if (state is InitialProfileEditState) {
       return LoadingIndicator();
     } else if (state is ErrorProfileEditState) {
-      // @todo afficher une snackbar avec l'erreur
-      print("error message : ${state.error}");
       WidgetsBinding.instance.addPostFrameCallback((_) {
         // comme la snackbar est appelée avant le build du widget scaffold
         ScaffoldMessenger.of(context).showSnackBar(

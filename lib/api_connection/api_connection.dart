@@ -71,8 +71,6 @@ Future<int> editStore(Store store) async {
   Map<String, dynamic> headers = await getHeaders();
   http.Response response;
 
-  print(jsonEncode(store.toJson()));
-
   if (store.id == null) {
     response = await http.post(
         Uri.http(_base, "/api/stores/stores/"),
@@ -86,8 +84,6 @@ Future<int> editStore(Store store) async {
         headers: headers
     );
   }
-
-  print("response: ${response.body}");
 
   if (response.statusCode >= 200 && response.statusCode < 300) {
     return json.decode(response.body)['id'];
@@ -103,8 +99,6 @@ Future<UserProfile> manageFavouriteStore(int storeId) async {
       Uri.http(_base, "/api/manage_favourite_store/"),
       body: jsonEncode({"favourite_store": storeId}),
       headers: headers);
-
-  print("favourite adding: ${response.body}");
 
   if (response.statusCode == 200) {
     // return true;

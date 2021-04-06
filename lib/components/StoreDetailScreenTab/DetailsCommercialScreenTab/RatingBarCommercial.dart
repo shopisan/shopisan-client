@@ -21,8 +21,6 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
   Widget build(BuildContext context) {
     final Store store = widget.store;
 
-    print("Store $store");
-
     return Container(
       padding: EdgeInsets.all(10),
       // ignore: deprecated_member_use
@@ -52,7 +50,6 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
   }
 
   void _onButtonPressed(Store store) {
-    print("store2: $store");
     showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -84,8 +81,6 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
                       color: Colors.amber,
                     ),
                     onRatingUpdate: (rating) async {
-                      print(rating);
-                      print(store);
                       bool rslt = await postEvaluation(store.id, rating);
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text(AppLocalizations.of(context).evalMessage),

@@ -54,7 +54,6 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
   @override
   Widget build(BuildContext context) {
     Store store = widget.store;
-    print("store $store");
 
     final CameraPosition _initialPosition = CameraPosition(
         zoom: 13.0,
@@ -67,7 +66,6 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
         child: FutureBuilder(
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              print(snapshot.data);
               return GoogleMap(
                 onMapCreated: _onMapCreated,
                 markers: snapshot.data,

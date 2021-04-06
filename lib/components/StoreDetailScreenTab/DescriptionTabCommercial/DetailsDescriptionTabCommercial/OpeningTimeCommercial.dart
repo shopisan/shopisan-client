@@ -15,10 +15,28 @@ class OpeningTimeCommercial extends StatefulWidget {
 }
 
 class _OpeningTimeCommercialState extends State<OpeningTimeCommercial> {
+  _getDayText(day){
+    switch(day){
+      case 'MO':
+        return AppLocalizations.of(context).mo;
+      case 'TU':
+        return AppLocalizations.of(context).tu;
+      case 'WE':
+        return AppLocalizations.of(context).we;
+      case 'TH':
+        return AppLocalizations.of(context).th;
+      case 'FR':
+        return AppLocalizations.of(context).fr;
+      case 'SA':
+        return AppLocalizations.of(context).sa;
+      case 'SU':
+        return AppLocalizations.of(context).su;
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     Store store = widget.store;
-    print("openingTime ${store.openingTimes}");
     return Container(
       // height: 150,
       width: double.infinity,
@@ -39,18 +57,17 @@ class _OpeningTimeCommercialState extends State<OpeningTimeCommercial> {
                         // mainAxisAlignment: MainAxisAlignment.center,
                         // crossAxisAlignment: CrossAxisAlignment.center,
                         children: store.openingTimes.entries.map((entry) {
-                          print("key= ${entry.key} value: ${entry.value}");
                           return Container(
                             padding: EdgeInsets.fromLTRB(20, 20, 10, 10),
                             child: Row(
                               children: [
                                 SizedBox(
                                     child: Text(
-                                      "yup",
+                                      _getDayText(entry.key),
                                       style:
                                           Theme.of(context).textTheme.headline2,
                                     ),
-                                    width: 75),
+                                    width: 90),
                                 _getHoursRows(entry.value),
                               ],
                             ),

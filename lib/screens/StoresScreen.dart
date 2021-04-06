@@ -16,6 +16,10 @@ import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/loading_indicator.dart';
 
 class StoresScreen extends StatefulWidget {
+  final bool toLogin;
+
+  StoresScreen({this.toLogin = false});
+
   @override
   _StoresScreenState createState() => _StoresScreenState();
 }
@@ -30,7 +34,6 @@ class _StoresScreenState extends State<StoresScreen> {
   List<dynamic> history = [];
 
   void setSelectedCats(List<dynamic> selectedCats) async {
-    print(selectedCats);
     setState(() {
       selectedCategoriesId = selectedCats;
     });
@@ -58,10 +61,8 @@ class _StoresScreenState extends State<StoresScreen> {
   // Récupérer la géolocalisation
   getCurrentLocation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print("getting location");
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    print(geoposition);
     setState(() {
       latitudeData = "${geoposition.latitude}";
       longitudeData = "${geoposition.longitude}";
@@ -80,7 +81,6 @@ class _StoresScreenState extends State<StoresScreen> {
   void loadStores() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    print("Latitude: $latitudeData, Longitude: $longitudeData");
 
     List<Store> storeList =
         await fetchStores(selectedCategoriesId, latitudeData, longitudeData);
@@ -96,7 +96,7 @@ class _StoresScreenState extends State<StoresScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey('last_geolocation')) {
       var geoloc = json.decode(prefs.getString('last_geolocation'));
-      print("geoloc: $geoloc");
+
       setState(() {
         latitudeData = "${geoloc['latitude']}";
         longitudeData = "${geoloc['longitude']}";
@@ -167,11 +167,14 @@ class _StoresScreenState extends State<StoresScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.toLogin) {
+      _currentIndex = 4;
+    }
+
     List<Widget> _tabs = <Widget>[
       FutureBuilder(
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print("posts $posts");
             return PostsTab(posts: snapshot.data, stores: stores);
           }
           return LoadingIndicator();

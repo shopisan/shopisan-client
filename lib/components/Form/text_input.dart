@@ -36,7 +36,6 @@ class TextInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("passwordValidation: $passwordValidation");
     return Container(
       // height: isTextarea ? null : 50,
       width: double.infinity,

@@ -70,7 +70,6 @@ class _ConnectCommercialState extends State<ConnectCommercial> {
 
   void _launcherURL(store) async {
     bool resp = await canLaunch("${store.website}");
-    print(resp);
     await canLaunch("${store.website}")
         ? await launch("${store.website}")
         : throw "Could not launch ('${store.website}')";

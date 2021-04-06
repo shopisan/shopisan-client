@@ -73,8 +73,6 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
       return text;
     }
 
-    print("getCountryText: ${_getCountryText(selectedCountry)}");
-
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,

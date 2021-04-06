@@ -89,5 +89,6 @@
   "resetPassTokenHint": "Le token fourni depuis le mail reçu",
   "resetPasswordSuccess": "Mot de passe réinitialisé",
   "storeDescription": "Description de votre magasin",
-  "storeDescriptionHint": "Expliquez en quelques lignes en quoi consiste votre activité"
+  "storeDescriptionHint": "Expliquez en quelques lignes en quoi consiste votre activité",
+  "loginRequired": "Vous devez être connecté pour utiliser cette fonctionnalité"
 }

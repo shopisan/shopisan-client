@@ -22,6 +22,7 @@ class SettingsTab extends StatelessWidget {
         userRepository: userRepository,
       );
     }
+
     return LoadingIndicator();
   }
 }

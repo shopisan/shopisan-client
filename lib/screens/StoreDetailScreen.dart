@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -152,7 +153,6 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
     _isFavourite(){
       if (null != profile) {
         for (Map<String, dynamic> storeJson in profile.favouriteStores){
-          print("favorite id: ${storeJson['id']}");
           if (storeJson['id'] == store.id) {
             return true;
           }
@@ -245,8 +245,20 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                   isFavorite: _isFavourite(),
                                   iconSize: 30,
                                   valueChanged: (_favourite) {
-                                    print(_favourite);
-                                    _submitFavourite();
+                                    if (null != profile) {
+                                      _submitFavourite();
+                                    } else {
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                        content: Text(AppLocalizations.of(context).loginRequired),
+                                        backgroundColor: CustomColors.error,
+                                        action: SnackBarAction(
+                                          label: AppLocalizations.of(context).logIn,
+                                          onPressed: () {
+                                            Navigator.of(context).pushNamed("/", arguments: {"toLogin": true});
+                                          },
+                                        ),
+                                      ));
+                                    }
                                   },
                                 ),
                               ),

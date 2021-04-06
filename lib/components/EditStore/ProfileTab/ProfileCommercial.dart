@@ -23,8 +23,6 @@ class ProfileCommercial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("le store tab commercial $store");
-    // print("c moi ${store.toJson()}");
 
     _nameController.text = store.name;
     _descriptionController.text = store.description;
@@ -107,7 +105,6 @@ class ProfileCommercial extends StatelessWidget {
             listType: MultiSelectListType.LIST,
             // chipDisplay: MultiSelectChipDisplay.none(),
             onConfirm: (values) {
-              print('cats $values');
               BlocProvider.of<EditStoreBloc>(context)
                   .add(StoreEditCategoriesEvent(categoriesIds: values));
             },
