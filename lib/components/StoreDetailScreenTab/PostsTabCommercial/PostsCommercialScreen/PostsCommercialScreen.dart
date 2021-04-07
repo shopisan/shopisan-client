@@ -26,7 +26,7 @@ class PostsCommercialScreen extends StatelessWidget {
           child: ListView(
             children: [
               Container(
-                margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                // margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: CustomColors.search,

@@ -7,12 +7,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
-import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
 
 class GoogleMapScreen extends StatefulWidget {
   const GoogleMapScreen(
-      {Key key, @required this.stores, @required this.categories, @required this.latitude, @required this.longitude})
+      {Key key,
+      @required this.stores,
+      @required this.categories,
+      @required this.latitude,
+      @required this.longitude})
       : super(key: key);
 
   final List<Store> stores;
@@ -37,7 +40,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
   Future setCustomMarker() async {
     mapMarker = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(), "assets/icons/pin.png");
+        ImageConfiguration(), "assets/icons/marker.png");
     return mapMarker;
   }
 
@@ -63,18 +66,17 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     mapController.setMapStyle(style2);
   }
 
-  void searchAndNavigate() {
-    // Geolocator.placemarkFromAddress(searchAddress).then((result) {
-    //   mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-    //       target:
-    //           LatLng(result[0].position.latitude, result[0].position.longitude),
-    //       zoom: 14)));
-    // });
-  }
+  // void searchAndNavigate() async {
+  //   LocationResult result = await Navigator.of(context).push(MaterialPageRoute(
+  //       builder: (context) => PlacePicker(
+  //             "AIzaSyCegSUW6N1wYgRONnn_4kOZXUzFu7w2Drs",
+  //             // displayLocation: customLocation,
+  //           )));
+  //   print(result);
+  // }
 
   @override
   Widget build(BuildContext context) {
-
     Future<Set<Marker>> _getMarkers(List<Store> stores) async {
       if (null == mapMarker) {
         mapMarker = await setCustomMarker();
@@ -85,7 +87,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         for (Address address in store.addresses) {
           if (address.latitude != null && address.longitude != null) {
             newMarkers.add(Marker(
-                markerId: MarkerId(address.id.toString() + " " + address.streetAvenue),
+                markerId: MarkerId(
+                    address.id.toString() + " " + address.streetAvenue),
                 icon: mapMarker,
                 position: LatLng(double.parse(address.latitude),
                     double.parse(address.longitude)),
@@ -99,50 +102,55 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       return newMarkers;
     }
 
-
     return Stack(
       children: [
-        FutureBuilder(builder: (context, snapshot){
-          if (snapshot.hasData) {
-            return GoogleMap(
-              onMapCreated: _onMapCreated,
-              markers: snapshot.data,
-              myLocationEnabled: true,
-              zoomControlsEnabled: false,
-              initialCameraPosition:
-              CameraPosition(zoom: 14.0, target: LatLng(widget.latitude, widget.longitude)),
-            );
-          }
+        FutureBuilder(
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return GoogleMap(
+                onMapCreated: _onMapCreated,
+                markers: snapshot.data,
+                myLocationEnabled: true,
+                zoomControlsEnabled: false,
+                initialCameraPosition: CameraPosition(
+                    zoom: 14.0,
+                    target: LatLng(widget.latitude, widget.longitude)),
+              );
+            }
 
-          return LoadingIndicator();
-        }, future: _getMarkers(widget.stores),),
+            return LoadingIndicator();
+          },
+          future: _getMarkers(widget.stores),
+        ),
         Positioned(
           top: 10,
           left: 10,
+          // child: AddressSearch(),
           child: Container(
             height: 42,
             width: 300,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: CustomColors.search),
-            child: TextFormField(
-              decoration: InputDecoration(
-                  hintText: AppLocalizations.of(context).search,
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(left: 10, top: 10),
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.search_outlined),
-                    onPressed: searchAndNavigate,
-                    iconSize: 18,
-                  )),
-              onChanged: (val) {
-                setState(() {
-                  searchAddress = val;
-                });
-              },
+                color: Colors.white, borderRadius: BorderRadius.circular(10)),
+            child: OutlinedButton(
+              // onPressed: searchAndNavigate,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    AppLocalizations.of(context).search,
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                  Icon(
+                    Icons.search_outlined,
+                    color: Colors.black,
+                    size: 20,
+                  )
+                ],
+              ),
             ),
           ),
         )
-      ],);
+      ],
+    );
   }
 }

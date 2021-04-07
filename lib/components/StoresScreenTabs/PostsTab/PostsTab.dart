@@ -14,7 +14,7 @@ class PostsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 10),
+      // padding: EdgeInsets.only(top: 10),
       child: ListView(
         // reverse: true,
         scrollDirection: Axis.vertical,

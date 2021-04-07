@@ -64,7 +64,7 @@ class _ManagePostState extends State<ManagePost> {
                 children: [
                   Container(
                     // color: Colors.red,
-                    height: 510,
+                    height: 500,
                     // margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
                     child: FutureBuilder(
                       builder: (context, snapshot) {

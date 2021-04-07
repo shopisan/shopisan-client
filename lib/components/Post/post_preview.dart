@@ -12,7 +12,8 @@ class PostPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 510,
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height * 0.65,
         child: CarouselSlider(
           options: CarouselOptions(
               aspectRatio: 0.65,
@@ -23,7 +24,7 @@ class PostPreview extends StatelessWidget {
               builder: (BuildContext context) {
                 return Container(
                     width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(horizontal: 5.0),
+                    // margin: EdgeInsets.symmetric(horizontal: 5.0),
                     // decoration: BoxDecoration(color: Colors.black),
                     child: Column(
                       children: [
@@ -38,7 +39,7 @@ class PostPreview extends StatelessWidget {
                                   fit: BoxFit.cover,
                                 ))),
                         Container(
-                          margin: EdgeInsets.only(bottom: 20),
+                          // margin: EdgeInsets.only(bottom: 20),
                           padding: EdgeInsets.fromLTRB(0, 20, 10, 20),
                           decoration: BoxDecoration(
                             border: Border(
@@ -51,9 +52,11 @@ class PostPreview extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
-                                child: Text("${postMedia.description}",
-                                    style:
-                                        Theme.of(context).textTheme.bodyText1),
+                                child: Text(
+                                  "${postMedia.description}",
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                  overflow: TextOverflow.fade,
+                                ),
                               ),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
