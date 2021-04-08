@@ -162,5 +162,22 @@ Future<Map<String, String>> getHeaders() async {
   return headers;
 }
 
-// @todo faire la requete delete pour les posts media
-// @todo transformer ce fichier en barrel export
+Future<bool> sendStoreRegistration(Map<String, dynamic> body) async {
+  Map<String, dynamic> headers = await getHeaders();
+
+  print(body);
+
+  final http.Response response = await http.post(
+      Uri.http(_base, "/api/store_contact/"),
+      body: jsonEncode(body),
+      headers: headers
+  );
+
+  print(response.body);
+
+  if (response.statusCode == 201) {
+    return true;
+  } else {
+    throw Exception(json.decode(response.body));
+  }
+}

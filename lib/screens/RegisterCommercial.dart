@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/components/Form/text_input.dart';
 import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/validators.dart';
@@ -13,8 +14,12 @@ class RegisterCommercialScreen extends StatefulWidget {
 }
 
 class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
+  TextEditingController _brandController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _surnameController = TextEditingController();
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _repeatPasswordController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
@@ -28,8 +33,28 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
       password = _passwordController.text;
     });
 
-    _submitRegistration() {
-      _formKey.currentState.validate();
+    _submitRegistration() async {
+      if (_formKey.currentState.validate()) {
+        bool rslt = await sendStoreRegistration({
+          "brand": _brandController.text,
+          "name": _nameController.text,
+          "surname": _surnameController.text,
+          "email": _emailController.text,
+          "phone": _phoneController.text,
+          "message": _descriptionController.text
+        });
+
+        if (rslt){
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(AppLocalizations.of(context).storeTicketSubmitted),
+              backgroundColor: CustomColors.success,
+            ));
+
+            Navigator.of(context).popUntil(ModalRoute.withName("/"));
+          });
+        }
+      }
     }
 
     return Scaffold(
@@ -60,15 +85,42 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Sign Up A Store",
+                      Text(AppLocalizations.of(context).signUpStore,
                           style: Theme.of(context).textTheme.headline5),
-                      TextInput(
+                      /*TextInput(
                         controller: _usernameController,
                         icon: null,
                         noIcon: true,
                         label: AppLocalizations.of(context).userName,
                         margin: EdgeInsets.fromLTRB(0, 50, 0, 20),
                         hint: AppLocalizations.of(context).userName,
+                        validator: isEmpty,
+                      ),*/
+                      TextInput(
+                        controller: _brandController,
+                        icon: null,
+                        noIcon: true,
+                        label: AppLocalizations.of(context).brand,
+                        margin: EdgeInsets.fromLTRB(0, 50, 0, 20),
+                        hint: AppLocalizations.of(context).brand,
+                        validator: isEmpty,
+                      ),
+                      TextInput(
+                        controller: _nameController,
+                        icon: null,
+                        noIcon: true,
+                        label: AppLocalizations.of(context).name,
+                        margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        hint: AppLocalizations.of(context).name,
+                        validator: isEmpty,
+                      ),
+                      TextInput(
+                        controller: _surnameController,
+                        icon: null,
+                        noIcon: true,
+                        label: AppLocalizations.of(context).lastName,
+                        margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        hint: AppLocalizations.of(context).lastName,
                         validator: isEmpty,
                       ),
                       TextInput(
@@ -81,6 +133,16 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                         validator: isValidEmail,
                       ),
                       TextInput(
+                        controller: _phoneController,
+                        icon: null,
+                        noIcon: true,
+                        label: AppLocalizations.of(context).phoneNumber,
+                        margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        hint: AppLocalizations.of(context).phoneNumber,
+                        validator: isEmpty,
+                        keyboardType: TextInputType.phone,
+                      ),
+                      /*TextInput(
                         obscureText: true,
                         controller: _passwordController,
                         icon: null,
@@ -100,7 +162,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                         hint: AppLocalizations.of(context).passwordConfirm,
                         validator: passwordsMatch,
                         passwordValidation: password,
-                      ),
+                      ),*/
                       TextInput(
                         controller: _descriptionController,
                         icon: null,
@@ -112,115 +174,6 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                         isTextarea: true,
                         keyboardType: TextInputType.multiline,
                       ),
-                      // Container(
-                      //   height: 50,
-                      //   width: double.infinity,
-                      //   margin: EdgeInsets.fromLTRB(0, 50, 0, 20),
-                      //   padding: EdgeInsets.only(left: 10),
-                      //   decoration: BoxDecoration(
-                      //     color: Colors.white,
-                      //     borderRadius: BorderRadius.circular(40),
-                      //     boxShadow: [
-                      //       BoxShadow(
-                      //         color: CustomColors.spreadRegister,
-                      //         spreadRadius: 5,
-                      //         blurRadius: 15,
-                      //       ),
-                      //     ],
-                      //   ),
-                      //   child: TextField(
-                      //     style: Theme.of(context).textTheme.bodyText1,
-                      //     decoration: InputDecoration(
-                      //         border: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.circular(40),
-                      //           borderSide: BorderSide(
-                      //             width: 0,
-                      //             style: BorderStyle.none,
-                      //           ),
-                      //         ),
-                      //         // focusedBorder: OutlineInputBorder(
-                      //         //   borderSide: BorderSide(
-                      //         //       color: CustomColors.spread, width: 5),
-                      //         //   borderRadius: BorderRadius.circular(40),
-                      //         // ),
-                      //         labelText: 'Email Adress',
-                      //         hintText: 'Enter valid mail id as abc@gmail.com'),
-                      //   ),
-                      // ),
-                      // Container(
-                      //   height: 50,
-                      //   width: double.infinity,
-                      //   margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                      //   padding: EdgeInsets.only(left: 10),
-                      //   decoration: BoxDecoration(
-                      //     color: Colors.white,
-                      //     borderRadius: BorderRadius.circular(40),
-                      //     boxShadow: [
-                      //       BoxShadow(
-                      //         color: CustomColors.spreadRegister,
-                      //         spreadRadius: 5,
-                      //         blurRadius: 15,
-                      //       ),
-                      //     ],
-                      //   ),
-                      //   child: TextField(
-                      //     obscureText: true,
-                      //     style: Theme.of(context).textTheme.bodyText1,
-                      //     decoration: InputDecoration(
-                      //         border: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.circular(40),
-                      //           borderSide: BorderSide(
-                      //             width: 0,
-                      //             style: BorderStyle.none,
-                      //           ),
-                      //         ),
-                      //         // focusedBorder: OutlineInputBorder(
-                      //         //   borderSide: BorderSide(
-                      //         //       color: CustomColors.spread, width: 5),
-                      //         //       borderRadius: BorderRadius.circular(40),
-                      //         // ),
-                      //
-                      //         labelText: 'Password',
-                      //         hintText: 'Enter your secure password'),
-                      //   ),
-                      // ),
-                      // Container(
-                      //   height: 50,
-                      //   width: double.infinity,
-                      //   margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
-                      //   padding: EdgeInsets.only(left: 10),
-                      //   decoration: BoxDecoration(
-                      //     color: Colors.white,
-                      //     borderRadius: BorderRadius.circular(40),
-                      //     boxShadow: [
-                      //       BoxShadow(
-                      //         color: CustomColors.spreadRegister,
-                      //         spreadRadius: 5,
-                      //         blurRadius: 15,
-                      //       ),
-                      //     ],
-                      //   ),
-                      //   child: TextField(
-                      //     obscureText: true,
-                      //     style: Theme.of(context).textTheme.bodyText1,
-                      //     decoration: InputDecoration(
-                      //         border: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.circular(40),
-                      //           borderSide: BorderSide(
-                      //             width: 0,
-                      //             style: BorderStyle.none,
-                      //           ),
-                      //         ),
-                      //         // focusedBorder: OutlineInputBorder(
-                      //         //   borderSide: BorderSide(
-                      //         //       color: CustomColors.spread, width: 5),
-                      //         //       borderRadius: BorderRadius.circular(40),
-                      //         // ),
-                      //
-                      //         labelText: 'Please type your password again',
-                      //         hintText: 'Enter your secure password'),
-                      //   ),
-                      // ),
                       Container(
                         height: 50,
                         width: double.infinity,
@@ -242,7 +195,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                             _submitRegistration();
                           },
                           child: Text(
-                            "Sign Up A Store",
+                            AppLocalizations.of(context).signUpStore,
                             style: GoogleFonts.roboto(
                               color: Colors.white,
                               fontSize: 16,

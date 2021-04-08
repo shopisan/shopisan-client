@@ -102,7 +102,7 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                     child: state is LoadingProfileEditState
                         ? LoadingIndicator()
-                        : SaveButton(callback: _submitUser()))
+                        : SaveButton(callback: _submitUser))
               ],
             ),
           ),

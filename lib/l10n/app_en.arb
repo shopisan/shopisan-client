@@ -93,5 +93,10 @@
   "storeDescription": "Store description",
   "storeDescriptionHint": "Describe your activity in a few lines",
   "loginRequired": "You need to be logged in to access this feature",
-  "close": "Closed"
+  "close": "Closed",
+  "phoneNumber": "Phone number",
+  "brand": "Brand",
+  "subject": "Subject",
+  "subjectHint": "The object of your demand",
+  "storeTicketSubmitted": "Your ticket was received, we will get back to you soon"
 }
