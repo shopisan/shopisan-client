@@ -14,7 +14,7 @@ class MyPosts extends StatelessWidget {
 
     return Container(
       // height: (MediaQuery.of(context).size.height),
-      width: double.infinity,
+      // width: double.infinity,
       child: ListView(
         scrollDirection: Axis.vertical,
         children: posts.reversed.map((post) {

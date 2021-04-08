@@ -51,7 +51,7 @@ dependencies:
   time_range_picker: ^2.0.1
   country_picker: ^2.0.3
   favorite_button: ^0.0.3
-
+  place_picker: ^0.9.18
 
 dev_dependencies:
   flutter_test:
@@ -82,6 +82,7 @@ flutter:
     - assets/icons/logo_square.png
     - assets/icons/pin.png
     - assets/icons/news.svg
+    - assets/icons/marker.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

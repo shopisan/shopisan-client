@@ -29,8 +29,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ? AppLocalizations.of(context).forgotPasswordMailSent
                 : AppLocalizations.of(context).anErrorOccurred)));
 
-        if (rslt){
-          Navigator.of(context).pushNamed("/reset_password", arguments: {"email": _emailController.text});
+        if (rslt) {
+          Navigator.of(context).pushNamed("/reset_password",
+              arguments: {"email": _emailController.text});
         }
       }
     }
@@ -48,61 +49,63 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         child: Form(
           key: _formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(AppLocalizations.of(context).forgotPassword,
-                  style: Theme.of(context).textTheme.headline5),
-              Padding(
-                padding: EdgeInsets.fromLTRB(10, 20, 10, 40),
-                child: Text(
-                  AppLocalizations.of(context).forgPassText,
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    color: CustomColors.textDark,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              TextInput(
-                controller: _emailController,
-                icon: null,
-                noIcon: true,
-                label: AppLocalizations.of(context).emailAddress,
-                hint: AppLocalizations.of(context).emailHint,
-                margin: EdgeInsets.fromLTRB(0, 20, 0, 40),
-                validator: isValidEmail,
-              ),
-              Container(
-                height: 50,
-                width: double.infinity,
-                margin: EdgeInsets.only(bottom: 30),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  color: CustomColors.textDark,
-                  boxShadow: [
-                    BoxShadow(
-                      color: CustomColors.spreadRegister,
-                      spreadRadius: 5,
-                      blurRadius: 15,
-                    ),
-                  ],
-                ),
-                // ignore: deprecated_member_use
-                child: FlatButton(
-                  onPressed: _submitForm,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(AppLocalizations.of(context).forgotPassword,
+                    style: Theme.of(context).textTheme.headline5),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(10, 20, 10, 40),
                   child: Text(
-                    AppLocalizations.of(context).resetLink,
-                    style: GoogleFonts.roboto(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                    AppLocalizations.of(context).forgPassText,
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: CustomColors.textDark,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: TextInput(
+                    controller: _emailController,
+                    icon: null,
+                    noIcon: true,
+                    label: AppLocalizations.of(context).emailAddress,
+                    hint: AppLocalizations.of(context).emailHint,
+                    margin: EdgeInsets.fromLTRB(0, 20, 0, 40),
+                    validator: isValidEmail,
+                  ),
+                ),
+                Container(
+                  height: 50,
+                  width: double.infinity,
+                  margin: EdgeInsets.only(bottom: 30),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: CustomColors.textDark,
+                    boxShadow: [
+                      BoxShadow(
+                        color: CustomColors.spreadRegister,
+                        spreadRadius: 5,
+                        blurRadius: 15,
+                      ),
+                    ],
+                  ),
+                  // ignore: deprecated_member_use
+                  child: FlatButton(
+                    onPressed: _submitForm,
+                    child: Text(
+                      AppLocalizations.of(context).resetLink,
+                      style: GoogleFonts.roboto(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ]
-          ),
+              ]),
         ),
       ),
     );

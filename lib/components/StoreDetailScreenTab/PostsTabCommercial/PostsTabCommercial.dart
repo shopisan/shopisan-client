@@ -45,6 +45,7 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
                 color: CustomColors.lightBlue,
                 // padding: EdgeInsets.all(10),
                 height: 100,
+                minWidth: 100,
                 // child: Text(
                 //   widget.posts[index]?.postMedia[0].description,
                 // ),

@@ -42,7 +42,7 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
 
   Future setCustomMarker() async {
     mapMarker = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(), "assets/icons/pin.png");
+        ImageConfiguration(), "assets/icons/marker.png");
 
     return mapMarker;
   }
