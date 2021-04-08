@@ -86,7 +86,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       for (Store store in stores) {
         for (Address address in store.addresses) {
           if (address.latitude != null && address.longitude != null) {
-            newMarkers.add(Marker(
+            newMarkers.add(
+              Marker(
                 markerId: MarkerId(
                     address.id.toString() + " " + address.streetAvenue),
                 icon: mapMarker,
@@ -94,7 +95,13 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     double.parse(address.longitude)),
                 infoWindow: InfoWindow(
                   title: store.name,
-                )));
+                  onTap: () {
+                    Navigator.pushNamed(context, "/store_detail",
+                        arguments: {"storeId": store.id});
+                  },
+                ),
+              ),
+            );
           }
         }
       }
@@ -108,10 +115,12 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return GoogleMap(
+                padding: EdgeInsets.only(bottom: 80),
                 onMapCreated: _onMapCreated,
                 markers: snapshot.data,
                 myLocationEnabled: true,
                 zoomControlsEnabled: false,
+                tiltGesturesEnabled: false,
                 initialCameraPosition: CameraPosition(
                     zoom: 14.0,
                     target: LatLng(widget.latitude, widget.longitude)),

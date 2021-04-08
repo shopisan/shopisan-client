@@ -105,7 +105,7 @@ class OpeningHoursForm extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: CustomColors.search,
                           borderRadius: BorderRadius.circular(10)),
-                      margin: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                      margin: EdgeInsets.fromLTRB(30, 5, 30, 5),
                       padding: EdgeInsets.all(10),
                       child: Row(children: [
                         Expanded(

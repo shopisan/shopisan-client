@@ -68,6 +68,7 @@ class ProfileCommercial extends StatelessWidget {
     }
 
     return Container(
+      margin: EdgeInsets.all(10),
       child: Form(
         key: _formKey,
         child: Column(

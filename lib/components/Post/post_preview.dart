@@ -55,6 +55,7 @@ class PostPreview extends StatelessWidget {
                                 child: Text(
                                   "${postMedia.description}",
                                   style: Theme.of(context).textTheme.bodyText1,
+                                  textAlign: TextAlign.justify,
                                   overflow: TextOverflow.fade,
                                 ),
                               ),

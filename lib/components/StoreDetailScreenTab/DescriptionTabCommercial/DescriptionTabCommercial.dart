@@ -54,8 +54,9 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                       bottom: BorderSide(color: CustomColors.spread),
                     )),
                     child: Text(
-                        AppLocalizations.of(context).description.toUpperCase(),
-                        style: Theme.of(context).textTheme.headline3),
+                      AppLocalizations.of(context).description.toUpperCase(),
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
                   ),
                   Container(
                     width: double.infinity,
@@ -65,6 +66,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                       child: Text(
                         store?.description ?? "",
                         style: Theme.of(context).textTheme.bodyText1,
+                        textAlign: TextAlign.justify,
                       ),
                     ),
                   ),

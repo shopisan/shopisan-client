@@ -96,74 +96,82 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
                 )
               ],
             ),
-            TextInput(
-              controller: _streetController,
-              icon: Icons.location_pin,
-              label: AppLocalizations.of(context).street,
-              validator: isEmpty,
-            ),
-            TextInput(
-              controller: _cityController,
-              icon: Icons.location_city,
-              label: AppLocalizations.of(context).city,
-              validator: isEmpty,
-            ),
-            TextInput(
-              controller: _postalCodeController,
-              icon: Icons.location_searching,
-              label: AppLocalizations.of(context).postCode,
-              validator: isEmpty,
-            ),
-            /*TextInput(
+            Container(
+              margin: EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  TextInput(
+                    controller: _streetController,
+                    icon: Icons.location_pin,
+                    label: AppLocalizations.of(context).street,
+                    validator: isEmpty,
+                  ),
+                  TextInput(
+                    controller: _cityController,
+                    icon: Icons.location_city,
+                    label: AppLocalizations.of(context).city,
+                    validator: isEmpty,
+                  ),
+                  TextInput(
+                    controller: _postalCodeController,
+                    icon: Icons.location_searching,
+                    label: AppLocalizations.of(context).postCode,
+                    validator: isEmpty,
+                  ),
+                  /*TextInput(
               controller: _countryController,
               icon: Icons.flag,
               label: AppLocalizations.of(context).country),*/
-            TextButton(
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(
-                      EdgeInsets.fromLTRB(0, 10, 0, 0)),
-                ),
-                onPressed: () {
-                  showCountryPicker(
-                      context: context,
-                      countryListTheme: CountryListThemeData(
-                          textStyle: Theme.of(context).textTheme.headline2),
-                      onSelect: (Country country) {
-                        setState(() {
-                          selectedCountry = country.countryCode;
-                        });
-                        _updateAddress();
-                      });
-                },
-                child: Container(
-                    height: 50,
-                    width: double.infinity,
-                    padding: EdgeInsets.only(left: 10),
-                    margin: EdgeInsets.only(top: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(40),
-                      boxShadow: [
-                        BoxShadow(
-                          color: CustomColors.spreadRegister,
-                          spreadRadius: 5,
-                          blurRadius: 15,
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.flag,
-                          color: CustomColors.iconsActive,
-                        ),
-                        Padding(padding: EdgeInsets.all(10)),
-                        Text(
-                          _getCountryText(selectedCountry),
-                          style: Theme.of(context).textTheme.bodyText1,
-                        )
-                      ],
-                    ))),
+                  TextButton(
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(
+                            EdgeInsets.fromLTRB(0, 10, 0, 0)),
+                      ),
+                      onPressed: () {
+                        showCountryPicker(
+                            context: context,
+                            countryListTheme: CountryListThemeData(
+                                textStyle:
+                                    Theme.of(context).textTheme.headline2),
+                            onSelect: (Country country) {
+                              setState(() {
+                                selectedCountry = country.countryCode;
+                              });
+                              _updateAddress();
+                            });
+                      },
+                      child: Container(
+                          height: 50,
+                          width: double.infinity,
+                          padding: EdgeInsets.only(left: 10),
+                          margin: EdgeInsets.only(top: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(40),
+                            boxShadow: [
+                              BoxShadow(
+                                color: CustomColors.spreadRegister,
+                                spreadRadius: 5,
+                                blurRadius: 15,
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.flag,
+                                color: CustomColors.iconsActive,
+                              ),
+                              Padding(padding: EdgeInsets.all(10)),
+                              Text(
+                                _getCountryText(selectedCountry),
+                                style: Theme.of(context).textTheme.bodyText1,
+                              )
+                            ],
+                          ))),
+                ],
+              ),
+            ),
             Container(
               margin: EdgeInsets.only(top: 10),
               width: 50,
