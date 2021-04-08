@@ -23,7 +23,6 @@ class Confirm extends StatelessWidget {
       child: Text(AppLocalizations.of(context).cancel),
       onPressed: () {
         Navigator.of(context).pop();
-        // @ todo fermer le dialog
       },
     );
 

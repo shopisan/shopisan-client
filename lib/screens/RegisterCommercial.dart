@@ -39,7 +39,9 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
           "brand": _brandController.text,
           "name": _nameController.text,
           "surname": _surnameController.text,
+          "username": _usernameController.text,
           "email": _emailController.text,
+          "password": _passwordController.text,
           "phone": _phoneController.text,
           "message": _descriptionController.text
         });
@@ -88,15 +90,6 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                       Text(AppLocalizations.of(context).signUpStore,
                           style: Theme.of(context).textTheme.headline5),
                       TextInput(
-                        controller: _usernameController,
-                        icon: null,
-                        noIcon: true,
-                        label: AppLocalizations.of(context).userName,
-                        margin: EdgeInsets.fromLTRB(0, 50, 0, 20),
-                        hint: AppLocalizations.of(context).userName,
-                        validator: isEmpty,
-                      ),
-                      TextInput(
                         controller: _brandController,
                         icon: null,
                         noIcon: true,
@@ -121,6 +114,15 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                         label: AppLocalizations.of(context).lastName,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
                         hint: AppLocalizations.of(context).lastName,
+                        validator: isEmpty,
+                      ),
+                      TextInput(
+                        controller: _usernameController,
+                        icon: null,
+                        noIcon: true,
+                        label: AppLocalizations.of(context).userName,
+                        margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        hint: AppLocalizations.of(context).userName,
                         validator: isEmpty,
                       ),
                       TextInput(

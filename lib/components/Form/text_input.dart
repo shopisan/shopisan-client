@@ -59,6 +59,7 @@ class TextInput extends StatelessWidget {
         onChanged: callback,
         validator: null != validator ? (value) {
           if (passwordValidation != null) {
+            print("$value, $passwordValidation, $context");
             return validator(value, passwordValidation, context);
           }
           return validator(value, context);
