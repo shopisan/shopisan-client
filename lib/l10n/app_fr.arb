@@ -46,6 +46,7 @@
   "price": "Prix",
   "save": "Enregistrer",
   "post": "Posts",
+  "addPost": "Veuillez ajouter un post",
   "createPost": "Créer un nouveau post",
   "editPost": "Modifier post",
   "deletePost": "Supprimer",
@@ -99,6 +100,7 @@
   "storeTicketSubmitted": "Nous avons bien reçu votre demande, nous vous recontacterons dans les plus brefs délais",
   "cancel": "Annuler",
   "error": "Une erreur est survenue",
-  "noLocal" : "Cette page n'existe pas"
+  "noLocal" : "Cette page n'existe pas",
+  "to" : "à"
 
 }

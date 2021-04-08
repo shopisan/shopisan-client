@@ -30,7 +30,9 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
   @override
   Widget build(BuildContext context) {
     _passwordController.addListener(() {
-      password = _passwordController.text;
+      setState(() {
+        password = _passwordController.text;
+      });
     });
 
     _submitRegistration() async {

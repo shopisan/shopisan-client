@@ -23,20 +23,22 @@ class FavoriteTab extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 570,
-              width: double.infinity,
-              child: state is AuthenticationAuthenticated
-                  ? ListView(
-                      children: state.user.profile.favouriteStores
-                          .map((store) =>
-                              StorePreview(store: Store.fromJson(store)))
-                          .toList(),
-                    )
-                  : Text(
-                      AppLocalizations.of(context).noFav,
-                      style: Theme.of(context).textTheme.headline2,
-                    ),
-            ),
+                height: 570,
+                width: double.infinity,
+                child: state is AuthenticationAuthenticated
+                    ? ListView(
+                        children: state.user.profile.favouriteStores
+                            .map((store) =>
+                                StorePreview(store: Store.fromJson(store)))
+                            .toList(),
+                      )
+                    : Center(
+                        child: Text(
+                          AppLocalizations.of(context).noFav,
+                          style: Theme.of(context).textTheme.headline5,
+                          textAlign: TextAlign.center,
+                        ),
+                      )),
           ],
         ));
   }

@@ -50,6 +50,7 @@
   "editPosts": "Modify my posts",
   "noImage" : "Upload an image",
   "post": "Posts",
+  "addPost": "Please add a post",
   "createPost": "Create a new post",
   "editPost": "Edit post",
   "deletePost": "Delete",
@@ -101,5 +102,6 @@
   "storeTicketSubmitted": "Your ticket was received, we will get back to you soon",
   "cancel": "Cancel",
   "error": "An error occured",
-  "noLocal" : "This location doesn't exists"
+  "noLocal" : "This location doesn't exists",
+  "to" : "à"
 }

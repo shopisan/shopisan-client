@@ -174,28 +174,31 @@ class _PostCreationState extends State<PostCreation> {
                 ),
               ],
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
-              height: 50,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: CustomColors.textDark,
-              ),
-              child: state is LoadingPostCreationState
-                  ? LoadingIndicator()
-                  : TextButton(
-                      onPressed: _sendForm,
-                      child: Text(
-                          post.id == null
-                              ? AppLocalizations.of(context).createPost
-                              : AppLocalizations.of(context).editPost,
-                          style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold)),
+            post.postMedia.length == 0
+                ? Text(
+                    AppLocalizations.of(context).addPost,
+                    style: Theme.of(context).textTheme.headline2,
+                    textAlign: TextAlign.center,
+                  )
+                : Container(
+                    margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: CustomColors.textDark,
                     ),
-            ),
+                    child: state is LoadingPostCreationState
+                        ? LoadingIndicator()
+                        : TextButton(
+                            onPressed: _sendForm,
+                            child: Text(
+                                post.id == null
+                                    ? AppLocalizations.of(context).createPost
+                                    : AppLocalizations.of(context).editPost,
+                                style: Theme.of(context).textTheme.headline1),
+                          ),
+                  ),
             post.id == null
                 ? Container()
                 : Container(

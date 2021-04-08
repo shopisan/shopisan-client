@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/model/Store.dart';
 
 class OpeningTimeCommercial extends StatefulWidget {
@@ -16,8 +15,8 @@ class OpeningTimeCommercial extends StatefulWidget {
 }
 
 class _OpeningTimeCommercialState extends State<OpeningTimeCommercial> {
-  _getDayText(day){
-    switch(day){
+  _getDayText(day) {
+    switch (day) {
       case 'MO':
         return AppLocalizations.of(context).mo;
       case 'TU':
@@ -57,22 +56,20 @@ class _OpeningTimeCommercialState extends State<OpeningTimeCommercial> {
                       ? Text(AppLocalizations.of(context).noSchedule,
                           style: Theme.of(context).textTheme.bodyText1)
                       : Column(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
                           children: store.openingTimes.entries.map((entry) {
                             return Container(
-                            padding: EdgeInsets.fromLTRB(20, 20, 10, 10),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                    child: Text(
-                                      _getDayText(entry.key),
+                              padding: EdgeInsets.fromLTRB(20, 20, 10, 10),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                      child: Text(
+                                        _getDayText(entry.key),
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline2,
                                       ),
-                                      width: 90),
-                                  _getHoursRows(entry.value),
+                                      width: 100),
+                                  _getHoursRows(entry.value, context),
                                 ],
                               ),
                             );
@@ -84,16 +81,20 @@ class _OpeningTimeCommercialState extends State<OpeningTimeCommercial> {
   }
 }
 
-Widget _getHoursRows(hours) {
-  // @todo faire une condition sur les jours sans horaires ==> afficher fermé
+Widget _getHoursRows(hours, context) {
   List<Widget> children = [];
-  for (List hour in hours) {
-    children.add(
-      Text(
-        hour[0] + " à " + hour[1],
-        style: GoogleFonts.poppins(fontSize: 14, color: Colors.black),
-      ),
+  if (hours.length == 0) {
+    return Text(
+      AppLocalizations.of(context).close,
+      style: Theme.of(context).textTheme.bodyText1,
     );
+  }
+
+  for (List hour in hours) {
+    children.add(Text(
+      hour[0] + " à " + hour[1],
+      style: Theme.of(context).textTheme.bodyText1,
+    ));
   }
 
   return Column(

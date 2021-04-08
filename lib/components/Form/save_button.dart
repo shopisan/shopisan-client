@@ -22,7 +22,7 @@ class SaveButton extends StatelessWidget {
           callback();
         },
         child: Text(
-          AppLocalizations.of(context).save.toUpperCase(),
+          AppLocalizations.of(context).save,
           style: Theme.of(context).textTheme.headline1,
         ),
       ),
