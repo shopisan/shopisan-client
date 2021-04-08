@@ -16,6 +16,7 @@ part 'kits/posts_api.dart';
 part 'kits/user_api.dart';
 
 final _base = "10.0.2.2:8000";
+// final _base = "shopisan.herokuapp.com";
 final _tokenEndpoint = "/api/token-auth/";
 final _tokenURL = Uri.http(_base, _tokenEndpoint);
 

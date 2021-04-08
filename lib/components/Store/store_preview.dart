@@ -25,9 +25,10 @@ class StorePreview extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.black,
                 borderRadius: BorderRadius.circular(5),
-                image: _image != null ? DecorationImage(
+                image:  DecorationImage(
                   fit: BoxFit.cover,
-                    image: NetworkImage(_image)) : null),
+                    image: _image != null ? NetworkImage(_image) :
+                    AssetImage("assets/img/store.jpg"))),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
