@@ -44,7 +44,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
           "message": _descriptionController.text
         });
 
-        if (rslt){
+        if (rslt) {
           WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(AppLocalizations.of(context).storeTicketSubmitted),
@@ -87,7 +87,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                     children: [
                       Text(AppLocalizations.of(context).signUpStore,
                           style: Theme.of(context).textTheme.headline5),
-                      /*TextInput(
+                      TextInput(
                         controller: _usernameController,
                         icon: null,
                         noIcon: true,
@@ -95,7 +95,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                         margin: EdgeInsets.fromLTRB(0, 50, 0, 20),
                         hint: AppLocalizations.of(context).userName,
                         validator: isEmpty,
-                      ),*/
+                      ),
                       TextInput(
                         controller: _brandController,
                         icon: null,
@@ -142,7 +142,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                         validator: isEmpty,
                         keyboardType: TextInputType.phone,
                       ),
-                      /*TextInput(
+                      TextInput(
                         obscureText: true,
                         controller: _passwordController,
                         icon: null,
@@ -162,7 +162,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                         hint: AppLocalizations.of(context).passwordConfirm,
                         validator: passwordsMatch,
                         passwordValidation: password,
-                      ),*/
+                      ),
                       TextInput(
                         controller: _descriptionController,
                         icon: null,

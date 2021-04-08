@@ -95,8 +95,11 @@
   "loginRequired": "You need to be logged in to access this feature",
   "close": "Closed",
   "phoneNumber": "Phone number",
-  "brand": "Brand",
+  "brand": "Brand / Name of the store",
   "subject": "Subject",
   "subjectHint": "The object of your demand",
-  "storeTicketSubmitted": "Your ticket was received, we will get back to you soon"
+  "storeTicketSubmitted": "Your ticket was received, we will get back to you soon",
+  "cancel": "Cancel",
+  "error": "An error occured",
+  "noLocal" : "This location doesn't exists"
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Confirm extends StatelessWidget {
   final Function executeFct;
@@ -19,21 +20,17 @@ class Confirm extends StatelessWidget {
     );
 
     final Widget cancelButton = TextButton(
-      child: Text("Cancel"),
+      child: Text(AppLocalizations.of(context).cancel),
       onPressed: () {
         Navigator.of(context).pop();
         // @ todo fermer le dialog
       },
     );
 
-
-    return  AlertDialog(
+    return AlertDialog(
       title: Text(title),
       content: Text(text),
-      actions: [
-        okButton,
-        cancelButton
-      ],
+      actions: [okButton, cancelButton],
     );
   }
 }

@@ -93,8 +93,12 @@
   "loginRequired": "Vous devez être connecté pour utiliser cette fonctionnalité",
   "close" : "Fermé",
   "phoneNumber": "Numéro de téléphone",
-  "brand": "Marque",
+  "brand": "Marque / Nom du commerce",
   "subject": "Sujet",
   "subjectHint": "L'objet de votre demande",
-  "storeTicketSubmitted": "Nous avons bien reçu votre demande, nous vous recontacterons dans les plus brefs délais"
+  "storeTicketSubmitted": "Nous avons bien reçu votre demande, nous vous recontacterons dans les plus brefs délais",
+  "cancel": "Annuler",
+  "error": "Une erreur est survenue",
+  "noLocal" : "Cette page n'existe pas"
+
 }

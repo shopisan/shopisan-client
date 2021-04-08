@@ -115,7 +115,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return GoogleMap(
-                padding: EdgeInsets.only(bottom: 80),
+                padding: EdgeInsets.only(left: 5, bottom: 80),
                 onMapCreated: _onMapCreated,
                 markers: snapshot.data,
                 myLocationEnabled: true,

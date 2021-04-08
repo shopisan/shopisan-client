@@ -12,16 +12,16 @@ class PicturesPostsCommercial extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         child: CarouselSlider(
-
-      options: CarouselOptions(height: 300.0, enableInfiniteScroll: false, enlargeCenterPage: true),
+      options: CarouselOptions(
+          height: 300.0, enableInfiniteScroll: false, enlargeCenterPage: true),
       items: post.postMedia.map((postMedia) {
         return Builder(
           builder: (BuildContext context) {
             return Container(
-                width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                decoration: BoxDecoration(color: Colors.black),
-                child: Text("WTF?????"));
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.symmetric(horizontal: 5.0),
+              decoration: BoxDecoration(color: Colors.black),
+            );
           },
         );
       }).toList(),

@@ -14,7 +14,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -24,7 +24,7 @@ class _LoginFormState extends State<LoginForm> {
     _onLoginButtonPressed() {
       _formKey.currentState.validate();
       BlocProvider.of<LoginBloc>(context).add(LoginButtonPressed(
-        username: _usernameController.text,
+        username: _emailController.text,
         password: _passwordController.text,
       ));
     }
@@ -50,13 +50,13 @@ class _LoginFormState extends State<LoginForm> {
                   Text(AppLocalizations.of(context).logIn,
                       style: Theme.of(context).textTheme.headline5),
                   TextInput(
-                    controller: _usernameController,
+                    controller: _emailController,
                     icon: null,
-                    label: AppLocalizations.of(context).userName,
+                    label: AppLocalizations.of(context).emailAddress,
                     noIcon: true,
                     margin: EdgeInsets.fromLTRB(20, 50, 20, 20),
                     padding: EdgeInsets.only(left: 10),
-                    hint: AppLocalizations.of(context).userName,
+                    hint: AppLocalizations.of(context).emailAddress,
                     validator: isEmpty,
                   ),
                   TextInput(
