@@ -51,7 +51,6 @@ dependencies:
   time_range_picker: ^2.0.1
   country_picker: ^2.0.3
   favorite_button: ^0.0.3
-  place_picker: ^0.9.18
 
 dev_dependencies:
   flutter_test:
