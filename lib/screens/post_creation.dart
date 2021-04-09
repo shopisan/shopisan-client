@@ -109,7 +109,7 @@ class _PostCreationState extends State<PostCreation> {
     }
 
     return Container(
-      width: double.infinity,
+      // width: double.infinity,
       margin: EdgeInsets.all(10),
       child: Form(
         key: _formKey,
@@ -124,10 +124,12 @@ class _PostCreationState extends State<PostCreation> {
                 callback: _updateStore,
                 items: stores
                     .map((Store store) => DropdownMenuItem(
-                          value: store.url,
+                        value: store.url,
+                        child: Container(
+                          width: 200,
                           child:
                               Text(store.name, overflow: TextOverflow.ellipsis),
-                        ))
+                        )))
                     .toList(),
                 label: AppLocalizations.of(context).storePost,
                 icon: Icons.store,

@@ -67,7 +67,8 @@ class EditStoreLink extends StatelessWidget {
                     Icons.store_outlined,
                     color: Colors.black,
                   ),
-                  Padding(
+                  Container(
+                    width: 250,
                     padding: EdgeInsets.only(left: 10),
                     child: Text(
                       storeName,
