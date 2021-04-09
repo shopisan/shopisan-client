@@ -85,6 +85,7 @@ class _EditStoreState extends State<EditStore> {
     }
 
     _submitForm() {
+      print("WTF????");
       if (_formKey.currentState.validate()) {
         BlocProvider.of<EditStoreBloc>(context).add(StoreSubmitEvent());
       }
@@ -134,36 +135,6 @@ class _EditStoreState extends State<EditStore> {
           unselectedItemColor: CustomColors.iconsFaded,
           showUnselectedLabels: false,
         ),
-      ),
-
-      // SingleChildScrollView(
-      //   child: Container(
-      //     padding: EdgeInsets.all(10),
-      //     child: Column(
-      //       children: [
-      //         CommercialPicture(
-      //           store: store,
-      //         ),
-      //         Container(
-      //           padding: EdgeInsets.fromLTRB(10, 30, 10, 20),
-      //           child: Column(
-      //             crossAxisAlignment: CrossAxisAlignment.start,
-      //             mainAxisAlignment: MainAxisAlignment.start,
-      //             children: [
-      //               Text(AppLocalizations.of(context).profile.toUpperCase(),
-      //                   style: Theme.of(context).textTheme.headline3),
-      //               ProfileCommercial(
-      //                 store: store,
-      //                 categories: categories,
-      //               ),
-      //             ],
-      //           ),
-      //         ),
-      //         SaveButton(callback: _submitForm),
-      //       ],
-      //     ),
-      //   ),
-      // ),
-    ));
+      ),));
   }
 }

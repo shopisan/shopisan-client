@@ -112,7 +112,7 @@ class RouteGenerator {
                       create: (context) {
                         return EditStoreBloc()
                           ..add(AppStartedEvent(
-                              storeId: null != args ? args['postId'] : null));
+                              storeId: null != args ? args['storeId'] : null));
                       },
                       child: EditStore());
 
