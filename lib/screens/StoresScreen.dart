@@ -81,7 +81,6 @@ class _StoresScreenState extends State<StoresScreen> {
   void loadStores() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-
     List<Store> storeList =
         await fetchStores(selectedCategoriesId, latitudeData, longitudeData);
 
@@ -204,8 +203,8 @@ class _StoresScreenState extends State<StoresScreen> {
           decoration: BoxDecoration(
             boxShadow: <BoxShadow>[
               BoxShadow(
-                spreadRadius: 10,
-                blurRadius: 30,
+                spreadRadius: 5,
+                blurRadius: 5,
                 color: CustomColors.spread,
               ),
             ],

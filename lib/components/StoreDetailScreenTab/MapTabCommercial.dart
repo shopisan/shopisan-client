@@ -61,7 +61,7 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
             double.parse(store.addresses[0].longitude)));
 
     return Container(
-        height: 405,
+        height: 480,
         // margin: EdgeInsets.only(top: 10),
         child: FutureBuilder(
           builder: (context, snapshot) {

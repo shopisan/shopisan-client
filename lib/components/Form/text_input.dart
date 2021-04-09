@@ -57,13 +57,15 @@ class TextInput extends StatelessWidget {
         controller: controller,
         style: Theme.of(context).textTheme.bodyText1,
         onChanged: callback,
-        validator: null != validator ? (value) {
-          if (passwordValidation != null) {
-            print("$value, $passwordValidation, $context");
-            return validator(value, passwordValidation, context);
-          }
-          return validator(value, context);
-        } : null,
+        validator: null != validator
+            ? (value) {
+                if (passwordValidation != null) {
+                  print("$value, $passwordValidation, $context");
+                  return validator(value, passwordValidation, context);
+                }
+                return validator(value, context);
+              }
+            : null,
         keyboardType: keyboardType,
         inputFormatters: inputFormatter,
         obscureText: obscureText,
