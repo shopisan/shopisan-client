@@ -14,7 +14,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="shopisan"
         android:usesCleartextTraffic="true"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/shopisan_logo_72x72">
 
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCegSUW6N1wYgRONnn_4kOZXUzFu7w2Drs"/>

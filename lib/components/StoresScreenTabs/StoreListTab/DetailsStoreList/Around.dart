@@ -22,7 +22,7 @@ class AroundYou extends StatelessWidget {
           ),
           SizedBox(
             // height: (MediaQuery.of(context).size.height),
-            height: 450,
+            height: 520,
             width: double.infinity,
             child: ListView(
               scrollDirection: Axis.vertical,

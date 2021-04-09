@@ -73,17 +73,13 @@ Future<int> editStore(Store store) async {
   http.Response response;
 
   if (store.id == null) {
-    response = await http.post(
-        Uri.http(_base, "/api/stores/stores/"),
-        body: jsonEncode(store.toJson()),
-        headers: headers
-    );
+    response = await http.post(Uri.http(_base, "/api/stores/stores/"),
+        body: jsonEncode(store.toJson()), headers: headers);
   } else {
     response = await http.put(
         Uri.http(_base, "/api/stores/stores/${store.id.toString()}/"),
         body: jsonEncode(store.toJson()),
-        headers: headers
-    );
+        headers: headers);
   }
 
   if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -114,12 +110,8 @@ Future<bool> postEvaluation(int storeId, double score) async {
 
   final http.Response response = await http.post(
       Uri.http(_base, "/api/stores/evals/"),
-      body: jsonEncode({
-        "store": storeId,
-        "score": score
-      }),
-      headers: headers
-  );
+      body: jsonEncode({"store": storeId, "score": score}),
+      headers: headers);
 
   if (response.statusCode >= 200 && response.statusCode < 300) {
     return true;
@@ -171,8 +163,7 @@ Future<bool> sendStoreRegistration(Map<String, dynamic> body) async {
   final http.Response response = await http.post(
       Uri.http(_base, "/api/store_contact/"),
       body: jsonEncode(body),
-      headers: headers
-  );
+      headers: headers);
 
   print(response.body);
 

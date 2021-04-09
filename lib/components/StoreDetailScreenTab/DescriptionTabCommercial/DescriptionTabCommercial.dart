@@ -32,7 +32,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
           store: store,
         ),
         Container(
-            height: 330,
+            height: 400,
             margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
             decoration: BoxDecoration(
               color: Colors.white,
