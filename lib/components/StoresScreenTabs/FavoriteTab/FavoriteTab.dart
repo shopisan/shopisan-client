@@ -33,12 +33,14 @@ class FavoriteTab extends StatelessWidget {
                             .toList(),
                       )
                     : Center(
+                        child: Container(
+                        padding: EdgeInsets.all(10),
                         child: Text(
                           AppLocalizations.of(context).noFav,
                           style: Theme.of(context).textTheme.headline5,
                           textAlign: TextAlign.center,
                         ),
-                      )),
+                      ))),
           ],
         ));
   }

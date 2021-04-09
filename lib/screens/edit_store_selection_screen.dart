@@ -69,8 +69,11 @@ class EditStoreLink extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 10),
-                    child: Text(storeName,
-                        style: Theme.of(context).textTheme.headline2),
+                    child: Text(
+                      storeName,
+                      style: Theme.of(context).textTheme.headline2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
@@ -81,7 +84,8 @@ class EditStoreLink extends StatelessWidget {
             ],
           ),
           onPressed: () {
-            Navigator.pushNamed(context, '/edit_store', arguments: {"storeId": storeId});
+            Navigator.pushNamed(context, '/edit_store',
+                arguments: {"storeId": storeId});
           },
         ));
   }

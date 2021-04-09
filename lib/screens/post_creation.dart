@@ -125,7 +125,8 @@ class _PostCreationState extends State<PostCreation> {
                 items: stores
                     .map((Store store) => DropdownMenuItem(
                           value: store.url,
-                          child: Text(store.name),
+                          child:
+                              Text(store.name, overflow: TextOverflow.ellipsis),
                         ))
                     .toList(),
                 label: AppLocalizations.of(context).storePost,
@@ -150,74 +151,107 @@ class _PostCreationState extends State<PostCreation> {
                     : [],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  width: 50,
-                  margin: EdgeInsets.only(bottom: 10),
-                  child: ElevatedButton(
-                    onPressed: _addPostMedia,
-                    child: Icon(
-                      Icons.add,
-                      size: 19,
-                      color: Colors.black,
-                    ),
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            CustomColors.success),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25)))),
-                  ),
-                ),
-              ],
-            ),
             post.postMedia.length == 0
-                ? Text(
-                    AppLocalizations.of(context).addPost,
-                    style: Theme.of(context).textTheme.headline2,
-                    textAlign: TextAlign.center,
-                  )
-                : Container(
-                    margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                    height: 50,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: CustomColors.textDark,
-                    ),
-                    child: state is LoadingPostCreationState
-                        ? LoadingIndicator()
-                        : TextButton(
-                            onPressed: _sendForm,
-                            child: Text(
-                                post.id == null
-                                    ? AppLocalizations.of(context).createPost
-                                    : AppLocalizations.of(context).editPost,
-                                style: Theme.of(context).textTheme.headline1),
+                ? Container(
+                    padding: EdgeInsets.fromLTRB(10, 100, 10, 0),
+                    child: Column(
+                      children: [
+                        Text(
+                          AppLocalizations.of(context).addPost,
+                          style: Theme.of(context).textTheme.headline5,
+                          textAlign: TextAlign.center,
+                        ),
+                        Padding(padding: EdgeInsets.all(20)),
+                        ElevatedButton(
+                          onPressed: _addPostMedia,
+                          child: Icon(
+                            Icons.post_add_outlined,
+                            size: 25,
+                            color: Colors.black,
                           ),
-                  ),
-            post.id == null
-                ? Container()
-                : Container(
-                    margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                    height: 50,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: CustomColors.textDark,
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  CustomColors.success),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(25)))),
+                        ),
+                      ],
                     ),
-                    child: TextButton(
-                      onPressed: _deletePost,
-                      child: Text(AppLocalizations.of(context).deletePost,
-                          style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16)),
-                    ),
-                  ),
+                  )
+                : Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            width: 50,
+                            margin: EdgeInsets.only(bottom: 10),
+                            child: ElevatedButton(
+                              onPressed: _addPostMedia,
+                              child: Icon(
+                                Icons.post_add_outlined,
+                                size: 19,
+                                color: Colors.black,
+                              ),
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          CustomColors.success),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25)))),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                        height: 50,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: CustomColors.textDark,
+                        ),
+                        child: state is LoadingPostCreationState
+                            ? LoadingIndicator()
+                            : TextButton(
+                                onPressed: _sendForm,
+                                child: Text(
+                                    post.id == null
+                                        ? AppLocalizations.of(context)
+                                            .createPost
+                                        : AppLocalizations.of(context).editPost,
+                                    style:
+                                        Theme.of(context).textTheme.headline1),
+                              ),
+                      ),
+                      post.id == null
+                          ? Container()
+                          : Container(
+                              margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                              height: 50,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: CustomColors.textDark,
+                              ),
+                              child: TextButton(
+                                onPressed: _deletePost,
+                                child: Text(
+                                    AppLocalizations.of(context).deletePost,
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16)),
+                              ),
+                            ),
+                    ],
+                  )
           ],
         ),
       ),

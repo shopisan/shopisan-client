@@ -18,54 +18,57 @@ class _ConnectCommercialState extends State<ConnectCommercial> {
   @override
   Widget build(BuildContext context) {
     Store store = widget.store;
-    return Container(
-        width: double.infinity,
-        padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Text(AppLocalizations.of(context).connectCommercial.toUpperCase(),
-            //     style: Theme.of(context).textTheme.headline3),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+    print(store.website);
+    return store.website == null
+        ? Container()
+        : Container(
+            width: double.infinity,
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextButton(
-                  // color: Colors.transparent,
-                  // padding: EdgeInsets.all(0),
-                  onPressed: () {
-                    _launcherURL(store);
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: CustomColors.lightPink,
-                    ),
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    height: 35,
-                    width: 150,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Icon(
-                          Icons.pageview_outlined,
-                          color: CustomColors.textDark,
+                // Text(AppLocalizations.of(context).connectCommercial.toUpperCase(),
+                //     style: Theme.of(context).textTheme.headline3),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      // color: Colors.transparent,
+                      // padding: EdgeInsets.all(0),
+                      onPressed: () {
+                        _launcherURL(store);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: CustomColors.lightPink,
                         ),
-                        Text(
-                          AppLocalizations.of(context).website,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: CustomColors.textDark,
-                          ),
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        height: 35,
+                        width: 150,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Icon(
+                              Icons.pageview_outlined,
+                              color: CustomColors.textDark,
+                            ),
+                            Text(
+                              AppLocalizations.of(context).website,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: CustomColors.textDark,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
+                  ],
+                )
               ],
-            )
-          ],
-        ));
+            ));
   }
 
   void _launcherURL(store) async {

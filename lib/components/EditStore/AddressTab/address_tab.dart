@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/components/EditStore/AddressTab/store_address_row.dart';
 import 'package:shopisan/model/Address.dart';
@@ -27,6 +28,18 @@ class _AddressTabState extends State<AddressTab> {
       padding: EdgeInsets.all(20),
       child: Column(
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
+                child: Text(
+                  AppLocalizations.of(context).local.toUpperCase(),
+                  style: Theme.of(context).textTheme.headline3,
+                ),
+              )
+            ],
+          ),
           Column(
             children: store.addresses
                 .asMap()
@@ -39,6 +52,7 @@ class _AddressTabState extends State<AddressTab> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
+                margin: EdgeInsets.only(top: 10),
                 width: 50,
                 child: ElevatedButton(
                   onPressed: _addAddress,

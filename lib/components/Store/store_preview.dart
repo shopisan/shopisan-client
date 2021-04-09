@@ -13,7 +13,8 @@ class StorePreview extends StatelessWidget {
 
     return TextButton(
       onPressed: () {
-        Navigator.pushNamed(context, "/store_detail", arguments: {"storeId": store.id});
+        Navigator.pushNamed(context, "/store_detail",
+            arguments: {"storeId": store.id});
       },
       // padding: EdgeInsets.all(0),
       child: Row(
@@ -25,10 +26,11 @@ class StorePreview extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.black,
                 borderRadius: BorderRadius.circular(5),
-                image:  DecorationImage(
-                  fit: BoxFit.cover,
-                    image: _image != null ? NetworkImage(_image) :
-                    AssetImage("assets/img/store.jpg"))),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: _image != null
+                        ? NetworkImage(_image)
+                        : AssetImage("assets/img/store.jpg"))),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,8 +55,7 @@ class StorePreview extends StatelessWidget {
                       direction: Axis.horizontal,
                       itemCount: 5,
                       itemSize: 10,
-                      itemPadding:
-                      EdgeInsets.symmetric(horizontal: 0),
+                      itemPadding: EdgeInsets.symmetric(horizontal: 0),
                       itemBuilder: (context, _) => Icon(
                         Icons.star,
                         color: Colors.amber,

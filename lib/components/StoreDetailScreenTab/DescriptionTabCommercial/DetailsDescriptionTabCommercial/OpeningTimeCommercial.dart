@@ -34,9 +34,34 @@ class _OpeningTimeCommercialState extends State<OpeningTimeCommercial> {
     }
   }
 
+  int _getDayOrder(day) {
+    switch (day) {
+      case 'MO':
+        return 0;
+      case 'TU':
+        return 1;
+      case 'WE':
+        return 2;
+      case 'TH':
+        return 3;
+      case 'FR':
+        return 4;
+      case 'SA':
+        return 5;
+      case 'SU':
+        return 6;
+      default:
+        return 7;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Store store = widget.store;
+    Map<String, dynamic> openingTimes = store.openingTimes;
+    List<String> sortedKeys = openingTimes.keys.toList()
+      ..sort((a, b) => _getDayOrder(a).compareTo(_getDayOrder(b)));
+
     return Container(
       // height: 150,
       width: double.infinity,
@@ -56,20 +81,20 @@ class _OpeningTimeCommercialState extends State<OpeningTimeCommercial> {
                       ? Text(AppLocalizations.of(context).noSchedule,
                           style: Theme.of(context).textTheme.bodyText1)
                       : Column(
-                          children: store.openingTimes.entries.map((entry) {
+                          children: sortedKeys.map((key) {
                             return Container(
                               padding: EdgeInsets.fromLTRB(20, 20, 10, 10),
                               child: Row(
                                 children: [
                                   SizedBox(
                                       child: Text(
-                                        _getDayText(entry.key),
+                                        _getDayText(key),
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline2,
                                       ),
                                       width: 100),
-                                  _getHoursRows(entry.value, context),
+                                  _getHoursRows(openingTimes[key], context),
                                 ],
                               ),
                             );

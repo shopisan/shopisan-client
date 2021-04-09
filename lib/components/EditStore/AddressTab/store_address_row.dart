@@ -84,20 +84,25 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                  child: Text(
-                    AppLocalizations.of(context).local.toUpperCase(),
-                    style: Theme.of(context).textTheme.headline3,
-                  ),
-                )
-              ],
+            Container(
+              // margin: EdgeInsets.only(top: 10),
+              width: 50,
+              child: ElevatedButton(
+                onPressed: _deleteAddress,
+                child: Icon(
+                  Icons.delete,
+                  size: 15,
+                ),
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(CustomColors.error),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)))),
+              ),
             ),
             Container(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
               child: Column(
                 children: [
                   TextInput(
@@ -172,23 +177,6 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
                 ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              width: 50,
-              child: ElevatedButton(
-                onPressed: _deleteAddress,
-                child: Icon(
-                  Icons.delete,
-                  size: 15,
-                ),
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(CustomColors.error),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)))),
-              ),
-            )
           ],
         ),
       ),
