@@ -13,11 +13,13 @@ class MapItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Container(
       margin: EdgeInsets.all(10),
       child: SizedBox(
         height: 70,
-        width: 400,
+        width: width,
         child: ListView(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,

@@ -46,6 +46,12 @@ class _StoreListTabState extends State<StoreListTab> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    var padding = MediaQuery.of(context).padding;
+    double newHeight = height - padding.top - padding.bottom;
+
+    int recentSearchHeight = (categories != null && widget.history.length != 0) ? 67 : 10;
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,6 +73,8 @@ class _StoreListTabState extends State<StoreListTab> {
             padding: EdgeInsets.fromLTRB(10, 20, 0, 0),
             child: AroundYou(
               stores: widget.stores,
+              // bottomNav - dropdownMenu - recentSearches - titre
+              height: newHeight - 73 - 90 - recentSearchHeight - 47 - 20,
             ),
           ),
         ],

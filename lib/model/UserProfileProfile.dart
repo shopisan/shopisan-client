@@ -34,8 +34,8 @@ class UserProfileProfile {
     "id": this.id,
     "name": this.name,
     "surname": this.surname,
-    "picture": this.picture.url,
-    "date_of_birth": this.dob,
+    "picture": this.picture?.url,
+    "date_of_birth": this.dob == "" ? null : this.dob,
     "favourite_stores": this.favouriteStores,
   };
 }

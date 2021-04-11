@@ -5,9 +5,13 @@ import 'package:shopisan/components/Store/store_preview.dart';
 import 'package:shopisan/model/Store.dart';
 
 class AroundYou extends StatelessWidget {
-  const AroundYou({Key key, @required this.stores}) : super(key: key);
+  const AroundYou({Key key,
+    @required this.stores,
+    @required this.height
+  }) : super(key: key);
 
   final List<Store> stores;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +25,10 @@ class AroundYou extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline4),
           ),
           SizedBox(
-            // height: (MediaQuery.of(context).size.height),
-            height: 520,
+            height: height,
             width: double.infinity,
             child: ListView(
+              padding: EdgeInsets.only(bottom: 50),
               scrollDirection: Axis.vertical,
               children:
                   stores.map((store) => StorePreview(store: store)).toList(),

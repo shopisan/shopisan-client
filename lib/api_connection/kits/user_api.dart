@@ -25,6 +25,8 @@ Future<UserProfile> getUserProfile() async {
   if (response.statusCode == 200) {
     return UserProfile.fromJson(json.decode(response.body));
   } else {
+    // @todo faire une fonction pour reset le user token (reco auto,
+    //        si ca marche pas, virer le token)
     throw Exception(json.decode(response.body));
   }
 }
@@ -87,10 +89,14 @@ Future<bool> resetPasswordSubmit(Map<String, String> data) async {
 Future<bool> editUserProfile(UserProfile user) async {
   Map<String, dynamic> headers = await getHeaders();
 
+  print("resuest user birthday: ${user.profile.dob}");
+
   final http.Response response = await http.put(
       Uri.http(_base, "/api/users/users/${user.id}/"),
       body: jsonEncode(user.toJson()),
       headers: headers);
+
+  print(response.body);
 
   if (response.statusCode == 200) {
     return true;

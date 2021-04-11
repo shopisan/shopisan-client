@@ -12,9 +12,11 @@ class DescriptionTabCommercial extends StatefulWidget {
   const DescriptionTabCommercial({
     Key key,
     @required this.store,
+    @required this.height
   }) : super(key: key);
 
   final Store store;
+  final double height;
 
   @override
   _DescriptionTabCommercialState createState() =>
@@ -32,7 +34,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
           store: store,
         ),
         Container(
-            height: 400,
+            height: widget.height - 250 - 73 - 70,
             margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
             decoration: BoxDecoration(
               color: Colors.white,

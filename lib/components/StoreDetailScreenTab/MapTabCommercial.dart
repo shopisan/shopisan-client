@@ -5,9 +5,10 @@ import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/utils/common.dart';
 
 class MapTabCommercial extends StatefulWidget {
-  const MapTabCommercial({Key key, @required this.store}) : super(key: key);
+  const MapTabCommercial({Key key, @required this.store, @required this.height}) : super(key: key);
 
   final Store store;
+  final double height;
 
   @override
   _MapTabCommercialState createState() => _MapTabCommercialState();
@@ -61,7 +62,7 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
             double.parse(store.addresses[0].longitude)));
 
     return Container(
-        height: 480,
+        height: widget.height - 250 - 73,
         // margin: EdgeInsets.only(top: 10),
         child: FutureBuilder(
           builder: (context, snapshot) {

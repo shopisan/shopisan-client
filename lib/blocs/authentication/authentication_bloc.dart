@@ -26,8 +26,12 @@ class AuthenticationBloc
       UserProfile user = await getUserProfile();
       return AuthenticationAuthenticated(user: user);
     } catch (exception) {
-      // yield AuthenticationUnauthenticated();
-      print("Issue during user fetch $exception");
+      bool hasToken = await userRepository.hasToken();
+      if (hasToken) {
+        userRepository.deleteToken(id: 0);
+      }
+
+      return AuthenticationUnauthenticated();
     }
 
     return AuthenticationUnauthenticated();
@@ -50,6 +54,7 @@ class AuthenticationBloc
     if (event is LoggedIn) {
       yield AuthenticationLoading();
 
+      await userRepository.deleteToken(id: 0);
       await userRepository.persistToken(user: event.user);
       yield await _getUser();
     }

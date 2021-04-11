@@ -36,6 +36,7 @@ class _EditProfileState extends State<EditProfile> {
     }
 
     _submitUser() {
+      print(_formKey.currentState.validate());
       if (_formKey.currentState.validate()) {
         BlocProvider.of<ProfileEditBloc>(context).add(SubmitEvent(user: user));
       }

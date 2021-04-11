@@ -39,16 +39,35 @@ class PostsTab extends StatelessWidget {
               ),
             ),
           )
-        : Container(
-            // padding: EdgeInsets.only(top: 10),
-            child: ListView(
-              // reverse: true,
-              scrollDirection: Axis.vertical,
-              children: posts.reversed.map((post) {
-                    return PostPreview(post: post);
-                  })?.toList() ??
-                  [],
-            ),
-          );
+        : posts.length == 0
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context).noPost,
+                      style: Theme.of(context).textTheme.headline5,
+                      textAlign: TextAlign.center,
+                    ),
+                    Padding(padding: EdgeInsets.all(20)),
+                    FaIcon(
+                      FontAwesomeIcons.newspaper,
+                      color: CustomColors.iconsActive,
+                      size: 40,
+                    )
+                  ],
+                ),
+              )
+            : Container(
+                // padding: EdgeInsets.only(top: 10),
+                child: ListView(
+                  // reverse: true,
+                  scrollDirection: Axis.vertical,
+                  children: posts.reversed.map((post) {
+                        return PostPreview(post: post);
+                      })?.toList() ??
+                      [],
+                ),
+              );
   }
 }

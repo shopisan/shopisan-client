@@ -22,25 +22,26 @@ class FavoriteTab extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline3,
               ),
             ),
-            SizedBox(
-                height: 570,
-                width: double.infinity,
-                child: state is AuthenticationAuthenticated
-                    ? ListView(
-                        children: state.user.profile.favouriteStores
-                            .map((store) =>
-                                StorePreview(store: Store.fromJson(store)))
-                            .toList(),
-                      )
-                    : Center(
-                        child: Container(
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          AppLocalizations.of(context).noFav,
-                          style: Theme.of(context).textTheme.headline5,
-                          textAlign: TextAlign.center,
-                        ),
-                      ))),
+            state is AuthenticationAuthenticated
+                ? SizedBox(
+                    // todo soit expanded / center, soit définir la taille
+                    height: 570,
+                    width: double.infinity,
+                    child: ListView(
+                      children: state.user.profile.favouriteStores
+                          .map((store) =>
+                              StorePreview(store: Store.fromJson(store)))
+                          .toList(),
+                    ))
+                : Expanded(child: Center(
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    AppLocalizations.of(context).noFav,
+                    style: Theme.of(context).textTheme.headline5,
+                    textAlign: TextAlign.center,
+                  ),
+                )))
           ],
         ));
   }

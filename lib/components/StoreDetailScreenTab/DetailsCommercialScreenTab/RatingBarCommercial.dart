@@ -58,7 +58,7 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
               content: Text(AppLocalizations.of(context).loginRequired),
               backgroundColor: CustomColors.error,
               action: SnackBarAction(
-                textColor: CustomColors.success,
+                textColor: Colors.white,
                 label: AppLocalizations.of(context).logIn.toUpperCase(),
                 onPressed: () {
                   Navigator.of(context)

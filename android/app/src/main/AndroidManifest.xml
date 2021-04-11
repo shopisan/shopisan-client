@@ -12,9 +12,9 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="shopisan"
+        android:label="Shopisan"
         android:usesCleartextTraffic="true"
-        android:icon="@mipmap/shopisan_logo_72x72">
+        android:icon="@mipmap/shopisan_logo">
 
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCegSUW6N1wYgRONnn_4kOZXUzFu7w2Drs"/>
@@ -25,6 +25,7 @@
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user

@@ -33,10 +33,8 @@ class FormProfile extends StatelessWidget {
     ];
 
     _updateUser() {
-      if (_formKey.currentState.validate()) {
         setUser(_userNameController.text, _emailController.text,
             _nameController.text, _surnameController.text, _dobController.text);
-      }
     }
 
     for (TextEditingController ctrl in controllers) {

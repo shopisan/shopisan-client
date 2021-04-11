@@ -94,19 +94,6 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
     });
   }
 
-  List<Widget> _getListTab(Store store) {
-    return <Widget>[
-      DescriptionTabCommercial(
-        store: store,
-      ),
-      PostsTabCommercial(
-        store: store,
-        posts: posts,
-      ),
-      MapTabCommercial(store: store),
-    ];
-  }
-
   @override
   void initState() {
     fetchStore(widget.storeId).then((value) {
@@ -131,6 +118,26 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
       return Center(
         child: CircularProgressIndicator(),
       );
+    }
+
+    double height = MediaQuery.of(context).size.height;
+    var padding = MediaQuery.of(context).padding;
+    double newHeight = height - padding.top - padding.bottom;
+
+    List<Widget> _getListTab(Store store) {
+      return <Widget>[
+        DescriptionTabCommercial(
+          store: store,
+          height: newHeight,
+        ),
+        PostsTabCommercial(
+          store: store,
+          posts: posts,
+          height: newHeight,
+        ),
+        MapTabCommercial(store: store,
+          height: newHeight,),
+      ];
     }
 
     final AuthenticationState state =
@@ -179,6 +186,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                           ? NetworkImage(store.profilePicture.file)
                           : AssetImage("assets/img/store.jpg"),
                       fit: BoxFit.cover,
+                      height: 250,
                       width: double.infinity,
                     ),
                     Positioned(
@@ -212,7 +220,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                             ),
                             Container(
                                 width: 250,
-                                padding: EdgeInsets.only(left: 10),
+                                padding: EdgeInsets.fromLTRB(10, 0, 0, 8),
                                 child: Text(
                                   "${store.name}",
                                   style: GoogleFonts.poppins(
@@ -257,7 +265,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                                 .loginRequired),
                                         backgroundColor: CustomColors.error,
                                         action: SnackBarAction(
-                                          textColor: CustomColors.success,
+                                          textColor: Colors.white,
                                           label: AppLocalizations.of(context)
                                               .logIn
                                               .toUpperCase(),

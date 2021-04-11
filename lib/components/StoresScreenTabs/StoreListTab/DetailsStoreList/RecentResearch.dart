@@ -14,7 +14,7 @@ class RecentResearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (null == categories) {
+    if (null == categories || recentSearches.length == 0) {
       return SizedBox(
         height: 10,
       );

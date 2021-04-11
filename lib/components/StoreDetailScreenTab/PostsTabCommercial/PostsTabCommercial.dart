@@ -9,8 +9,13 @@ import 'package:shopisan/theme/colors.dart';
 class PostsTabCommercial extends StatefulWidget {
   final Store store;
   final List<Post> posts;
+  final double height;
 
-  PostsTabCommercial({@required this.store, @required this.posts});
+  PostsTabCommercial({
+    @required this.store,
+    @required this.posts,
+    @required this.height
+  });
 
   @override
   _PostsTabCommercialState createState() => _PostsTabCommercialState();
@@ -20,7 +25,7 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 460,
+      height: widget.height - 250 - 73 - 20,
       margin: EdgeInsets.all(10),
       width: double.infinity,
       decoration: BoxDecoration(

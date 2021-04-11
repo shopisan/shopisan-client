@@ -89,6 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           backgroundColor:
               state.success ? CustomColors.success : CustomColors.error,
         ));
+        Navigator.of(context).popUntil(ModalRoute.withName("/"));
       });
     }
 

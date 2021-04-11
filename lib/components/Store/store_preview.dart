@@ -9,6 +9,7 @@ class StorePreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     String _image = store.profilePicture?.file;
 
     return TextButton(
@@ -40,7 +41,7 @@ class StorePreview extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: 200,
+                    width: width - 60 - 60 - 10 - 10 - 20,
                     child: Text(
                       '${store.name}',
                       style: Theme.of(context).textTheme.headline2,

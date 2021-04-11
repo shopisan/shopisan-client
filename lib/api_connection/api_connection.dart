@@ -15,8 +15,8 @@ import 'package:shopisan/repository/user_repository.dart';
 part 'kits/posts_api.dart';
 part 'kits/user_api.dart';
 
-// final _base = "10.0.2.2:8000";
-final _base = "shopisan.herokuapp.com";
+final _base = "10.0.2.2:8000";
+// final _base = "shopisan.herokuapp.com";
 final _tokenEndpoint = "/api/token-auth/";
 final _tokenURL = Uri.http(_base, _tokenEndpoint);
 
@@ -138,6 +138,21 @@ Future<FileModel.File> uploadFile(File file, String type) async {
   }
 }
 
+Future<bool> sendStoreRegistration(Map<String, dynamic> body) async {
+  Map<String, dynamic> headers = await getHeaders();
+
+  final http.Response response = await http.post(
+      Uri.http(_base, "/api/store_contact/"),
+      body: jsonEncode(body),
+      headers: headers);
+
+  if (response.statusCode == 201) {
+    return true;
+  } else {
+    throw Exception(json.decode(response.body));
+  }
+}
+
 Future<Map<String, String>> getHeaders() async {
   Map<String, String> headers = {
     'Accept': 'application/json',
@@ -155,21 +170,3 @@ Future<Map<String, String>> getHeaders() async {
   return headers;
 }
 
-Future<bool> sendStoreRegistration(Map<String, dynamic> body) async {
-  Map<String, dynamic> headers = await getHeaders();
-
-  print(body);
-
-  final http.Response response = await http.post(
-      Uri.http(_base, "/api/store_contact/"),
-      body: jsonEncode(body),
-      headers: headers);
-
-  print(response.body);
-
-  if (response.statusCode == 201) {
-    return true;
-  } else {
-    throw Exception(json.decode(response.body));
-  }
-}

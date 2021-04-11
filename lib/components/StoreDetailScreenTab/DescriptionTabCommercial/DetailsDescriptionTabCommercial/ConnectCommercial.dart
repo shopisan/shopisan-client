@@ -72,9 +72,13 @@ class _ConnectCommercialState extends State<ConnectCommercial> {
   }
 
   void _launcherURL(store) async {
-    bool resp = await canLaunch("${store.website}");
-    await canLaunch("${store.website}")
-        ? await launch("${store.website}")
-        : throw "Could not launch ('${store.website}')";
+    String url = store.website;
+    if (!url.contains(RegExp("^(http|https)://"))){
+      url = "https://" + store.website;
+    }
+
+    await canLaunch(url)
+        ? await launch(url)
+        : throw "Could not launch ('$url')";
   }
 }
