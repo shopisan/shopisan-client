@@ -11,8 +11,32 @@ class OpeningHoursForm extends StatelessWidget {
 
   OpeningHoursForm({@required this.store});
 
+  int _getDayOrder(day) {
+    switch (day) {
+      case 'MO':
+        return 0;
+      case 'TU':
+        return 1;
+      case 'WE':
+        return 2;
+      case 'TH':
+        return 3;
+      case 'FR':
+        return 4;
+      case 'SA':
+        return 5;
+      case 'SU':
+        return 6;
+      default:
+        return 7;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<String> sortedKeys = store.openingTimes.keys.toList()
+      ..sort((a, b) => _getDayOrder(a).compareTo(_getDayOrder(b)));
+
     _getTrans(day) {
       switch (day) {
         case 'MO':
@@ -59,12 +83,14 @@ class OpeningHoursForm extends StatelessWidget {
                         hour: int.parse(end[0]), minute: int.parse(end[1])),
                     context: context,
                   );
+                  final localization = MaterialLocalizations.of(context);
+
                   BlocProvider.of<EditStoreBloc>(context).add(ChangeHourEvent(
                       day: day,
                       index: index,
                       values: [
-                        result.startTime.format(context),
-                        result.endTime.format(context)
+                        localization.formatTimeOfDay(result.startTime, alwaysUse24HourFormat: true),
+                        localization.formatTimeOfDay(result.endTime, alwaysUse24HourFormat: true)
                       ]));
                 },
                 child: Text(
@@ -98,14 +124,13 @@ class OpeningHoursForm extends StatelessWidget {
 
     return Container(
       child: Column(
-          children: store.openingTimes
-              .map((day, value) => MapEntry(
-                  day,
+          children: sortedKeys
+              .map((day) =>
                   Container(
                       decoration: BoxDecoration(
                           color: CustomColors.search,
                           borderRadius: BorderRadius.circular(10)),
-                      margin: EdgeInsets.fromLTRB(30, 5, 30, 5),
+                      margin: EdgeInsets.fromLTRB(20, 5, 20, 5),
                       padding: EdgeInsets.all(10),
                       child: Row(children: [
                         Expanded(
@@ -115,7 +140,7 @@ class OpeningHoursForm extends StatelessWidget {
                         )),
                         Expanded(
                           child: Column(
-                            children: _getWidgetList(value, day),
+                            children: _getWidgetList(store.openingTimes[day], day),
                           ),
                           flex: 2,
                         ),
@@ -138,8 +163,7 @@ class OpeningHoursForm extends StatelessWidget {
                                 size: 15,
                               )),
                         )
-                      ]))))
-              .values
+                      ])))
               .toList()),
     );
   }

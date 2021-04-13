@@ -74,7 +74,8 @@
   "su": "Dimanche",
   "storeSaved": "Magasin sauvegardé",
   "favorite" : "Tes stores préférés",
-  "noFav": "Veuillez vous connecter pour sauvegarder des commerces",
+  "noFav": "Veuillez vous connecter pour ajouter des commerces",
+  "noFavYet": "Vous n'avez pas encore ajouté de boutique à vos favoris",
   "uploadImg": "Télécharger une image",
   "storePost": "Magasin pour lequel poster",
   "emptyValidation": "Ce champ ne peut être vide",
@@ -86,7 +87,7 @@
   "anErrorOccurred": "Une erreur est survenue",
   "forgotPasswordMailSent": "Le token devrait arriver dans votre boite de réception",
   "resetPassword": "Reset password",
-  "resetPassText": "Texte à faire",
+  "resetPassText": "Insérez le token reçu dans le mail que nous venons de vous envoyer et entrez votre nouveau mot de passe",
   "resetPassToken": "Token",
   "resetPassTokenHint": "Le token fourni depuis le mail reçu",
   "resetPasswordSuccess": "Mot de passe réinitialisé",
@@ -102,6 +103,6 @@
   "cancel": "Annuler",
   "error": "Une erreur est survenue",
   "noLocal" : "Cette page n'existe pas",
-  "to" : "à"
-
+  "to": "à",
+  "pictureMissing": "Une image est requise"
 }

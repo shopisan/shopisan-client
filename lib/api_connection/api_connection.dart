@@ -82,6 +82,8 @@ Future<int> editStore(Store store) async {
         headers: headers);
   }
 
+  print(response.body);
+
   if (response.statusCode >= 200 && response.statusCode < 300) {
     return json.decode(response.body)['id'];
   } else {

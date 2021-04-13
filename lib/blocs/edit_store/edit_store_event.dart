@@ -76,7 +76,9 @@ class RemoveAddressEvent extends EditStoreEvent{
 }
 
 class StoreSubmitEvent extends EditStoreEvent{
-  StoreSubmitEvent();
+  final AuthenticationBloc authBloc;
+
+  StoreSubmitEvent({@required this.authBloc});
 
   @override
   List<Object> get props => [];

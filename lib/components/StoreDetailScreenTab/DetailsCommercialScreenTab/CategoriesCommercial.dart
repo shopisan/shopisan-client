@@ -13,8 +13,6 @@ class CategoriesCommercial extends StatefulWidget {
 }
 
 class _CategoriesCommercialState extends State<CategoriesCommercial> {
-  Store store;
-
   @override
   Widget build(BuildContext context) {
     return Padding(

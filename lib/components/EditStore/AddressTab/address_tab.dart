@@ -9,16 +9,19 @@ import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class AddressTab extends StatefulWidget {
-  AddressTab({@required this.store});
+  AddressTab({@required this.store, @required this.formKey});
   final Store store;
+  final GlobalKey<FormState> formKey;
 
   @override
   _AddressTabState createState() => _AddressTabState();
 }
 
-class _AddressTabState extends State<AddressTab> {
+class _AddressTabState extends State<AddressTab> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     Store store = widget.store;
     _addAddress() {
       BlocProvider.of<EditStoreBloc>(context).add(AddAddressEvent());
@@ -26,7 +29,8 @@ class _AddressTabState extends State<AddressTab> {
 
     return Container(
       padding: EdgeInsets.all(20),
-      child: Column(
+      child: Form(key: widget.formKey,
+      child: SingleChildScrollView(child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -44,7 +48,7 @@ class _AddressTabState extends State<AddressTab> {
             children: store.addresses
                 .asMap()
                 .map((index, Address address) => MapEntry(
-                    index, StoreAddressRow(address: address, index: index)))
+                index, StoreAddressRow(address: address, index: index)))
                 .values
                 .toList(),
           ),
@@ -68,7 +72,11 @@ class _AddressTabState extends State<AddressTab> {
             ],
           ),
         ],
-      ),
+      ),)),
     );
   }
+
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/components/EditStore/AddressTab/address_tab.dart';
 import 'package:shopisan/components/EditStore/OpeningHoursTab/opening_form_tab.dart';
@@ -17,43 +18,42 @@ class EditStore extends StatefulWidget {
   _EditStoreState createState() => _EditStoreState();
 }
 
-class _EditStoreState extends State<EditStore> {
+class _EditStoreState extends State<EditStore>
+    with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
 
-  final _formKey = GlobalKey<FormState>();
+  final _formProfileKey = GlobalKey<FormState>();
+  final _formAddressKey = GlobalKey<FormState>();
 
-  List<BottomNavigationBarItem> _navBarsItems() {
-    return [
-      BottomNavigationBarItem(
-          icon: Icon(
-            Icons.store_outlined,
-            size: 35,
-          ),
-          label: "Profile"),
-      BottomNavigationBarItem(
-          icon: Icon(
-            Icons.lock_clock,
-            size: 35,
-          ),
-          label: "Time"),
-      BottomNavigationBarItem(
-          icon: Icon(
-            Icons.location_pin,
-            size: 35,
-          ),
-          label: "Address")
-    ];
-  }
+  TabController controller;
 
-  void _onTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
+  @override
+  void initState() {
+    super.initState();
+    controller = TabController(length: 3, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    var padding = MediaQuery.of(context).padding;
+    double realHeight = height - padding.top - padding.bottom;
+
     final state = context.select((EditStoreBloc bloc) => bloc.state);
+    final authBloc = context.select((AuthenticationBloc bloc) => bloc);
+
+    controller.addListener(() {
+      setState(() {
+        _currentIndex = controller.index;
+      });
+    });
+
+    if (state is InitialEditStoreState) {
+      return LoadingIndicator();
+    }
+
+    final Store store = state.store;
+    final List<Category> categories = state.categories;
 
     if (state is DoneEditStoreState) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -63,31 +63,36 @@ class _EditStoreState extends State<EditStore> {
             backgroundColor: CustomColors.success,
           ),
         );
+        BlocProvider.of<EditStoreBloc>(context).add(StoreEditEvent(store: store));
       });
     }
 
-    if (state is InitialEditStoreState) {
-      return LoadingIndicator();
-    }
-
-    final Store store = state.store;
-    final List<Category> categories = state.categories;
-
-    List<Widget> _getListTab(Store store) {
-      return <Widget>[
-        ProfileTab(
-          store: store,
-          categories: categories,
-        ),
-        OpeningHoursTab(store: store),
-        AddressTab(store: store)
-      ];
+    if (state is ErrorEditStoreState) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context).anErrorOccurred),
+            backgroundColor: CustomColors.error,
+          ),
+        );
+        BlocProvider.of<EditStoreBloc>(context).add(StoreEditEvent(store: store));
+      });
     }
 
     _submitForm() {
-      print("WTF????");
-      if (_formKey.currentState.validate()) {
-        BlocProvider.of<EditStoreBloc>(context).add(StoreSubmitEvent());
+      bool prevent = false;
+      if (_formAddressKey.currentState == null) {
+        if (store.id == null) {
+          controller.animateTo(2);
+          prevent = true;
+        }
+      } else {
+        prevent = !_formAddressKey.currentState.validate();
+      }
+
+      if (_formProfileKey.currentState.validate() && !prevent) {
+        BlocProvider.of<EditStoreBloc>(context).add(
+            StoreSubmitEvent(authBloc: authBloc));
       }
     }
 
@@ -103,38 +108,51 @@ class _EditStoreState extends State<EditStore> {
           style: Theme.of(context).textTheme.headline4,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
+      body: SizedBox(
+          height: realHeight - 48 - 56,
           child: Column(
-              // padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
-              children: [
-                _getListTab(store).elementAt(_currentIndex),
-                Container(
-                  padding: EdgeInsets.all(20),
-                  child: SaveButton(callback: _submitForm),
-                )
-              ]),
-        ),
+            children: [
+              Expanded(child: TabBarView(
+                controller: controller,
+                children: <Widget>[
+                  ProfileTab(
+                    store: store,
+                    categories: categories,
+                    formKey: _formProfileKey,
+                  ),
+                  OpeningHoursTab(
+                    store: store,
+                  ),
+                  AddressTab(store: store, formKey: _formAddressKey)
+                ],
+              ),),
+              Container(
+                padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                child: SaveButton(callback: _submitForm),
+              )
+            ]),),
+      bottomNavigationBar: TabBar(
+        controller: controller,
+        tabs: <Widget>[
+          Tab( child: Icon(
+            Icons.store_outlined,
+            size: 35,
+            color: _currentIndex == 0 ?
+              CustomColors.iconsActive :
+              CustomColors.iconsFaded,
+          ),),
+          Tab(child: Icon(
+            Icons.lock_clock,
+            size: 35,
+            color: _currentIndex == 1 ? CustomColors.iconsActive : CustomColors.iconsFaded,
+          ),),
+          Tab(child: Icon(
+            Icons.location_pin,
+            size: 35,
+            color: _currentIndex == 2 ? CustomColors.iconsActive : CustomColors.iconsFaded,
+          ),),
+        ],
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              spreadRadius: 10,
-              blurRadius: 30,
-              color: CustomColors.spread,
-            ),
-          ],
-        ),
-        child: BottomNavigationBar(
-          items: _navBarsItems(),
-          currentIndex: _currentIndex,
-          selectedItemColor: CustomColors.iconsActive,
-          onTap: _onTapped,
-          unselectedItemColor: CustomColors.iconsFaded,
-          showUnselectedLabels: false,
-        ),
-      ),));
+    ));
   }
 }

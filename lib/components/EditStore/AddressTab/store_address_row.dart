@@ -19,16 +19,15 @@ class StoreAddressRow extends StatefulWidget {
   _StoreAddressRowState createState() => _StoreAddressRowState();
 }
 
-class _StoreAddressRowState extends State<StoreAddressRow> {
+class _StoreAddressRowState extends State<StoreAddressRow> with AutomaticKeepAliveClientMixin {
   final _streetController = TextEditingController();
   final _cityController = TextEditingController();
   final _postalCodeController = TextEditingController();
   String selectedCountry;
 
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final Address address = widget.address;
     final int index = widget.index;
 
@@ -44,14 +43,12 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
     ];
 
     _updateAddress() {
-      if (_formKey.currentState.validate()) {
         address.streetAvenue = _streetController.text;
         address.postalCode = _postalCodeController.text;
         address.city = _cityController.text;
         address.country = selectedCountry;
         BlocProvider.of<EditStoreBloc>(context)
             .add(StoreAddressEditEvent(address: address, index: index));
-      }
     }
 
     for (TextEditingController ctrl in controllers) {
@@ -79,8 +76,8 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
     }
 
     return Container(
-      child: Form(
-        key: _formKey,
+      /*child: Form(*/
+        // key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
@@ -179,7 +176,10 @@ class _StoreAddressRowState extends State<StoreAddressRow> {
             ),
           ],
         ),
-      ),
+      /*),*/
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

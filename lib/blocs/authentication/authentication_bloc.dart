@@ -69,6 +69,12 @@ class AuthenticationBloc
       if (event.user != null) {
         yield AuthenticationAuthenticated(user: event.user);
       }
+    } else if (event is UserRefreshEvent) {
+      UserProfile user = await getUserProfile();
+      print("refresh user: ${user.profile.ownedStores}");
+      if (user != null) {
+        yield AuthenticationAuthenticated(user: user);
+      }
     }
   }
 }

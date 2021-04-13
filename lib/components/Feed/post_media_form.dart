@@ -234,7 +234,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
               ],
             ),
             Container(
-                padding: EdgeInsets.fromLTRB(20, 20, 20, 30),
+                padding: EdgeInsets.fromLTRB(10, 20, 10, 30),
                 child: Column(
                   children: [
                     CustomInput.TextInput(
@@ -247,6 +247,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
                         _updateValues();
                       },
                       validator: isEmpty,
+                      maxLength: 160,
                     ),
                     CustomInput.TextInput(
                       controller: _priceController,
@@ -257,9 +258,6 @@ class _PostMediaFormState extends State<PostMediaForm> {
                         FilteringTextInputFormatter.allow(
                             RegExp(r'^[0-9\.\,]+$'))
                       ],
-                      // callback: (value) {
-                      //   _updateValues();
-                      // }
                     ),
                   ],
                 )),

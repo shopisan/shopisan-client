@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shopisan/model/Address.dart';
@@ -50,6 +52,24 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
+
+    String style2 = jsonEncode([
+      {
+        "featureType": "poi.business",
+        "stylers": [
+          {"visibility": "off"}
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text",
+        "stylers": [
+          {"visibility": "off"}
+        ]
+      }
+    ]);
+
+    mapController.setMapStyle(style2);
   }
 
   @override

@@ -27,12 +27,11 @@ class _PostCreationState extends State<PostCreation> {
 
   @override
   Widget build(BuildContext context) {
-    // print("posts $post");
-
     final Post post =
         context.select((PostCreationBloc bloc) => bloc.state.post);
     AuthenticationState authState =
         context.select((AuthenticationBloc bloc) => bloc.state);
+
     final List<Store> stores = authState is AuthenticationAuthenticated
         ? authState.user.profile.ownedStores
         : null;
@@ -61,6 +60,19 @@ class _PostCreationState extends State<PostCreation> {
 
     _sendForm() {
       if (_formKey.currentState.validate()) {
+        for (PostMedia postMedia in post.postMedia) {
+          if (postMedia.uploadFile == null && postMedia.media == null) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(AppLocalizations.of(context).pictureMissing),
+                  backgroundColor: CustomColors.error,
+                ),
+              );
+            });
+            return;
+          }
+        }
         BlocProvider.of<PostCreationBloc>(context).add(ChangePost(post: post));
       }
     }
@@ -103,7 +115,6 @@ class _PostCreationState extends State<PostCreation> {
     }
 
     _updateStore(String storeUrl) {
-      print("update store url: $storeUrl");
       BlocProvider.of<PostCreationBloc>(context)
           .add(ChangePostStore(storeUrl: storeUrl));
     }
@@ -118,7 +129,7 @@ class _PostCreationState extends State<PostCreation> {
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(10),
               child: SelectInput(
                 value: post.store,
                 callback: _updateStore,

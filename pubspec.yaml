@@ -28,7 +28,7 @@ dependencies:
   intl: ^0.17.0
   google_fonts: ^2.0.0
   flutter_multiselect: ^0.5.1
-  google_maps_flutter: ^2.0.1
+  google_maps_flutter: ^2.0.3
   location: ^4.1.1
   multi_select_flutter: ^4.0.0
   carousel_slider: ^4.0.0-nullsafety.0

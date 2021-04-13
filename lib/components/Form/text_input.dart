@@ -17,6 +17,7 @@ class TextInput extends StatelessWidget {
   final EdgeInsetsGeometry margin;
   final String hint;
   final bool obscureText;
+  final int maxLength;
 
   TextInput(
       {@required this.controller,
@@ -32,7 +33,8 @@ class TextInput extends StatelessWidget {
       this.padding,
       this.margin,
       this.hint,
-      this.obscureText = false});
+      this.obscureText = false,
+      this.maxLength});
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +71,8 @@ class TextInput extends StatelessWidget {
         keyboardType: keyboardType,
         inputFormatters: inputFormatter,
         obscureText: obscureText,
+        maxLength: maxLength,
+        maxLengthEnforcement: null == maxLength ? MaxLengthEnforcement.none : MaxLengthEnforcement.enforced,
         decoration: InputDecoration(
             isDense: true,
             // Added this

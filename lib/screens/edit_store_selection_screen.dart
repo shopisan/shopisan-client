@@ -15,8 +15,6 @@ class EditStoreSelectionScreen extends StatelessWidget {
     if (state is AuthenticationAuthenticated) {
       UserProfile user = state.user;
 
-      print(user.profile.ownedStores);
-
       final List<Widget> storeList = [];
       for (Store store in user.profile.ownedStores) {
         storeList.add(EditStoreLink(storeName: store.name, storeId: store.id));
@@ -50,6 +48,8 @@ class EditStoreLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Container(
         height: 80,
         padding: EdgeInsets.all(20),
@@ -68,7 +68,7 @@ class EditStoreLink extends StatelessWidget {
                     color: Colors.black,
                   ),
                   Container(
-                    width: 250,
+                    width: width - 60 - 24 - 10 - 24 - 7,
                     padding: EdgeInsets.only(left: 10),
                     child: Text(
                       storeName,

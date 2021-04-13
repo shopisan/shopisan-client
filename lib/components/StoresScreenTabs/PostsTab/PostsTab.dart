@@ -16,58 +16,35 @@ class PostsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return posts == null
-        ? Container(
-            padding: EdgeInsets.all(20),
-            width: double.infinity,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    AppLocalizations.of(context).noPost,
-                    style: Theme.of(context).textTheme.headline5,
-                    textAlign: TextAlign.center,
-                  ),
-                  Padding(padding: EdgeInsets.all(20)),
-                  FaIcon(
-                    FontAwesomeIcons.newspaper,
-                    color: CustomColors.iconsActive,
-                    size: 40,
-                  )
-                ],
-              ),
+    return (posts == null || posts.length == 0)
+        ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  AppLocalizations.of(context).noPost,
+                  style: Theme.of(context).textTheme.headline5,
+                  textAlign: TextAlign.center,
+                ),
+                Padding(padding: EdgeInsets.all(20)),
+                FaIcon(
+                  FontAwesomeIcons.newspaper,
+                  color: CustomColors.iconsActive,
+                  size: 40,
+                )
+              ],
             ),
           )
-        : posts.length == 0
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context).noPost,
-                      style: Theme.of(context).textTheme.headline5,
-                      textAlign: TextAlign.center,
-                    ),
-                    Padding(padding: EdgeInsets.all(20)),
-                    FaIcon(
-                      FontAwesomeIcons.newspaper,
-                      color: CustomColors.iconsActive,
-                      size: 40,
-                    )
-                  ],
-                ),
-              )
-            : Container(
-                // padding: EdgeInsets.only(top: 10),
-                child: ListView(
-                  // reverse: true,
-                  scrollDirection: Axis.vertical,
-                  children: posts.reversed.map((post) {
-                        return PostPreview(post: post);
-                      })?.toList() ??
-                      [],
-                ),
-              );
+        : Container(
+            child: ListView(
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
+              // reverse: true,
+              scrollDirection: Axis.vertical,
+              children: posts.reversed.map((post) {
+                    return PostPreview(post: post);
+                  })?.toList() ??
+                  [],
+            ),
+          );
   }
 }

@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
+import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/File.dart' as ModelFile;
@@ -38,7 +39,7 @@ class EditStoreBloc extends Bloc<EditStoreEvent, EditStoreState> {
           categories: state.categories,
           index: _incrementIndex(state));
     } catch (exception) {
-      return ErrorEditStoreState(message: "Picture error");
+      return ErrorEditStoreState(message: "Picture error", store: store, categories: state.categories);
     }
   }
 
@@ -81,7 +82,7 @@ class EditStoreBloc extends Bloc<EditStoreEvent, EditStoreState> {
         List<Category> categories = await c;
         yield StartedEditStoreState(store: store, categories: categories);
       } catch (exception) {
-        yield ErrorEditStoreState(message: exception.toString());
+        yield ErrorEditStoreState(message: exception.toString(), store: null, categories: null);
       }
     } else if (event is AddAddressEvent) {
       Store store = state.store;
@@ -140,13 +141,9 @@ class EditStoreBloc extends Bloc<EditStoreEvent, EditStoreState> {
         int storeId = await editStore(store);
         Store storeEdited = await fetchStore(storeId);
         yield DoneEditStoreState(store: storeEdited, categories: categories);
-        // yield StartedEditStoreState(store: storeEdited, categories: categories, index: _incrementIndex(state));
+        event.authBloc.add(UserRefreshEvent());
       } catch (exception) {
-        yield ErrorEditStoreState(message: exception.toString());
-        yield StartedEditStoreState(
-            store: store,
-            categories: categories,
-            index: _incrementIndex(state));
+        yield ErrorEditStoreState(message: exception.toString(), store: store, categories: state.categories);
       }
     } else if (event is AddHourEvent) {
       Store store = state.store;

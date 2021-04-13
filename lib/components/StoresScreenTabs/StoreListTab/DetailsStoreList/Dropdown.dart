@@ -7,11 +7,12 @@ import 'package:shopisan/theme/colors.dart';
 
 class DropdownMenu extends StatefulWidget {
   const DropdownMenu(
-      {Key key, @required this.setSelectedCats, @required this.categories})
+      {Key key, @required this.setSelectedCats, @required this.categories, @required this.selectedCats})
       : super(key: key);
 
   final List<Category> categories;
   final ValueChanged<List<dynamic>> setSelectedCats;
+  final List selectedCats;
 
   @override
   _DropdownMenuState createState() => _DropdownMenuState();
@@ -44,6 +45,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 MultiSelectDialogField(
+                  initialValue: widget.selectedCats,
                   buttonIcon: Icon(
                     Icons.search,
                     color: CustomColors.iconsActive,

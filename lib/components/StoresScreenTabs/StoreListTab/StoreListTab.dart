@@ -12,12 +12,14 @@ class StoreListTab extends StatefulWidget {
   final ValueChanged<List<dynamic>> setSelectedCats;
   final List<Store> stores;
   final List<dynamic> history;
+  final List selectedCats;
 
   const StoreListTab(
       {Key key,
       @required this.setSelectedCats,
       @required this.stores,
-      @required this.history})
+      @required this.history,
+      @required this.selectedCats})
       : super(key: key);
 
   @override
@@ -60,7 +62,9 @@ class _StoreListTabState extends State<StoreListTab> {
             padding: const EdgeInsets.fromLTRB(25, 20, 25, 20),
             child: DropdownMenu(
                 categories: categories,
-                setSelectedCats: widget.setSelectedCats),
+                setSelectedCats: widget.setSelectedCats,
+                selectedCats: widget.selectedCats
+            ),
           ),
           Padding(
               padding: EdgeInsets.only(left: 10),

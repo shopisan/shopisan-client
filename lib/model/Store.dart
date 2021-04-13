@@ -72,7 +72,7 @@ class Store {
       "url": url,
       "website": website,
       "openingTimes": openingTimes,
-      "profilePicture": profilePicture.url,
+      "profilePicture": profilePicture?.url,
       "description": description,
       "appointmentOnly": appointmentOnly,
       "categories": categoryList,

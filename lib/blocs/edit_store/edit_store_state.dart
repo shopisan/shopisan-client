@@ -26,11 +26,8 @@ class StartedEditStoreState extends EditStoreState {
   final List<Category> categories;
   final int index;
 
-  StartedEditStoreState({
-    @required this.store,
-    @required this.categories,
-    this.index
-  });
+  StartedEditStoreState(
+      {@required this.store, @required this.categories, this.index});
 
   @override
   List<Object> get props => [store, categories, index];
@@ -56,10 +53,15 @@ class DoneEditStoreState extends EditStoreState {
 }
 
 class ErrorEditStoreState extends EditStoreState {
+  final Store store;
+  final List<Category> categories;
   final String message;
 
-  ErrorEditStoreState({@required this.message});
+  ErrorEditStoreState(
+      {@required this.message,
+      @required this.store,
+      @required this.categories});
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [message, store, categories];
 }

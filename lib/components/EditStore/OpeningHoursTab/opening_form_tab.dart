@@ -20,38 +20,38 @@ class _OpeningHoursTabState extends State<OpeningHoursTab> {
   Widget build(BuildContext context) {
     Store store = widget.store;
     return Container(
-        child: Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: SingleChildScrollView(child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                AppLocalizations.of(context).scheduleStore.toUpperCase(),
-                style: Theme.of(context).textTheme.headline3,
-              ),
-            )
-          ],
-        ),
-        CheckboxListTile(
-            value: store.appointmentOnly,
-            title: Text(
-              AppLocalizations.of(context).appointmentOnly,
-              style: Theme.of(context).textTheme.headline2,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    AppLocalizations.of(context).scheduleStore.toUpperCase(),
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                )
+              ],
             ),
-            controlAffinity: ListTileControlAffinity.leading,
-            onChanged: (value) {
-              store.appointmentOnly = value;
-              BlocProvider.of<EditStoreBloc>(context)
-                  .add(StoreEditAppointmentOnlyEvent(store: store));
-            }),
-        store.appointmentOnly
-            ? Column()
-            : OpeningHoursForm(
-                store: store,
-              ),
-      ],
-    ));
+            CheckboxListTile(
+                value: store.appointmentOnly,
+                title: Text(
+                  AppLocalizations.of(context).appointmentOnly,
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+                controlAffinity: ListTileControlAffinity.leading,
+                onChanged: (value) {
+                  store.appointmentOnly = value;
+                  BlocProvider.of<EditStoreBloc>(context)
+                      .add(StoreEditAppointmentOnlyEvent(store: store));
+                }),
+            store.appointmentOnly
+                ? Column()
+                : OpeningHoursForm(
+              store: store,
+            ),
+          ],
+        ),));
   }
 }

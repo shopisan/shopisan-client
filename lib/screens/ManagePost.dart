@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/components/ManagePost/my_posts.dart';
+import 'package:shopisan/components/Post/post_preview.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
@@ -14,7 +17,9 @@ class ManagePost extends StatefulWidget {
 }
 
 class _ManagePostState extends State<ManagePost> {
-  List<Post> posts = [];
+  FutureOr refreshList (dynamic value){
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +54,7 @@ class _ManagePostState extends State<ManagePost> {
                 label: Text(AppLocalizations.of(context).createPost,
                     style: Theme.of(context).textTheme.headline1),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/create_post');
+                  Navigator.pushNamed(context, '/create_post').then(refreshList);
                 },
               ),
             ),
@@ -69,7 +74,23 @@ class _ManagePostState extends State<ManagePost> {
                     child: FutureBuilder(
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          return MyPosts(posts: snapshot.data);
+                          List<Post> posts = snapshot.data;
+                          return Container(
+                            child: ListView(
+                              scrollDirection: Axis.vertical,
+                              children: posts.reversed.map((post) {
+                                return TextButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/create_post',
+                                        arguments: {"postId": post.id}).then(refreshList);
+                                  },
+                                  child: PostPreview(post: post),
+                                );
+                              })?.toList() ??
+                                  [],
+                            ),
+                          );
+                          // return MyPosts(posts: snapshot.data);
                         }
                         return LoadingIndicator();
                       },

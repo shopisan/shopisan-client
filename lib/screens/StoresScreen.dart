@@ -184,6 +184,7 @@ class _StoresScreenState extends State<StoresScreen> {
         setSelectedCats: setSelectedCats,
         stores: stores,
         history: history,
+        selectedCats: selectedCategoriesId
       ),
       MapTab(
         stores: stores,

@@ -34,3 +34,8 @@ class UserChangedEvent extends AuthenticationEvent {
   @override
   String toString() => 'User changed { user: ${user.username.toString()} }';
 }
+
+class UserRefreshEvent extends AuthenticationEvent {
+  @override
+  List<Object> get props => [];
+}

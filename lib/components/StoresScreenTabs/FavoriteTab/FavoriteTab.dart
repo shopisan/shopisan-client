@@ -27,7 +27,13 @@ class FavoriteTab extends StatelessWidget {
                     // todo soit expanded / center, soit définir la taille
                     height: 570,
                     width: double.infinity,
-                    child: ListView(
+                    child: state.user.profile.favouriteStores.length == 0 ?
+                      Center(child: Text(
+                        AppLocalizations.of(context).noFavYet,
+                        style: Theme.of(context).textTheme.headline5,
+                        textAlign: TextAlign.center,
+                      ),)
+                    : ListView(
                       children: state.user.profile.favouriteStores
                           .map((store) =>
                               StorePreview(store: Store.fromJson(store)))

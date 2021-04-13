@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
+import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/model/File.dart' as ModelFile;
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/PostMedia.dart';
@@ -35,14 +36,15 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
         yield StartedPostCreationState(post: post);
       }
     } else if (event is ChangePost) {
-      // yield emet des state
       Post post = event.post;
+
       yield StartedPostCreationState(post: event.post);
       yield LoadingPostCreationState(post: event.post);
 
       try {
         int created = await createPost(event.post);
         post = await loadPost(created);
+
         yield DonePostCreationState(
             success: true,
             message: "post created",
