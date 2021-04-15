@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/DescriptionTabCommercial/DescriptionTabCommercial.dart';
@@ -23,6 +20,7 @@ import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/model/UserProfileProfile.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 
 class StoreDetailScreen extends StatefulWidget {
   const StoreDetailScreen({Key key, @required this.storeId}) : super(key: key);
@@ -66,20 +64,6 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
     ];
   }
 
-  Future<Store> getStore() async {
-    final response = await http.get(
-        Uri.http("10.0.2.2:8000", "/api/stores/stores/${widget.storeId}/"),
-        headers: {'Accept': 'application/json'});
-    try {
-      if (response.statusCode == 200) {
-        return Store.fromJson(json.decode(response.body));
-      }
-    } catch (Exception) {
-      print("Oops: $Exception");
-    }
-    return null;
-  }
-
   void getCategories() async {
     List<Category> categoryList = await fetchCategories();
 
@@ -115,9 +99,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
   @override
   Widget build(BuildContext context) {
     if (null == store) {
-      return Center(
-        child: CircularProgressIndicator(),
-      );
+      return LoadingIndicator();
     }
 
     double height = MediaQuery.of(context).size.height;
@@ -153,7 +135,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
         BlocProvider.of<AuthenticationBloc>(context)
             .add(UserChangedEvent(user: user));
       } catch (exception) {
-        print("Oops, error during handling favourite store adding");
+        print("Oops, error during handling favourite store");
       }
     }
 

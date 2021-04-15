@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
-import 'package:shopisan/components/ManagePost/my_posts.dart';
 import 'package:shopisan/components/Post/post_preview.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/theme/colors.dart';
@@ -34,7 +33,6 @@ class _ManagePostState extends State<ManagePost> {
             style: Theme.of(context).textTheme.headline3,
           )),
       body: Container(
-        // width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -68,9 +66,7 @@ class _ManagePostState extends State<ManagePost> {
               child: Column(
                 children: [
                   Container(
-                    // color: Colors.red,
                     height: 500,
-                    // margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
                     child: FutureBuilder(
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
@@ -86,15 +82,13 @@ class _ManagePostState extends State<ManagePost> {
                                   },
                                   child: PostPreview(post: post),
                                 );
-                              })?.toList() ??
-                                  [],
+                              })?.toList() ?? [],
                             ),
                           );
-                          // return MyPosts(posts: snapshot.data);
                         }
                         return LoadingIndicator();
                       },
-                      future: getPosts(),
+                      future: fetchPostsByOwnedStores(),
                     ),
                   ),
                 ],

@@ -4,6 +4,7 @@ import 'package:shopisan/components/StoresScreenTabs/StoreListTab/DetailsStoreLi
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
+import 'package:shopisan/utils/common.dart';
 
 import 'DetailsStoreList/Dropdown.dart';
 import 'DetailsStoreList/RecentResearch.dart';
@@ -48,9 +49,7 @@ class _StoreListTabState extends State<StoreListTab> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    var padding = MediaQuery.of(context).padding;
-    double newHeight = height - padding.top - padding.bottom;
+    double newHeight = getScreenHeight(context);
 
     int recentSearchHeight = (categories != null && widget.history.length != 0) ? 67 : 10;
 

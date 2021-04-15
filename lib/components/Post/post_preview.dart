@@ -45,6 +45,8 @@ class _PostPreviewState extends State<PostPreview> {
             height: opened ? 475 : 400,
             enableInfiniteScroll: false,
             enlargeCenterPage: true,
+            enlargeStrategy: CenterPageEnlargeStrategy.scale,
+            disableCenter: true
           ),
           items: widget.post.postMedia.map((postMedia) {
             return Builder(
@@ -107,7 +109,7 @@ class _PostPreviewState extends State<PostPreview> {
                                   : Container(
                                       alignment: Alignment.centerRight,
                                       padding: EdgeInsets.only(left: 10),
-                                      width: 55,
+                                      // width: 60,
                                       decoration: BoxDecoration(
                                           border: Border(
                                               left: BorderSide(

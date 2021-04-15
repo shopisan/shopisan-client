@@ -104,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         children: [
           Container(
               width: double.infinity,
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
               constraints: BoxConstraints.expand(),
               alignment: Alignment.center,
               child: SingleChildScrollView(

@@ -120,13 +120,10 @@ class _PostCreationState extends State<PostCreation> {
     }
 
     return Container(
-      // width: double.infinity,
       margin: EdgeInsets.all(10),
       child: Form(
         key: _formKey,
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(10),

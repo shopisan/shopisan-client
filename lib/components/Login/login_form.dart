@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/blocs/login/login_bloc.dart';
 import 'package:shopisan/components/Form/text_input.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 import 'package:shopisan/utils/validators.dart';
 
 class LoginForm extends StatefulWidget {
@@ -34,7 +35,7 @@ class _LoginFormState extends State<LoginForm> {
       listener: (context, state) {
         if (state is LoginFaliure) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text('${state.error}'),
+            content: Text(AppLocalizations.of(context).loginError),
             backgroundColor: Colors.red,
           ));
         }
@@ -132,7 +133,7 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                   Container(
                     child: state is LoginLoading
-                        ? CircularProgressIndicator()
+                        ? LoadingIndicator()
                         : null,
                   ),
                 ],

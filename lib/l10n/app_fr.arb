@@ -104,5 +104,7 @@
   "error": "Une erreur est survenue",
   "noLocal" : "Cette page n'existe pas",
   "to": "à",
-  "pictureMissing": "Une image est requise"
+  "pictureMissing": "Une image est requise",
+  "noLocationForThisStore": "Pas de localisation disponible pour cette boutique",
+  "loginError": "Impossible de vous connecter, vos identifiants sont-ils correct?"
 }

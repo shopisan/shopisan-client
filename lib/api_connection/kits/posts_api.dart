@@ -28,7 +28,6 @@ Future<int> createPost(Post post) async {
 
   if (response.statusCode >= 200 && response.statusCode < 300) {
     return json.decode(response.body)['id'];
-    // return Post.fromJson(json.decode(response.body));
   } else {
     throw Exception('Failed to load stores');
   }
@@ -74,6 +73,23 @@ Future<List<Post>> fetchPostsByStore(int storeId) async {
   } else {
     throw Exception('Failed to load stores');
   }
+}
+
+Future<List<Post>> fetchPostsByOwnedStores() async {
+  Map<String, dynamic> headers = await getHeaders();
+
+  try{
+    final response = await http.get(
+        Uri.http(_base, "/api/posts_by_owned_stores/"),
+        headers: headers);
+
+    if (response.statusCode == 200) {
+      return PostCollection.fromJson(jsonDecode(response.body)).posts;
+    }
+  } catch (exception){
+    throw Exception('Failed to load posts');
+  }
+  return null;
 }
 
 Future<bool> deletePost(int postId) async {

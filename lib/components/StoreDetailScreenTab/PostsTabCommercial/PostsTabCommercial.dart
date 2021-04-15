@@ -11,11 +11,8 @@ class PostsTabCommercial extends StatefulWidget {
   final List<Post> posts;
   final double height;
 
-  PostsTabCommercial({
-    @required this.store,
-    @required this.posts,
-    @required this.height
-  });
+  PostsTabCommercial(
+      {@required this.store, @required this.posts, @required this.height});
 
   @override
   _PostsTabCommercialState createState() => _PostsTabCommercialState();
@@ -62,34 +59,35 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
                 (index) {
                   return Container(
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    // ignore: deprecated_member_use
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        backgroundColor: CustomColors.lightBlue,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/post_detail',
-                            arguments: {
-                              "post": widget.posts[index],
-                              "store": widget.store
-                            });
-                      },
-                      // margin: EdgeInsets.all(3),
-
-                      // padding: EdgeInsets.all(10),
-                      // height: 100,
-                      // child: Text(
-                      //   widget.posts[index]?.postMedia[0].description,
-                      // ),
-
-                      child: Image(
+                    child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: CustomColors.lightBlue,
+                          padding: EdgeInsets.all(0),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/post_detail',
+                              arguments: {
+                                "post": widget.posts[index],
+                                "store": widget.store
+                              });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                            image: NetworkImage(
+                                widget.posts[index].postMedia[0].media.file),
+                            fit: BoxFit.cover,
+                          )),
+                        ) /*Image(
                         image: NetworkImage(
-                            widget.posts[0].postMedia[0].media.file),
+                            widget.posts[index].postMedia[0].media.file),
                         fit: BoxFit.cover,
-                      ),
-                    ),
+
+                      ),*/
+                        ),
                   );
                 },
               ),

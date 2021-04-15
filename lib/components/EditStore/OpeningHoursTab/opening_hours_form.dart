@@ -95,7 +95,7 @@ class OpeningHoursForm extends StatelessWidget {
                 },
                 child: Text(
                   "${hour[0]} - ${hour[1]}",
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.subtitle1,
                 )),
             Container(
               width: 50,
@@ -136,7 +136,7 @@ class OpeningHoursForm extends StatelessWidget {
                         Expanded(
                             child: Text(
                           _getTrans(day),
-                          style: Theme.of(context).textTheme.headline3,
+                          style: Theme.of(context).textTheme.headline2,
                         )),
                         Expanded(
                           child: Column(

@@ -51,10 +51,10 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                   Container(
                     width: double.infinity,
                     padding: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
+                    /*decoration: BoxDecoration(
                         border: Border(
                       bottom: BorderSide(color: CustomColors.spread),
-                    )),
+                    )),*/
                     child: Text(
                       AppLocalizations.of(context).description.toUpperCase(),
                       style: Theme.of(context).textTheme.headline3,
@@ -62,15 +62,15 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                   ),
                   Container(
                     width: double.infinity,
-                    height: 200,
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                    child: SingleChildScrollView(
-                      child: Text(
+                    // height: 200,
+                    padding: EdgeInsets.fromLTRB(20, 20, 20, 40),
+                    child: /*SingleChildScrollView(
+                      child: */Text(
                         store?.description ?? "",
                         style: Theme.of(context).textTheme.bodyText1,
                         textAlign: TextAlign.justify,
                       ),
-                    ),
+                    /*),*/
                   ),
                   OpeningTimeCommercial(
                     store: store,

@@ -63,6 +63,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     ]);
 
     mapController.setMapStyle(style2);
+
+    setState(() {});
   }
 
   // void searchAndNavigate() async {

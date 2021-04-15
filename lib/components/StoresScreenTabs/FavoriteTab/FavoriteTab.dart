@@ -4,19 +4,21 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/components/Store/store_preview.dart';
 import 'package:shopisan/model/Store.dart';
+import 'package:shopisan/utils/common.dart';
 
 class FavoriteTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.select((AuthenticationBloc bloc) => bloc.state);
+    double newHeight = getScreenHeight(context);
 
     return Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: Text(
                 AppLocalizations.of(context).favorite.toUpperCase(),
                 style: Theme.of(context).textTheme.headline3,
@@ -24,8 +26,7 @@ class FavoriteTab extends StatelessWidget {
             ),
             state is AuthenticationAuthenticated
                 ? SizedBox(
-                    // todo soit expanded / center, soit définir la taille
-                    height: 570,
+                    height: newHeight - 44 - 70 - 24,
                     width: double.infinity,
                     child: state.user.profile.favouriteStores.length == 0 ?
                       Center(child: Text(

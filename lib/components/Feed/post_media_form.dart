@@ -65,6 +65,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
   @override
   Widget build(BuildContext context) {
     void _updateValues() {
+      print("price: ${_priceController.text}");
       BlocProvider.of<PostCreationBloc>(context).add(ChangePostMedia(
           description: _descriptionController.text,
           price: _priceController.text,
@@ -254,6 +255,9 @@ class _PostMediaFormState extends State<PostMediaForm> {
                       icon: Icons.attach_money_outlined,
                       label: AppLocalizations.of(context).price,
                       keyboardType: TextInputType.number,
+                      callback: (value) {
+                        _updateValues();
+                      },
                       inputFormatter: <TextInputFormatter>[
                         FilteringTextInputFormatter.allow(
                             RegExp(r'^[0-9\.\,]+$'))

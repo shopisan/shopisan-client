@@ -18,8 +18,8 @@ class _ConnectCommercialState extends State<ConnectCommercial> {
   @override
   Widget build(BuildContext context) {
     Store store = widget.store;
-    print(store.website);
-    return store.website == null
+
+    return (store.website == null || store.website == "")
         ? Container()
         : Container(
             width: double.infinity,

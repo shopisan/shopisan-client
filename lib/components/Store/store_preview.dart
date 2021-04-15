@@ -56,7 +56,7 @@ class StorePreview extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: width - 60 - 60 - 10 - 10 - 20,
+                    width: width - 70 - 60 - 10 - 10 - 20,
                     child: Text(
                       '${store.name}',
                       style: Theme.of(context).textTheme.headline2,
@@ -81,7 +81,7 @@ class StorePreview extends StatelessWidget {
                 ],
               ),
               Container(
-                  width: width - 60 - 10 - 10 - 20,
+                  width: width - 70 - 10 - 10 - 20,
                   child: Text(
                       _categoriesToString(store.categories)
                     /*"${store.categories.map((category) => '${" " + category.fr + " "}')}"*/,

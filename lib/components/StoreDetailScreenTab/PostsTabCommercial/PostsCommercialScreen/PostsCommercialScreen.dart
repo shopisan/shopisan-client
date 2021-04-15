@@ -4,6 +4,7 @@ import 'package:shopisan/components/Post/post_preview.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 
 class PostsCommercialScreen extends StatelessWidget {
   final Post post;
@@ -13,6 +14,8 @@ class PostsCommercialScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = getFullScreenHeight(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: CustomColors.lightBlue,
@@ -20,31 +23,9 @@ class PostsCommercialScreen extends StatelessWidget {
         title: Text(store.name, style: Theme.of(context).textTheme.headline2),
       ),
       body: Container(
+        height: height - 80,
         color: CustomColors.lightBlue,
-        child: SizedBox(
-          width: double.infinity,
-          child: ListView(
-            children: [
-              Container(
-                // margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: CustomColors.search,
-                ),
-                child: PostPreview(
-                  post: post,
-                ) /*Column(
-                  children: [
-                    // HeaderPostsCommercial(),
-                    PicturesPostsCommercial(post: post),
-                    DescriptionPostsCommercial(),
-                  ],
-                )*/
-                ,
-              ),
-            ],
-          ),
-        ),
+        child: Center(child: PostPreview(post: post,),)
       ),
     );
   }

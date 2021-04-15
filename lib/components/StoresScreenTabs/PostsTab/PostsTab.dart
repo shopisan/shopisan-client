@@ -37,7 +37,7 @@ class PostsTab extends StatelessWidget {
           )
         : Container(
             child: ListView(
-              padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
+              padding: EdgeInsets.fromLTRB(0, 40, 0, 10),
               // reverse: true,
               scrollDirection: Axis.vertical,
               children: posts.reversed.map((post) {
