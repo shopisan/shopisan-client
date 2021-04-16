@@ -17,13 +17,17 @@ class ProfileCommercial extends StatefulWidget {
   final List<Category> categories;
   final GlobalKey<FormState> formKey;
 
-  ProfileCommercial({@required this.store, @required this.categories, @required this.formKey});
+  ProfileCommercial(
+      {@required this.store,
+      @required this.categories,
+      @required this.formKey});
 
   @override
   _ProfileCommercialState createState() => _ProfileCommercialState();
 }
 
-class _ProfileCommercialState extends State<ProfileCommercial>  with AutomaticKeepAliveClientMixin {
+class _ProfileCommercialState extends State<ProfileCommercial>
+    with AutomaticKeepAliveClientMixin {
   final _nameController = TextEditingController();
   final _websiteController = TextEditingController();
   final _descriptionController = TextEditingController();
@@ -62,8 +66,7 @@ class _ProfileCommercialState extends State<ProfileCommercial>  with AutomaticKe
       store.name = _nameController.text;
       store.description = _descriptionController.text;
       store.website = _websiteController.text;
-      BlocProvider.of<EditStoreBloc>(context)
-          .add(StoreEditEvent(store: store));
+      BlocProvider.of<EditStoreBloc>(context).add(StoreEditEvent(store: store));
     }
 
     for (TextEditingController ctrl in controllers) {
@@ -114,7 +117,9 @@ class _ProfileCommercialState extends State<ProfileCommercial>  with AutomaticKe
               buttonText: Text(AppLocalizations.of(context).searchCat,
                   style: Theme.of(context).textTheme.bodyText1),
               items: null != widget.categories
-                  ? widget.categories.map((e) => MultiSelectItem(e.id, e.fr)).toList()
+                  ? widget.categories
+                      .map((e) => MultiSelectItem(e.id, e.fr))
+                      .toList()
                   : [],
               initialValue: _initialCats,
               listType: MultiSelectListType.LIST,
@@ -126,14 +131,17 @@ class _ProfileCommercialState extends State<ProfileCommercial>  with AutomaticKe
               backgroundColor: CustomColors.search,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(40),
-                boxShadow: [
-                  BoxShadow(
-                    color: CustomColors.spreadRegister,
-                    spreadRadius: 5,
-                    blurRadius: 15,
-                  ),
-                ],
+                borderRadius: BorderRadius.circular(30),
+                border:
+                    Border.all(color: CustomColors.spreadRegister, width: 2),
+
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: CustomColors.spreadRegister,
+                //     spreadRadius: 5,
+                //     blurRadius: 15,
+                //   ),
+                // ],
               ),
             ),
           ],
@@ -145,7 +153,6 @@ class _ProfileCommercialState extends State<ProfileCommercial>  with AutomaticKe
   @override
   bool get wantKeepAlive => true;
 }
-
 
 // class ProfileCommercial extends StatelessWidget {
 //   final Store store;

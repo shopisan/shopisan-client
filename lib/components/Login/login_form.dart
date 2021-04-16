@@ -53,9 +53,8 @@ class _LoginFormState extends State<LoginForm> {
                       style: Theme.of(context).textTheme.headline5),
                   TextInput(
                     controller: _emailController,
-                    icon: null,
+                    icon: Icons.mail_outline,
                     label: AppLocalizations.of(context).emailAddress,
-                    noIcon: true,
                     margin: EdgeInsets.fromLTRB(20, 50, 20, 20),
                     padding: EdgeInsets.only(left: 10),
                     hint: AppLocalizations.of(context).emailAddress,
@@ -63,9 +62,8 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                   TextInput(
                     controller: _passwordController,
-                    icon: null,
+                    icon: Icons.lock_outline,
                     label: AppLocalizations.of(context).password,
-                    noIcon: true,
                     margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
                     padding: EdgeInsets.only(left: 10),
                     hint: AppLocalizations.of(context).passHint,
@@ -132,9 +130,7 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   ),
                   Container(
-                    child: state is LoginLoading
-                        ? LoadingIndicator()
-                        : null,
+                    child: state is LoginLoading ? LoadingIndicator() : null,
                   ),
                 ],
               ),

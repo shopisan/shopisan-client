@@ -19,7 +19,8 @@ class StoreAddressRow extends StatefulWidget {
   _StoreAddressRowState createState() => _StoreAddressRowState();
 }
 
-class _StoreAddressRowState extends State<StoreAddressRow> with AutomaticKeepAliveClientMixin {
+class _StoreAddressRowState extends State<StoreAddressRow>
+    with AutomaticKeepAliveClientMixin {
   final _streetController = TextEditingController();
   final _cityController = TextEditingController();
   final _postalCodeController = TextEditingController();
@@ -43,12 +44,12 @@ class _StoreAddressRowState extends State<StoreAddressRow> with AutomaticKeepAli
     ];
 
     _updateAddress() {
-        address.streetAvenue = _streetController.text;
-        address.postalCode = _postalCodeController.text;
-        address.city = _cityController.text;
-        address.country = selectedCountry;
-        BlocProvider.of<EditStoreBloc>(context)
-            .add(StoreAddressEditEvent(address: address, index: index));
+      address.streetAvenue = _streetController.text;
+      address.postalCode = _postalCodeController.text;
+      address.city = _cityController.text;
+      address.country = selectedCountry;
+      BlocProvider.of<EditStoreBloc>(context)
+          .add(StoreAddressEditEvent(address: address, index: index));
     }
 
     for (TextEditingController ctrl in controllers) {
@@ -77,105 +78,107 @@ class _StoreAddressRowState extends State<StoreAddressRow> with AutomaticKeepAli
 
     return Container(
       /*child: Form(*/
-        // key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Container(
-              // margin: EdgeInsets.only(top: 10),
-              width: 50,
-              child: ElevatedButton(
-                onPressed: _deleteAddress,
-                child: Icon(
-                  Icons.delete,
-                  size: 15,
-                ),
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(CustomColors.error),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)))),
+      // key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Container(
+            // margin: EdgeInsets.only(top: 10),
+            width: 50,
+            child: ElevatedButton(
+              onPressed: _deleteAddress,
+              child: Icon(
+                Icons.delete,
+                size: 15,
               ),
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(CustomColors.error),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)))),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
-              child: Column(
-                children: [
-                  TextInput(
-                    controller: _streetController,
-                    icon: Icons.location_pin,
-                    label: AppLocalizations.of(context).street,
-                    validator: isEmpty,
-                  ),
-                  TextInput(
-                    controller: _cityController,
-                    icon: Icons.location_city,
-                    label: AppLocalizations.of(context).city,
-                    validator: isEmpty,
-                  ),
-                  TextInput(
-                    controller: _postalCodeController,
-                    icon: Icons.location_searching,
-                    label: AppLocalizations.of(context).postCode,
-                    validator: isEmpty,
-                  ),
-                  /*TextInput(
+          ),
+          Container(
+            margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+            child: Column(
+              children: [
+                TextInput(
+                  controller: _streetController,
+                  icon: Icons.location_pin,
+                  label: AppLocalizations.of(context).street,
+                  validator: isEmpty,
+                ),
+                TextInput(
+                  controller: _cityController,
+                  icon: Icons.location_city,
+                  label: AppLocalizations.of(context).city,
+                  validator: isEmpty,
+                ),
+                TextInput(
+                  controller: _postalCodeController,
+                  icon: Icons.location_searching,
+                  label: AppLocalizations.of(context).postCode,
+                  validator: isEmpty,
+                ),
+                /*TextInput(
               controller: _countryController,
               icon: Icons.flag,
               label: AppLocalizations.of(context).country),*/
-                  TextButton(
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.all(
-                            EdgeInsets.fromLTRB(0, 10, 0, 0)),
-                      ),
-                      onPressed: () {
-                        showCountryPicker(
-                            context: context,
-                            countryListTheme: CountryListThemeData(
-                                textStyle:
-                                    Theme.of(context).textTheme.headline2),
-                            onSelect: (Country country) {
-                              setState(() {
-                                selectedCountry = country.countryCode;
-                              });
-                              _updateAddress();
+                TextButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                          EdgeInsets.fromLTRB(0, 10, 0, 0)),
+                    ),
+                    onPressed: () {
+                      showCountryPicker(
+                          context: context,
+                          countryListTheme: CountryListThemeData(
+                              textStyle: Theme.of(context).textTheme.headline2),
+                          onSelect: (Country country) {
+                            setState(() {
+                              selectedCountry = country.countryCode;
                             });
-                      },
-                      child: Container(
-                          height: 50,
-                          width: double.infinity,
-                          padding: EdgeInsets.only(left: 10),
-                          margin: EdgeInsets.only(top: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(40),
-                            boxShadow: [
-                              BoxShadow(
-                                color: CustomColors.spreadRegister,
-                                spreadRadius: 5,
-                                blurRadius: 15,
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.flag,
-                                color: CustomColors.iconsActive,
-                              ),
-                              Padding(padding: EdgeInsets.all(10)),
-                              Text(
-                                _getCountryText(selectedCountry),
-                                style: Theme.of(context).textTheme.bodyText1,
-                              )
-                            ],
-                          ))),
-                ],
-              ),
+                            _updateAddress();
+                          });
+                    },
+                    child: Container(
+                        height: 50,
+                        width: double.infinity,
+                        padding: EdgeInsets.only(left: 10),
+                        margin: EdgeInsets.only(top: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(
+                              color: CustomColors.spreadRegister, width: 2),
+
+                          // boxShadow: [
+                          //   BoxShadow(
+                          //     color: CustomColors.spreadRegister,
+                          //     spreadRadius: 5,
+                          //     blurRadius: 15,
+                          //   ),
+                          // ],
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.flag,
+                              color: CustomColors.iconsActive,
+                            ),
+                            Padding(padding: EdgeInsets.all(10)),
+                            Text(
+                              _getCountryText(selectedCountry),
+                              style: Theme.of(context).textTheme.bodyText1,
+                            )
+                          ],
+                        ))),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
+      ),
       /*),*/
     );
   }

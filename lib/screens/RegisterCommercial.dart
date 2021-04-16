@@ -93,8 +93,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                           style: Theme.of(context).textTheme.headline5),
                       TextInput(
                         controller: _brandController,
-                        icon: null,
-                        noIcon: true,
+                        icon: Icons.store_outlined,
                         label: AppLocalizations.of(context).brand,
                         margin: EdgeInsets.fromLTRB(0, 50, 0, 20),
                         hint: AppLocalizations.of(context).brand,
@@ -102,8 +101,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                       ),
                       TextInput(
                         controller: _nameController,
-                        icon: null,
-                        noIcon: true,
+                        icon: Icons.verified_user_outlined,
                         label: AppLocalizations.of(context).name,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
                         hint: AppLocalizations.of(context).name,
@@ -111,8 +109,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                       ),
                       TextInput(
                         controller: _surnameController,
-                        icon: null,
-                        noIcon: true,
+                        icon: Icons.verified_user_outlined,
                         label: AppLocalizations.of(context).lastName,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
                         hint: AppLocalizations.of(context).lastName,
@@ -120,8 +117,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                       ),
                       TextInput(
                         controller: _usernameController,
-                        icon: null,
-                        noIcon: true,
+                        icon: Icons.supervised_user_circle,
                         label: AppLocalizations.of(context).userName,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
                         hint: AppLocalizations.of(context).userName,
@@ -129,8 +125,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                       ),
                       TextInput(
                         controller: _emailController,
-                        icon: null,
-                        noIcon: true,
+                        icon: Icons.mail_outline,
                         label: AppLocalizations.of(context).emailAddress,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
                         hint: AppLocalizations.of(context).emailHint,
@@ -138,8 +133,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                       ),
                       TextInput(
                         controller: _phoneController,
-                        icon: null,
-                        noIcon: true,
+                        icon: Icons.phone_android_outlined,
                         label: AppLocalizations.of(context).phoneNumber,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
                         hint: AppLocalizations.of(context).phoneNumber,
@@ -149,8 +143,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                       TextInput(
                         obscureText: true,
                         controller: _passwordController,
-                        icon: null,
-                        noIcon: true,
+                        icon: Icons.lock_outline,
                         label: AppLocalizations.of(context).password,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
                         hint: AppLocalizations.of(context).passHint,
@@ -159,8 +152,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                       TextInput(
                         obscureText: true,
                         controller: _repeatPasswordController,
-                        icon: null,
-                        noIcon: true,
+                        icon: Icons.lock_outline,
                         label: AppLocalizations.of(context).passwordConfirm,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
                         hint: AppLocalizations.of(context).passwordConfirm,
@@ -169,8 +161,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                       ),
                       TextInput(
                         controller: _descriptionController,
-                        icon: null,
-                        noIcon: true,
+                        icon: Icons.text_snippet_outlined,
                         label: AppLocalizations.of(context).storeDescription,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
                         hint: AppLocalizations.of(context).storeDescriptionHint,

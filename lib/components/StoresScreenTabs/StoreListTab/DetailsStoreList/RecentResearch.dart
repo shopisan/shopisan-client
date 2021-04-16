@@ -31,13 +31,13 @@ class RecentResearch extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(bottom: 10),
+            padding: EdgeInsets.only(bottom: 5),
             child: Text(
                 AppLocalizations.of(context).recentResearch.toUpperCase(),
-                style: Theme.of(context).textTheme.headline4),
+                style: Theme.of(context).textTheme.headline2),
           ),
           SizedBox(
-            height: 30,
+            height: 20,
             child: ListView(
               // reverse: true,
               scrollDirection: Axis.horizontal,
@@ -54,7 +54,7 @@ class RecentResearch extends StatelessWidget {
                               child: Text(
                                 "${categoryById[categoryId].fr}".toUpperCase(),
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 10,
                                   fontWeight: FontWeight.bold,
                                   color: CustomColors.textDark,
                                 ),

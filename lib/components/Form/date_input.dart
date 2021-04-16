@@ -16,18 +16,19 @@ class DateInput extends StatelessWidget {
     return Container(
       height: 50,
       width: double.infinity,
-      padding: EdgeInsets.only(left: 10),
+      // padding: EdgeInsets.only(left: 10),
       margin: EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         color: Colors.white,
+        border: Border.all(color: CustomColors.spreadRegister, width: 2),
         borderRadius: BorderRadius.circular(40),
-        boxShadow: [
-          BoxShadow(
-            color: CustomColors.spreadRegister,
-            spreadRadius: 5,
-            blurRadius: 15,
-          ),
-        ],
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: CustomColors.spreadRegister,
+        //     spreadRadius: 5,
+        //     blurRadius: 15,
+        //   ),
+        // ],
       ),
       child: DateTimeField(
         style: Theme.of(context).textTheme.bodyText1,
@@ -37,6 +38,7 @@ class DateInput extends StatelessWidget {
           prefixIcon: Icon(
             icon,
             color: CustomColors.iconsActive,
+            size: 20,
           ),
           border: InputBorder.none,
         ),

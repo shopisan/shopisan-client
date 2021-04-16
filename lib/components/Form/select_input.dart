@@ -27,13 +27,15 @@ class SelectInput extends StatelessWidget {
         decoration: BoxDecoration(
           // color: Colors.white,
           borderRadius: BorderRadius.circular(40),
-          boxShadow: [
-            BoxShadow(
-              color: CustomColors.spreadRegister,
-              spreadRadius: 5,
-              blurRadius: 15,
-            ),
-          ],
+          border: Border.all(color: CustomColors.spreadRegister, width: 2),
+
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: CustomColors.spreadRegister,
+          //     spreadRadius: 5,
+          //     blurRadius: 15,
+          //   ),
+          // ],
         ),
         child: DropdownButtonFormField(
             items: items ?? [],

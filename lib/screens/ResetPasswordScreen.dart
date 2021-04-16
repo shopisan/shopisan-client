@@ -11,7 +11,7 @@ class ResetPasswordScreen extends StatefulWidget {
   final String email;
 
   ResetPasswordScreen({@required this.email});
-  
+
   @override
   _ResetPasswordScreenState createState() => _ResetPasswordScreenState();
 }
@@ -19,10 +19,11 @@ class ResetPasswordScreen extends StatefulWidget {
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final TextEditingController _tokenController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _repeatPasswordController = TextEditingController();
+  final TextEditingController _repeatPasswordController =
+      TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String password;
-  
+
   @override
   Widget build(BuildContext context) {
     String email = widget.email;
@@ -34,12 +35,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
     _submitForm() async {
       if (_formKey.currentState.validate()) {
-        bool rslt =
-          await resetPasswordSubmit({
-            "email": email,
-            "token": _tokenController.text,
-            "password": _passwordController.text
-          });
+        bool rslt = await resetPasswordSubmit({
+          "email": email,
+          "token": _tokenController.text,
+          "password": _passwordController.text
+        });
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             backgroundColor: rslt ? CustomColors.success : CustomColors.error,
@@ -47,12 +47,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 ? AppLocalizations.of(context).resetPasswordSuccess
                 : AppLocalizations.of(context).anErrorOccurred)));
 
-        if (rslt){
+        if (rslt) {
           Navigator.of(context).popUntil(ModalRoute.withName("/"));
         }
       }
     }
-    
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -67,82 +67,80 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         child: Form(
           key: _formKey,
           child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(AppLocalizations.of(context).resetPassword,
-                style: Theme.of(context).textTheme.headline5),
-            Padding(
-              padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-              child: Text(
-                AppLocalizations.of(context).resetPassText,
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  color: CustomColors.textDark,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            TextInput(
-              controller: _tokenController,
-              icon: null,
-              noIcon: true,
-              label: AppLocalizations.of(context).resetPassToken,
-              hint: AppLocalizations.of(context).resetPassTokenHint,
-              margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              validator: isEmpty,
-            ),
-            TextInput(
-              controller: _passwordController,
-              icon: null,
-              noIcon: true,
-              label: AppLocalizations.of(context).password,
-              hint: AppLocalizations.of(context).passHint,
-              margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              validator: isEmpty,
-              obscureText: true,
-            ),
-            TextInput(
-              controller: _repeatPasswordController,
-              icon: null,
-              noIcon: true,
-              label: AppLocalizations.of(context).passwordConfirm,
-              hint: AppLocalizations.of(context).passwordConfirm,
-              margin: EdgeInsets.fromLTRB(0, 20, 0, 40),
-              validator: passwordsMatch,
-              passwordValidation: password,
-              obscureText: true,
-            ),
-            Container(
-              height: 50,
-              width: double.infinity,
-              margin: EdgeInsets.only(bottom: 30),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40),
-                color: CustomColors.textDark,
-                boxShadow: [
-                  BoxShadow(
-                    color: CustomColors.spreadRegister,
-                    spreadRadius: 5,
-                    blurRadius: 15,
-                  ),
-                ],
-              ),
-              // ignore: deprecated_member_use
-              child: FlatButton(
-                onPressed: _submitForm,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(AppLocalizations.of(context).resetPassword,
+                  style: Theme.of(context).textTheme.headline5),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                 child: Text(
-                  AppLocalizations.of(context).resetLink,
-                  style: GoogleFonts.roboto(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                  AppLocalizations.of(context).resetPassText,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: CustomColors.textDark,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              TextInput(
+                controller: _tokenController,
+                icon: Icons.lock_outline,
+                label: AppLocalizations.of(context).resetPassToken,
+                hint: AppLocalizations.of(context).resetPassTokenHint,
+                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                validator: isEmpty,
+              ),
+              TextInput(
+                controller: _passwordController,
+                icon: Icons.lock_outline,
+                label: AppLocalizations.of(context).password,
+                hint: AppLocalizations.of(context).passHint,
+                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                validator: isEmpty,
+                obscureText: true,
+              ),
+              TextInput(
+                controller: _repeatPasswordController,
+                icon: Icons.lock_outline,
+                label: AppLocalizations.of(context).passwordConfirm,
+                hint: AppLocalizations.of(context).passwordConfirm,
+                margin: EdgeInsets.fromLTRB(0, 20, 0, 40),
+                validator: passwordsMatch,
+                passwordValidation: password,
+                obscureText: true,
+              ),
+              Container(
+                height: 50,
+                width: double.infinity,
+                margin: EdgeInsets.only(bottom: 30),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  color: CustomColors.textDark,
+                  boxShadow: [
+                    BoxShadow(
+                      color: CustomColors.spreadRegister,
+                      spreadRadius: 5,
+                      blurRadius: 15,
+                    ),
+                  ],
+                ),
+                // ignore: deprecated_member_use
+                child: FlatButton(
+                  onPressed: _submitForm,
+                  child: Text(
+                    AppLocalizations.of(context).resetLink,
+                    style: GoogleFonts.roboto(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),),
+            ],
+          ),
+        ),
       ),
     );
   }

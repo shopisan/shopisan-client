@@ -70,8 +70,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   padding: EdgeInsets.all(10),
                   child: TextInput(
                     controller: _emailController,
-                    icon: null,
-                    noIcon: true,
+                    icon: (Icons.mail_outline),
                     label: AppLocalizations.of(context).emailAddress,
                     hint: AppLocalizations.of(context).emailHint,
                     margin: EdgeInsets.fromLTRB(0, 20, 0, 40),

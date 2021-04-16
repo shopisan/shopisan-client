@@ -120,9 +120,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       TextInput(
                         controller: _userNameController,
-                        icon: null,
+                        icon: Icons.verified_user_outlined,
                         label: AppLocalizations.of(context).userName,
-                        noIcon: true,
                         margin: EdgeInsets.fromLTRB(20, 50, 20, 20),
                         padding: EdgeInsets.only(left: 10),
                         hint: AppLocalizations.of(context).userName,
@@ -130,9 +129,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       TextInput(
                         controller: _emailController,
-                        icon: null,
+                        icon: Icons.mail_outline,
                         label: AppLocalizations.of(context).emailAddress,
-                        noIcon: true,
                         margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
                         padding: EdgeInsets.only(left: 10),
                         hint: AppLocalizations.of(context).emailHint,
@@ -140,9 +138,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       TextInput(
                         controller: _passwordController,
-                        icon: null,
+                        icon: Icons.lock_outline,
                         label: AppLocalizations.of(context).password,
-                        noIcon: true,
                         margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
                         padding: EdgeInsets.only(left: 10),
                         hint: AppLocalizations.of(context).passHint,
@@ -151,9 +148,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       TextInput(
                         controller: _repeatPasswordController,
-                        icon: null,
+                        icon: Icons.lock_outline,
                         label: AppLocalizations.of(context).passwordConfirm,
-                        noIcon: true,
                         margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
                         padding: EdgeInsets.only(left: 10),
                         hint: AppLocalizations.of(context).passwordConfirm,

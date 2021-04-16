@@ -7,7 +7,10 @@ import 'package:shopisan/theme/colors.dart';
 
 class DropdownMenu extends StatefulWidget {
   const DropdownMenu(
-      {Key key, @required this.setSelectedCats, @required this.categories, @required this.selectedCats})
+      {Key key,
+      @required this.setSelectedCats,
+      @required this.categories,
+      @required this.selectedCats})
       : super(key: key);
 
   final List<Category> categories;
@@ -50,7 +53,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
                     Icons.search,
                     color: CustomColors.iconsActive,
                   ),
-                  buttonText: Text(AppLocalizations.of(context).search,
+                  buttonText: Text(AppLocalizations.of(context).categories,
                       style: Theme.of(context).textTheme.headline6),
                   items: widget.categories
                       .map((e) => MultiSelectItem(e.id, e.fr))

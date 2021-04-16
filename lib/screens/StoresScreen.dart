@@ -7,13 +7,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/components/StoresScreenTabs/FavoriteTab/FavoriteTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/MapTab/MapTab.dart';
-import 'package:shopisan/components/StoresScreenTabs/PostsTab/PostsTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/SettingsTab/SettingsTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/StoreListTab/StoreListTab.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
-import 'package:shopisan/utils/loading_indicator.dart';
 
 class StoresScreen extends StatefulWidget {
   final bool toLogin;
@@ -133,26 +131,45 @@ class _StoresScreenState extends State<StoresScreen> {
 
   List<BottomNavigationBarItem> _navBarsItems() {
     return [
+      // BottomNavigationBarItem(
+      //   // icon: Icon(FontAwesomeIcons.newspaper, size: 30),
+      //   icon: FaIcon(
+      //     FontAwesomeIcons.solidClone,
+      //     size: 30,
+      //   ),
+      //   label: "Posts",
+      // ),
       BottomNavigationBarItem(
-        icon: Icon(FontAwesomeIcons.newspaper, size: 35),
-        label: "Posts",
-      ),
-      BottomNavigationBarItem(
-        // icon: SvgPicture.asset(storeIcon),
-        icon: Icon(Icons.store_outlined, size: 35),
+        // icon: Icon(Icons.store_outlined, size: 30),
+        icon: FaIcon(
+          FontAwesomeIcons.store,
+          size: 30,
+        ),
         label: ("Store"),
       ),
       BottomNavigationBarItem(
         // icon: SvgPicture.asset(mapIcon),
-        icon: Icon(Icons.map_outlined, size: 35),
+        // icon: Icon(Icons.map_outlined, size: 30),
+        icon: FaIcon(
+          FontAwesomeIcons.mapMarkedAlt,
+          size: 30,
+        ),
         label: ("Map"),
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.favorite_border_outlined, size: 35),
+        // icon: Icon(Icons.favorite_border_outlined, size: 30),
+        icon: FaIcon(
+          FontAwesomeIcons.solidHeart,
+          size: 30,
+        ),
         label: ("Favorite"),
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.account_circle_outlined, size: 35),
+        // icon: Icon(Icons.account_circle_outlined, size: 30),
+        icon: FaIcon(
+          FontAwesomeIcons.solidUser,
+          size: 30,
+        ),
         label: "Profile",
       ),
     ];
@@ -171,21 +188,20 @@ class _StoresScreenState extends State<StoresScreen> {
     }
 
     List<Widget> _tabs = <Widget>[
-      FutureBuilder(
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return PostsTab(posts: snapshot.data, stores: stores);
-          }
-          return LoadingIndicator();
-        },
-        future: getPosts(),
-      ),
+      // FutureBuilder(
+      //   builder: (context, snapshot) {
+      //     if (snapshot.hasData) {
+      //       return PostsTab(posts: snapshot.data, stores: stores);
+      //     }
+      //     return LoadingIndicator();
+      //   },
+      //   future: getPosts(),
+      // ),
       StoreListTab(
-        setSelectedCats: setSelectedCats,
-        stores: stores,
-        history: history,
-        selectedCats: selectedCategoriesId
-      ),
+          setSelectedCats: setSelectedCats,
+          stores: stores,
+          history: history,
+          selectedCats: selectedCategoriesId),
       MapTab(
         stores: stores,
         latitude: latitudeData != null ? double.tryParse(latitudeData) : null,

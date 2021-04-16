@@ -1,19 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shopisan/components/StoreDetailScreenTab/DescriptionTabCommercial/DetailsDescriptionTabCommercial/AddressesCommercial.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/DescriptionTabCommercial/DetailsDescriptionTabCommercial/ConnectCommercial.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/DetailsCommercialScreenTab/CategoriesCommercial.dart';
 import 'package:shopisan/model/Store.dart';
-import 'package:shopisan/theme/colors.dart';
 
 import 'DetailsDescriptionTabCommercial/OpeningTimeCommercial.dart';
 
 class DescriptionTabCommercial extends StatefulWidget {
-  const DescriptionTabCommercial({
-    Key key,
-    @required this.store,
-    @required this.height
-  }) : super(key: key);
+  const DescriptionTabCommercial(
+      {Key key, @required this.store, @required this.height})
+      : super(key: key);
 
   final Store store;
   final double height;
@@ -64,12 +62,14 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                     width: double.infinity,
                     // height: 200,
                     padding: EdgeInsets.fromLTRB(20, 20, 20, 40),
-                    child: /*SingleChildScrollView(
-                      child: */Text(
-                        store?.description ?? "",
-                        style: Theme.of(context).textTheme.bodyText1,
-                        textAlign: TextAlign.justify,
-                      ),
+                    child:
+                        /*SingleChildScrollView(
+                      child: */
+                        Text(
+                      store?.description ?? "",
+                      style: Theme.of(context).textTheme.bodyText1,
+                      textAlign: TextAlign.justify,
+                    ),
                     /*),*/
                   ),
                   OpeningTimeCommercial(
@@ -78,6 +78,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                   ConnectCommercial(
                     store: store,
                   ),
+                  AddressesCommercial(store: store, address: address)
                 ],
               ),
             )),

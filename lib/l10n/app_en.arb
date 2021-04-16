@@ -32,7 +32,7 @@
   "forgPassText": "We will send you an email to reset your password. Please enter your email address",
   "resetLink": "Send Reset Link",
   "register": "Register Here",
-  "search": "Search",
+  "categories": "Categories",
   "recentResearch": "Recent research",
   "commercialName": "Commercial Name",
   "commercialAddress": "Store address",
@@ -108,5 +108,6 @@
   "to": "to",
   "pictureMissing": "Please add a picture",
   "noLocationForThisStore": "No location available for this store",
-  "loginError": "Unable to log you in, please check your credentials"
+  "loginError": "Unable to log you in, please check your credentials",
+  "addresses": "Addresses"
 }

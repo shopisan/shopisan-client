@@ -44,19 +44,31 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
     return [
       BottomNavigationBarItem(
         backgroundColor: Colors.white,
-        icon: Icon(Icons.store_outlined, size: 35),
+        // icon: Icon(Icons.store_outlined, size: 35),
+        icon: FaIcon(
+          FontAwesomeIcons.store,
+          size: 30,
+        ),
         label: ("About"),
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
       ),
       BottomNavigationBarItem(
-        icon: FaIcon(FontAwesomeIcons.newspaper, size: 35),
+        // icon: FaIcon(FontAwesomeIcons.newspaper, size: 35),
+        icon: FaIcon(
+          FontAwesomeIcons.solidClone,
+          size: 30,
+        ),
         label: ("Posts"),
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.map_outlined, size: 35),
+        // icon: Icon(Icons.map_outlined, size: 35),
+        icon: FaIcon(
+          FontAwesomeIcons.mapMarkedAlt,
+          size: 30,
+        ),
         label: ("Map"),
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
@@ -117,8 +129,10 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
           posts: posts,
           height: newHeight,
         ),
-        MapTabCommercial(store: store,
-          height: newHeight,),
+        MapTabCommercial(
+          store: store,
+          height: newHeight,
+        ),
       ];
     }
 

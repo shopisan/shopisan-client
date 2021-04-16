@@ -19,7 +19,7 @@
   "birthday": "Ajouter votre anniversaire",
   "profile": "Profil",
   "searchCat": "Catégories",
-  "selectHours": "Planifie tes heures d'ouverture",
+  "selectHours": "Planifiez vos heures d'ouverture",
   "emailAddress": "Adresse E-mail",
   "emailHint": "abc@gmail.com",
   "password": "Mot de passe",
@@ -30,7 +30,7 @@
   "forgPassText": "Nous vous enverrons un courriel pour réinitialiser votre mot de passe. Veuillez saisir votre adresse e-mail.",
   "resetLink": "Envoyer le lien de réinitialisation",
   "register": "S'enregistrer ici",
-  "search": "Recherche",
+  "categories": "Catégories",
   "recentResearch": "Recherches récentes",
   "commercialName": "Nom du Commerce",
   "commercialAddress": "Adresse du commerce",
@@ -64,7 +64,7 @@
   "website": "Site Web",
   "country": "Pays",
   "appointmentOnly": "Sur rendez-vous uniquement",
-  "aroundYou": "Autour de toi",
+  "aroundYou": "Autour de vous",
   "mo": "Lundi",
   "tu": "Mardi",
   "we": "Mercredi",
@@ -73,7 +73,7 @@
   "sa": "Samedi",
   "su": "Dimanche",
   "storeSaved": "Magasin sauvegardé",
-  "favorite" : "Tes stores préférés",
+  "favorite" : "Vos stores préférés",
   "noFav": "Veuillez vous connecter pour ajouter des commerces",
   "noFavYet": "Vous n'avez pas encore ajouté de boutique à vos favoris",
   "uploadImg": "Télécharger une image",
@@ -106,5 +106,6 @@
   "to": "à",
   "pictureMissing": "Une image est requise",
   "noLocationForThisStore": "Pas de localisation disponible pour cette boutique",
-  "loginError": "Impossible de vous connecter, vos identifiants sont-ils correct?"
+  "loginError": "Impossible de vous connecter, vos identifiants sont-ils correct?",
+  "addresses": "Addresses"
 }

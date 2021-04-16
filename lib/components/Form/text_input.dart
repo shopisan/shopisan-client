@@ -45,14 +45,15 @@ class TextInput extends StatelessWidget {
       margin: margin ?? EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         // color: Colors.white,
-        borderRadius: BorderRadius.circular(40),
-        boxShadow: [
-          BoxShadow(
-            color: CustomColors.spreadRegister,
-            spreadRadius: 3,
-            blurRadius: 15,
-          ),
-        ],
+        border: Border.all(color: CustomColors.spreadRegister, width: 2),
+        borderRadius: BorderRadius.circular(30),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: CustomColors.spreadRegister,
+        //     spreadRadius: 3,
+        //     blurRadius: 15,
+        //   ),
+        // ],
       ),
       child: TextFormField(
         maxLines: isTextarea ? null : 1,
@@ -72,7 +73,9 @@ class TextInput extends StatelessWidget {
         inputFormatters: inputFormatter,
         obscureText: obscureText,
         maxLength: maxLength,
-        maxLengthEnforcement: null == maxLength ? MaxLengthEnforcement.none : MaxLengthEnforcement.enforced,
+        maxLengthEnforcement: null == maxLength
+            ? MaxLengthEnforcement.none
+            : MaxLengthEnforcement.enforced,
         decoration: InputDecoration(
             isDense: true,
             // Added this
