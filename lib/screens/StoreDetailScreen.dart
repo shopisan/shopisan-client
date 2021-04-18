@@ -93,6 +93,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
   @override
   void initState() {
     fetchStore(widget.storeId).then((value) {
+      print(store);
       setState(() {
         store = value;
       });

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
@@ -9,6 +10,7 @@ import 'package:shopisan/components/StoresScreenTabs/FavoriteTab/FavoriteTab.dar
 import 'package:shopisan/components/StoresScreenTabs/MapTab/MapTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/SettingsTab/SettingsTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/StoreListTab/StoreListTab.dart';
+import 'package:shopisan/model/Country.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
@@ -30,6 +32,7 @@ class _StoresScreenState extends State<StoresScreen> {
   List<Post> posts = [];
   List<dynamic> selectedCategoriesId;
   List<dynamic> history = [];
+  List<dynamic> countries = [];
 
   void setSelectedCats(List<dynamic> selectedCats) async {
     setState(() {
@@ -56,14 +59,28 @@ class _StoresScreenState extends State<StoresScreen> {
     prefs.setString('search_history', json.encode(history));
   }
 
+  void setCountries(List<dynamic> selectCountries) async {
+    setState(() {
+      countries = selectCountries;
+    });
+    loadStores();
+  }
+
   // Récupérer la géolocalisation
   getCurrentLocation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
+    final coordinates =
+        new Coordinates(geoposition.latitude, geoposition.longitude);
+    var addresses =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    String country = addresses.first.countryCode;
+
     setState(() {
       latitudeData = "${geoposition.latitude}";
       longitudeData = "${geoposition.longitude}";
+      countries = [country];
     });
 
     loadStores();
@@ -72,15 +89,16 @@ class _StoresScreenState extends State<StoresScreen> {
         'last_geolocation',
         json.encode({
           "latitude": geoposition.latitude,
-          "longitude": geoposition.longitude
+          "longitude": geoposition.longitude,
+          "country": country
         }));
   }
 
   void loadStores() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    List<Store> storeList =
-        await fetchStores(selectedCategoriesId, latitudeData, longitudeData);
+    List<Store> storeList = await fetchStores(
+        selectedCategoriesId, latitudeData, longitudeData, countries);
 
     setState(() {
       stores = storeList;
@@ -97,6 +115,7 @@ class _StoresScreenState extends State<StoresScreen> {
       setState(() {
         latitudeData = "${geoloc['latitude']}";
         longitudeData = "${geoloc['longitude']}";
+        countries = geoloc.containsKey('country') ? [geoloc['country']] : [];
       });
     }
   }
@@ -198,10 +217,13 @@ class _StoresScreenState extends State<StoresScreen> {
       //   future: getPosts(),
       // ),
       StoreListTab(
-          setSelectedCats: setSelectedCats,
-          stores: stores,
-          history: history,
-          selectedCats: selectedCategoriesId),
+        setSelectedCats: setSelectedCats,
+        stores: stores,
+        history: history,
+        selectedCats: selectedCategoriesId,
+        selectedCountries: countries,
+        setCountries: setCountries,
+      ),
       MapTab(
         stores: stores,
         latitude: latitudeData != null ? double.tryParse(latitudeData) : null,

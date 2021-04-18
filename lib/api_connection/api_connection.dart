@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:shopisan/model/Category.dart';
+import 'package:shopisan/model/Country.dart';
 import 'package:shopisan/model/File.dart' as FileModel;
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/PostMedia.dart';
@@ -15,8 +16,8 @@ import 'package:shopisan/repository/user_repository.dart';
 part 'kits/posts_api.dart';
 part 'kits/user_api.dart';
 
-// final _base = "10.0.2.2:8000";
-final _base = "shopisan.herokuapp.com";
+final _base = "10.0.2.2:8000";
+// final _base = "shopisan.herokuapp.com";
 final _tokenEndpoint = "/api/token-auth/";
 final _tokenURL = Uri.http(_base, _tokenEndpoint);
 
@@ -32,14 +33,29 @@ Future<List<Category>> fetchCategories() async {
   }
 }
 
-Future<List<Store>> fetchStores(
-    List<dynamic> categories, String latitude, String longitude) async {
-  Map<String, String> params = {};
+Future<List<Country>> fetchCountries() async {
+  final response = await http.get(Uri.http(_base, "/api/countries/"),
+      headers: {'Accept': 'application/json'});
 
-  print(categories);
+  if (response.statusCode == 200) {
+    return CountryCollection.fromJson(jsonDecode(response.body)).countries;
+  } else {
+    throw Exception(
+        'Failed to load countries, ca serait bien de faire quelque chose dans ce cas la');
+  }
+}
+
+Future<List<Store>> fetchStores(
+    List<dynamic> categories, String latitude, String longitude,
+    List<dynamic> countries) async {
+  Map<String, String> params = {};
 
   if (categories != null && categories.length > 0) {
     params['categories'] = categories.join(",");
+  }
+
+  if (countries != null && countries.length > 0) {
+    params['countries'] = countries.join(",");
   }
 
   if (latitude != null && longitude != null) {

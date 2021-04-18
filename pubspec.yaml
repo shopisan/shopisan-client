@@ -51,6 +51,7 @@ dependencies:
   time_range_picker: ^2.0.1
   country_picker: ^2.0.3
   favorite_button: ^0.0.3
+  geocoder: ^0.2.1
 
 dev_dependencies:
   flutter_test:

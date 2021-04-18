@@ -78,7 +78,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                   ConnectCommercial(
                     store: store,
                   ),
-                  AddressesCommercial(store: store, address: address)
+                  AddressesCommercial(store: store)
                 ],
               ),
             )),

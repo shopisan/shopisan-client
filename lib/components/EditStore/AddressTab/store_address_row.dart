@@ -1,8 +1,8 @@
 import 'package:country_picker/country_picker.dart';
-import 'package:country_picker/src/res/country_codes.dart' as CountryCodes;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shopisan/CountryTranslation/iso_country_translation.dart';
 import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/components/Form/text_input.dart';
 import 'package:shopisan/model/Address.dart';
@@ -61,19 +61,6 @@ class _StoreAddressRowState extends State<StoreAddressRow>
     _deleteAddress() {
       BlocProvider.of<EditStoreBloc>(context)
           .add(RemoveAddressEvent(address: address));
-    }
-
-    _getCountryText(countryCode) {
-      String text = AppLocalizations.of(context).country;
-      if (null != countryCode) {
-        CountryCodes.countryCodes.forEach((element) {
-          if (element['iso2_cc'] == countryCode) {
-            text = element['name'];
-          }
-        });
-      }
-
-      return text;
     }
 
     return Container(
@@ -169,7 +156,7 @@ class _StoreAddressRowState extends State<StoreAddressRow>
                             ),
                             Padding(padding: EdgeInsets.all(10)),
                             Text(
-                              _getCountryText(selectedCountry),
+                              IsoCountryTranslation.getCountryName(selectedCountry),
                               style: Theme.of(context).textTheme.bodyText1,
                             )
                           ],
