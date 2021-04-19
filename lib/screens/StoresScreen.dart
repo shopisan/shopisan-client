@@ -10,7 +10,6 @@ import 'package:shopisan/components/StoresScreenTabs/FavoriteTab/FavoriteTab.dar
 import 'package:shopisan/components/StoresScreenTabs/MapTab/MapTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/SettingsTab/SettingsTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/StoreListTab/StoreListTab.dart';
-import 'package:shopisan/model/Country.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
@@ -97,6 +96,7 @@ class _StoresScreenState extends State<StoresScreen> {
   void loadStores() async {
     // SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    print("load stores countries: $countries");
     List<Store> storeList = await fetchStores(
         selectedCategoriesId, latitudeData, longitudeData, countries);
 
@@ -203,7 +203,7 @@ class _StoresScreenState extends State<StoresScreen> {
   @override
   Widget build(BuildContext context) {
     if (widget.toLogin) {
-      _currentIndex = 4;
+      _currentIndex = 3;
     }
 
     List<Widget> _tabs = <Widget>[

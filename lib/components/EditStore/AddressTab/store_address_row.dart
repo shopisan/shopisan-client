@@ -156,7 +156,7 @@ class _StoreAddressRowState extends State<StoreAddressRow>
                             ),
                             Padding(padding: EdgeInsets.all(10)),
                             Text(
-                              IsoCountryTranslation.getCountryName(selectedCountry),
+                              null != selectedCountry ? IsoCountryTranslation.getCountryName(selectedCountry) : "",
                               style: Theme.of(context).textTheme.bodyText1,
                             )
                           ],
