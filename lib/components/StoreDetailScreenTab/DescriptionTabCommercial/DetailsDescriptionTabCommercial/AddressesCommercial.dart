@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Store.dart';
 
 class AddressesCommercial extends StatefulWidget {
@@ -12,6 +13,31 @@ class AddressesCommercial extends StatefulWidget {
 }
 
 class _AddressesCommercialState extends State<AddressesCommercial> {
+  String _addressesToString(List<Address> address) {
+    String str = "";
+    int index = 0;
+    for (Address add in address) {
+      if (index > 0) {
+        str += " \n ";
+      } else {
+        Text(
+          "Pad d'addresse",
+          style: Theme.of(context).textTheme.bodyText1,
+        );
+      }
+      str += add.streetAvenue +
+          ", " +
+          add.postalCode +
+          " - " +
+          add.city +
+          " " +
+          add.country;
+
+      index++;
+    }
+    return str;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,10 +52,10 @@ class _AddressesCommercialState extends State<AddressesCommercial> {
           Padding(
             padding: EdgeInsets.only(top: 10),
             child: Text(
-              "addresses",
+              _addressesToString(widget.store.addresses),
               style: Theme.of(context).textTheme.bodyText1,
             ),
-          )
+          ),
         ],
       ),
     );
