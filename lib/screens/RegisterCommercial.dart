@@ -37,7 +37,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
 
     _submitRegistration() async {
       if (_formKey.currentState.validate()) {
-        bool rslt = await sendStoreRegistration({
+        Map<String, dynamic> rslt = await sendStoreRegistration({
           "brand": _brandController.text,
           "name": _nameController.text,
           "surname": _surnameController.text,
@@ -48,16 +48,30 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
           "message": _descriptionController.text
         });
 
-        if (rslt) {
           WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(AppLocalizations.of(context).storeTicketSubmitted),
-              backgroundColor: CustomColors.success,
-            ));
+            if (rslt.containsKey('success')) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(AppLocalizations.of(context).storeTicketSubmitted),
+                backgroundColor: CustomColors.success,
+              ));
 
-            Navigator.of(context).popUntil(ModalRoute.withName("/"));
+              Navigator.of(context).popUntil(ModalRoute.withName("/"));
+            } else {
+              if (rslt.containsKey('username')) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(AppLocalizations.of(context).userNameTaken),
+                  backgroundColor: CustomColors.error,
+                ));
+              }
+
+              if (rslt.containsKey('email')) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(AppLocalizations.of(context).emailTaken),
+                  backgroundColor: CustomColors.error,
+                ));
+              }
+            }
           });
-        }
       }
     }
 

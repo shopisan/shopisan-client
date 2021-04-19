@@ -158,7 +158,7 @@ Future<FileModel.File> uploadFile(File file, String type) async {
   }
 }
 
-Future<bool> sendStoreRegistration(Map<String, dynamic> body) async {
+Future<Map<String, dynamic>> sendStoreRegistration(Map<String, dynamic> body) async {
   Map<String, dynamic> headers = await getHeaders();
 
   final http.Response response = await http.post(
@@ -167,9 +167,9 @@ Future<bool> sendStoreRegistration(Map<String, dynamic> body) async {
       headers: headers);
 
   if (response.statusCode == 201) {
-    return true;
+    return {'success': true};
   } else {
-    throw Exception(json.decode(response.body));
+    return json.decode(response.body);
   }
 }
 

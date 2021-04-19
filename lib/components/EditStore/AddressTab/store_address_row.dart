@@ -108,10 +108,7 @@ class _StoreAddressRowState extends State<StoreAddressRow>
                   label: AppLocalizations.of(context).postCode,
                   validator: isEmpty,
                 ),
-                /*TextInput(
-              controller: _countryController,
-              icon: Icons.flag,
-              label: AppLocalizations.of(context).country),*/
+
                 TextButton(
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all(
@@ -139,14 +136,6 @@ class _StoreAddressRowState extends State<StoreAddressRow>
                           borderRadius: BorderRadius.circular(30),
                           border: Border.all(
                               color: CustomColors.spreadRegister, width: 2),
-
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //     color: CustomColors.spreadRegister,
-                          //     spreadRadius: 5,
-                          //     blurRadius: 15,
-                          //   ),
-                          // ],
                         ),
                         child: Row(
                           children: [
