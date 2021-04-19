@@ -20,7 +20,7 @@ Future<UserProfile> getUserProfile() async {
   Map<String, dynamic> headers = await getHeaders();
 
   final http.Response response =
-      await http.get(Uri.http(_base, "/api/get_user"), headers: headers);
+      await http.get(Uri.http(_base, "/api/get_user/"), headers: headers);
 
   if (response.statusCode == 200) {
     return UserProfile.fromJson(json.decode(response.body));
@@ -56,7 +56,7 @@ Future<bool> forgotPasswordSubmit(Map<String, String> data) async {
 
   if (response.statusCode == 200) {
     Map<String, dynamic> rslt = jsonDecode(response.body);
-    if (rslt['success']){
+    if (rslt['success']) {
       return true;
     }
     // @ todo return bool selon resultat obtenu dans le body
@@ -76,7 +76,7 @@ Future<bool> resetPasswordSubmit(Map<String, String> data) async {
 
   if (response.statusCode == 200) {
     Map<String, dynamic> rslt = jsonDecode(response.body);
-    if (rslt['success']){
+    if (rslt['success']) {
       return true;
     }
 
