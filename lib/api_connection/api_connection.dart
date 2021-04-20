@@ -45,9 +45,8 @@ Future<List<Country>> fetchCountries() async {
   }
 }
 
-Future<List<Store>> fetchStores(
-    List<dynamic> categories, String latitude, String longitude,
-    List<dynamic> countries) async {
+Future<List<Store>> fetchStores(List<dynamic> categories, String latitude,
+    String longitude, List<dynamic> countries) async {
   Map<String, String> params = {};
 
   if (categories != null && categories.length > 0) {
@@ -158,7 +157,8 @@ Future<FileModel.File> uploadFile(File file, String type) async {
   }
 }
 
-Future<Map<String, dynamic>> sendStoreRegistration(Map<String, dynamic> body) async {
+Future<Map<String, dynamic>> sendStoreRegistration(
+    Map<String, dynamic> body) async {
   Map<String, dynamic> headers = await getHeaders();
 
   final http.Response response = await http.post(
@@ -171,6 +171,19 @@ Future<Map<String, dynamic>> sendStoreRegistration(Map<String, dynamic> body) as
   } else {
     return json.decode(response.body);
   }
+}
+
+Future<Map<String, dynamic>> searchLocation(String locationName) async {
+  // Map<String, dynamic> headers = await getHeaders();
+  Map<String, dynamic> params = {
+    "address": locationName,
+    "key": "AIzaSyCegSUW6N1wYgRONnn_4kOZXUzFu7w2Drs"
+  };
+
+  final http.Response response = await http
+      .get(Uri.https("maps.googleapis.com", "/maps/api/geocode/json", params));
+
+  return json.decode(response.body);
 }
 
 Future<Map<String, String>> getHeaders() async {
@@ -189,4 +202,3 @@ Future<Map<String, String>> getHeaders() async {
 
   return headers;
 }
-

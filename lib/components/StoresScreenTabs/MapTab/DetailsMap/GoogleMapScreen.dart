@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shopisan/components/StoresScreenTabs/MapTab/DetailsMap/SearchBar.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
@@ -67,15 +68,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     setState(() {});
   }
 
-  // void searchAndNavigate() async {
-  //   LocationResult result = await Navigator.of(context).push(MaterialPageRoute(
-  //       builder: (context) => PlacePicker(
-  //             "AIzaSyCegSUW6N1wYgRONnn_4kOZXUzFu7w2Drs",
-  //             // displayLocation: customLocation,
-  //           )));
-  //   print(result);
-  // }
-
   @override
   Widget build(BuildContext context) {
     Future<Set<Marker>> _getMarkers(List<Store> stores) async {
@@ -92,8 +84,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 markerId: MarkerId(
                     address.id.toString() + " " + address.streetAvenue),
                 icon: mapMarker,
-                position: LatLng(double.parse(address.latitude),
-                    double.parse(address.longitude)),
+                position: LatLng(
+                  double.parse(address.latitude),
+                  double.parse(address.longitude),
+                ),
                 infoWindow: InfoWindow(
                   title: store.name,
                   onTap: () {
@@ -132,34 +126,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           },
           future: _getMarkers(widget.stores),
         ),
-        // Positioned(
-        //   top: 10,
-        //   left: 10,
-        //   // child: AddressSearch(),
-        //   child: Container(
-        //     height: 42,
-        //     width: 300,
-        //     decoration: BoxDecoration(
-        //         color: Colors.white, borderRadius: BorderRadius.circular(10)),
-        //     child: OutlinedButton(
-        //       // onPressed: searchAndNavigate,
-        //       child: Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //         children: [
-        //           Text(
-        //             AppLocalizations.of(context).search,
-        //             style: Theme.of(context).textTheme.headline2,
-        //           ),
-        //           Icon(
-        //             Icons.search_outlined,
-        //             color: Colors.black,
-        //             size: 20,
-        //           )
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        // )
+        SearchBar()
       ],
     );
   }

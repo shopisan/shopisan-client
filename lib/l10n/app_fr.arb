@@ -108,5 +108,6 @@
   "noLocationForThisStore": "Pas de localisation disponible pour cette boutique",
   "loginError": "Impossible de vous connecter, vos identifiants sont-ils correct?",
   "addresses": "Addresses",
-  "countries": "Pays"
+  "countries": "Pays",
+  "search": "Rechercher"
 }

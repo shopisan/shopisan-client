@@ -18,7 +18,7 @@ class _AddressesCommercialState extends State<AddressesCommercial> {
     int index = 0;
     for (Address add in address) {
       if (index > 0) {
-        str += " \n ";
+        str += "\n\n";
       } else {
         Text(
           "Pad d'addresse",
