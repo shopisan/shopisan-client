@@ -6,6 +6,9 @@ import 'package:shopisan/utils/common.dart';
 const kGoogleApiKey = "AIzaSyDkJlowngFOjqCxtMwPj6APgg2QWlpbEoI";
 
 class SearchBar extends StatefulWidget {
+  final ValueChanged<CameraPosition> setCameraPosition;
+  SearchBar({@required this.setCameraPosition});
+
   @override
   _SearchBarState createState() => _SearchBarState();
 }
@@ -18,19 +21,17 @@ class _SearchBarState extends State<SearchBar> {
   BitmapDescriptor mapMarker;
 
   _handlePressButton() async {
-    print(_cityController.text);
     Map<String, dynamic> location = await searchLocation(_cityController.text);
-    print(location['results'][0]['geometry']['location']);
 
     if (location['results'][0]['geometry']['location']['lat'] != null &&
         location['results'][0]['geometry']['location']['lng'] != null) {
-      CameraPosition(
-          target: LatLng(
-              double.parse(
-                  location['results'][0]['geometry']['location']['lat']),
-              double.parse(
-                  location['results'][0]['geometry']['location']['lng'])),
-          zoom: 10);
+      widget.setCameraPosition(
+          CameraPosition(
+              target: LatLng(
+                  location['results'][0]['geometry']['location']['lat'],
+                  location['results'][0]['geometry']['location']['lng']),
+              zoom: 10)
+      );
     }
   }
 

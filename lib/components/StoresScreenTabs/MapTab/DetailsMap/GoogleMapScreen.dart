@@ -31,17 +31,28 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   GoogleMapController mapController;
   BitmapDescriptor mapMarker;
   String searchAddress;
+  CameraPosition cameraPosition;
 
   @override
   void initState() {
     super.initState();
-    setCustomMarker();
+    // setCustomMarker();
+    cameraPosition = CameraPosition(
+        zoom: 14.0,
+        target: LatLng(widget.latitude, widget.longitude));
   }
 
   Future setCustomMarker() async {
     mapMarker = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(), "assets/icons/marker.png");
     return mapMarker;
+  }
+
+  void setCameraPosition(CameraPosition camPos){
+    setState(() {
+      cameraPosition = camPos;
+    });
+    mapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -104,6 +115,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       return newMarkers;
     }
 
+    print(cameraPosition);
+
     return Stack(
       children: [
         FutureBuilder(
@@ -116,9 +129,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 myLocationEnabled: true,
                 zoomControlsEnabled: false,
                 tiltGesturesEnabled: false,
-                initialCameraPosition: CameraPosition(
-                    zoom: 14.0,
-                    target: LatLng(widget.latitude, widget.longitude)),
+                initialCameraPosition: cameraPosition,
               );
             }
 
@@ -126,7 +137,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           },
           future: _getMarkers(widget.stores),
         ),
-        SearchBar()
+        SearchBar(setCameraPosition: setCameraPosition)
       ],
     );
   }
