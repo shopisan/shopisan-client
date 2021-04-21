@@ -6,11 +6,13 @@ import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class AroundYou extends StatelessWidget {
-  const AroundYou({Key key, @required this.stores, @required this.height})
+  const AroundYou(
+      {Key key, @required this.stores, @required this.height, this.loading})
       : super(key: key);
 
   final List<Store> stores;
   final double height;
+  final bool loading;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class AroundYou extends StatelessWidget {
           SizedBox(
               height: height,
               width: double.infinity,
-              child: stores != null
+              child: loading != true
                   ? ListView(
                       padding: EdgeInsets.only(bottom: 50),
                       scrollDirection: Axis.vertical,

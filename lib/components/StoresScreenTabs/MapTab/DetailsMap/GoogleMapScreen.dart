@@ -7,6 +7,7 @@ import 'package:shopisan/components/StoresScreenTabs/MapTab/DetailsMap/SearchBar
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
+import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
 
 class GoogleMapScreen extends StatefulWidget {
@@ -17,7 +18,8 @@ class GoogleMapScreen extends StatefulWidget {
       @required this.latitude,
       @required this.longitude,
       @required this.selectedCountries,
-      @required this.setCountries})
+      @required this.setCountries,
+      this.loading})
       : super(key: key);
 
   final List<Store> stores;
@@ -26,6 +28,7 @@ class GoogleMapScreen extends StatefulWidget {
   final double longitude;
   final List selectedCountries;
   final void Function(List selectCountries) setCountries;
+  final bool loading;
 
   @override
   _GoogleMapScreenState createState() => _GoogleMapScreenState();
@@ -40,8 +43,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   void initState() {
     super.initState();
     cameraPosition = CameraPosition(
-        zoom: 14.0,
-        target: LatLng(widget.latitude, widget.longitude));
+        zoom: 14.0, target: LatLng(widget.latitude, widget.longitude));
   }
 
   Future setCustomMarker() async {
@@ -50,7 +52,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     return mapMarker;
   }
 
-  void setCameraPosition(CameraPosition camPos){
+  void setCameraPosition(CameraPosition camPos) {
     setState(() {
       cameraPosition = camPos;
     });
@@ -91,26 +93,38 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       Set<Marker> newMarkers = {};
       for (Store store in stores) {
         for (Address address in store.addresses) {
-          if (address.latitude != null && address.longitude != null) {
-            newMarkers.add(
-              Marker(
-                markerId: MarkerId(
-                    address.id.toString() + " " + address.streetAvenue),
-                icon: mapMarker,
-                position: LatLng(
-                  double.parse(address.latitude),
-                  double.parse(address.longitude),
+          if (widget.loading != true) {
+            if (address.latitude != null && address.longitude != null) {
+              newMarkers.add(
+                Marker(
+                  markerId: MarkerId(
+                      address.id.toString() + " " + address.streetAvenue),
+                  icon: mapMarker,
+                  position: LatLng(
+                    double.parse(address.latitude),
+                    double.parse(address.longitude),
+                  ),
+                  infoWindow: InfoWindow(
+                    title: store.name,
+                    onTap: () {
+                      Navigator.pushNamed(context, "/store_detail",
+                          arguments: {"storeId": store.id});
+                    },
+                  ),
                 ),
-                infoWindow: InfoWindow(
-                  title: store.name,
-                  onTap: () {
-                    Navigator.pushNamed(context, "/store_detail",
-                        arguments: {"storeId": store.id});
-                  },
-                ),
-              ),
-            );
+              );
+            }
           }
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+                height: 50,
+                width: 50,
+                child: CircularProgressIndicator(
+                    backgroundColor: CustomColors.iconsActive,
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(CustomColors.error))),
+          );
         }
       }
 
@@ -139,8 +153,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           },
           future: _getMarkers(widget.stores),
         ),
-        SearchBar(setCameraPosition: setCameraPosition, selectedCountries: widget.selectedCountries,
-          setCountries: widget.setCountries,)
+        SearchBar(
+          setCameraPosition: setCameraPosition,
+          selectedCountries: widget.selectedCountries,
+          setCountries: widget.setCountries,
+        )
       ],
     );
   }
