@@ -18,6 +18,7 @@ class StoreListTab extends StatefulWidget {
   final List selectedCats;
   final List selectedCountries;
   final ValueChanged<List<dynamic>> setCountries;
+  final bool loading;
 
   const StoreListTab(
       {Key key,
@@ -26,7 +27,8 @@ class StoreListTab extends StatefulWidget {
       @required this.history,
       @required this.selectedCats,
       @required this.selectedCountries,
-      @required this.setCountries})
+      @required this.setCountries,
+      this.loading})
       : super(key: key);
 
   @override
@@ -92,6 +94,7 @@ class _StoreListTabState extends State<StoreListTab> {
             padding: EdgeInsets.fromLTRB(10, 20, 0, 0),
             child: AroundYou(
               stores: widget.stores,
+              loading: widget.loading,
               // bottomNav - dropdownMenu - recentSearches - titre
               height: newHeight - 73 - 90 - recentSearchHeight - 47 - 20,
             ),

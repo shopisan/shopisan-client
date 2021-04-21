@@ -13,7 +13,8 @@ class MapTab extends StatefulWidget {
       @required this.latitude,
       @required this.longitude,
       @required this.selectedCountries,
-      @required this.setCountries})
+      @required this.setCountries,
+      this.loading})
       : super(key: key);
 
   final List<Store> stores;
@@ -21,6 +22,7 @@ class MapTab extends StatefulWidget {
   final double longitude;
   final List selectedCountries;
   final void Function(List selectCountries) setCountries;
+  final bool loading;
 
   @override
   _MapTabState createState() => _MapTabState();
@@ -38,13 +40,13 @@ class _MapTabState extends State<MapTab> {
       children: [
         Positioned.fill(
           child: GoogleMapScreen(
-            stores: widget.stores,
-            categories: categories,
-            latitude: widget.latitude,
-            longitude: widget.longitude,
-            selectedCountries: widget.selectedCountries,
-            setCountries: widget.setCountries,
-          ),
+              stores: widget.stores,
+              categories: categories,
+              latitude: widget.latitude,
+              longitude: widget.longitude,
+              selectedCountries: widget.selectedCountries,
+              setCountries: widget.setCountries,
+              loading: widget.loading),
         ),
         Positioned(
           bottom: 0,
