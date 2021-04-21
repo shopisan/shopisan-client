@@ -25,13 +25,10 @@ class _SearchBarState extends State<SearchBar> {
 
     if (location['results'][0]['geometry']['location']['lat'] != null &&
         location['results'][0]['geometry']['location']['lng'] != null) {
-      widget.setCameraPosition(
-          CameraPosition(
-              target: LatLng(
-                  location['results'][0]['geometry']['location']['lat'],
-                  location['results'][0]['geometry']['location']['lng']),
-              zoom: 10)
-      );
+      widget.setCameraPosition(CameraPosition(
+          target: LatLng(location['results'][0]['geometry']['location']['lat'],
+              location['results'][0]['geometry']['location']['lng']),
+          zoom: 14));
     }
   }
 
@@ -41,10 +38,11 @@ class _SearchBarState extends State<SearchBar> {
       top: 10,
       left: 10,
       child: Container(
+        height: 42,
         padding: EdgeInsets.only(left: 20),
         width: getScreenWidth(context) - 75,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.white70,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(

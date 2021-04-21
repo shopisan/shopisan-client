@@ -27,12 +27,12 @@ class _DropdownCountryState extends State<DropdownCountry> {
 
   @override
   Widget build(BuildContext context) {
-    if (null == widget.countries || widget.selectedCountries.length == 0) {
-      return Container(
-        height: 50,
-        child: LinearProgressIndicator(),
-      );
-    }
+    // if (null == widget.countries || widget.selectedCountries.length == 0) {
+    //   return Container(
+    //     height: 50,
+    //     child: LinearProgressIndicator(),
+    //   );
+    // }
 
     return Container(
         height: 50,
@@ -57,7 +57,8 @@ class _DropdownCountryState extends State<DropdownCountry> {
                   buttonText: Text(AppLocalizations.of(context).countries,
                       style: Theme.of(context).textTheme.headline6),
                   items: widget.countries
-                      .map((e) => MultiSelectItem(e.iso, IsoCountryTranslation.getCountryName(e.iso)))
+                      .map((e) => MultiSelectItem(
+                          e.iso, IsoCountryTranslation.getCountryName(e.iso)))
                       .toList(),
                   listType: MultiSelectListType.LIST,
                   chipDisplay: MultiSelectChipDisplay.none(),
