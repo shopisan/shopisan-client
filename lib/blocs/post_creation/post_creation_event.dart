@@ -36,19 +36,20 @@ class DeletePost extends PostCreationEvent {
 }
 
 class ChangePostMedia extends PostCreationEvent {
-  final String description;
+  final String description_fr;
+  final String description_en;
   final String price;
   final int index;
 
   const ChangePostMedia(
-      {@required this.description, @required this.price, @required this.index});
+      {@required this.description_fr, @required this.description_en, @required this.price, @required this.index});
 
   @override
-  List<Object> get props => [uploadFile, description, price, index];
+  List<Object> get props => [uploadFile, description_fr, description_en, price, index];
 
   @override
   String toString() =>
-      'Post edited { media: $uploadFile, description: $description, price: $price }';
+      'Post edited { media: $uploadFile, description: $description_fr, price: $price }';
 }
 
 class ChangePostMediaPicture extends PostCreationEvent {

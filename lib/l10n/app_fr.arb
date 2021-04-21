@@ -111,5 +111,6 @@
   "countries": "Pays",
   "search": "Rechercher",
   "french": "Français",
-  "english": "Anglais"
+  "english": "Anglais",
+  "atLeastOneDescriptionRequired": "Vous devez remplir au moins une description pour continuer"
 }

@@ -24,7 +24,8 @@ class PostMediaForm extends StatefulWidget {
 class _PostMediaFormState extends State<PostMediaForm> {
   final ImagePicker picker = ImagePicker();
 
-  final _descriptionController = TextEditingController();
+  final _descriptionController_fr = TextEditingController();
+  final _descriptionController_en = TextEditingController();
   final _priceController = TextEditingController();
   File _image;
 
@@ -54,7 +55,8 @@ class _PostMediaFormState extends State<PostMediaForm> {
 
   @override
   void initState() {
-    _descriptionController.text = widget.postMedia.description;
+    _descriptionController_fr.text = widget.postMedia.description_fr;
+    _descriptionController_en.text = widget.postMedia.description_en;
     if (null != widget.postMedia.price) {
       _priceController.text = widget.postMedia.price.toString();
     }
@@ -67,7 +69,8 @@ class _PostMediaFormState extends State<PostMediaForm> {
     void _updateValues() {
       print("price: ${_priceController.text}");
       BlocProvider.of<PostCreationBloc>(context).add(ChangePostMedia(
-          description: _descriptionController.text,
+          description_fr: _descriptionController_fr.text,
+          description_en: _descriptionController_en.text,
           price: _priceController.text,
           index: widget.index));
     }
@@ -240,14 +243,26 @@ class _PostMediaFormState extends State<PostMediaForm> {
                   children: [
                     CustomInput.TextInput(
                       isTextarea: true,
-                      controller: _descriptionController,
+                      controller: _descriptionController_en,
                       icon: Icons.text_snippet_outlined,
-                      label: AppLocalizations.of(context).description,
+                      label: AppLocalizations.of(context).description+" "+AppLocalizations.of(context).english,
                       // initialValue: widget.postMedia.description,
                       callback: (value) {
                         _updateValues();
                       },
-                      validator: isEmpty,
+                      // validator: isEmpty,
+                      maxLength: 160,
+                    ),
+                    CustomInput.TextInput(
+                      isTextarea: true,
+                      controller: _descriptionController_fr,
+                      icon: Icons.text_snippet_outlined,
+                      label: AppLocalizations.of(context).description+" "+AppLocalizations.of(context).french,
+                      // initialValue: widget.postMedia.description,
+                      callback: (value) {
+                        _updateValues();
+                      },
+                      // validator: isEmpty,
                       maxLength: 160,
                     ),
                     CustomInput.TextInput(

@@ -113,5 +113,6 @@
   "countries": "Countries",
   "search": "Search",
   "french": "French",
-  "english": "English"
+  "english": "English",
+  "atLeastOneDescriptionRequired": "You need to fill at least one of the descriptions before submitting"
 }

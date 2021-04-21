@@ -12,6 +12,7 @@ import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
+import 'package:shopisan/utils/validators.dart';
 
 class EditStore extends StatefulWidget {
   @override
@@ -88,6 +89,18 @@ class _EditStoreState extends State<EditStore>
         }
       } else {
         prevent = !_formAddressKey.currentState.validate();
+      }
+
+      if (!oneFilled([store.description_fr, store.description_en])) {
+        prevent = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(AppLocalizations.of(context).atLeastOneDescriptionRequired),
+              backgroundColor: CustomColors.error,
+            ),
+          );
+        });
       }
 
       if (_formProfileKey.currentState.validate() && !prevent) {

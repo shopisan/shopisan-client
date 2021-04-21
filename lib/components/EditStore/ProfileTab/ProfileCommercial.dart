@@ -96,7 +96,7 @@ class _ProfileCommercialState extends State<ProfileCommercial>
               label: AppLocalizations.of(context).description + " " + AppLocalizations.of(context).english,
               keyboardType: TextInputType.multiline,
               isTextarea: true,
-              validator: isEmpty,
+              // validator: isEmpty,
             ),
             TextInput(
               controller: _descriptionControllerFr,
@@ -104,7 +104,7 @@ class _ProfileCommercialState extends State<ProfileCommercial>
               label: AppLocalizations.of(context).description + " " + AppLocalizations.of(context).french,
               keyboardType: TextInputType.multiline,
               isTextarea: true,
-              validator: isEmpty,
+              // validator: isEmpty,
             ),
             TextInput(
               controller: _websiteController,

@@ -117,7 +117,7 @@ Widget _getHoursRows(hours, context) {
 
   for (List hour in hours) {
     children.add(Text(
-      hour[0] + " à " + hour[1],
+      hour[0] + " - " + hour[1],
       style: Theme.of(context).textTheme.bodyText1,
     ));
   }

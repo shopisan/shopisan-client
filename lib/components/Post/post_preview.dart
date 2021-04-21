@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 
 class PostPreview extends StatefulWidget {
   PostPreview({@required this.post});
@@ -15,6 +16,7 @@ class PostPreview extends StatefulWidget {
 
 class _PostPreviewState extends State<PostPreview> {
   bool opened = false;
+  final String locale = getLocaleCode();
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +81,7 @@ class _PostPreviewState extends State<PostPreview> {
                             children: [
                               Expanded(
                                 child:
-                                    hasTextOverflow("${postMedia.description}")
+                                    hasTextOverflow("${postMedia.getDescriptionLocale(locale)}")
                                         ? TextButton(
                                             style: ButtonStyle(
                                               alignment: Alignment.topLeft,
@@ -90,7 +92,7 @@ class _PostPreviewState extends State<PostPreview> {
                                               });
                                             },
                                             child: Text(
-                                              "${postMedia.description}",
+                                              "${postMedia.getDescriptionLocale(locale)}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1,
@@ -98,7 +100,7 @@ class _PostPreviewState extends State<PostPreview> {
                                               maxLines: opened ? 15 : 2,
                                             ),
                                           )
-                                        : Text("${postMedia.description}",
+                                        : Text("${postMedia.getDescriptionLocale(locale)}",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyText1),

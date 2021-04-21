@@ -64,7 +64,8 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
         postMedia.price = newPrice;
       }
 
-      postMedia.description = event.description;
+      postMedia.description_fr = event.description_fr;
+      postMedia.description_en = event.description_en;
 
       post.postMedia[event.index] = postMedia;
       yield StartedPostCreationState(

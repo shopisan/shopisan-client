@@ -66,7 +66,7 @@ class _ManagePostState extends State<ManagePost> {
               child: Column(
                 children: [
                   Container(
-                    height: 500,
+                    height: getScreenHeight(context) - 90 - 80 - 3,
                     child: FutureBuilder(
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {

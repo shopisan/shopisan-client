@@ -33,3 +33,15 @@ String passwordsMatch(value, password, context){
 
   return null;
 }
+
+bool oneFilled(List<String> values){
+  bool oneFilled = false;
+
+  for (String value in values){
+    if (value != null && value.isNotEmpty) {
+      oneFilled = true;
+    }
+  }
+
+  return oneFilled;
+}
