@@ -32,6 +32,7 @@ class _StoresScreenState extends State<StoresScreen> {
   List<dynamic> selectedCategoriesId;
   List<dynamic> history = [];
   List<dynamic> countries = [];
+  bool loading = false;
 
   void setSelectedCats(List<dynamic> selectedCats) async {
     setState(() {
@@ -94,14 +95,19 @@ class _StoresScreenState extends State<StoresScreen> {
   }
 
   void loadStores() async {
+    setState(() {
+      loading = true;
+    });
     // SharedPreferences prefs = await SharedPreferences.getInstance();
 
     print("load stores countries: $countries");
+
     List<Store> storeList = await fetchStores(
         selectedCategoriesId, latitudeData, longitudeData, countries);
 
     setState(() {
       stores = storeList;
+      loading = false;
     });
 
     // prefs.setString('last_stores', json.encode(storeList));

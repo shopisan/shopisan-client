@@ -2,10 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
@@ -89,7 +88,7 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
     final CameraPosition _initialPosition = isNull
         ? null
         : CameraPosition(
-            zoom: 13.0,
+            zoom: 16.0,
             target: LatLng(double.parse(store.addresses[0].latitude),
                 double.parse(store.addresses[0].longitude)));
 
@@ -147,6 +146,6 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
                             color: CustomColors.textDark,
                             fontWeight: FontWeight.bold,
                             fontSize: 16))*/
-    )));
+                    )));
   }
 }

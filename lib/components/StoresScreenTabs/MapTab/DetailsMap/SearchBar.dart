@@ -54,10 +54,11 @@ class _SearchBarState extends State<SearchBar> {
       top: 10,
       left: 10,
       child: Container(
+        height: 42,
         padding: EdgeInsets.only(left: 20),
         width: getScreenWidth(context) - 75,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.white70,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(

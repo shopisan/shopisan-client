@@ -18,7 +18,7 @@ class FavoriteTab extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 30),
               child: Text(
                 AppLocalizations.of(context).favorite.toUpperCase(),
                 style: Theme.of(context).textTheme.headline3,
@@ -26,29 +26,32 @@ class FavoriteTab extends StatelessWidget {
             ),
             state is AuthenticationAuthenticated
                 ? SizedBox(
-                    height: newHeight - 44 - 70 - 24,
+                    height: newHeight - 44 - 70 - 24 - 30,
                     width: double.infinity,
-                    child: state.user.profile.favouriteStores.length == 0 ?
-                      Center(child: Text(
-                        AppLocalizations.of(context).noFavYet,
-                        style: Theme.of(context).textTheme.headline5,
-                        textAlign: TextAlign.center,
-                      ),)
-                    : ListView(
-                      children: state.user.profile.favouriteStores
-                          .map((store) =>
-                              StorePreview(store: Store.fromJson(store)))
-                          .toList(),
-                    ))
-                : Expanded(child: Center(
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    AppLocalizations.of(context).noFav,
-                    style: Theme.of(context).textTheme.headline5,
-                    textAlign: TextAlign.center,
-                  ),
-                )))
+                    child: state.user.profile.favouriteStores.length == 0
+                        ? Center(
+                            child: Text(
+                              AppLocalizations.of(context).noFavYet,
+                              style: Theme.of(context).textTheme.headline5,
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        : ListView(
+                            children: state.user.profile.favouriteStores
+                                .map((store) =>
+                                    StorePreview(store: Store.fromJson(store)))
+                                .toList(),
+                          ))
+                : Expanded(
+                    child: Center(
+                        child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      AppLocalizations.of(context).noFav,
+                      style: Theme.of(context).textTheme.headline5,
+                      textAlign: TextAlign.center,
+                    ),
+                  )))
           ],
         ));
   }
