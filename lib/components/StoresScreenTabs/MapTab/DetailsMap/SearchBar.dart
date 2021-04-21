@@ -7,7 +7,13 @@ const kGoogleApiKey = "AIzaSyDkJlowngFOjqCxtMwPj6APgg2QWlpbEoI";
 
 class SearchBar extends StatefulWidget {
   final ValueChanged<CameraPosition> setCameraPosition;
-  SearchBar({@required this.setCameraPosition});
+  final List selectedCountries;
+  final void Function(List selectCountries) setCountries;
+
+  SearchBar({
+    @required this.setCameraPosition,
+    @required this.selectedCountries,
+    @required this.setCountries});
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -22,9 +28,16 @@ class _SearchBarState extends State<SearchBar> {
 
   _handlePressButton() async {
     Map<String, dynamic> location = await searchLocation(_cityController.text);
+    String country = location['results'][0]['address_components'][3]['short_name'];
 
     if (location['results'][0]['geometry']['location']['lat'] != null &&
         location['results'][0]['geometry']['location']['lng'] != null) {
+      if (!widget.selectedCountries.contains(country)) {
+        List<dynamic> countries = widget.selectedCountries;
+        countries.add(country);
+        widget.setCountries(countries);
+      }
+
       widget.setCameraPosition(
           CameraPosition(
               target: LatLng(
@@ -52,12 +65,6 @@ class _SearchBarState extends State<SearchBar> {
             Expanded(
               child: TextFormField(controller: _cityController),
             ),
-            /*TextInput(
-              controller: _cityController,
-              label: "label",
-              icon: null,
-              noIcon: true,
-            ),*/
             IconButton(
               onPressed: _handlePressButton,
               icon: Icon(Icons.search),

@@ -229,6 +229,8 @@ class _StoresScreenState extends State<StoresScreen> {
         latitude: latitudeData != null ? double.tryParse(latitudeData) : null,
         longitude:
             longitudeData != null ? double.tryParse(longitudeData) : null,
+        selectedCountries: countries,
+        setCountries: setCountries,
       ),
       FavoriteTab(),
       SettingsTab(),

@@ -15,13 +15,17 @@ class GoogleMapScreen extends StatefulWidget {
       @required this.stores,
       @required this.categories,
       @required this.latitude,
-      @required this.longitude})
+      @required this.longitude,
+      @required this.selectedCountries,
+      @required this.setCountries})
       : super(key: key);
 
   final List<Store> stores;
   final CategoryCollection categories;
   final double latitude;
   final double longitude;
+  final List selectedCountries;
+  final void Function(List selectCountries) setCountries;
 
   @override
   _GoogleMapScreenState createState() => _GoogleMapScreenState();
@@ -30,13 +34,11 @@ class GoogleMapScreen extends StatefulWidget {
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
   GoogleMapController mapController;
   BitmapDescriptor mapMarker;
-  String searchAddress;
   CameraPosition cameraPosition;
 
   @override
   void initState() {
     super.initState();
-    // setCustomMarker();
     cameraPosition = CameraPosition(
         zoom: 14.0,
         target: LatLng(widget.latitude, widget.longitude));
@@ -137,7 +139,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           },
           future: _getMarkers(widget.stores),
         ),
-        SearchBar(setCameraPosition: setCameraPosition)
+        SearchBar(setCameraPosition: setCameraPosition, selectedCountries: widget.selectedCountries,
+          setCountries: widget.setCountries,)
       ],
     );
   }
