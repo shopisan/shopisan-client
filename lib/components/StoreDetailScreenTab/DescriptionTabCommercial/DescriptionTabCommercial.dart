@@ -5,6 +5,7 @@ import 'package:shopisan/components/StoreDetailScreenTab/DescriptionTabCommercia
 import 'package:shopisan/components/StoreDetailScreenTab/DescriptionTabCommercial/DetailsDescriptionTabCommercial/ConnectCommercial.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/DetailsCommercialScreenTab/CategoriesCommercial.dart';
 import 'package:shopisan/model/Store.dart';
+import 'package:shopisan/utils/common.dart';
 
 import 'DetailsDescriptionTabCommercial/OpeningTimeCommercial.dart';
 
@@ -22,6 +23,8 @@ class DescriptionTabCommercial extends StatefulWidget {
 }
 
 class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
+  final String locale = getLocaleCode();
+
   @override
   Widget build(BuildContext context) {
     Store store = widget.store;
@@ -66,7 +69,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                         /*SingleChildScrollView(
                       child: */
                         Text(
-                      store?.description ?? "",
+                      store?.getDescriptionLocale(locale) ?? "",
                       style: Theme.of(context).textTheme.bodyText1,
                       textAlign: TextAlign.justify,
                     ),

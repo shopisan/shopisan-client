@@ -61,9 +61,6 @@ class _StoreListTabState extends State<StoreListTab> {
   @override
   Widget build(BuildContext context) {
     double newHeight = getScreenHeight(context);
-
-    print("Store list state");
-
     int recentSearchHeight =
         (categories != null && widget.history.length != 0) ? 67 : 10;
 

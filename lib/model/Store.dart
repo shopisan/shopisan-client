@@ -11,7 +11,10 @@ class Store {
   File profilePicture;
   List<Category> categories;
   List<Address> addresses;
-  String description;
+  // ignore: non_constant_identifier_names
+  String description_fr;
+  // ignore: non_constant_identifier_names
+  String description_en;
   bool appointmentOnly;
   double evaluation;
 
@@ -24,10 +27,34 @@ class Store {
     this.profilePicture,
     this.categories,
     this.addresses,
-    this.description,
+    // ignore: non_constant_identifier_names
+    this.description_fr,
+    // ignore: non_constant_identifier_names
+    this.description_en,
     this.appointmentOnly = false,
     this.evaluation
   });
+
+  getDescriptionLocale(String locale){
+    String description;
+    List<String> locales = ['en', 'fr'];
+    description = this.toJson()["description_"+locale];
+
+    if ("" == description) {
+      description = this.description_en;
+    }
+
+    if ("" == description) {
+      for (locale in locales){
+        if ("" != this.toJson()["description_"+locale]) {
+          description = this.toJson()["description_"+locale];
+          break;
+        }
+      }
+    }
+
+    return description;
+  }
 
   factory Store.fromJson(final json) {
     List<Address> addressesList =
@@ -43,7 +70,8 @@ class Store {
       website: json['website'],
       openingTimes: json['openingTimes'],
       profilePicture: File.fromJson(json['profilePicture']),
-      description: json['description'],
+      description_fr: json['description_fr'],
+      description_en: json['description_en'],
       appointmentOnly: json['appointmentOnly'],
       categories: categoriesList,
       addresses: addressesList,
@@ -73,7 +101,8 @@ class Store {
       "website": website,
       "openingTimes": openingTimes,
       "profilePicture": profilePicture?.url,
-      "description": description,
+      "description_fr": description_fr,
+      "description_en": description_en,
       "appointmentOnly": appointmentOnly,
       "categories": categoryList,
       "addresses": addressList,

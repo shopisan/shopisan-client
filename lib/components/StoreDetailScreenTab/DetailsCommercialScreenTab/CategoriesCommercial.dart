@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 
 class CategoriesCommercial extends StatefulWidget {
   const CategoriesCommercial({Key key, @required this.store}) : super(key: key);
@@ -13,6 +14,8 @@ class CategoriesCommercial extends StatefulWidget {
 }
 
 class _CategoriesCommercialState extends State<CategoriesCommercial> {
+  final String locale = getLocaleCode();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,7 +33,7 @@ class _CategoriesCommercialState extends State<CategoriesCommercial> {
                         borderRadius: BorderRadius.circular(20)),
                     child: Center(
                       child: Text(
-                        category.fr.toUpperCase(),
+                        category.toJson()[locale].toUpperCase(),
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,

@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 
 class DropdownMenu extends StatefulWidget {
   const DropdownMenu(
@@ -23,6 +24,7 @@ class DropdownMenu extends StatefulWidget {
 
 class _DropdownMenuState extends State<DropdownMenu> {
   List<Category> selectedCategories;
+  final String locale = getLocaleCode();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
                   buttonText: Text(AppLocalizations.of(context).categories,
                       style: Theme.of(context).textTheme.headline6),
                   items: widget.categories
-                      .map((e) => MultiSelectItem(e.id, e.fr))
+                      .map((e) => MultiSelectItem(e.id, e.toJson()[locale]))
                       .toList(),
                   listType: MultiSelectListType.LIST,
                   chipDisplay: MultiSelectChipDisplay.none(),

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
+import 'package:shopisan/utils/common.dart';
 
 class StorePreview extends StatelessWidget {
   final Store store;
+  final String locale = getLocaleCode();
 
   StorePreview({@required this.store});
 
@@ -15,7 +17,7 @@ class StorePreview extends StatelessWidget {
       if (index > 0) {
         str += ", ";
       }
-      str += cat.fr;
+      str += cat.toJson()[locale];
       index++;
     }
 

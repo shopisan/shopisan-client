@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 
 export './loading_indicator.dart';
@@ -16,4 +17,13 @@ double getScreenWidth(context) {
   double width = MediaQuery.of(context).size.width;
   var padding = MediaQuery.of(context).padding;
   return width - padding.left - padding.right;
+}
+
+String getLocaleCode() {
+  final String defaultLocale = Platform.localeName;
+  if (defaultLocale.contains("fr")) {
+    return "fr";
+  }
+
+  return "en";
 }

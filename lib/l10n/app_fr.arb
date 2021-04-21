@@ -109,5 +109,7 @@
   "loginError": "Impossible de vous connecter, vos identifiants sont-ils correct?",
   "addresses": "Adresses",
   "countries": "Pays",
-  "search": "Rechercher"
+  "search": "Rechercher",
+  "french": "Français",
+  "english": "Anglais"
 }

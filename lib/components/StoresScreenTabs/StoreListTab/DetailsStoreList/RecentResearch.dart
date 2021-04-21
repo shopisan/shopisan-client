@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 
 class RecentResearch extends StatelessWidget {
   const RecentResearch(
@@ -21,6 +22,7 @@ class RecentResearch extends StatelessWidget {
     }
 
     Map<int, Category> categoryById = {};
+    final String locale = getLocaleCode();
 
     for (Category cat in categories) {
       categoryById[cat.id] = cat;
@@ -52,7 +54,7 @@ class RecentResearch extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10)),
                             child: Center(
                               child: Text(
-                                "${categoryById[categoryId].fr}".toUpperCase(),
+                                categoryById[categoryId].toJson()[locale].toUpperCase(),
                                 style: TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
