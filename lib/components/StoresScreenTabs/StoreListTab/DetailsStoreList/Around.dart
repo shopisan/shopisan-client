@@ -31,24 +31,51 @@ class AroundYou extends StatelessWidget {
           SizedBox(
               height: height,
               width: double.infinity,
-              child: loading != true
-                  ? ListView(
-                      padding: EdgeInsets.only(bottom: 50),
-                      scrollDirection: Axis.vertical,
-                      children: stores
-                          .map((store) => StorePreview(store: store))
-                          .toList(),
-                    )
-                  : Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                          height: 50,
-                          width: 50,
-                          child: CircularProgressIndicator(
-                              backgroundColor: CustomColors.iconsActive,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  CustomColors.error))),
-                    ))
+              child: Stack(
+                children: [
+                  ListView(
+                    padding: EdgeInsets.only(bottom: 50),
+                    scrollDirection: Axis.vertical,
+                    children: stores
+                        .map((store) => StorePreview(store: store))
+                        .toList(),
+                  ),
+                  loading != true
+                      ? Container()
+                      : Positioned(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                                height: 50,
+                                width: 50,
+                                child: CircularProgressIndicator(
+                                    backgroundColor: CustomColors.iconsActive,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        CustomColors.error))),
+                          ),
+                        )
+                ],
+              )
+
+              // loading != true
+              //     ? ListView(
+              //         padding: EdgeInsets.only(bottom: 50),
+              //         scrollDirection: Axis.vertical,
+              //         children: stores
+              //             .map((store) => StorePreview(store: store))
+              //             .toList(),
+              //       )
+              //     : Align(
+              //         alignment: Alignment.center,
+              //         child: Container(
+              //             height: 50,
+              //             width: 50,
+              //             child: CircularProgressIndicator(
+              //                 backgroundColor: CustomColors.iconsActive,
+              //                 valueColor: AlwaysStoppedAnimation<Color>(
+              //                     CustomColors.error))),
+              //       ),
+              )
         ],
       ),
     );

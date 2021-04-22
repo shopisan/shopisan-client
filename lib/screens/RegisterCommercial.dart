@@ -131,7 +131,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                       ),
                       TextInput(
                         controller: _usernameController,
-                        icon: Icons.supervised_user_circle,
+                        icon: Icons.person_outline,
                         label: AppLocalizations.of(context).userName,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
                         hint: AppLocalizations.of(context).userName,
