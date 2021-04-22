@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/components/Form/text_input.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 import 'package:shopisan/utils/validators.dart';
 
 class RegisterCommercialScreen extends StatefulWidget {
@@ -45,7 +46,8 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
           "email": _emailController.text,
           "password": _passwordController.text,
           "phone": _phoneController.text,
-          "message": _descriptionController.text
+          "message": _descriptionController.text,
+          "lang": getLocaleCode()
         });
 
         WidgetsBinding.instance.addPostFrameCallback((timeStamp) {

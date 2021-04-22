@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/components/Form/text_input.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 import 'package:shopisan/utils/validators.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -22,7 +23,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     _submitForm() async {
       if (_formKey.currentState.validate()) {
         bool rslt =
-            await forgotPasswordSubmit({"email": _emailController.text});
+            await forgotPasswordSubmit({"email": _emailController.text, "lang": getLocaleCode()});
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             backgroundColor: rslt ? CustomColors.success : CustomColors.error,
             content: Text(rslt
