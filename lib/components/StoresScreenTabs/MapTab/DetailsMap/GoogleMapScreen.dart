@@ -7,7 +7,6 @@ import 'package:shopisan/components/StoresScreenTabs/MapTab/DetailsMap/SearchBar
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
-import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
 
 class GoogleMapScreen extends StatefulWidget {
@@ -93,38 +92,26 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       Set<Marker> newMarkers = {};
       for (Store store in stores) {
         for (Address address in store.addresses) {
-          if (widget.loading != true) {
-            if (address.latitude != null && address.longitude != null) {
-              newMarkers.add(
-                Marker(
-                  markerId: MarkerId(
-                      address.id.toString() + " " + address.streetAvenue),
-                  icon: mapMarker,
-                  position: LatLng(
-                    double.parse(address.latitude),
-                    double.parse(address.longitude),
-                  ),
-                  infoWindow: InfoWindow(
-                    title: store.name,
-                    onTap: () {
-                      Navigator.pushNamed(context, "/store_detail",
-                          arguments: {"storeId": store.id});
-                    },
-                  ),
+          if (address.latitude != null && address.longitude != null) {
+            newMarkers.add(
+              Marker(
+                markerId: MarkerId(
+                    address.id.toString() + " " + address.streetAvenue),
+                icon: mapMarker,
+                position: LatLng(
+                  double.parse(address.latitude),
+                  double.parse(address.longitude),
                 ),
-              );
-            }
+                infoWindow: InfoWindow(
+                  title: store.name,
+                  onTap: () {
+                    Navigator.pushNamed(context, "/store_detail",
+                        arguments: {"storeId": store.id});
+                  },
+                ),
+              ),
+            );
           }
-          Align(
-            alignment: Alignment.center,
-            child: Container(
-                height: 50,
-                width: 50,
-                child: CircularProgressIndicator(
-                    backgroundColor: CustomColors.iconsActive,
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(CustomColors.error))),
-          );
         }
       }
 
