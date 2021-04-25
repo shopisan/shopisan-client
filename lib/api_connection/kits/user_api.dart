@@ -20,7 +20,7 @@ Future<UserProfile> getUserProfile() async {
   Map<String, dynamic> headers = await getHeaders();
 
   final http.Response response =
-      await http.get(Uri.http(_base, "/api/get_user/"), headers: headers);
+      await http.get(Uri.https(_base, "/api/get_user/"), headers: headers);
 
   if (response.statusCode == 200) {
     return UserProfile.fromJson(json.decode(response.body));
@@ -35,7 +35,7 @@ Future<bool> registrationUserProfile(Map<String, String> data) async {
   Map<String, dynamic> headers = await getHeaders();
 
   final http.Response response = await http.post(
-      Uri.http(_base, "/api/register/"),
+      Uri.https(_base, "/api/register/"),
       body: jsonEncode(data),
       headers: headers);
 
@@ -50,7 +50,7 @@ Future<bool> forgotPasswordSubmit(Map<String, String> data) async {
   Map<String, dynamic> headers = await getHeaders();
 
   final http.Response response = await http.post(
-      Uri.http(_base, "/api/forgot-password/"),
+      Uri.https(_base, "/api/forgot-password/"),
       body: jsonEncode(data),
       headers: headers);
 
@@ -70,7 +70,7 @@ Future<bool> resetPasswordSubmit(Map<String, String> data) async {
   Map<String, dynamic> headers = await getHeaders();
 
   final http.Response response = await http.post(
-      Uri.http(_base, "/api/reset-password/"),
+      Uri.https(_base, "/api/reset-password/"),
       body: jsonEncode(data),
       headers: headers);
 
@@ -92,7 +92,7 @@ Future<bool> editUserProfile(UserProfile user) async {
   print("resuest user birthday: ${user.profile.dob}");
 
   final http.Response response = await http.put(
-      Uri.http(_base, "/api/users/users/${user.id}/"),
+      Uri.https(_base, "/api/users/users/${user.id}/"),
       body: jsonEncode(user.toJson()),
       headers: headers);
 
@@ -110,7 +110,7 @@ Future<UserProfile> editUserProfilePicture(UserProfile user) async {
   Map<String, dynamic> headers = await getHeaders();
 
   final http.Response response = await http.put(
-      Uri.http(_base, "/api/users/users/${user.id}/"),
+      Uri.https(_base, "/api/users/users/${user.id}/"),
       body: jsonEncode(user.toJson()),
       headers: headers);
 

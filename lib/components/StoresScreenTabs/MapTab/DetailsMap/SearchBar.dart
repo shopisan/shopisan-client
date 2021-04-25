@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
@@ -50,9 +52,11 @@ class _SearchBarState extends State<SearchBar> {
 
   @override
   Widget build(BuildContext context) {
+    // todo changer la position du row si platfrorm == IOS
     return Positioned(
       top: 10,
       left: 10,
+      // right: Platform.isIOS ? 10 : null,
       child: Container(
         height: 42,
         padding: EdgeInsets.only(left: 20),

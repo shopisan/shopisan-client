@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shopisan/components/Map/CustomeMarker.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
@@ -49,8 +50,7 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
   }
 
   Future setCustomMarker() async {
-    mapMarker = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(), "assets/icons/marker.png");
+    mapMarker = await CustomMarker.fromAsset("assets/icons/marker.png", 100);
 
     return mapMarker;
   }

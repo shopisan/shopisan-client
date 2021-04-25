@@ -11,14 +11,14 @@ Future<int> createPost(Post post) async {
   http.Response response;
 
   if (post.id == null) {
-    response = await http.post(Uri.http(_base, "/api/posts/posts/"),
+    response = await http.post(Uri.https(_base, "/api/posts/posts/"),
         body: jsonEncode({
           "store": post.store,
           "post_media": jsonMedias,
         }),
         headers: headers);
   } else {
-    response = await http.put(Uri.http(_base, "/api/posts/posts/${post.id}/"),
+    response = await http.put(Uri.https(_base, "/api/posts/posts/${post.id}/"),
         body: jsonEncode({
           "store": post.store,
           "post_media": jsonMedias,
@@ -38,7 +38,7 @@ Future<List<Post>> getPosts() async {
 
   try {
     final response =
-    await http.get(Uri.http(_base, "/api/posts/posts/"), headers: headers);
+    await http.get(Uri.https(_base, "/api/posts/posts/"), headers: headers);
 
     if (response.statusCode == 200) {
       return PostCollection.fromJson(jsonDecode(response.body)).posts;
@@ -52,7 +52,7 @@ Future<List<Post>> getPosts() async {
 Future<Post> loadPost(int postId) async {
   Map<String, String> headers = await getHeaders();
 
-  final response = await http.get(Uri.http(_base, "/api/posts/posts/$postId/"),
+  final response = await http.get(Uri.https(_base, "/api/posts/posts/$postId/"),
       headers: headers);
 
   if (response.statusCode == 200) {
@@ -65,7 +65,7 @@ Future<Post> loadPost(int postId) async {
 Future<List<Post>> fetchPostsByStore(int storeId) async {
   Map<String, dynamic> headers = await getHeaders();
   final response = await http.get(
-      Uri.http(_base, "/api/posts/by_store/${storeId.toString()}/"),
+      Uri.https(_base, "/api/posts/by_store/${storeId.toString()}/"),
       headers: headers);
 
   if (response.statusCode == 200) {
@@ -80,7 +80,7 @@ Future<List<Post>> fetchPostsByOwnedStores() async {
 
   try{
     final response = await http.get(
-        Uri.http(_base, "/api/posts_by_owned_stores/"),
+        Uri.https(_base, "/api/posts_by_owned_stores/"),
         headers: headers);
 
     if (response.statusCode == 200) {
@@ -96,7 +96,7 @@ Future<bool> deletePost(int postId) async {
   Map<String, String> headers = await getHeaders();
 
   final response = await http
-      .delete(Uri.http(_base, "/api/posts/posts/$postId/"), headers: headers);
+      .delete(Uri.https(_base, "/api/posts/posts/$postId/"), headers: headers);
 
   if (response.statusCode >= 200 && response.statusCode < 300) {
     return true;

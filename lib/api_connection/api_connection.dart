@@ -16,13 +16,13 @@ import 'package:shopisan/repository/user_repository.dart';
 part 'kits/posts_api.dart';
 part 'kits/user_api.dart';
 
-final _base = "10.0.2.2:8000";
-// final _base = "shopisan.herokuapp.com";
+// final _base = "10.0.2.2:8000";
+final _base = "shopisan.herokuapp.com";
 final _tokenEndpoint = "/api/token-auth/";
-final _tokenURL = Uri.http(_base, _tokenEndpoint);
+final _tokenURL = Uri.https(_base, _tokenEndpoint);
 
 Future<List<Category>> fetchCategories() async {
-  final response = await http.get(Uri.http(_base, "/api/stores/categories/"),
+  final response = await http.get(Uri.https(_base, "/api/stores/categories/"),
       headers: {'Accept': 'application/json'});
 
   if (response.statusCode == 200) {
@@ -34,7 +34,7 @@ Future<List<Category>> fetchCategories() async {
 }
 
 Future<List<Country>> fetchCountries() async {
-  final response = await http.get(Uri.http(_base, "/api/countries/"),
+  final response = await http.get(Uri.https(_base, "/api/countries/"),
       headers: {'Accept': 'application/json'});
 
   if (response.statusCode == 200) {
@@ -62,7 +62,7 @@ Future<List<Store>> fetchStores(List<dynamic> categories, String latitude,
   }
 
   Map<String, dynamic> headers = await getHeaders();
-  final response = await http.get(Uri.http(_base, "/api/stores_geo/", params),
+  final response = await http.get(Uri.https(_base, "/api/stores_geo/", params),
       headers: headers);
 
   if (response.statusCode == 200) {
@@ -75,7 +75,7 @@ Future<List<Store>> fetchStores(List<dynamic> categories, String latitude,
 Future<Store> fetchStore(int storeId) async {
   Map<String, dynamic> headers = await getHeaders();
   final response = await http.get(
-      Uri.http(_base, "/api/stores/stores/${storeId.toString()}/"),
+      Uri.https(_base, "/api/stores/stores/${storeId.toString()}/"),
       headers: headers);
 
   if (response.statusCode == 200) {
@@ -90,11 +90,11 @@ Future<int> editStore(Store store) async {
   http.Response response;
 
   if (store.id == null) {
-    response = await http.post(Uri.http(_base, "/api/stores/stores/"),
+    response = await http.post(Uri.https(_base, "/api/stores/stores/"),
         body: jsonEncode(store.toJson()), headers: headers);
   } else {
     response = await http.put(
-        Uri.http(_base, "/api/stores/stores/${store.id.toString()}/"),
+        Uri.https(_base, "/api/stores/stores/${store.id.toString()}/"),
         body: jsonEncode(store.toJson()),
         headers: headers);
   }
@@ -112,7 +112,7 @@ Future<UserProfile> manageFavouriteStore(int storeId) async {
   Map<String, dynamic> headers = await getHeaders();
 
   final http.Response response = await http.post(
-      Uri.http(_base, "/api/manage_favourite_store/"),
+      Uri.https(_base, "/api/manage_favourite_store/"),
       body: jsonEncode({"favourite_store": storeId}),
       headers: headers);
 
@@ -128,7 +128,7 @@ Future<bool> postEvaluation(int storeId, double score) async {
   Map<String, dynamic> headers = await getHeaders();
 
   final http.Response response = await http.post(
-      Uri.http(_base, "/api/stores/evals/"),
+      Uri.https(_base, "/api/stores/evals/"),
       body: jsonEncode({"store": storeId, "score": score}),
       headers: headers);
 
@@ -142,7 +142,7 @@ Future<bool> postEvaluation(int storeId, double score) async {
 Future<FileModel.File> uploadFile(File file, String type) async {
   Map<String, String> headers = await getHeaders();
 
-  var request = http.MultipartRequest('POST', Uri.http(_base, "/api/files/"));
+  var request = http.MultipartRequest('POST', Uri.https(_base, "/api/files/"));
   request.files.add(http.MultipartFile.fromBytes('file', file.readAsBytesSync(),
       filename: file.toString()));
   request.fields['file_type'] = type;
@@ -162,7 +162,7 @@ Future<Map<String, dynamic>> sendStoreRegistration(
   Map<String, dynamic> headers = await getHeaders();
 
   final http.Response response = await http.post(
-      Uri.http(_base, "/api/store_contact/"),
+      Uri.https(_base, "/api/store_contact/"),
       body: jsonEncode(body),
       headers: headers);
 

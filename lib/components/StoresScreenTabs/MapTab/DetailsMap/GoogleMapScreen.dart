@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shopisan/components/Map/CustomeMarker.dart';
 import 'package:shopisan/components/StoresScreenTabs/MapTab/DetailsMap/SearchBar.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
@@ -46,8 +47,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
 
   Future setCustomMarker() async {
-    mapMarker = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(), "assets/icons/marker.png");
+    mapMarker = await CustomMarker.fromAsset("assets/icons/marker.png", 100);
     return mapMarker;
   }
 

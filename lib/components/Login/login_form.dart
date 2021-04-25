@@ -43,7 +43,11 @@ class _LoginFormState extends State<LoginForm> {
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
           return Container(
-            child: Form(
+            width: double.infinity,
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+            constraints: BoxConstraints.expand(),
+            alignment: Alignment.center,
+            child: SingleChildScrollView(child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +91,7 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                     child: TextButton(
                       onPressed:
-                          state is! LoginLoading ? _onLoginButtonPressed : null,
+                      state is! LoginLoading ? _onLoginButtonPressed : null,
                       child: Text(
                         AppLocalizations.of(context).logIn,
                         style: GoogleFonts.roboto(
@@ -134,7 +138,7 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ],
               ),
-            ),
+            ),),
           );
         },
       ),
