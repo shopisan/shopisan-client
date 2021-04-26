@@ -5,9 +5,13 @@ import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/repository/user_repository.dart';
 import 'package:shopisan/theme/style.dart';
 import 'package:shopisan/utils/router_generator.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  // BlocSupervisor.delegate = SimpleBlocDelegate();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   final userRepository = UserRepository();
 
   runApp(BlocProvider<AuthenticationBloc>(
@@ -20,6 +24,7 @@ void main() {
 }
 
 class App extends StatelessWidget {
+  final FirebaseAnalytics _analytics = FirebaseAnalytics();
   final UserRepository userRepository;
 
   App({Key key, @required this.userRepository}) : super(key: key);
@@ -47,6 +52,9 @@ class App extends StatelessWidget {
         //   },
         // ),
         onGenerateRoute: RouteGenerator.generateRoute,
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: _analytics),
+        ],
         initialRoute: '/',
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales

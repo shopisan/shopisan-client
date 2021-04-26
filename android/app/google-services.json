@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "443855062208",
+    "project_id": "shopisan",
+    "storage_bucket": "shopisan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443855062208:android:a4612f009359c40ab75925",
+        "android_client_info": {
+          "package_name": "com.jh8.shopisan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443855062208-d81qhpvd3qtaqp2hs1el3bbsr5hits66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj7Ucn4T91SbLF6jITz-9Bw-b3i7sTvSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443855062208-d81qhpvd3qtaqp2hs1el3bbsr5hits66.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

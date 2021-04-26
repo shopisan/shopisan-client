@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:meta/meta.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/model/UserProfile.dart';
@@ -56,6 +57,7 @@ class AuthenticationBloc
 
       await userRepository.deleteToken(id: 0);
       await userRepository.persistToken(user: event.user);
+      FirebaseAnalytics().logEvent(name: 'Login',parameters:null);
       yield await _getUser();
     }
 
@@ -64,6 +66,7 @@ class AuthenticationBloc
 
       await userRepository.deleteToken(id: 0);
 
+      FirebaseAnalytics().logEvent(name: 'Logout',parameters:null);
       yield AuthenticationUnauthenticated();
     } else if (event is UserChangedEvent) {
       if (event.user != null) {

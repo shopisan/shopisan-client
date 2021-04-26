@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:meta/meta.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
 
@@ -33,6 +34,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
         try {
           bool rslt = await registrationUserProfile(data);
           if (rslt) {
+            FirebaseAnalytics().logEvent(name: 'Registration',parameters:null);
             yield DoneRegistrationState(data: data, success: true);
           } else {
             yield DoneRegistrationState(data: data, success: false);
