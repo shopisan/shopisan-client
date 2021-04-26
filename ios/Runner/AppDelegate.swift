@@ -11,6 +11,7 @@ import Firebase
   ) -> Bool {
     GMSServices.provideAPIKey("AIzaSyCegSUW6N1wYgRONnn_4kOZXUzFu7w2Drs")
     FirebaseApp.configure()
+    Analytics.setAnalyticsCollectionEnabled(true)
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
