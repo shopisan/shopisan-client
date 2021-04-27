@@ -86,7 +86,7 @@
   "userNameTaken": "Ce nom d'utilisateur est déjà utilisé",
   "anErrorOccurred": "Une erreur est survenue",
   "forgotPasswordMailSent": "Le token devrait arriver dans votre boite de réception",
-  "resetPassword": "Reset password",
+  "resetPassword": "Réinitialiser le mot de passe",
   "resetPassText": "Insérez le token reçu dans le mail que nous venons de vous envoyer et entrez votre nouveau mot de passe",
   "resetPassToken": "Token",
   "resetPassTokenHint": "Le token fourni depuis le mail reçu",

@@ -97,18 +97,17 @@ class _StoreAddressRowState extends State<StoreAddressRow>
                   validator: isEmpty,
                 ),
                 TextInput(
-                  controller: _cityController,
-                  icon: Icons.location_city,
-                  label: AppLocalizations.of(context).city,
-                  validator: isEmpty,
-                ),
-                TextInput(
                   controller: _postalCodeController,
                   icon: Icons.location_searching,
                   label: AppLocalizations.of(context).postCode,
                   validator: isEmpty,
                 ),
-
+                TextInput(
+                  controller: _cityController,
+                  icon: Icons.location_city,
+                  label: AppLocalizations.of(context).city,
+                  validator: isEmpty,
+                ),
                 TextButton(
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all(
@@ -145,7 +144,10 @@ class _StoreAddressRowState extends State<StoreAddressRow>
                             ),
                             Padding(padding: EdgeInsets.all(10)),
                             Text(
-                              null != selectedCountry ? IsoCountryTranslation.getCountryName(selectedCountry) : "",
+                              null != selectedCountry
+                                  ? IsoCountryTranslation.getCountryName(
+                                      selectedCountry)
+                                  : "",
                               style: Theme.of(context).textTheme.bodyText1,
                             )
                           ],

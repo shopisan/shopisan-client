@@ -96,7 +96,7 @@ class _StoreListTabState extends State<StoreListTab> {
               stores: widget.stores,
               loading: widget.loading,
               // bottomNav - dropdownMenu - recentSearches - titre
-              height: newHeight - 73 - 90 - recentSearchHeight - 47 - 20,
+              height: newHeight - 73 - 90 - recentSearchHeight - 47 - 55,
             ),
           ),
         ],

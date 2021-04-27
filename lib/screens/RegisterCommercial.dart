@@ -53,7 +53,8 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
 
         WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
           if (rslt.containsKey('success')) {
-            FirebaseAnalytics().logEvent(name: 'Owner registration',parameters:null);
+            FirebaseAnalytics()
+                .logEvent(name: 'Owner registration', parameters: null);
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(AppLocalizations.of(context).storeTicketSubmitted),
               backgroundColor: CustomColors.success,
@@ -107,8 +108,11 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(AppLocalizations.of(context).signUpStore,
-                          style: Theme.of(context).textTheme.headline5),
+                      Text(
+                        AppLocalizations.of(context).signUpStore,
+                        style: Theme.of(context).textTheme.headline5,
+                        textAlign: TextAlign.center,
+                      ),
                       TextInput(
                         controller: _brandController,
                         icon: Icons.store_outlined,
