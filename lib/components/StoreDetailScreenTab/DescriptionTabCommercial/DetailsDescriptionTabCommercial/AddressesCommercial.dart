@@ -17,24 +17,27 @@ class _AddressesCommercialState extends State<AddressesCommercial> {
     String str = "";
     int index = 0;
     for (Address add in address) {
-      if (index > 0) {
-        str += "\n\n";
-      } else {
-        Text(
-          "Pad d'addresse",
-          style: Theme.of(context).textTheme.bodyText1,
-        );
-      }
-      str += add.streetAvenue +
-          ", " +
-          add.postalCode +
-          " - " +
-          add.city +
-          " " +
-          add.country;
+      if (null != add.streetAvenue && null != add.postalCode) {
+        if (index > 0) {
+          str += "\n\n";
+        }
 
-      index++;
+        str += add.streetAvenue +
+            ", " +
+            add.postalCode +
+            " - " +
+            add.city +
+            " " +
+            add.country;
+
+        index++;
+      }
     }
+
+    if (index == 0) {
+      return AppLocalizations.of(context).noAddresses;
+    }
+
     return str;
   }
 
@@ -51,8 +54,8 @@ class _AddressesCommercialState extends State<AddressesCommercial> {
               style: Theme.of(context).textTheme.headline3),
           Padding(
             padding: EdgeInsets.only(top: 10),
-            child: Text(
-              _addressesToString(widget.store.addresses),
+            child: Text( widget.store.addresses.length > 0 ?
+              _addressesToString(widget.store.addresses) : AppLocalizations.of(context).noAddresses,
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ),

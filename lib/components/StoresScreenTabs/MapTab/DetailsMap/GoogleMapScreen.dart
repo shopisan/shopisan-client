@@ -47,7 +47,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
 
   Future setCustomMarker() async {
-    mapMarker = await CustomMarker.fromAsset("assets/icons/marker.png", 100);
+    mapMarker = await CustomMarker.fromAsset("assets/icons/marker.png", 80);
     return mapMarker;
   }
 

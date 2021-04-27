@@ -114,5 +114,6 @@
   "search": "Search",
   "french": "French",
   "english": "English",
-  "atLeastOneDescriptionRequired": "You need to fill at least one of the descriptions before submitting"
+  "atLeastOneDescriptionRequired": "You need to fill at least one of the descriptions before submitting",
+  "noAddresses": "No addresses"
 }

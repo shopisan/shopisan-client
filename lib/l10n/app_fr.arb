@@ -112,5 +112,6 @@
   "search": "Rechercher",
   "french": "Français",
   "english": "Anglais",
-  "atLeastOneDescriptionRequired": "Vous devez remplir au moins une description pour continuer"
+  "atLeastOneDescriptionRequired": "Vous devez remplir au moins une description pour continuer",
+  "noAddresses": "Pas d'adresses"
 }

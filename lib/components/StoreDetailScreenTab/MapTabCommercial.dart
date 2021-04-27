@@ -50,7 +50,7 @@ class _MapTabCommercialState extends State<MapTabCommercial> {
   }
 
   Future setCustomMarker() async {
-    mapMarker = await CustomMarker.fromAsset("assets/icons/marker.png", 100);
+    mapMarker = await CustomMarker.fromAsset("assets/icons/marker.png", 80);
 
     return mapMarker;
   }
