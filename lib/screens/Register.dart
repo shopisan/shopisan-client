@@ -117,6 +117,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Text(
                         AppLocalizations.of(context).signUp,
                         style: Theme.of(context).textTheme.headline5,
+                        textAlign: TextAlign.center,
                       ),
                       TextInput(
                         controller: _userNameController,

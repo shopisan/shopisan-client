@@ -54,96 +54,104 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     }
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        bottomOpacity: 0.0,
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
-      ),
-      body: Container(
-          alignment: Alignment.center,
-          width: double.infinity,
-          padding: EdgeInsets.all(20),
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(AppLocalizations.of(context).resetPassword,
-                      style: Theme.of(context).textTheme.headline5),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                    child: Text(
-                      AppLocalizations.of(context).resetPassText,
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        color: CustomColors.textDark,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  TextInput(
-                    controller: _tokenController,
-                    icon: Icons.lock_outline,
-                    label: AppLocalizations.of(context).resetPassToken,
-                    hint: AppLocalizations.of(context).resetPassTokenHint,
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    validator: isEmpty,
-                  ),
-                  TextInput(
-                    controller: _passwordController,
-                    icon: Icons.lock_outline,
-                    label: AppLocalizations.of(context).password,
-                    hint: AppLocalizations.of(context).passHint,
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    validator: isEmpty,
-                    obscureText: true,
-                  ),
-                  TextInput(
-                    controller: _repeatPasswordController,
-                    icon: Icons.lock_outline,
-                    label: AppLocalizations.of(context).passwordConfirm,
-                    hint: AppLocalizations.of(context).passwordConfirm,
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 40),
-                    validator: passwordsMatch,
-                    passwordValidation: password,
-                    obscureText: true,
-                  ),
-                  Container(
-                    height: 50,
-                    width: double.infinity,
-                    margin: EdgeInsets.only(bottom: 30),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      color: CustomColors.textDark,
-                      boxShadow: [
-                        BoxShadow(
-                          color: CustomColors.spreadRegister,
-                          spreadRadius: 5,
-                          blurRadius: 15,
-                        ),
-                      ],
-                    ),
-                    // ignore: deprecated_member_use
-                    child: FlatButton(
-                      onPressed: _submitForm,
-                      child: Text(
+        //resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          bottomOpacity: 0.0,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
+        body: Stack(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              constraints: BoxConstraints.expand(),
+              padding: EdgeInsets.all(20),
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
                         AppLocalizations.of(context).resetPassword,
-                        style: GoogleFonts.roboto(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                        style: Theme.of(context).textTheme.headline5,
+                        textAlign: TextAlign.center,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                        child: Text(
+                          AppLocalizations.of(context).resetPassText,
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            color: CustomColors.textDark,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
-                    ),
+                      TextInput(
+                        controller: _tokenController,
+                        icon: Icons.lock_outline,
+                        label: AppLocalizations.of(context).resetPassToken,
+                        hint: AppLocalizations.of(context).resetPassTokenHint,
+                        margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        validator: isEmpty,
+                      ),
+                      TextInput(
+                        controller: _passwordController,
+                        icon: Icons.lock_outline,
+                        label: AppLocalizations.of(context).password,
+                        hint: AppLocalizations.of(context).passHint,
+                        margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        validator: isEmpty,
+                        obscureText: true,
+                      ),
+                      TextInput(
+                        controller: _repeatPasswordController,
+                        icon: Icons.lock_outline,
+                        label: AppLocalizations.of(context).passwordConfirm,
+                        hint: AppLocalizations.of(context).passwordConfirm,
+                        margin: EdgeInsets.fromLTRB(0, 20, 0, 40),
+                        validator: passwordsMatch,
+                        passwordValidation: password,
+                        obscureText: true,
+                      ),
+                      Container(
+                        height: 50,
+                        width: double.infinity,
+                        margin: EdgeInsets.only(bottom: 30),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40),
+                          color: CustomColors.textDark,
+                          boxShadow: [
+                            BoxShadow(
+                              color: CustomColors.spreadRegister,
+                              spreadRadius: 5,
+                              blurRadius: 15,
+                            ),
+                          ],
+                        ),
+                        // ignore: deprecated_member_use
+                        child: FlatButton(
+                          onPressed: _submitForm,
+                          child: Text(
+                            AppLocalizations.of(context).resetPassword,
+                            style: GoogleFonts.roboto(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
-          )),
-    );
+          ],
+        ));
   }
 }

@@ -47,98 +47,101 @@ class _LoginFormState extends State<LoginForm> {
             padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
             constraints: BoxConstraints.expand(),
             alignment: Alignment.center,
-            child: SingleChildScrollView(child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(AppLocalizations.of(context).logIn,
-                      style: Theme.of(context).textTheme.headline5),
-                  TextInput(
-                    controller: _emailController,
-                    icon: Icons.mail_outline,
-                    label: AppLocalizations.of(context).emailAddress,
-                    margin: EdgeInsets.fromLTRB(20, 50, 20, 20),
-                    padding: EdgeInsets.only(left: 10),
-                    hint: AppLocalizations.of(context).emailAddress,
-                    validator: isEmpty,
-                  ),
-                  TextInput(
-                    controller: _passwordController,
-                    icon: Icons.lock_outline,
-                    label: AppLocalizations.of(context).password,
-                    margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                    padding: EdgeInsets.only(left: 10),
-                    hint: AppLocalizations.of(context).passHint,
-                    obscureText: true,
-                    validator: isEmpty,
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                    height: 50,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: CustomColors.textDark,
-                      boxShadow: [
-                        BoxShadow(
-                          color: CustomColors.spreadRegister,
-                          spreadRadius: 5,
-                          blurRadius: 15,
-                        ),
-                      ],
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(AppLocalizations.of(context).logIn,
+                        style: Theme.of(context).textTheme.headline5),
+                    TextInput(
+                      controller: _emailController,
+                      icon: Icons.mail_outline,
+                      label: AppLocalizations.of(context).emailAddress,
+                      margin: EdgeInsets.fromLTRB(20, 50, 20, 20),
+                      padding: EdgeInsets.only(left: 10),
+                      hint: AppLocalizations.of(context).emailAddress,
+                      validator: isEmpty,
                     ),
-                    child: TextButton(
-                      onPressed:
-                      state is! LoginLoading ? _onLoginButtonPressed : null,
-                      child: Text(
-                        AppLocalizations.of(context).logIn,
-                        style: GoogleFonts.roboto(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                    TextInput(
+                      controller: _passwordController,
+                      icon: Icons.lock_outline,
+                      label: AppLocalizations.of(context).password,
+                      margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                      padding: EdgeInsets.only(left: 10),
+                      hint: AppLocalizations.of(context).passHint,
+                      obscureText: true,
+                      validator: isEmpty,
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                      height: 50,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: CustomColors.textDark,
+                        boxShadow: [
+                          BoxShadow(
+                            color: CustomColors.spreadRegister,
+                            spreadRadius: 5,
+                            blurRadius: 15,
+                          ),
+                        ],
+                      ),
+                      child: TextButton(
+                        onPressed: state is! LoginLoading
+                            ? _onLoginButtonPressed
+                            : null,
+                        child: Text(
+                          AppLocalizations.of(context).logIn,
+                          style: GoogleFonts.roboto(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        // shape: StadiumBorder(
+                        //   side: BorderSide(
+                        //     color: Colors.black,
+                        //     width: 2,
+                        //   ),
+                        // ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(20),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/forgot_password');
+                        },
+                        child: Text(
+                          AppLocalizations.of(context).forgotPassword,
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
-                      // shape: StadiumBorder(
-                      //   side: BorderSide(
-                      //     color: Colors.black,
-                      //     width: 2,
-                      //   ),
-                      // ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(20),
-                    child: TextButton(
+                    TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/forgot_password');
+                        Navigator.pushNamed(context, '/register');
                       },
                       child: Text(
-                        AppLocalizations.of(context).forgotPassword,
-                        style: Theme.of(context).textTheme.bodyText1,
+                        AppLocalizations.of(context).register,
+                        style: GoogleFonts.roboto(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: CustomColors.textDark,
+                        ),
                       ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/register');
-                    },
-                    child: Text(
-                      AppLocalizations.of(context).register,
-                      style: GoogleFonts.roboto(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: CustomColors.textDark,
-                      ),
+                    Container(
+                      child: state is LoginLoading ? LoadingIndicator() : null,
                     ),
-                  ),
-                  Container(
-                    child: state is LoginLoading ? LoadingIndicator() : null,
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),),
+            ),
           );
         },
       ),
