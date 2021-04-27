@@ -28,13 +28,28 @@ class _SearchBarState extends State<SearchBar> {
   TextEditingController _cityController = TextEditingController();
   BitmapDescriptor mapMarker;
 
+  _getCountry(addrComponents) {
+    for (var i = 0; i < addrComponents.length; i++) {
+      print(addrComponents[i]);
+      if (addrComponents[i]["types"][0] == "country") {
+        return addrComponents[i]["short_name"];
+      }
+      if (addrComponents[i]["types"].length == 2) {
+        if (addrComponents[i]["types"][0] == "political") {
+          return addrComponents[i]["short_name"];
+        }
+      }
+    }
+    return "";
+  }
+
   _handlePressButton() async {
     Map<String, dynamic> location = await searchLocation(_cityController.text);
-    String country = location['results'][0]['address_components'][3]['short_name'];
+    String country = _getCountry(location['results'][0]['address_components']);
 
     if (location['results'][0]['geometry']['location']['lat'] != null &&
         location['results'][0]['geometry']['location']['lng'] != null) {
-      if (!widget.selectedCountries.contains(country)) {
+      if (!widget.selectedCountries.contains(country) && country != "") {
         List<dynamic> countries = widget.selectedCountries;
         countries.add(country);
         widget.setCountries(countries);
