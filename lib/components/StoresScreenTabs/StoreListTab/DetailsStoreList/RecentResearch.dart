@@ -7,11 +7,15 @@ import 'package:shopisan/utils/common.dart';
 
 class RecentResearch extends StatelessWidget {
   const RecentResearch(
-      {Key key, @required this.categories, @required this.recentSearches})
+      {Key key,
+      @required this.categories,
+      @required this.recentSearches,
+      @required this.setSelectedCats})
       : super(key: key);
 
   final List<Category> categories;
   final List<dynamic> recentSearches;
+  final ValueChanged<List<dynamic>> setSelectedCats;
 
   @override
   Widget build(BuildContext context) {
@@ -32,37 +36,43 @@ class RecentResearch extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 5),
-            child: Text(
-                AppLocalizations.of(context).recentResearch.toUpperCase(),
-                style: Theme.of(context).textTheme.headline2),
-          ),
+          Text(
+              AppLocalizations.of(context).recentResearch.toUpperCase(),
+              style: Theme.of(context).textTheme.headline2),
           SizedBox(
-            height: 20,
+            height: 38,
             child: ListView(
               // reverse: true,
               scrollDirection: Axis.horizontal,
               children: recentSearches.reversed
                   .map(
                     (categoryId) => categoryById.containsKey(categoryId)
-                        ? Container(
-                            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                            margin: EdgeInsets.only(right: 10),
-                            decoration: BoxDecoration(
-                                color: CustomColors.lightPink,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Center(
-                              child: Text(
-                                categoryById[categoryId].toJson()[locale].toUpperCase(),
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                  color: CustomColors.textDark,
+                        ? TextButton(
+                            // style: ButtonStyle(minimumSize: MaterialStateProperty.all(value)<Size>),
+                      style: ButtonStyle(tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                            onPressed: () {
+                              setSelectedCats([categoryId]);
+                            },
+                            child: Container(
+                              height: 30,
+                              padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                              margin: EdgeInsets.only(right: 10),
+                              decoration: BoxDecoration(
+                                  color: CustomColors.lightPink,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Center(
+                                child: Text(
+                                  categoryById[categoryId]
+                                      .toJson()[locale]
+                                      .toUpperCase(),
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: CustomColors.textDark,
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
+                            ))
                         : Container(),
                   )
                   .toList(),
