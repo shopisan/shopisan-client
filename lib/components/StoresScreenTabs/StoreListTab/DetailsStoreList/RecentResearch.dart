@@ -54,7 +54,9 @@ class RecentResearch extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10)),
                             child: Center(
                               child: Text(
-                                categoryById[categoryId].toJson()[locale].toUpperCase(),
+                                categoryById[categoryId]
+                                    .toJson()[locale]
+                                    .toUpperCase(),
                                 style: TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
