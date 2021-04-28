@@ -11,5 +11,5 @@ class CustomColors {
   static const lightBlue = Color(0xFFF5F9FE);
   static const lightPink = Color(0xFFFFCFCF);
   static const success = Color(0xFF60D234);
-  static const error = Color(0xFFFA3C3C);
+  static const error = Color(0xFFFF6060);
 }

@@ -21,7 +21,6 @@ class _AddressesCommercialState extends State<AddressesCommercial> {
         if (index > 0) {
           str += "\n\n";
         }
-
         str += add.streetAvenue +
             ", " +
             add.postalCode +
@@ -50,12 +49,18 @@ class _AddressesCommercialState extends State<AddressesCommercial> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(AppLocalizations.of(context).addresses.toUpperCase(),
-              style: Theme.of(context).textTheme.headline3),
+          Text(
+            widget.store.addresses.length == 1
+                ? AppLocalizations.of(context).address.toUpperCase()
+                : AppLocalizations.of(context).addresses.toUpperCase(),
+            style: Theme.of(context).textTheme.headline3,
+          ),
           Padding(
             padding: EdgeInsets.only(top: 10),
-            child: Text( widget.store.addresses.length > 0 ?
-              _addressesToString(widget.store.addresses) : AppLocalizations.of(context).noAddresses,
+            child: Text(
+              widget.store.addresses.length > 0
+                  ? _addressesToString(widget.store.addresses)
+                  : AppLocalizations.of(context).noAddresses,
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ),

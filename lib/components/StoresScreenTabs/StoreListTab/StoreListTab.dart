@@ -72,18 +72,19 @@ class _StoreListTabState extends State<StoreListTab> {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(25, 20, 25, 20),
-            child: DropdownMenu(
-                categories: categories,
-                setSelectedCats: widget.setSelectedCats,
-                selectedCats: widget.selectedCats),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25, 0, 25, 20),
             child: DropdownCountry(
                 countries: countries,
                 selectedCountries: widget.selectedCountries,
                 setCountries: widget.setCountries),
           ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(25, 0, 25, 20),
+            child: DropdownMenu(
+                categories: categories,
+                setSelectedCats: widget.setSelectedCats,
+                selectedCats: widget.selectedCats),
+          ),
+
           Padding(
               padding: EdgeInsets.only(left: 10),
               child: RecentResearch(
