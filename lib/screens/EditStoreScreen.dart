@@ -109,63 +109,72 @@ class _EditStoreState extends State<EditStore>
       }
     }
 
-    return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        bottomOpacity: 0.0,
-        elevation: 8,
-        iconTheme: IconThemeData(color: Colors.black),
-        title: Text(
-          AppLocalizations.of(context).editStore,
-          style: Theme.of(context).textTheme.headline4,
-        ),
-      ),
-      body: SizedBox(
-          height: realHeight - 48 - 56,
-          child: Column(
-            children: [
-              Expanded(child: TabBarView(
-                controller: controller,
-                children: <Widget>[
-                  ProfileTab(
-                    store: store,
-                    categories: categories,
-                    formKey: _formProfileKey,
-                  ),
-                  OpeningHoursTab(
-                    store: store,
-                  ),
-                  AddressTab(store: store, formKey: _formAddressKey)
-                ],
-              ),),
-              Container(
-                padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
-                child: SaveButton(callback: _submitForm),
-              )
-            ]),),
-      bottomNavigationBar: TabBar(
-        controller: controller,
-        tabs: <Widget>[
-          Tab( child: Icon(
-            Icons.store_outlined,
-            size: 35,
-            color: _currentIndex == 0 ?
-              CustomColors.iconsActive :
-              CustomColors.iconsFaded,
-          ),),
-          Tab(child: Icon(
-            Icons.lock_clock,
-            size: 35,
-            color: _currentIndex == 1 ? CustomColors.iconsActive : CustomColors.iconsFaded,
-          ),),
-          Tab(child: Icon(
-            Icons.location_pin,
-            size: 35,
-            color: _currentIndex == 2 ? CustomColors.iconsActive : CustomColors.iconsFaded,
-          ),),
-        ],
-      ),
-    ));
+    return GestureDetector(
+      onTap: (){
+        FocusScopeNode currentFocus = FocusScope.of(context);
+
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: SafeArea(
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              bottomOpacity: 0.0,
+              elevation: 8,
+              iconTheme: IconThemeData(color: Colors.black),
+              title: Text(
+                AppLocalizations.of(context).editStore,
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            ),
+            body: SizedBox(
+              height: realHeight - 48 - 56,
+              child: Column(
+                  children: [
+                    Expanded(child: TabBarView(
+                      controller: controller,
+                      children: <Widget>[
+                        ProfileTab(
+                          store: store,
+                          categories: categories,
+                          formKey: _formProfileKey,
+                        ),
+                        OpeningHoursTab(
+                          store: store,
+                        ),
+                        AddressTab(store: store, formKey: _formAddressKey)
+                      ],
+                    ),),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                      child: SaveButton(callback: _submitForm),
+                    )
+                  ]),),
+            bottomNavigationBar: TabBar(
+              controller: controller,
+              tabs: <Widget>[
+                Tab( child: Icon(
+                  Icons.store_outlined,
+                  size: 35,
+                  color: _currentIndex == 0 ?
+                  CustomColors.iconsActive :
+                  CustomColors.iconsFaded,
+                ),),
+                Tab(child: Icon(
+                  Icons.lock_clock,
+                  size: 35,
+                  color: _currentIndex == 1 ? CustomColors.iconsActive : CustomColors.iconsFaded,
+                ),),
+                Tab(child: Icon(
+                  Icons.location_pin,
+                  size: 35,
+                  color: _currentIndex == 2 ? CustomColors.iconsActive : CustomColors.iconsFaded,
+                ),),
+              ],
+            ),
+          )),
+    );
   }
 }

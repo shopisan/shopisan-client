@@ -100,8 +100,6 @@ class _StoresScreenState extends State<StoresScreen> {
     });
     // SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    print("load stores countries: $countries");
-
     List<Store> storeList = await fetchStores(
         selectedCategoriesId, latitudeData, longitudeData, countries);
 

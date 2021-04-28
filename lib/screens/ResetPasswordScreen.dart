@@ -137,7 +137,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         child: FlatButton(
                           onPressed: _submitForm,
                           child: Text(
-                            AppLocalizations.of(context).resetLink,
+                            AppLocalizations.of(context).resetPassword,
                             style: GoogleFonts.roboto(
                               color: Colors.white,
                               fontSize: 16,

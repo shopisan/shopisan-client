@@ -88,11 +88,12 @@ class _StoreListTabState extends State<StoreListTab> {
           Padding(
               padding: EdgeInsets.only(left: 10),
               child: RecentResearch(
-                  categories: categories, recentSearches: widget.history)),
+                  categories: categories, recentSearches: widget.history,
+                  setSelectedCats: widget.setSelectedCats)),
           // Padding(padding: EdgeInsets.fromLTRB(10,20,0,0),
           // child: Recommended(),),
           Padding(
-            padding: EdgeInsets.fromLTRB(10, 20, 0, 0),
+            padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
             child: AroundYou(
               stores: widget.stores,
               loading: widget.loading,
