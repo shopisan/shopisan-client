@@ -165,6 +165,14 @@ class _StoresScreenState extends State<StoresScreen> {
       //   label: "Posts",
       // ),
       BottomNavigationBarItem(
+        // icon: Icon(Icons.account_circle_outlined, size: 30),
+        icon: FaIcon(
+          FontAwesomeIcons.solidUser,
+          size: 30,
+        ),
+        label: "Profile",
+      ),
+      BottomNavigationBarItem(
         // icon: Icon(Icons.store_outlined, size: 30),
         icon: FaIcon(
           FontAwesomeIcons.store,
@@ -188,14 +196,6 @@ class _StoresScreenState extends State<StoresScreen> {
           size: 30,
         ),
         label: ("Favorite"),
-      ),
-      BottomNavigationBarItem(
-        // icon: Icon(Icons.account_circle_outlined, size: 30),
-        icon: FaIcon(
-          FontAwesomeIcons.solidUser,
-          size: 30,
-        ),
-        label: "Profile",
       ),
     ];
   }
@@ -222,6 +222,7 @@ class _StoresScreenState extends State<StoresScreen> {
       //   },
       //   future: getPosts(),
       // ),
+      SettingsTab(),
       StoreListTab(
           setSelectedCats: setSelectedCats,
           stores: stores,
@@ -239,7 +240,6 @@ class _StoresScreenState extends State<StoresScreen> {
           setCountries: setCountries,
           loading: loading),
       FavoriteTab(),
-      SettingsTab(),
     ];
 
     return SafeArea(

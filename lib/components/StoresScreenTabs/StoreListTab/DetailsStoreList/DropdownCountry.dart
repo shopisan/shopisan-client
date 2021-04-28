@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:shopisan/CountryTranslation/iso_country_translation.dart';
 import 'package:shopisan/model/Country.dart';
@@ -70,6 +71,24 @@ class _DropdownCountryState extends State<DropdownCountry> {
                   backgroundColor: CustomColors.search,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
+                  ),
+                  cancelText: Text(
+                    AppLocalizations.of(context).cancel,
+                    style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        color: CustomColors.iconsActive,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  confirmText: Text(
+                    "Ok",
+                    style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        color: CustomColors.iconsActive,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  title: Text(
+                    AppLocalizations.of(context).select,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 )
               ],

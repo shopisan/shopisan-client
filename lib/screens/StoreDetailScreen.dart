@@ -290,8 +290,8 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
           decoration: BoxDecoration(
             boxShadow: <BoxShadow>[
               BoxShadow(
-                spreadRadius: 10,
-                blurRadius: 30,
+                spreadRadius: 5,
+                blurRadius: 5,
                 color: CustomColors.spread,
               ),
             ],
