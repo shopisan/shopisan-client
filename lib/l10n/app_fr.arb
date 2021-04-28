@@ -1,5 +1,9 @@
 {
   "helloWorld": "Bonjour le monde!",
+  "profile": "Profil",
+  "map": "Carte",
+  "store": "Commerce",
+  "fav": "Favoris",
   "logIn": "Se connecter",
   "logOut": "Se déconnecter",
   "editProfile": "Modifier mon profil",
@@ -74,7 +78,7 @@
   "su": "Dimanche",
   "storeSaved": "Magasin sauvegardé",
   "favorite" : "Vos stores préférés",
-  "noFav": "Veuillez vous connecter pour ajouter des commerces",
+  "noFav": "Veuillez vous connecter pour ajouter des commerces à vos favoris",
   "noFavYet": "Vous n'avez pas encore ajouté de boutique à vos favoris",
   "uploadImg": "Télécharger une image",
   "storePost": "Magasin pour lequel poster",

@@ -3,6 +3,10 @@
   "@helloWorld": {
     "description": "WTF???"
   },
+  "profile": "Profile",
+  "map": "Map",
+  "store": "Store",
+  "fav": "Favorites",
   "logIn": "Log In",
   "logOut": "Log Out",
   "editProfile": "Edit my profile",
@@ -76,7 +80,7 @@
   "su": "Sunday",
   "storeSaved": "Store saved",
   "favorite" : "Your favorite stores",
-  "noFav": "Please login to save stores",
+  "noFav": "Please login to save stores in your favorites.",
   "noFavYet": "You have not added store to your favourites yet",
   "uploadImg": "Upload image",
   "storePost": "Post for store",

@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shopisan/components/StoreDetailScreenTab/DescriptionTabCommercial/DetailsDescriptionTabCommercial/AddressesCommercial.dart';
-import 'package:shopisan/components/StoreDetailScreenTab/DescriptionTabCommercial/DetailsDescriptionTabCommercial/ConnectCommercial.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/DetailsCommercialScreenTab/CategoriesCommercial.dart';
+import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsTabCommercial.dart';
+import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/utils/common.dart';
-
-import 'DetailsDescriptionTabCommercial/OpeningTimeCommercial.dart';
 
 class DescriptionTabCommercial extends StatefulWidget {
   const DescriptionTabCommercial(
@@ -24,6 +22,7 @@ class DescriptionTabCommercial extends StatefulWidget {
 
 class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
   final String locale = getLocaleCode();
+  List<Post> posts;
 
   @override
   Widget build(BuildContext context) {
@@ -75,13 +74,10 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                     ),
                     /*),*/
                   ),
-                  OpeningTimeCommercial(
+                  PostsTabCommercial(
                     store: store,
+                    posts: posts,
                   ),
-                  ConnectCommercial(
-                    store: store,
-                  ),
-                  AddressesCommercial(store: store)
                 ],
               ),
             )),

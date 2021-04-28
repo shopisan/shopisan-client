@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
@@ -168,7 +169,7 @@ class _StoresScreenState extends State<StoresScreen> {
           FontAwesomeIcons.solidUser,
           size: 30,
         ),
-        label: "Profile",
+        label: AppLocalizations.of(context).profile,
       ),
       BottomNavigationBarItem(
         // icon: Icon(Icons.store_outlined, size: 30),
@@ -176,7 +177,7 @@ class _StoresScreenState extends State<StoresScreen> {
           FontAwesomeIcons.store,
           size: 30,
         ),
-        label: ("Store"),
+        label: AppLocalizations.of(context).store,
       ),
       BottomNavigationBarItem(
         // icon: SvgPicture.asset(mapIcon),
@@ -185,7 +186,7 @@ class _StoresScreenState extends State<StoresScreen> {
           FontAwesomeIcons.mapMarkedAlt,
           size: 30,
         ),
-        label: ("Map"),
+        label: AppLocalizations.of(context).map,
       ),
       BottomNavigationBarItem(
         // icon: Icon(Icons.favorite_border_outlined, size: 30),
@@ -193,7 +194,7 @@ class _StoresScreenState extends State<StoresScreen> {
           FontAwesomeIcons.solidHeart,
           size: 30,
         ),
-        label: ("Favorite"),
+        label: AppLocalizations.of(context).fav,
       ),
     ];
   }

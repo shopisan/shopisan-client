@@ -22,7 +22,7 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget.height - 250 - 73 - 20,
+      //height: widget.height - 250 - 73 - 20,
       margin: EdgeInsets.all(10),
       width: double.infinity,
       decoration: BoxDecoration(
@@ -75,12 +75,12 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10),
                               image: DecorationImage(
-                            image: NetworkImage(
-                                widget.posts[index].postMedia[0].media.file),
-                            fit: BoxFit.cover,
-                          )),
+                                image: NetworkImage(widget
+                                    .posts[index].postMedia[0].media.file),
+                                fit: BoxFit.cover,
+                              )),
                         ) /*Image(
                         image: NetworkImage(
                             widget.posts[index].postMedia[0].media.file),

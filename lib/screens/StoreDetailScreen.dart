@@ -9,9 +9,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/DescriptionTabCommercial/DescriptionTabCommercial.dart';
+import 'package:shopisan/components/StoreDetailScreenTab/DescriptionTabCommercial/DetailsDescriptionTabCommercial/AddressesCommercial.dart';
+import 'package:shopisan/components/StoreDetailScreenTab/DescriptionTabCommercial/DetailsDescriptionTabCommercial/ConnectCommercial.dart';
+import 'package:shopisan/components/StoreDetailScreenTab/DescriptionTabCommercial/DetailsDescriptionTabCommercial/OpeningTimeCommercial.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/DetailsCommercialScreenTab/RatingBarCommercial.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/MapTabCommercial.dart';
-import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsTabCommercial.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/OpeningTime.dart';
@@ -49,27 +51,27 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
           FontAwesomeIcons.store,
           size: 30,
         ),
-        label: ("About"),
+        label: AppLocalizations.of(context).store,
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
       ),
-      BottomNavigationBarItem(
-        // icon: FaIcon(FontAwesomeIcons.newspaper, size: 35),
-        icon: FaIcon(
-          FontAwesomeIcons.solidClone,
-          size: 30,
-        ),
-        label: ("Posts"),
-        // activeColor: CustomColors.activeBlue,
-        // inactiveColor: CustomColors.systemGrey,
-      ),
+      // BottomNavigationBarItem(
+      //   // icon: FaIcon(FontAwesomeIcons.newspaper, size: 35),
+      //   icon: FaIcon(
+      //     FontAwesomeIcons.solidClone,
+      //     size: 30,
+      //   ),
+      //   label: ("Posts"),
+      //   // activeColor: CustomColors.activeBlue,
+      //   // inactiveColor: CustomColors.systemGrey,
+      // ),
       BottomNavigationBarItem(
         // icon: Icon(Icons.map_outlined, size: 35),
         icon: FaIcon(
           FontAwesomeIcons.mapMarkedAlt,
           size: 30,
         ),
-        label: ("Map"),
+        label: AppLocalizations.of(context).map,
         // activeColor: CustomColors.activeBlue,
         // inactiveColor: CustomColors.systemGrey,
       ),
@@ -105,7 +107,6 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
         });
       });
     });
-
     super.initState();
   }
 
@@ -125,11 +126,11 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
           store: store,
           height: newHeight,
         ),
-        PostsTabCommercial(
-          store: store,
-          posts: posts,
-          height: newHeight,
-        ),
+        // PostsTabCommercial(
+        //   store: store,
+        //   posts: posts,
+        //   height: newHeight,
+        // ),
         MapTabCommercial(
           store: store,
           height: newHeight,
@@ -162,7 +163,6 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
           }
         }
       }
-
       return false;
     }
 
@@ -255,23 +255,26 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                       _submitFavourite();
                                     } else {
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                        key: Key("yup"),
-                                        content: Text(
-                                            AppLocalizations.of(context)
-                                                .loginRequired),
-                                        backgroundColor: CustomColors.error,
-                                        action: SnackBarAction(
-                                          textColor: Colors.white,
-                                          label: AppLocalizations.of(context)
-                                              .logIn
-                                              .toUpperCase(),
-                                          onPressed: () {
-                                            Navigator.of(context).pushNamed("/",
-                                                arguments: {"toLogin": true});
-                                          },
+                                          .showSnackBar(
+                                        SnackBar(
+                                          key: Key("yup"),
+                                          content: Text(
+                                              AppLocalizations.of(context)
+                                                  .loginRequired),
+                                          backgroundColor: CustomColors.error,
+                                          action: SnackBarAction(
+                                            textColor: Colors.white,
+                                            label: AppLocalizations.of(context)
+                                                .logIn
+                                                .toUpperCase(),
+                                            onPressed: () {
+                                              Navigator.of(context).pushNamed(
+                                                  "/",
+                                                  arguments: {"toLogin": true});
+                                            },
+                                          ),
                                         ),
-                                      ));
+                                      );
                                     }
                                   },
                                 ),
@@ -279,6 +282,34 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                             ],
                           ),
                         )),
+                    Positioned(
+                      right: 0,
+                      top: 30,
+                      child: OutlinedButton.icon(
+                        label: Text(""),
+                        icon: Icon(Icons.info_outline,
+                            size: 30, color: Colors.white),
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  OpeningTimeCommercial(
+                                    store: store,
+                                  ),
+                                  ConnectCommercial(
+                                    store: store,
+                                  ),
+                                  AddressesCommercial(store: store)
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    )
                   ],
                 ),
               ),
