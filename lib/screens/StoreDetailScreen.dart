@@ -94,20 +94,21 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
 
   @override
   void initState() {
-    fetchStore(widget.storeId).then((value) {
-      print(store);
-      setState(() {
-        store = value;
-      });
-      return value.id;
-    }).then((storeId) {
-      fetchPostsByStore(storeId).then((value) {
-        setState(() {
-          posts = value;
-        });
-      });
-    });
+    _loadStuffs();
     super.initState();
+  }
+
+  _loadStuffs() async {
+    var loadStore = fetchStore(widget.storeId);
+    var loadPosts = fetchPostsByStore(widget.storeId);
+
+    Store leStore = await loadStore;
+    List<Post> lesPosts = await loadPosts;
+
+    setState(() {
+      store = leStore;
+      posts = lesPosts;
+    });
   }
 
   @override
@@ -125,6 +126,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
         DescriptionTabCommercial(
           store: store,
           height: newHeight,
+          posts: posts,
         ),
         // PostsTabCommercial(
         //   store: store,
@@ -187,48 +189,55 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                       width: double.infinity,
                     ),
                     Positioned(
-                        top: 30,
-                        left: 20,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Container(
-                              height: 45,
-                              width: 45,
-                              child: TextButton(
-                                style: ButtonStyle(
-                                    shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25))),
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            CustomColors.lightBlue)),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Icon(
-                                  Icons.keyboard_arrow_left_outlined,
-                                  color: Colors.black,
-                                  size: 30,
-                                ),
+                      top: 30,
+                      left: 20,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 45,
+                            width: 45,
+                            child: TextButton(
+                              style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25))),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          CustomColors.lightBlue)),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Icon(
+                                Icons.keyboard_arrow_left_outlined,
+                                color: Colors.black,
+                                size: 30,
                               ),
                             ),
-                            Container(
-                                width: 250,
-                                padding: EdgeInsets.fromLTRB(10, 0, 0, 8),
-                                child: Text(
-                                  "${store.name}",
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                      color: Colors.white),
-                                  maxLines: 5,
-                                  overflow: TextOverflow.ellipsis,
-                                ))
-                          ],
-                        )),
+                          ),
+                          Container(
+                            //width: 200,
+                            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            margin: EdgeInsets.only(left: 10),
+                            decoration: BoxDecoration(
+                                color: CustomColors.lightBlue,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Text(
+                              "${store.name}",
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  // color: getTextColor(color),
+                                  color: Colors.black),
+                              maxLines: 5,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Positioned(
                         bottom: 0,
                         child: Container(
@@ -283,28 +292,44 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                           ),
                         )),
                     Positioned(
-                      right: 0,
+                      right: -10,
                       top: 30,
                       child: OutlinedButton.icon(
                         label: Text(""),
-                        icon: Icon(Icons.info_outline,
-                            size: 30, color: Colors.white),
+                        icon: Icon(Icons.info_sharp,
+                            size: 30, color: CustomColors.iconsActive),
                         onPressed: () {
                           showModalBottomSheet(
                             context: context,
                             builder: (context) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  OpeningTimeCommercial(
-                                    store: store,
-                                  ),
-                                  ConnectCommercial(
-                                    store: store,
-                                  ),
-                                  AddressesCommercial(store: store)
-                                ],
-                              );
+                              return SafeArea(
+                                  child: SingleChildScrollView(
+                                child: Column(
+                                  //mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: EdgeInsets.all(20),
+                                      child: Text(
+                                        AppLocalizations.of(context)
+                                            .about
+                                            .toUpperCase(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5,
+                                      ),
+                                    ),
+                                    OpeningTimeCommercial(
+                                      store: store,
+                                    ),
+                                    ConnectCommercial(
+                                      store: store,
+                                    ),
+                                    AddressesCommercial(store: store)
+                                  ],
+                                ),
+                              ));
                             },
                           );
                         },

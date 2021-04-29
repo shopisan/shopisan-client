@@ -9,11 +9,15 @@ import 'package:shopisan/utils/common.dart';
 
 class DescriptionTabCommercial extends StatefulWidget {
   const DescriptionTabCommercial(
-      {Key key, @required this.store, @required this.height})
+      {Key key,
+      @required this.store,
+      @required this.height,
+      @required this.posts})
       : super(key: key);
 
   final Store store;
   final double height;
+  final List<Post> posts;
 
   @override
   _DescriptionTabCommercialState createState() =>
@@ -22,11 +26,20 @@ class DescriptionTabCommercial extends StatefulWidget {
 
 class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
   final String locale = getLocaleCode();
+  Store store;
   List<Post> posts;
 
   @override
   Widget build(BuildContext context) {
     Store store = widget.store;
+
+    if (widget.store == null) {
+      return LoadingIndicator();
+    }
+
+    double height = MediaQuery.of(context).size.height;
+    var padding = MediaQuery.of(context).padding;
+    double newHeight = height - padding.top - padding.bottom;
 
     return Column(
       children: [
@@ -63,7 +76,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                   Container(
                     width: double.infinity,
                     // height: 200,
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 40),
+                    padding: EdgeInsets.fromLTRB(20, 0, 20, 40),
                     child:
                         /*SingleChildScrollView(
                       child: */
@@ -74,9 +87,18 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                     ),
                     /*),*/
                   ),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.fromLTRB(20, 20, 20, 40),
+                    child: Text(
+                      AppLocalizations.of(context).post.toUpperCase(),
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                  ),
                   PostsTabCommercial(
                     store: store,
-                    posts: posts,
+                    posts: widget.posts,
+                    height: newHeight,
                   ),
                 ],
               ),

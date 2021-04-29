@@ -56,7 +56,7 @@ class _AddressesCommercialState extends State<AddressesCommercial> {
             style: Theme.of(context).textTheme.headline3,
           ),
           Padding(
-            padding: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.all(20),
             child: Text(
               widget.store.addresses.length > 0
                   ? _addressesToString(widget.store.addresses)

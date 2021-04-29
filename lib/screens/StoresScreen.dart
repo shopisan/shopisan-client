@@ -25,7 +25,7 @@ class StoresScreen extends StatefulWidget {
 }
 
 class _StoresScreenState extends State<StoresScreen> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   String latitudeData;
   String longitudeData;
   List<Store> stores = [];
@@ -77,6 +77,8 @@ class _StoresScreenState extends State<StoresScreen> {
     var addresses =
         await Geocoder.local.findAddressesFromCoordinates(coordinates);
     String country = addresses.first.countryCode;
+
+    print("country: " + country);
 
     setState(() {
       latitudeData = "${geoposition.latitude}";
@@ -163,6 +165,7 @@ class _StoresScreenState extends State<StoresScreen> {
       //   ),
       //   label: "Posts",
       // ),
+
       BottomNavigationBarItem(
         // icon: Icon(Icons.account_circle_outlined, size: 30),
         icon: FaIcon(

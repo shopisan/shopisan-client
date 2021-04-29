@@ -42,8 +42,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   @override
   void initState() {
     super.initState();
-    cameraPosition = CameraPosition(
-        zoom: 14.0, target: LatLng(widget.latitude, widget.longitude));
+    if (widget.latitude != null && widget.longitude != null) {
+      cameraPosition = CameraPosition(
+          zoom: 14.0, target: LatLng(widget.latitude, widget.longitude));
+    }
   }
 
   Future setCustomMarker() async {
@@ -118,6 +120,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       return newMarkers;
     }
 
+    print("camera pos:");
     print(cameraPosition);
 
     return Stack(

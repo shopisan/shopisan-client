@@ -49,7 +49,7 @@ class AroundYou extends StatelessWidget {
                                 height: 50,
                                 width: 50,
                                 child: CircularProgressIndicator(
-                                    backgroundColor: CustomColors.iconsActive,
+                                    backgroundColor: CustomColors.lightPink,
                                     valueColor: AlwaysStoppedAnimation<Color>(
                                         CustomColors.error))),
                           ),

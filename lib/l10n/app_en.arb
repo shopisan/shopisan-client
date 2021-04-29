@@ -108,6 +108,7 @@
   "storeTicketSubmitted": "Your ticket was received, we will get back to you soon",
   "cancel": "Cancel",
   "select": "Select",
+  "deleteCats": "Delete",
   "error": "An error occured",
   "noLocal" : "This location doesn't exists",
   "to": "to",
@@ -121,5 +122,6 @@
   "french": "French",
   "english": "English",
   "atLeastOneDescriptionRequired": "You need to fill at least one of the descriptions before submitting",
-  "noAddresses": "No addresses"
+  "noAddresses": "No addresses",
+  "about": "About"
 }

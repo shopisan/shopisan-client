@@ -105,7 +105,8 @@
   "subjectHint": "L'objet de votre demande",
   "storeTicketSubmitted": "Nous avons bien reçu votre demande, nous vous recontacterons dans les plus brefs délais",
   "cancel": "Annuler",
-  "select": "Sélectionner",
+  "select": "Sélection",
+  "deleteCats": "Supprimer",
   "error": "Une erreur est survenue",
   "noLocal" : "Cette page n'existe pas",
   "to": "à",
@@ -119,5 +120,6 @@
   "french": "Français",
   "english": "Anglais",
   "atLeastOneDescriptionRequired": "Vous devez remplir au moins une description pour continuer",
-  "noAddresses": "Pas d'adresses"
+  "noAddresses": "Pas d'adresses",
+  "about": "À propos"
 }

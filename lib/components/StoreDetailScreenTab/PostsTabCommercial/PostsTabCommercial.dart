@@ -5,14 +5,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 
 class PostsTabCommercial extends StatefulWidget {
+  PostsTabCommercial(
+      {@required this.store, @required this.posts, @required this.height});
+
   final Store store;
   final List<Post> posts;
   final double height;
-
-  PostsTabCommercial(
-      {@required this.store, @required this.posts, @required this.height});
 
   @override
   _PostsTabCommercialState createState() => _PostsTabCommercialState();
@@ -21,6 +22,10 @@ class PostsTabCommercial extends StatefulWidget {
 class _PostsTabCommercialState extends State<PostsTabCommercial> {
   @override
   Widget build(BuildContext context) {
+    if (null == widget.posts) {
+      return LoadingIndicator();
+    }
+
     return Container(
       //height: widget.height - 250 - 73 - 20,
       margin: EdgeInsets.all(10),
@@ -52,6 +57,7 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
               ),
             )
           : GridView.count(
+              shrinkWrap: true,
               crossAxisCount: 2,
               padding: EdgeInsets.all(10),
               children: List.generate(
