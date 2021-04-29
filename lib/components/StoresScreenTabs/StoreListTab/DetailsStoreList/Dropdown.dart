@@ -2,7 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:shopisan/components/Form/CustomMultiSelect/chip_display/multi_select_chip_display.dart';
+
+// import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:shopisan/components/Form/CustomMultiSelect/dialog/multi_select_dialog_field.dart';
+import 'package:shopisan/components/Form/CustomMultiSelect/multi_select_flutter.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
@@ -55,7 +59,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              MultiSelectDialogField(
+              CustomMultiSelect(
                 initialValue: widget.selectedCats,
                 buttonIcon: Icon(
                   Icons.search,
@@ -91,13 +95,22 @@ class _DropdownMenuState extends State<DropdownMenu> {
                       color: CustomColors.iconsActive,
                       fontWeight: FontWeight.bold),
                 ),
-                title: Row(
+                title: Text(
+                  AppLocalizations.of(context).select,
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                clearText: Text(
+                  AppLocalizations.of(context).clear,
+                  style: GoogleFonts.poppins(
+                      fontSize: 10,
+                      color: CustomColors.iconsActive,
+                      fontWeight: FontWeight.bold),
+                ),
+
+                /* Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      AppLocalizations.of(context).select,
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
+                    ,
                     TextButton(
                       onPressed: () {
                         widget.setSelectedCats([]);
@@ -113,7 +126,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
                       ),
                     ),
                   ],
-                ),
+                ),*/
               )
             ],
           ),
