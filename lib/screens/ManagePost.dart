@@ -29,7 +29,7 @@ class _ManagePostState extends State<ManagePost> {
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.black),
           title: Text(
-            AppLocalizations.of(context).editPost,
+            AppLocalizations.of(context).editPosts,
             style: Theme.of(context).textTheme.headline3,
           )),
       body: Container(

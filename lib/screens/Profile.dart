@@ -38,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
-                          child: Text(AppLocalizations.of(context).editProfile,
+                          child: Text(AppLocalizations.of(context).profile,
                               style: Theme.of(context).textTheme.headline3),
                         ),
                       ],

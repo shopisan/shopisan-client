@@ -74,7 +74,7 @@ class _EditProfileState extends State<EditProfile> {
         elevation: 8,
         iconTheme: IconThemeData(color: Colors.black),
         title: Text(
-          AppLocalizations.of(context).editProfile,
+          AppLocalizations.of(context).profile,
           style: Theme.of(context).textTheme.headline4,
         ),
       ),
