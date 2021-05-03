@@ -2,35 +2,50 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:multi_select_flutter/multi_select_flutter.dart';
-import 'package:shopisan/CountryTranslation/iso_country_translation.dart';
 import 'package:shopisan/components/Form/CustomMonoSelect/chip_display/multi_select_chip_display.dart';
 import 'package:shopisan/components/Form/CustomMonoSelect/dialog/multi_select_dialog_field.dart';
 import 'package:shopisan/components/Form/CustomMonoSelect/multi_select_flutter.dart';
-import 'package:shopisan/model/Country.dart';
+import 'package:shopisan/model/City.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 
-class DropdownCountry extends StatefulWidget {
-  const DropdownCountry(
+
+class DropdownCities extends StatefulWidget {
+  const DropdownCities(
       {Key key,
-      @required this.setCountry,
-      @required this.countries,
-      @required this.selectedCountry})
+      @required this.setCity,
+      @required this.cities,
+      @required this.selectedCity})
       : super(key: key);
 
-  final List<Country> countries;
-  final ValueChanged<String> setCountry;
-  final String selectedCountry;
+  final List<City> cities;
+  final ValueChanged<int> setCity;
+  final int selectedCity;
 
   @override
-  _DropdownCountryState createState() => _DropdownCountryState();
+  _DropdownCitiesState createState() => _DropdownCitiesState();
 }
 
-class _DropdownCountryState extends State<DropdownCountry> {
+class _DropdownCitiesState extends State<DropdownCities> {
   bool initialized = false;
 
   @override
   Widget build(BuildContext context) {
+    final String locale = getLocaleCode();
+
+    _getCityItems(){
+      List<MultiSelectItem> items = [];
+
+      items.add(MultiSelectItem(0, AppLocalizations.of(context).myLocation));
+
+      if (null != widget.cities) {
+        for (City city in widget.cities) {
+          items.add(MultiSelectItem(city.id, city.getNameLocale(locale)));
+        }
+      }
+
+      return items;
+    }
 
     return Container(
         height: 50,
@@ -47,22 +62,20 @@ class _DropdownCountryState extends State<DropdownCountry> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CustomMonoSelect(
-                  initialValue: widget.selectedCountry,
+                  initialValue: widget.selectedCity,
                   buttonIcon: Icon(
                     Icons.search,
                     color: CustomColors.iconsActive,
                   ),
-                  buttonText: Text(AppLocalizations.of(context).countries,
+                  buttonText: Text(AppLocalizations.of(context).city,
                       style: Theme.of(context).textTheme.headline6),
-                  items: widget.countries
-                      .map((e) => MultiSelectItem(
-                          e.iso, IsoCountryTranslation.getCountryName(e.iso)))
-                      .toList(),
+                  items: _getCityItems(),
+                  searchable: true,
                   listType: MultiSelectListType.LIST,
                   chipDisplay: MultiSelectChipDisplay.none(),
                   onConfirm: (value) {
                     setState(() {
-                      widget.setCountry(value);
+                      widget.setCity(value);
                     });
                   },
                   backgroundColor: CustomColors.search,

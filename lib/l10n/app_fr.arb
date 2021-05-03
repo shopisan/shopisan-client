@@ -21,7 +21,6 @@
   "name": "Prénom",
   "lastName": "Nom",
   "birthday": "Ajouter votre anniversaire",
-  "profile": "Profil",
   "searchCat": "Catégories",
   "selectHours": "Planifiez vos heures d'ouverture",
   "emailAddress": "Adresse E-mail",
@@ -46,7 +45,7 @@
   "connectCommercial": "Restes connecté",
   "choosePicture": "Choisissez une photo de profil",
   "camera": "Camera",
-  "gallery": "Gallerie",
+  "gallery": "Galerie",
   "price": "Prix",
   "save": "Enregistrer",
   "post": "Posts",
@@ -122,5 +121,6 @@
   "atLeastOneDescriptionRequired": "Vous devez remplir au moins une description pour continuer",
   "noAddresses": "Pas d'adresses",
   "about": "À propos",
-  "clear": "Nettoyer la sélection"
+  "clear": "Nettoyer la sélection",
+  "myLocation": "Ma position"
 }

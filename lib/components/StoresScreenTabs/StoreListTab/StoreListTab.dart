@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/components/StoresScreenTabs/StoreListTab/DetailsStoreList/Around.dart';
+import 'package:shopisan/components/StoresScreenTabs/StoreListTab/DetailsStoreList/DropdownCities.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
+import 'package:shopisan/model/City.dart';
 import 'package:shopisan/model/Country.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/utils/common.dart';
@@ -16,9 +18,12 @@ class StoreListTab extends StatefulWidget {
   final List<Store> stores;
   final List<dynamic> history;
   final List selectedCats;
-  final List selectedCountries;
-  final ValueChanged<List<dynamic>> setCountries;
+  final String selectedCountry;
+  final ValueChanged<String> setCountry;
   final bool loading;
+  final List<City> cities;
+  final int selectedCity;
+  final ValueChanged<int> setCity;
 
   const StoreListTab(
       {Key key,
@@ -26,8 +31,11 @@ class StoreListTab extends StatefulWidget {
       @required this.stores,
       @required this.history,
       @required this.selectedCats,
-      @required this.selectedCountries,
-      @required this.setCountries,
+      @required this.selectedCountry,
+      @required this.setCountry,
+      @required this.selectedCity,
+      @required this.setCity,
+      @required this.cities,
       this.loading})
       : super(key: key);
 
@@ -74,8 +82,15 @@ class _StoreListTabState extends State<StoreListTab> {
             padding: const EdgeInsets.fromLTRB(25, 20, 25, 20),
             child: DropdownCountry(
                 countries: countries,
-                selectedCountries: widget.selectedCountries,
-                setCountries: widget.setCountries),
+                selectedCountry: widget.selectedCountry,
+                setCountry: widget.setCountry),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(25, 0, 25, 20),
+            child: DropdownCities(
+                cities: widget.cities,
+                setCity: widget.setCity,
+                selectedCity: widget.selectedCity),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(25, 0, 25, 20),
@@ -84,11 +99,11 @@ class _StoreListTabState extends State<StoreListTab> {
                 setSelectedCats: widget.setSelectedCats,
                 selectedCats: widget.selectedCats),
           ),
-
           Padding(
               padding: EdgeInsets.only(left: 10),
               child: RecentResearch(
-                  categories: categories, recentSearches: widget.history,
+                  categories: categories,
+                  recentSearches: widget.history,
                   setSelectedCats: widget.setSelectedCats)),
           // Padding(padding: EdgeInsets.fromLTRB(10,20,0,0),
           // child: Recommended(),),

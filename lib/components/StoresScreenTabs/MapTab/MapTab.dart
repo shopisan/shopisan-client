@@ -12,16 +12,16 @@ class MapTab extends StatefulWidget {
       @required this.stores,
       @required this.latitude,
       @required this.longitude,
-      @required this.selectedCountries,
-      @required this.setCountries,
+      @required this.selectedCountry,
+      @required this.setCountry,
       this.loading})
       : super(key: key);
 
   final List<Store> stores;
   final double latitude;
   final double longitude;
-  final List selectedCountries;
-  final void Function(List selectCountries) setCountries;
+  final String selectedCountry;
+  final void Function(String selectCountry) setCountry;
   final bool loading;
 
   @override
@@ -44,8 +44,8 @@ class _MapTabState extends State<MapTab> {
               categories: categories,
               latitude: widget.latitude,
               longitude: widget.longitude,
-              selectedCountries: widget.selectedCountries,
-              setCountries: widget.setCountries,
+              selectedCountry: widget.selectedCountry,
+              setCountry: widget.setCountry,
               loading: widget.loading),
         ),
         Positioned(

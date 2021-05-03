@@ -68,7 +68,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
       BottomNavigationBarItem(
         // icon: Icon(Icons.map_outlined, size: 35),
         icon: FaIcon(
-          FontAwesomeIcons.mapMarkedAlt,
+          FontAwesomeIcons.mapMarker,
           size: 30,
         ),
         label: AppLocalizations.of(context).map,

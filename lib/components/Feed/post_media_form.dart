@@ -9,7 +9,6 @@ import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 import 'package:shopisan/components/Form/text_input.dart' as CustomInput;
 import 'package:shopisan/model/PostMedia.dart';
 import 'package:shopisan/theme/colors.dart';
-import 'package:shopisan/utils/validators.dart';
 
 class PostMediaForm extends StatefulWidget {
   final PostMedia postMedia;
@@ -67,7 +66,6 @@ class _PostMediaFormState extends State<PostMediaForm> {
   @override
   Widget build(BuildContext context) {
     void _updateValues() {
-      print("price: ${_priceController.text}");
       BlocProvider.of<PostCreationBloc>(context).add(ChangePostMedia(
           description_fr: _descriptionController_fr.text,
           description_en: _descriptionController_en.text,
@@ -267,7 +265,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
                     ),
                     CustomInput.TextInput(
                       controller: _priceController,
-                      icon: Icons.attach_money_outlined,
+                      icon: Icons.euro,
                       label: AppLocalizations.of(context).price,
                       keyboardType: TextInputType.number,
                       callback: (value) {

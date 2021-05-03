@@ -31,7 +31,6 @@ class PostMedia {
       for (locale in locales) {
         if ("" != this.toJson()["description_" + locale] && this.toJson()["description_" + locale] != null) {
           description = this.toJson()["description_" + locale];
-          print(description);
           break;
         }
       }

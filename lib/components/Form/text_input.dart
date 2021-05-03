@@ -63,7 +63,6 @@ class TextInput extends StatelessWidget {
         validator: null != validator
             ? (value) {
                 if (passwordValidation != null) {
-                  print("$value, $passwordValidation, $context");
                   return validator(value, passwordValidation, context);
                 }
                 return validator(value, context);

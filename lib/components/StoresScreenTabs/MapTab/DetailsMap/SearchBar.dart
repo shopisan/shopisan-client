@@ -9,13 +9,13 @@ const kGoogleApiKey = "AIzaSyDkJlowngFOjqCxtMwPj6APgg2QWlpbEoI";
 
 class SearchBar extends StatefulWidget {
   final ValueChanged<CameraPosition> setCameraPosition;
-  final List selectedCountries;
-  final void Function(List selectCountries) setCountries;
+  final String selectedCountry;
+  final void Function(String selectCountry) setCountry;
 
   SearchBar({
     @required this.setCameraPosition,
-    @required this.selectedCountries,
-    @required this.setCountries});
+    @required this.selectedCountry,
+    @required this.setCountry});
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -30,7 +30,6 @@ class _SearchBarState extends State<SearchBar> {
 
   _getCountry(addrComponents) {
     for (var i = 0; i < addrComponents.length; i++) {
-      print(addrComponents[i]);
       if (addrComponents[i]["types"][0] == "country") {
         return addrComponents[i]["short_name"];
       }
@@ -49,10 +48,9 @@ class _SearchBarState extends State<SearchBar> {
 
     if (location['results'][0]['geometry']['location']['lat'] != null &&
         location['results'][0]['geometry']['location']['lng'] != null) {
-      if (!widget.selectedCountries.contains(country) && country != "") {
-        List<dynamic> countries = widget.selectedCountries;
-        countries.add(country);
-        widget.setCountries(countries);
+      if (!widget.selectedCountry.contains(country) && country != "") {
+        String country = widget.selectedCountry;
+        widget.setCountry(country);
       }
 
       widget.setCameraPosition(

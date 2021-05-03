@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:shopisan/model/Category.dart';
+import 'package:shopisan/model/City.dart';
 import 'package:shopisan/model/Country.dart';
 import 'package:shopisan/model/File.dart' as FileModel;
 import 'package:shopisan/model/Post.dart';
@@ -14,6 +15,7 @@ import 'package:shopisan/model/api_model.dart';
 import 'package:shopisan/repository/user_repository.dart';
 
 part 'kits/posts_api.dart';
+
 part 'kits/user_api.dart';
 
 // final _base = "10.0.2.2:8000";
@@ -45,17 +47,28 @@ Future<List<Country>> fetchCountries() async {
   }
 }
 
-Future<List<Store>> fetchStores(List<dynamic> categories, String latitude,
-    String longitude, List<dynamic> countries) async {
+Future<List<City>> fetchCities(String country) async {
+  final response = await http.get(
+      Uri.https(_base, "/api/cities/", {"country": country}),
+      headers: {'Accept': 'application/json'});
+
+  if (response.statusCode == 200) {
+    return CityCollection.fromJson(jsonDecode(response.body)).cities;
+  } else {
+    throw Exception(
+        'Failed to load countries, ca serait bien de faire quelque chose dans ce cas la');
+  }
+}
+
+Future<List<Store>> fetchStores(List<dynamic> categories, double latitude,
+    double longitude, String country) async {
   Map<String, String> params = {};
 
   if (categories != null && categories.length > 0) {
     params['categories'] = categories.join(",");
   }
 
-  if (countries != null && countries.length > 0) {
-    params['countries'] = countries.join(",");
-  }
+  params['countries'] = country;
 
   if (latitude != null && longitude != null) {
     params['position'] = "$latitude,$longitude";
@@ -98,8 +111,6 @@ Future<int> editStore(Store store) async {
         body: jsonEncode(store.toJson()),
         headers: headers);
   }
-
-  print(response.body);
 
   if (response.statusCode >= 200 && response.statusCode < 300) {
     return json.decode(response.body)['id'];

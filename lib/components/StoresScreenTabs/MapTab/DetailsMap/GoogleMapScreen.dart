@@ -17,8 +17,8 @@ class GoogleMapScreen extends StatefulWidget {
       @required this.categories,
       @required this.latitude,
       @required this.longitude,
-      @required this.selectedCountries,
-      @required this.setCountries,
+      @required this.selectedCountry,
+      @required this.setCountry,
       this.loading})
       : super(key: key);
 
@@ -26,8 +26,8 @@ class GoogleMapScreen extends StatefulWidget {
   final CategoryCollection categories;
   final double latitude;
   final double longitude;
-  final List selectedCountries;
-  final void Function(List selectCountries) setCountries;
+  final String selectedCountry;
+  final void Function(String selectCountry) setCountry;
   final bool loading;
 
   @override
@@ -120,9 +120,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       return newMarkers;
     }
 
-    print("camera pos:");
-    print(cameraPosition);
-
     return Stack(
       children: [
         FutureBuilder(
@@ -143,11 +140,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           },
           future: _getMarkers(widget.stores),
         ),
-        SearchBar(
+        /*SearchBar(
           setCameraPosition: setCameraPosition,
-          selectedCountries: widget.selectedCountries,
-          setCountries: widget.setCountries,
-        )
+          selectedCountry: widget.selectedCountry,
+          setCountry: widget.setCountry,
+        )*/
       ],
     );
   }

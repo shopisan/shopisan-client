@@ -10,7 +10,6 @@ class MyPosts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("posts: $posts");
 
     return Container(
       // height: (MediaQuery.of(context).size.height),

@@ -36,13 +36,11 @@ class ProfileEditBloc extends Bloc<ProfileEditEvent, ProfileEditState> {
     } else if (event is SubmitEvent){
       UserProfile user = state.user;
       yield LoadingProfileEditState(user: user);
-      print("Submit event");
 
       try {
         await editUserProfile(user);
         yield SuccessProfileEditState(user: user);
       } catch (exception){
-        print(exception);
         yield ErrorProfileEditState(error: 'submit', user: user);
       }
     }

@@ -61,7 +61,6 @@ class _PostCreationState extends State<PostCreation> {
     _sendForm() {
       if (_formKey.currentState.validate()) {
         for (PostMedia postMedia in post.postMedia) {
-          print(oneFilled([postMedia.description_en, postMedia.description_fr]));
           if (!oneFilled([postMedia.description_en, postMedia.description_fr])) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               ScaffoldMessenger.of(context).showSnackBar(

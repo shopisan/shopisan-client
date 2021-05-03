@@ -44,7 +44,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
         child: LinearProgressIndicator(),
       );
     }
-    print(widget.selectedCats);
+
     return Container(
       height: 50,
       width: double.infinity,

@@ -36,14 +36,12 @@ class RouteGenerator {
                   return StoresScreen(toLogin: toLogin);
 
                 case '/store_detail':
-                  print(args);
                   return StoreDetailScreen(storeId: args['storeId']);
 
                 case '/manage_post':
                   return ManagePost();
 
                 case '/post_detail':
-                  // print("argument $args");
                   return PostsCommercialScreen(
                       post: args['post'],
                       store: null != args ? args['store'] : null);
@@ -51,7 +49,6 @@ class RouteGenerator {
                 case '/create_post':
                   return BlocProvider<PostCreationBloc>(
                       create: (context) {
-                        print("arguments $args");
                         return PostCreationBloc()
                           ..add(IsStarted(
                               postId: null != args ? args['postId'] : null));
@@ -73,7 +70,6 @@ class RouteGenerator {
                       ));
 
                 case '/login':
-                  print(userRepository);
                   return LoginPage(userRepository: userRepository);
 
                 case '/register':
