@@ -108,6 +108,7 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
       Post post = state.post;
 
       post.store = event.storeUrl;
+      print(post.store);
 
       yield StartedPostCreationState(
           post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);

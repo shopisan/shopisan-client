@@ -34,7 +34,7 @@ class AroundYou extends StatelessWidget {
               child: Stack(
                 children: [
                   ListView(
-                    padding: EdgeInsets.only(bottom: 60),
+                    padding: EdgeInsets.only(bottom: 30),
                     scrollDirection: Axis.vertical,
                     children: stores
                         .map((store) => StorePreview(store: store))

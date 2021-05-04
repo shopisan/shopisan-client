@@ -71,6 +71,7 @@ class _StoresScreenState extends State<StoresScreen> {
     });
 
     loadCities();
+    loadStores();
   }
 
   void loadCities() async {

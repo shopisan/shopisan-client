@@ -74,7 +74,7 @@ class _ManagePostState extends State<ManagePost> {
                           return Container(
                             child: ListView(
                               scrollDirection: Axis.vertical,
-                              children: posts.reversed.map((post) {
+                              children: posts.map((post) {
                                 return TextButton(
                                   onPressed: () {
                                     Navigator.pushNamed(context, '/create_post',
