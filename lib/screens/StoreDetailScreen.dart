@@ -200,6 +200,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                         //width: double.infinity,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             TextButton(
                               style: ButtonStyle(
@@ -230,8 +231,8 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                     child: Text(
                                       "${store.name}",
                                       style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 18,
                                           color: Colors.white),
                                       maxLines: 5,
                                       overflow: TextOverflow.ellipsis,
@@ -242,7 +243,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                             ),
                             IconButton(
                               icon: Icon(Icons.info_outline,
-                                  size: 25, color: Colors.white),
+                                  size: 30, color: Colors.white),
                               onPressed: () {
                                 showModalBottomSheet(
                                   context: context,

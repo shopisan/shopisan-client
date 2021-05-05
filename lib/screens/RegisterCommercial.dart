@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
+import 'package:shopisan/components/Form/CustomPhoneInput/intl_phone_number_input.dart';
 import 'package:shopisan/components/Form/text_input.dart';
 import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
@@ -25,6 +26,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _repeatPasswordController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
+  String phoneNumber = "";
   String password;
 
   final _formKey = GlobalKey<FormState>();
@@ -46,7 +48,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
           "username": _usernameController.text,
           "email": _emailController.text,
           "password": _passwordController.text,
-          "phone": _phoneController.text,
+          "phone": phoneNumber,
           "message": _descriptionController.text,
           "lang": getLocaleCode()
         });
@@ -89,13 +91,6 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
       ),
       body: Stack(
         children: [
-          // Container(
-          //   decoration: BoxDecoration(
-          //     image: DecorationImage(
-          //         image: AssetImage("assets/img/bg_login.jpg"),
-          //         fit: BoxFit.cover),
-          //   ),
-          // ),
           Container(
             alignment: Alignment.center,
             child: SingleChildScrollView(
@@ -153,7 +148,56 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                         hint: AppLocalizations.of(context).emailHint,
                         validator: isValidEmail,
                       ),
-                      TextInput(
+                      Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        decoration: BoxDecoration(
+                          // color: Colors.white,
+                          border: Border.all(color: CustomColors.spreadRegister, width: 2),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                          Padding(padding: EdgeInsets.only(left: 5)),
+                          Icon(
+                            Icons.phone_android_outlined,
+                            color: CustomColors.iconsActive,
+                            size: 20,
+                          ),
+                          Padding(padding: EdgeInsets.only(left: 15)),
+                          Flexible(child: InternationalPhoneNumberInput(
+                            onInputChanged: (_){
+                              phoneNumber = _.phoneNumber;
+                              print(_.phoneNumber);
+                              },
+                            textFieldController: _phoneController,
+                            selectorTextStyle: Theme.of(context).textTheme.bodyText1,
+                            selectorConfig: SelectorConfig(
+                                selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                              setSelectorButtonAsPrefixIcon: true
+                            ),
+                            textStyle: Theme.of(context).textTheme.bodyText1,
+                            inputBorder: InputBorder.none,
+                            spaceBetweenSelectorAndTextField: 0,
+                            inputDecoration: InputDecoration(
+                              isDense: true,
+                              filled: true,
+                              fillColor: Colors.white,
+                              prefixIcon: null,
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  width: 0,
+                                  style: BorderStyle.none,
+                                ),
+                              ),
+                              /*labelText: label,
+                              hintText: hint*/),
+                          ))
+                        ],),
+                      ),
+                      /*TextInput(
                         controller: _phoneController,
                         icon: Icons.phone_android_outlined,
                         label: AppLocalizations.of(context).phoneNumber,
@@ -161,7 +205,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                         hint: AppLocalizations.of(context).phoneNumber,
                         validator: isEmpty,
                         keyboardType: TextInputType.phone,
-                      ),
+                      ),*/
                       TextInput(
                         obscureText: true,
                         controller: _passwordController,
@@ -179,7 +223,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
                         hint: AppLocalizations.of(context).passwordConfirm,
                         validator: passwordsMatch,
-                        passwordValidation: password,
+                        passwordValidation: _passwordController.text,
                       ),
                       TextInput(
                         controller: _descriptionController,

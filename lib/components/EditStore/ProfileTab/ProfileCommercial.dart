@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
@@ -136,6 +137,19 @@ class _ProfileCommercialState extends State<ProfileCommercial>
                 BlocProvider.of<EditStoreBloc>(context)
                     .add(StoreEditCategoriesEvent(categoriesIds: values));
               },
+              title: Text(AppLocalizations.of(context).categories),
+              confirmText: Text(
+                "Ok",
+                style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: CustomColors.iconsActive,
+                    fontWeight: FontWeight.bold),
+              ),
+              cancelText: Text(AppLocalizations.of(context).cancel,
+                style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: CustomColors.iconsActive,
+                    fontWeight: FontWeight.bold),),
               backgroundColor: CustomColors.search,
               decoration: BoxDecoration(
                 color: Colors.white,

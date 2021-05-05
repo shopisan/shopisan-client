@@ -26,7 +26,7 @@ class StoresScreen extends StatefulWidget {
 }
 
 class _StoresScreenState extends State<StoresScreen> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
   double latitudeData;
   double longitudeData;
   double myLatitude;
@@ -210,15 +210,6 @@ class _StoresScreenState extends State<StoresScreen> {
       //   ),
       //   label: "Posts",
       // ),
-
-      BottomNavigationBarItem(
-        // icon: Icon(Icons.account_circle_outlined, size: 30),
-        icon: FaIcon(
-          FontAwesomeIcons.solidUser,
-          size: 30,
-        ),
-        label: AppLocalizations.of(context).profile,
-      ),
       BottomNavigationBarItem(
         // icon: Icon(Icons.store_outlined, size: 30),
         icon: FaIcon(
@@ -243,6 +234,14 @@ class _StoresScreenState extends State<StoresScreen> {
           size: 30,
         ),
         label: AppLocalizations.of(context).fav,
+      ),
+      BottomNavigationBarItem(
+        // icon: Icon(Icons.account_circle_outlined, size: 30),
+        icon: FaIcon(
+          FontAwesomeIcons.solidUser,
+          size: 30,
+        ),
+        label: AppLocalizations.of(context).profile,
       ),
     ];
   }
@@ -269,7 +268,6 @@ class _StoresScreenState extends State<StoresScreen> {
       //   },
       //   future: getPosts(),
       // ),
-      SettingsTab(),
       StoreListTab(
           setSelectedCats: setSelectedCats,
           stores: stores,
@@ -290,6 +288,7 @@ class _StoresScreenState extends State<StoresScreen> {
           setCountry: setCountry,
           loading: loading),
       FavoriteTab(),
+      SettingsTab(),
     ];
 
     return SafeArea(
