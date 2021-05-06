@@ -197,15 +197,6 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                           ))
                         ],),
                       ),
-                      /*TextInput(
-                        controller: _phoneController,
-                        icon: Icons.phone_android_outlined,
-                        label: AppLocalizations.of(context).phoneNumber,
-                        margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                        hint: AppLocalizations.of(context).phoneNumber,
-                        validator: isEmpty,
-                        keyboardType: TextInputType.phone,
-                      ),*/
                       TextInput(
                         obscureText: true,
                         controller: _passwordController,

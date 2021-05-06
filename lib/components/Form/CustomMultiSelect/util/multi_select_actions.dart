@@ -6,7 +6,9 @@ class MultiSelectActions<V> {
   List<V> onItemCheckedChange(
       List<V> selectedValues, V itemValue, bool checked) {
     if (checked) {
-      selectedValues.add(itemValue);
+      if (!selectedValues.contains(itemValue)) {
+        selectedValues.add(itemValue);
+      }
     } else {
       selectedValues.remove(itemValue);
     }

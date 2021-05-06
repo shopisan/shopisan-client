@@ -41,6 +41,7 @@ class _StoresScreenState extends State<StoresScreen> {
   bool loading = false;
 
   void setSelectedCats(List<dynamic> selectedCats) async {
+    print("selected cats: " + selectedCats.toString());
     setState(() {
       selectedCategoriesId = selectedCats;
     });
@@ -49,12 +50,12 @@ class _StoresScreenState extends State<StoresScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey('search_history')) {
       history = jsonDecode(prefs.getString("search_history"));
-      for (int id in selectedCats) {
+      for (dynamic id in selectedCats) {
         history.remove(id);
       }
     }
 
-    for (int id in selectedCats) {
+    for (dynamic id in selectedCats) {
       history.add(id);
     }
 

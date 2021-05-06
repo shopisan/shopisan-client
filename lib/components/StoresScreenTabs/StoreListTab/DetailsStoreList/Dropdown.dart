@@ -45,6 +45,26 @@ class _DropdownMenuState extends State<DropdownMenu> {
       );
     }
 
+    List<dynamic> allCats(){
+      List<dynamic> cats = ['all'];
+      for (Category cat in widget.categories){
+        cats.add(cat.id);
+      }
+      return cats;
+    }
+
+    List<MultiSelectItem> _getCategoriesItems(){
+      List<MultiSelectItem> list = [];
+
+      list.add(MultiSelectItem("all", AppLocalizations.of(context).allCats));
+
+      for (Category cat in widget.categories){
+        list.add(MultiSelectItem(cat.id, cat.toJson()[locale]));
+      }
+
+      return list;
+    }
+
     return Container(
       height: 50,
       width: double.infinity,
@@ -67,15 +87,19 @@ class _DropdownMenuState extends State<DropdownMenu> {
                 ),
                 buttonText: Text(AppLocalizations.of(context).categories,
                     style: Theme.of(context).textTheme.headline6),
-                items: widget.categories
-                    .map((e) => MultiSelectItem(e.id, e.toJson()[locale]))
-                    .toList(),
+                items: _getCategoriesItems(),
                 listType: MultiSelectListType.LIST,
                 chipDisplay: MultiSelectChipDisplay.none(),
                 onConfirm: (values) {
-                  setState(() {
-                    widget.setSelectedCats(values);
-                  });
+                  if (values.contains(0)) {
+                    setState(() {
+                      widget.setSelectedCats(allCats());
+                    });
+                  } else {
+                    setState(() {
+                      widget.setSelectedCats(values);
+                    });
+                  }
                 },
                 backgroundColor: CustomColors.search,
                 decoration: BoxDecoration(

@@ -263,7 +263,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
                       // validator: isEmpty,
                       maxLength: 160,
                     ),
-                    CustomInput.TextInput(
+                    /*CustomInput.TextInput(
                       controller: _priceController,
                       icon: Icons.euro,
                       label: AppLocalizations.of(context).price,
@@ -275,7 +275,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
                         FilteringTextInputFormatter.allow(
                             RegExp(r'^[0-9\.\,]+$'))
                       ],
-                    ),
+                    ),*/
                   ],
                 )),
             Container(

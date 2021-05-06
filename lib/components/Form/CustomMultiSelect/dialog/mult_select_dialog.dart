@@ -140,10 +140,20 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
         ),
         controlAffinity: ListTileControlAffinity.leading,
         onChanged: (checked) {
-          setState(() {
-            _selectedValues = widget.onItemCheckedChange(
-                _selectedValues, item.value, checked);
-          });
+          if (item.value == "all") {
+            for (MultiSelectItem leItem in _items){
+              setState(() {
+                _selectedValues = widget.onItemCheckedChange(
+                    _selectedValues, leItem.value, checked);
+              });
+            }
+          } else {
+            setState(() {
+              _selectedValues = widget.onItemCheckedChange(
+                  _selectedValues, item.value, checked);
+            });
+          }
+
           if (widget.onSelectionChanged != null) {
             widget.onSelectionChanged(_selectedValues);
           }

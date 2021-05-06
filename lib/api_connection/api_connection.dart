@@ -66,6 +66,7 @@ Future<List<Store>> fetchStores(List<dynamic> categories, double latitude,
   Map<String, String> params = {};
 
   if (categories != null && categories.length > 0) {
+    categories.remove('all');
     params['categories'] = categories.join(",");
   }
 
