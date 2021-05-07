@@ -24,12 +24,15 @@ class _CommercialPictureState extends State<CommercialPicture> {
 
   void takePhoto(ImageSource source) async {
     final pickedFile = await picker.getImage(source: source);
-    setState(() {
-      _imageFile = pickedFile;
-    });
-    BlocProvider.of<EditStoreBloc>(context)
-        .add(ChangePictureEvent(picture: File(pickedFile.path)));
-    // @todo upload + update la photo
+    if (null != pickedFile) {
+      setState(() {
+        _imageFile = pickedFile;
+      });
+      BlocProvider.of<EditStoreBloc>(context)
+          .add(ChangePictureEvent(picture: File(pickedFile.path)));
+    }
+
+    Navigator.of(context).pop();
   }
 
   @override

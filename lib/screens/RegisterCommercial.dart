@@ -33,6 +33,8 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final String locale = getLocaleCode();
+
     _passwordController.addListener(() {
       setState(() {
         password = _passwordController.text;
@@ -170,7 +172,6 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                           Flexible(child: InternationalPhoneNumberInput(
                             onInputChanged: (_){
                               phoneNumber = _.phoneNumber;
-                              print(_.phoneNumber);
                               },
                             textFieldController: _phoneController,
                             selectorTextStyle: Theme.of(context).textTheme.bodyText1,
@@ -178,6 +179,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                                 selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                               setSelectorButtonAsPrefixIcon: true
                             ),
+                            errorMessage: AppLocalizations.of(context).phoneNumberInvalid,
                             textStyle: Theme.of(context).textTheme.bodyText1,
                             inputBorder: InputBorder.none,
                             spaceBetweenSelectorAndTextField: 0,

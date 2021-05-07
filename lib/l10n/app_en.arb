@@ -125,5 +125,6 @@
   "noAddresses": "No addresses",
   "about": "About",
   "clear": "Clear selection",
-  "myLocation": "My location"
+  "myLocation": "My location",
+  "phoneNumberInvalid": "Invalid phone number"
 }

@@ -123,5 +123,6 @@
   "noAddresses": "Pas d'adresses",
   "about": "À propos",
   "clear": "Nettoyer la sélection",
-  "myLocation": "Ma position"
+  "myLocation": "Ma position",
+  "phoneNumberInvalid": "Numéro de téléphone invalide"
 }
