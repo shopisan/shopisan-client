@@ -11,6 +11,8 @@ import 'package:shopisan/components/StoresScreenTabs/FavoriteTab/FavoriteTab.dar
 import 'package:shopisan/components/StoresScreenTabs/MapTab/MapTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/SettingsTab/SettingsTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/StoreListTab/StoreListTab.dart';
+import 'package:shopisan/model/Category.dart';
+import 'package:shopisan/model/Country.dart';
 import 'package:shopisan/model/City.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/Store.dart';
@@ -33,6 +35,8 @@ class _StoresScreenState extends State<StoresScreen> {
   double myLongitude;
   List<Store> stores = [];
   List<Post> posts = [];
+  List<Category> categories = [];
+  List<Country> countries = [];
   List<dynamic> selectedCategoriesId;
   List<dynamic> history = [];
   String country;
@@ -191,6 +195,18 @@ class _StoresScreenState extends State<StoresScreen> {
     }
   }
 
+  void getCategories() async {
+    var catTemp = fetchCategories();
+    var countriesQuery = fetchCountries();
+    List<Category> catColl = await catTemp;
+    List<Country> countriesTemp = await countriesQuery;
+
+    setState(() {
+      categories = catColl;
+      countries = countriesTemp;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -198,6 +214,7 @@ class _StoresScreenState extends State<StoresScreen> {
     getOldStores();
     getCurrentLocation();
     getSearchHistory();
+    getCategories();
     // loadCities();
   }
 
@@ -279,7 +296,9 @@ class _StoresScreenState extends State<StoresScreen> {
           selectedCity: city,
           setCity: setCity,
           cities: cities,
-          loading: loading
+          loading: loading,
+          categories: categories,
+          countries: countries,
       ),
       MapTab(
           stores: stores,

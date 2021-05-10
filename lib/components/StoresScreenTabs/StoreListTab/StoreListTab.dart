@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/components/StoresScreenTabs/StoreListTab/DetailsStoreList/Around.dart';
 import 'package:shopisan/components/StoresScreenTabs/StoreListTab/DetailsStoreList/DropdownCities.dart';
 import 'package:shopisan/model/Address.dart';
@@ -24,6 +23,8 @@ class StoreListTab extends StatefulWidget {
   final List<City> cities;
   final int selectedCity;
   final ValueChanged<int> setCity;
+  final List<Category> categories;
+  final List<Country> countries;
 
   const StoreListTab(
       {Key key,
@@ -36,6 +37,8 @@ class StoreListTab extends StatefulWidget {
       @required this.selectedCity,
       @required this.setCity,
       @required this.cities,
+      @required this.categories,
+      @required this.countries,
       this.loading})
       : super(key: key);
 
@@ -44,32 +47,15 @@ class StoreListTab extends StatefulWidget {
 }
 
 class _StoreListTabState extends State<StoreListTab> {
-  List<Category> categories = [];
-  List<Country> countries = [];
   AddressCollection addresses;
 
   Map<DateTime, Category> categoryHistory;
 
-  void getCategories() async {
-    var catTemp = fetchCategories();
-    var countriesQuery = fetchCountries();
-    List<Category> catColl = await catTemp;
-    List<Country> countriesTemp = await countriesQuery;
-
-    setState(() {
-      categories = catColl;
-      countries = countriesTemp;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getCategories();
-  }
-
   @override
   Widget build(BuildContext context) {
+    List<Category> categories = widget.categories;
+    List<Country> countries = widget.countries;
+
     double newHeight = getScreenHeight(context);
     int recentSearchHeight =
         (categories != null && widget.history.length != 0) ? 67 : 10;
