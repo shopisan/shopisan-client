@@ -46,12 +46,14 @@ class MapItem extends StatelessWidget {
                                 Container(
                                   // margin: EdgeInsets.only(left: 10),
                                   child: RatingBarIndicator(
-                                    rating: store.evaluation != null ? store.evaluation : 2.5,
+                                    rating: store.evaluation != null
+                                        ? store.evaluation
+                                        : 0,
                                     direction: Axis.horizontal,
                                     itemCount: 5,
                                     itemSize: 15,
                                     itemPadding:
-                                    EdgeInsets.symmetric(horizontal: 0),
+                                        EdgeInsets.symmetric(horizontal: 0),
                                     itemBuilder: (context, _) => Icon(
                                       Icons.star,
                                       color: Colors.amber,
@@ -67,7 +69,7 @@ class MapItem extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),/*),*/
+                      ), /*),*/
                     ),
                   ))
               .toList(),

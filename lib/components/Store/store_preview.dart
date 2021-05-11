@@ -66,23 +66,20 @@ class StorePreview extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  store.evaluation != null
-                      ? Padding(
-                          padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
-                          child: RatingBarIndicator(
-                            rating:
-                                store.evaluation != null ? store.evaluation : 0,
-                            direction: Axis.horizontal,
-                            itemCount: 5,
-                            itemSize: 10,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 0),
-                            itemBuilder: (context, _) => Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            ),
-                          ),
-                        )
-                      : Container(),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
+                    child: RatingBarIndicator(
+                      rating: store.evaluation != null ? store.evaluation : 0,
+                      direction: Axis.horizontal,
+                      itemCount: 5,
+                      itemSize: 10,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                    ),
+                  )
                 ],
               ),
               Container(

@@ -25,56 +25,52 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
     final UserProfileProfile profile = widget.profile;
 
     return Container(
-      padding: EdgeInsets.all(10),
-      child: store.evaluation != null
-          ?
-          // ignore: deprecated_member_use
-          RaisedButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-                side: BorderSide(
-                  color: CustomColors.lightBlue,
-                ),
-              ),
-              splashColor: Colors.black,
+        padding: EdgeInsets.all(10),
+        // ignore: deprecated_member_use
+        child: RaisedButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(
               color: CustomColors.lightBlue,
+            ),
+          ),
+          splashColor: Colors.black,
+          color: CustomColors.lightBlue,
 
-              child: RatingBarIndicator(
-                rating: store?.evaluation ?? 2.5,
-                direction: Axis.horizontal,
-                itemCount: 5,
-                itemSize: 15,
-                itemPadding: EdgeInsets.symmetric(horizontal: 0),
-                itemBuilder: (context, _) => Icon(
-                  Icons.star,
-                  color: Colors.amber,
+          child: RatingBarIndicator(
+            rating: store?.evaluation ?? 0,
+            direction: Axis.horizontal,
+            itemCount: 5,
+            itemSize: 15,
+            itemPadding: EdgeInsets.symmetric(horizontal: 0),
+            itemBuilder: (context, _) => Icon(
+              Icons.star,
+              color: Colors.amber,
+            ),
+          ),
+
+          // onPressed: () => _onButtonPressed(store),
+
+          onPressed: () {
+            if (null != profile) {
+              _onButtonPressed(store);
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                key: Key("yup"),
+                content: Text(AppLocalizations.of(context).loginRequired),
+                backgroundColor: CustomColors.error,
+                action: SnackBarAction(
+                  textColor: Colors.white,
+                  label: AppLocalizations.of(context).logIn.toUpperCase(),
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed("/", arguments: {"toLogin": true});
+                  },
                 ),
-              ),
-
-              // onPressed: () => _onButtonPressed(store),
-
-              onPressed: () {
-                if (null != profile) {
-                  _onButtonPressed(store);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    key: Key("yup"),
-                    content: Text(AppLocalizations.of(context).loginRequired),
-                    backgroundColor: CustomColors.error,
-                    action: SnackBarAction(
-                      textColor: Colors.white,
-                      label: AppLocalizations.of(context).logIn.toUpperCase(),
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed("/", arguments: {"toLogin": true});
-                      },
-                    ),
-                  ));
-                }
-              },
-            )
-          : Container(),
-    );
+              ));
+            }
+          },
+        ));
   }
 
   void _onButtonPressed(Store store) {
