@@ -81,6 +81,7 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
             height: 200,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
                   padding: EdgeInsets.all(30),

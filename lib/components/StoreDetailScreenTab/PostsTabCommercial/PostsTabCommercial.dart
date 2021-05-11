@@ -42,12 +42,14 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    AppLocalizations.of(context).noPost,
-                    style: Theme.of(context).textTheme.headline5,
-                    textAlign: TextAlign.center,
+                  Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Text(
+                      AppLocalizations.of(context).noPost,
+                      style: Theme.of(context).textTheme.headline5,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  Padding(padding: EdgeInsets.all(20)),
                   FaIcon(
                     FontAwesomeIcons.newspaper,
                     color: CustomColors.iconsActive,
