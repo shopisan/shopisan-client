@@ -13,7 +13,7 @@
   "userName": "Nom d'utilisateur",
   "storeName": "Nom du commerce",
   "local": "Pour vous retrouver",
-  "street": "Rue",
+  "street": "Rue et N°",
   "city": "Ville",
   "land": "Pays",
   "postCode": "Code Postal",

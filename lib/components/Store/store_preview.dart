@@ -10,10 +10,10 @@ class StorePreview extends StatelessWidget {
 
   StorePreview({@required this.store});
 
-  String _categoriesToString(List<Category> categories){
+  String _categoriesToString(List<Category> categories) {
     String str = "";
     int index = 0;
-    for (Category cat in categories){
+    for (Category cat in categories) {
       if (index > 0) {
         str += ", ";
       }
@@ -66,26 +66,29 @@ class StorePreview extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
-                    child: RatingBarIndicator(
-                      rating: store.evaluation != null ? store.evaluation : 2.5,
-                      direction: Axis.horizontal,
-                      itemCount: 5,
-                      itemSize: 10,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 0),
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                    ),
-                  ),
+                  store.evaluation != null
+                      ? Padding(
+                          padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
+                          child: RatingBarIndicator(
+                            rating:
+                                store.evaluation != null ? store.evaluation : 0,
+                            direction: Axis.horizontal,
+                            itemCount: 5,
+                            itemSize: 10,
+                            itemPadding: EdgeInsets.symmetric(horizontal: 0),
+                            itemBuilder: (context, _) => Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
               Container(
                   width: width - 70 - 10 - 10 - 20,
                   child: Text(
-                      _categoriesToString(store.categories)
+                    _categoriesToString(store.categories)
                     /*"${store.categories.map((category) => '${" " + category.fr + " "}')}"*/,
                     style: Theme.of(context).textTheme.bodyText2,
                     maxLines: 2,
