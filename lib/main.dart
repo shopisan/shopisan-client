@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -13,6 +15,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final userRepository = UserRepository();
+  
+  sleep(Duration(seconds: 1));
 
   runApp(BlocProvider<AuthenticationBloc>(
     create: (context) {
