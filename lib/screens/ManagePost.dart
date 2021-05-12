@@ -16,7 +16,7 @@ class ManagePost extends StatefulWidget {
 }
 
 class _ManagePostState extends State<ManagePost> {
-  FutureOr refreshList (dynamic value){
+  FutureOr refreshList(dynamic value) {
     setState(() {});
   }
 
@@ -52,7 +52,8 @@ class _ManagePostState extends State<ManagePost> {
                 label: Text(AppLocalizations.of(context).createPost,
                     style: Theme.of(context).textTheme.headline1),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/create_post').then(refreshList);
+                  Navigator.pushNamed(context, '/create_post')
+                      .then(refreshList);
                 },
               ),
             ),
@@ -75,14 +76,17 @@ class _ManagePostState extends State<ManagePost> {
                             child: ListView(
                               scrollDirection: Axis.vertical,
                               children: posts.map((post) {
-                                return TextButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, '/create_post',
-                                        arguments: {"postId": post.id}).then(refreshList);
-                                  },
-                                  child: PostPreview(post: post),
-                                );
-                              })?.toList() ?? [],
+                                    return TextButton(
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                                context, '/create_post',
+                                                arguments: {"postId": post.id})
+                                            .then(refreshList);
+                                      },
+                                      child: PostPreview(post: post),
+                                    );
+                                  })?.toList() ??
+                                  [],
                             ),
                           );
                         }

@@ -60,7 +60,9 @@ class RouteGenerator {
                           elevation: 8,
                           iconTheme: IconThemeData(color: Colors.black),
                           title: Text(
-                            AppLocalizations.of(context).editPost,
+                            args == null
+                                ? AppLocalizations.of(context).createPost
+                                : AppLocalizations.of(context).editPost,
                             style: Theme.of(context).textTheme.headline3,
                           ),
                         ),
