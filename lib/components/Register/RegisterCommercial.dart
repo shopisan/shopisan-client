@@ -87,18 +87,26 @@ class _RegisterCommercialState extends State<RegisterCommercial> {
             child: SingleChildScrollView(
               child: Container(
                 // height: double.infinity,
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: Form(
                   key: _formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Padding(padding: EdgeInsets.all(20),
+                      child: Text(
+                        AppLocalizations.of(context).registerStore,
+                        style: Theme.of(context).textTheme.bodyText2,
+                        textAlign: TextAlign.center,
+                      ),
+                      ),
+
                       TextInput(
                         controller: _brandController,
                         icon: Icons.store_outlined,
                         label: AppLocalizations.of(context).brand,
-                        margin: EdgeInsets.fromLTRB(0, 50, 0, 20),
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 20),
                         hint: AppLocalizations.of(context).brand,
                         validator: isEmpty,
                       ),

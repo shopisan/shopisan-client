@@ -126,5 +126,7 @@
   "myLocation": "Ma position",
   "phoneNumberInvalid": "Numéro de téléphone invalide",
   "userRegister": "Utilisateur",
-  "ownerRegister": "Boutique/marque"
+  "ownerRegister": "Boutique/marque",
+  "registerUser": "Enregistrez-vous ici en tant que nouvel utilisateur",
+  "registerStore" : "Enregistrez-vous ici si vous souhaitez inscrire votre commerce"
 }

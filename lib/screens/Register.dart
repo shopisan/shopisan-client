@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/components/Register/RegisterCommercial.dart';
 import 'package:shopisan/components/Register/user_register.dart';
+import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -47,13 +48,18 @@ class _RegisterScreenState extends State<RegisterScreen>
               // alignment: Alignment.center,
               child: Column(
                 children: [
-                  Text(
-                    AppLocalizations.of(context).signUp,
-                    style: Theme.of(context).textTheme.headline5,
-                    textAlign: TextAlign.center,
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.only(top:20),
+                    child:  Text(
+                      AppLocalizations.of(context).signUp,
+                      style: Theme.of(context).textTheme.headline5,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                   TabBar(
                     controller: controller,
+                    indicatorColor: CustomColors.textDark,
                     tabs: <Widget>[
                       Tab(
                         child: Text(AppLocalizations.of(context).userRegister,
@@ -70,7 +76,12 @@ class _RegisterScreenState extends State<RegisterScreen>
                   Flexible(
                       child: TabBarView(
                     controller: controller,
-                    children: <Widget>[UserRegister(), RegisterCommercial()],
+                    children: <Widget>[
+                      Padding(padding: EdgeInsets.only(top: 40),
+                      child: UserRegister(),),
+                      Padding(padding: EdgeInsets.only(top: 40),
+                         child: RegisterCommercial()
+                      )],
                   ))
                 ],
               ))

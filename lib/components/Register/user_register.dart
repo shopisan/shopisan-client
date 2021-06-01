@@ -101,11 +101,19 @@ class _UserRegisterState extends State<UserRegister> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Padding(padding: EdgeInsets.all(20),child:
+              Text(
+                AppLocalizations.of(context).registerUser,
+                style: Theme.of(context).textTheme.bodyText2,
+                textAlign: TextAlign.center,
+              ),
+                ),
+
               TextInput(
                 controller: _userNameController,
                 icon: Icons.verified_user_outlined,
                 label: AppLocalizations.of(context).userName,
-                margin: EdgeInsets.fromLTRB(20, 50, 20, 20),
+                margin: EdgeInsets.fromLTRB(20, 10, 20, 20),
                 padding: EdgeInsets.only(left: 10),
                 hint: AppLocalizations.of(context).userName,
                 validator: isEmpty,

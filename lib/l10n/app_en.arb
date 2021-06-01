@@ -128,5 +128,7 @@
   "myLocation": "My location",
   "phoneNumberInvalid": "Invalid phone number",
   "userRegister": "User",
-  "ownerRegister": "Store owner"
+  "ownerRegister": "Store owner",
+    "registerUser": "Register here as a new user",
+    "registerStore" : "Register here if you want to register your business"
 }
