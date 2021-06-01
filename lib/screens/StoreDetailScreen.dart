@@ -46,34 +46,18 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
     return [
       BottomNavigationBarItem(
         backgroundColor: Colors.white,
-        // icon: Icon(Icons.store_outlined, size: 35),
         icon: FaIcon(
           FontAwesomeIcons.store,
           size: 30,
         ),
         label: AppLocalizations.of(context).store,
-        // activeColor: CustomColors.activeBlue,
-        // inactiveColor: CustomColors.systemGrey,
       ),
-      // BottomNavigationBarItem(
-      //   // icon: FaIcon(FontAwesomeIcons.newspaper, size: 35),
-      //   icon: FaIcon(
-      //     FontAwesomeIcons.solidClone,
-      //     size: 30,
-      //   ),
-      //   label: ("Posts"),
-      //   // activeColor: CustomColors.activeBlue,
-      //   // inactiveColor: CustomColors.systemGrey,
-      // ),
       BottomNavigationBarItem(
-        // icon: Icon(Icons.map_outlined, size: 35),
         icon: FaIcon(
           FontAwesomeIcons.mapMarker,
           size: 30,
         ),
         label: AppLocalizations.of(context).map,
-        // activeColor: CustomColors.activeBlue,
-        // inactiveColor: CustomColors.systemGrey,
       ),
     ];
   }
@@ -128,11 +112,6 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
           height: newHeight,
           posts: posts,
         ),
-        // PostsTabCommercial(
-        //   store: store,
-        //   posts: posts,
-        //   height: newHeight,
-        // ),
         MapTabCommercial(
           store: store,
           height: newHeight,
@@ -192,12 +171,8 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                       top: 0,
                       left: 0,
                       right: 0,
-                      // child: Container(
-                      //   width: double.infinity,
-                      //   color: Colors.white60,
                       child: Container(
                         color: Colors.black54,
-                        //width: double.infinity,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -209,12 +184,6 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                     RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(25))),
-                                // backgroundColor:
-                                //     MaterialStateProperty.all<Color>(
-                                //   CustomColors.lightBlue,
-                                //   //Colors.white60
-                                //   //CustomColors.textDark
-                                // )
                               ),
                               onPressed: () {
                                 Navigator.pop(context);

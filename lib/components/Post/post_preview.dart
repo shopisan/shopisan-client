@@ -24,24 +24,23 @@ class _PostPreviewState extends State<PostPreview> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double width = MediaQuery.of(context).size.width;
+    bool overlayOpened = false;
+
     final OverlayState _overlay = Overlay.of(context);
     OverlayEntry overlayEntry;
 
     void removeEntry() {
       overlayEntry.remove();
+      overlayOpened = false;
     }
 
     OverlayEntry getEntry(PostMedia postMedia, Post post, int index) {
       final PageController controller = PageController(initialPage: index);
 
       return OverlayEntry(builder: (context) {
-        final size = MediaQuery
-            .of(context)
-            .size;
+        final size = MediaQuery.of(context).size;
+
         return Positioned(
           width: size.width,
           height: size.height,
@@ -53,61 +52,54 @@ class _PostPreviewState extends State<PostPreview> {
               onTap: removeEntry,
               child: Hero(
                 tag: NetworkImage(postMedia.media.file),
-                child:
-                PhotoViewGallery.builder(
+                child: PhotoViewGallery.builder(
                   scrollPhysics: const BouncingScrollPhysics(),
                   pageController: controller,
                   builder: (BuildContext context, index) {
                     return PhotoViewGalleryPageOptions(
-                      imageProvider: NetworkImage(
-                          post.postMedia[index].media.file),
-                      initialScale: PhotoViewComputedScale.contained * 0.8,
-                      minScale: PhotoViewComputedScale.contained * 0.8,
+                      imageProvider:
+                          NetworkImage(post.postMedia[index].media.file),
+                      initialScale: PhotoViewComputedScale.contained * 1,
+                      minScale: PhotoViewComputedScale.contained * 1,
                     );
                   },
                   itemCount: post.postMedia.length,
-                  loadingBuilder: (context, event) =>
-                      Center(
-                        child: Container(
-                          width: 20.0,
-                          height: 20.0,
-                          child: CircularProgressIndicator(
-                            value: event == null
-                                ? 0
-                                : event.cumulativeBytesLoaded /
+                  loadingBuilder: (context, event) => Center(
+                    child: Container(
+                      width: 20.0,
+                      height: 20.0,
+                      child: CircularProgressIndicator(
+                        value: event == null
+                            ? 0
+                            : event.cumulativeBytesLoaded /
                                 event.expectedTotalBytes,
-                          ),
-                        ),
                       ),
+                    ),
+                  ),
                 ),
-
               ),
             ),
           ),
         );
-      }
-      );
+      });
     }
-
 
     void _insertOverlay(BuildContext context, PostMedia postMedia, int index) {
       overlayEntry = getEntry(postMedia, widget.post, index);
-      return _overlay.insert(
-          overlayEntry
-      );
+      overlayOpened = true;
+      return _overlay.insert(overlayEntry);
     }
 
     bool hasTextOverflow(String text,
         // TextStyle style,
-            {double minWidth = 0,
-          double maxWidth = double.infinity,
-          int maxLines = 2}) {
+        {double minWidth = 0,
+        double maxWidth = double.infinity,
+        int maxLines = 2}) {
       final TextPainter textPainter = TextPainter(
         text: TextSpan(text: text),
         maxLines: maxLines,
         textDirection: TextDirection.ltr,
-      )
-        ..layout(minWidth: minWidth, maxWidth: width);
+      )..layout(minWidth: minWidth, maxWidth: width);
 
       return textPainter.didExceedMaxLines;
     }
@@ -126,210 +118,119 @@ class _PostPreviewState extends State<PostPreview> {
         ),
       );
 
-      return !widget.isSettings ?
-      TextButton(
-          style: TextButton.styleFrom(
-          padding: EdgeInsets.zero),
-        child: photo,
-        onPressed: () {
-          // Navigator.pushNamed(context, '/photo_post');
-          _insertOverlay(context, postMedia, index);
-        },
-      ) :
-      photo;
+      return !widget.isSettings
+          ? TextButton(
+              style: TextButton.styleFrom(padding: EdgeInsets.zero),
+              child: photo,
+              onPressed: () {
+                // Navigator.pushNamed(context, '/photo_post');
+                _insertOverlay(context, postMedia, index);
+              },
+            )
+          : photo;
     }
 
-    return Container(
-        width: double.infinity,
-        padding: EdgeInsets.only(bottom: 25),
-        // height: MediaQuery.of(context).size.height * 0.65,
-        // height: 450,
-        child: CarouselSlider(
-          options: CarouselOptions(
-            // aspectRatio: 0.65,
-              height: opened ? 475 : 400,
-              enableInfiniteScroll: false,
-              enlargeCenterPage: true,
-              enlargeStrategy: CenterPageEnlargeStrategy.scale,
-              disableCenter: true
-          ),
-          items: widget.post.postMedia.asMap().map((index, postMedia) =>
-              MapEntry(index,
-                  Builder(
-                    builder: (BuildContext context) {
-                      return Container(
-                          width: MediaQuery
-                              .of(context).size.width,
-                          child: Column(
-                            children: [
-                              getPhotoWidget(postMedia, index),
-                              Container(
-                                padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(
-                                        color: CustomColors.lightPink,
-                                        width: 2),
+    return WillPopScope(
+      onWillPop: () async {
+        if (overlayOpened) {
+          return false;
+        }
+        return true;
+      },
+      child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.only(bottom: 25),
+          // height: MediaQuery.of(context).size.height * 0.65,
+          // height: 450,
+          child: CarouselSlider(
+            options: CarouselOptions(
+                // aspectRatio: 0.65,
+                height: opened ? 475 : 400,
+                enableInfiniteScroll: false,
+                enlargeCenterPage: true,
+                enlargeStrategy: CenterPageEnlargeStrategy.scale,
+                disableCenter: true),
+            items: widget.post.postMedia
+                .asMap()
+                .map((index, postMedia) => MapEntry(index, Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              children: [
+                                getPhotoWidget(postMedia, index),
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                          color: CustomColors.lightPink,
+                                          width: 2),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: hasTextOverflow(
+                                                "${postMedia.getDescriptionLocale(locale)}")
+                                            ? TextButton(
+                                                style: ButtonStyle(
+                                                  alignment: Alignment.topLeft,
+                                                ),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    opened = !opened;
+                                                  });
+                                                },
+                                                child: Text(
+                                                  "${postMedia.getDescriptionLocale(locale)}",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: opened ? 15 : 2,
+                                                ),
+                                              )
+                                            : Text(
+                                                "${postMedia.getDescriptionLocale(locale)}",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1),
+                                        flex: 5,
+                                      ),
+                                      postMedia.price == null
+                                          ? Text("")
+                                          : Container(
+                                              alignment: Alignment.centerRight,
+                                              padding:
+                                                  EdgeInsets.only(left: 10),
+                                              // width: 60,
+                                              decoration: BoxDecoration(
+                                                  border: Border(
+                                                      left: BorderSide(
+                                                          color: CustomColors
+                                                              .lightPink,
+                                                          width: 2))),
+                                              child: Text(
+                                                  "${postMedia.price} €",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText1),
+                                            ),
+                                    ],
                                   ),
                                 ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      child:
-                                      hasTextOverflow(
-                                          "${postMedia.getDescriptionLocale(
-                                              locale)}")
-                                          ? TextButton(
-                                        style: ButtonStyle(
-                                          alignment: Alignment.topLeft,
-                                        ),
-                                        onPressed: () {
-                                          setState(() {
-                                            opened = !opened;
-                                          });
-                                        },
-                                        child: Text(
-                                          "${postMedia.getDescriptionLocale(
-                                              locale)}",
-                                          style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: opened ? 15 : 2,
-                                        ),
-                                      )
-                                          : Text(
-                                          "${postMedia.getDescriptionLocale(
-                                              locale)}",
-                                          style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .bodyText1),
-                                      flex: 5,
-                                    ),
-                                    postMedia.price == null
-                                        ? Text("")
-                                        : Container(
-                                      alignment: Alignment.centerRight,
-                                      padding: EdgeInsets.only(left: 10),
-                                      // width: 60,
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                              left: BorderSide(
-                                                  color: CustomColors.lightPink,
-                                                  width: 2))),
-                                      child: Text("${postMedia.price} €",
-                                          style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .bodyText1),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ));
-                    },
-                  ))).values.toList(),
-        ));
+                              ],
+                            ));
+                      },
+                    )))
+                .values
+                .toList(),
+          )),
+    );
   }
 }
-
-// class PostPreview extends StatelessWidget {
-//   PostPreview({@required this.post});
-//
-//   final Post post;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//         width: double.infinity,
-//         // height: MediaQuery.of(context).size.height * 0.65,
-//         height: 450,
-//         child: CarouselSlider(
-//           options: CarouselOptions(
-//               // aspectRatio: 0.65,
-//               height: 450,
-//               enableInfiniteScroll: false,
-//               enlargeCenterPage: true,
-//           ),
-//           items: post.postMedia.map((postMedia) {
-//             return Builder(
-//               builder: (BuildContext context) {
-//                 return Container(
-//                     width: MediaQuery.of(context).size.width,
-//                     // margin: EdgeInsets.symmetric(horizontal: 5.0),
-//                     // decoration: BoxDecoration(color: Colors.black),
-//                     child: Column(
-//                       children: [
-//                         Container(
-//                             height: 300,
-//                             width: double.infinity,
-//                             decoration: BoxDecoration(
-//                                 color: CustomColors.search,
-//                                 borderRadius: BorderRadius.circular(20),
-//                                 image: DecorationImage(
-//                                   image: NetworkImage(postMedia.media.file),
-//                                   fit: BoxFit.cover,
-//                                 ))),
-//                         Container(
-//                           // margin: EdgeInsets.only(bottom: 20),
-//                           padding: EdgeInsets.fromLTRB(0, 20, 10, 20),
-//                           decoration: BoxDecoration(
-//                             border: Border(
-//                               bottom: BorderSide(
-//                                   color: CustomColors.lightPink, width: 2),
-//                             ),
-//                           ),
-//                           child: Row(
-//                             mainAxisAlignment: MainAxisAlignment.start,
-//                             crossAxisAlignment: CrossAxisAlignment.start,
-//                             children: [
-//                               Expanded(
-//                                 child: Text(
-//                                   "${postMedia.description}",
-//                                   style: Theme.of(context).textTheme.bodyText1,
-//                                   textAlign: TextAlign.justify,
-//                                   overflow: TextOverflow.ellipsis,
-//                                   maxLines: 2,
-//                                 ),
-//                               ),
-//                               Column(
-//                                 mainAxisAlignment: MainAxisAlignment.start,
-//                                 crossAxisAlignment: CrossAxisAlignment.start,
-//                                 children: [
-//                                   Padding(
-//                                       padding: EdgeInsets.only(left: 10),
-//                                       child: postMedia.price == null
-//                                           ? Text("")
-//                                           : Container(
-//                                               padding:
-//                                                   EdgeInsets.only(left: 10),
-//                                               decoration: BoxDecoration(
-//                                                   border: Border(
-//                                                       left: BorderSide(
-//                                                           color: CustomColors
-//                                                               .lightPink,
-//                                                           width: 2))),
-//                                               child: Text(
-//                                                   "${postMedia.price} €",
-//                                                   style: Theme.of(context)
-//                                                       .textTheme
-//                                                       .bodyText1),
-//                                             )),
-//                                 ],
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ],
-//                     ));
-//               },
-//             );
-//           }).toList(),
-//         ));
-//   }
-// }

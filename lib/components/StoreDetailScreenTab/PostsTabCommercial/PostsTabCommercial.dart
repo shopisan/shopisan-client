@@ -59,6 +59,7 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
               ),
             )
           : GridView.count(
+              physics: ScrollPhysics(),
               shrinkWrap: true,
               crossAxisCount: 2,
               padding: EdgeInsets.all(10),
