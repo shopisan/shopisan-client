@@ -55,6 +55,8 @@ dependencies:
   firebase_analytics: ^8.0.1
   firebase_core: ^1.0.4
   intl_phone_number_input: ^0.7.0+2
+  photo_view: ^0.11.1
+  full_screen_image: ^1.0.2
 
 
 dev_dependencies:

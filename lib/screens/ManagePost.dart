@@ -83,7 +83,7 @@ class _ManagePostState extends State<ManagePost> {
                                                 arguments: {"postId": post.id})
                                             .then(refreshList);
                                       },
-                                      child: PostPreview(post: post),
+                                      child: PostPreview(post: post, isSettings: true,),
                                     );
                                   })?.toList() ??
                                   [],
