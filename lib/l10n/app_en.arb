@@ -126,5 +126,7 @@
   "about": "About",
   "clear": "Clear selection",
   "myLocation": "My location",
-  "phoneNumberInvalid": "Invalid phone number"
+  "phoneNumberInvalid": "Invalid phone number",
+  "userRegister": "User",
+  "ownerRegister": "Store owner"
 }

@@ -25,9 +25,9 @@ class FavoriteTab extends StatelessWidget {
               ),
             ),
             state is AuthenticationAuthenticated
-                ? SizedBox(
-                    height: newHeight - 64 - 70 - 32,
-                    width: double.infinity,
+                ? Flexible(
+                    // height: newHeight - 64 - 70 - 32,
+                    // width: double.infinity,
                     child: state.user.profile.favouriteStores.length == 0
                         ? Center(
                             child: Text(

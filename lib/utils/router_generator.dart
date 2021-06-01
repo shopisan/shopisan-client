@@ -13,7 +13,7 @@ import 'package:shopisan/screens/ForgotPassword.dart';
 import 'package:shopisan/screens/Login.dart';
 import 'package:shopisan/screens/ManagePost.dart';
 import 'package:shopisan/screens/Register.dart';
-import 'package:shopisan/screens/RegisterCommercial.dart';
+import 'package:shopisan/components/Register/RegisterCommercial.dart';
 import 'package:shopisan/screens/ResetPasswordScreen.dart';
 import 'package:shopisan/screens/StoreDetailScreen.dart';
 import 'package:shopisan/screens/StoresScreen.dart';
@@ -81,9 +81,6 @@ class RouteGenerator {
                     },
                     child: RegisterScreen(),
                   );
-
-                case '/register_store':
-                  return RegisterCommercialScreen();
 
                 case '/forgot_password':
                   return ForgotPasswordScreen();

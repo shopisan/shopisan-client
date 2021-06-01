@@ -10,13 +10,13 @@ import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
 import 'package:shopisan/utils/validators.dart';
 
-class RegisterCommercialScreen extends StatefulWidget {
+class RegisterCommercial extends StatefulWidget {
   @override
-  _RegisterCommercialScreenState createState() =>
-      _RegisterCommercialScreenState();
+  _RegisterCommercialState createState() =>
+      _RegisterCommercialState();
 }
 
-class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
+class _RegisterCommercialState extends State<RegisterCommercial> {
   TextEditingController _brandController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _surnameController = TextEditingController();
@@ -33,8 +33,6 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final String locale = getLocaleCode();
-
     _passwordController.addListener(() {
       setState(() {
         password = _passwordController.text;
@@ -84,16 +82,7 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
       }
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        bottomOpacity: 0.0,
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
-      ),
-      body: Stack(
-        children: [
-          Container(
+    return Container(
             alignment: Alignment.center,
             child: SingleChildScrollView(
               child: Container(
@@ -105,11 +94,6 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        AppLocalizations.of(context).signUpStore,
-                        style: Theme.of(context).textTheme.headline5,
-                        textAlign: TextAlign.center,
-                      ),
                       TextInput(
                         controller: _brandController,
                         icon: Icons.store_outlined,
@@ -263,9 +247,6 @@ class _RegisterCommercialScreenState extends State<RegisterCommercialScreen> {
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 }

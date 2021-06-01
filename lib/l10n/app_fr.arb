@@ -124,5 +124,7 @@
   "about": "À propos",
   "clear": "Nettoyer la sélection",
   "myLocation": "Ma position",
-  "phoneNumberInvalid": "Numéro de téléphone invalide"
+  "phoneNumberInvalid": "Numéro de téléphone invalide",
+  "userRegister": "Utilisateur",
+  "ownerRegister": "Boutique/marque"
 }
