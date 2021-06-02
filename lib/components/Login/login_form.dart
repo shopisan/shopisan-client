@@ -129,7 +129,7 @@ class _LoginFormState extends State<LoginForm> {
                       child: Text(
                         AppLocalizations.of(context).register,
                         style: GoogleFonts.roboto(
-                          fontSize: 18,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: CustomColors.textDark,
                         ),
