@@ -178,38 +178,37 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             TextButton(
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
+                                style: TextButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(25))),
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.keyboard_arrow_left_outlined,
-                                    color: Colors.white,
-                                    size: 30,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 10),
-                                    child: Text(
-                                      "${store.name}",
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w900,
-                                          fontSize: 18,
-                                          color: Colors.white),
-                                      maxLines: 5,
-                                      overflow: TextOverflow.ellipsis,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.keyboard_arrow_left_outlined,
+                                      color: Colors.white,
+                                      size: 30,
                                     ),
-                                  )
-                                ],
-                              ),
-                            ),
+                                    SizedBox(
+                                      child: Text(
+                                        "${store.name}",
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 16,
+                                            color: Colors.white),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        textWidthBasis:
+                                            TextWidthBasis.longestLine,
+                                      ),
+                                      width: getScreenWidth(context) - 80,
+                                    )
+                                  ],
+                                )),
                             IconButton(
                               icon: Icon(Icons.info_outline,
                                   size: 30, color: Colors.white),
