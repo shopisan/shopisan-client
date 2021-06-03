@@ -46,34 +46,18 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
     return [
       BottomNavigationBarItem(
         backgroundColor: Colors.white,
-        // icon: Icon(Icons.store_outlined, size: 35),
         icon: FaIcon(
           FontAwesomeIcons.store,
           size: 30,
         ),
         label: AppLocalizations.of(context).store,
-        // activeColor: CustomColors.activeBlue,
-        // inactiveColor: CustomColors.systemGrey,
       ),
-      // BottomNavigationBarItem(
-      //   // icon: FaIcon(FontAwesomeIcons.newspaper, size: 35),
-      //   icon: FaIcon(
-      //     FontAwesomeIcons.solidClone,
-      //     size: 30,
-      //   ),
-      //   label: ("Posts"),
-      //   // activeColor: CustomColors.activeBlue,
-      //   // inactiveColor: CustomColors.systemGrey,
-      // ),
       BottomNavigationBarItem(
-        // icon: Icon(Icons.map_outlined, size: 35),
         icon: FaIcon(
           FontAwesomeIcons.mapMarker,
           size: 30,
         ),
         label: AppLocalizations.of(context).map,
-        // activeColor: CustomColors.activeBlue,
-        // inactiveColor: CustomColors.systemGrey,
       ),
     ];
   }
@@ -128,11 +112,6 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
           height: newHeight,
           posts: posts,
         ),
-        // PostsTabCommercial(
-        //   store: store,
-        //   posts: posts,
-        //   height: newHeight,
-        // ),
         MapTabCommercial(
           store: store,
           height: newHeight,
@@ -192,55 +171,44 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                       top: 0,
                       left: 0,
                       right: 0,
-                      // child: Container(
-                      //   width: double.infinity,
-                      //   color: Colors.white60,
                       child: Container(
                         color: Colors.black54,
-                        //width: double.infinity,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             TextButton(
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
+                                style: TextButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(25))),
-                                // backgroundColor:
-                                //     MaterialStateProperty.all<Color>(
-                                //   CustomColors.lightBlue,
-                                //   //Colors.white60
-                                //   //CustomColors.textDark
-                                // )
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.keyboard_arrow_left_outlined,
-                                    color: Colors.white,
-                                    size: 30,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 10),
-                                    child: Text(
-                                      "${store.name}",
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w900,
-                                          fontSize: 18,
-                                          color: Colors.white),
-                                      maxLines: 5,
-                                      overflow: TextOverflow.ellipsis,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.keyboard_arrow_left_outlined,
+                                      color: Colors.white,
+                                      size: 30,
                                     ),
-                                  )
-                                ],
-                              ),
-                            ),
+                                    SizedBox(
+                                      child: Text(
+                                        "${store.name}",
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 16,
+                                            color: Colors.white),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        textWidthBasis:
+                                            TextWidthBasis.longestLine,
+                                      ),
+                                      width: getScreenWidth(context) - 80,
+                                    )
+                                  ],
+                                )),
                             IconButton(
                               icon: Icon(Icons.info_outline,
                                   size: 30, color: Colors.white),

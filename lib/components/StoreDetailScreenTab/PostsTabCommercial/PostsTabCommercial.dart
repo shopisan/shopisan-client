@@ -59,6 +59,7 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
               ),
             )
           : GridView.count(
+              physics: ScrollPhysics(),
               shrinkWrap: true,
               crossAxisCount: 2,
               padding: EdgeInsets.all(10),
@@ -89,12 +90,7 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
                                     .posts[index].postMedia[0].media.file),
                                 fit: BoxFit.cover,
                               )),
-                        ) /*Image(
-                        image: NetworkImage(
-                            widget.posts[index].postMedia[0].media.file),
-                        fit: BoxFit.cover,
-
-                      ),*/
+                        ) 
                         ),
                   );
                 },

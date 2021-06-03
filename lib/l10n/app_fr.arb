@@ -9,7 +9,7 @@
   "editProfile": "Modifier mon profil",
   "editStore" : "Inscription boutique",
   "signUp": "S'inscrire",
-  "signUpStore": "Inscrire un commerce",
+  "signUpStore": "Vous inscrire",
   "userName": "Nom d'utilisateur",
   "storeName": "Nom du commerce",
   "local": "Pour vous retrouver",
@@ -95,8 +95,8 @@
   "resetPassToken": "Token",
   "resetPassTokenHint": "Le token fourni depuis le mail reçu",
   "resetPasswordSuccess": "Mot de passe réinitialisé",
-  "storeDescription": "Description de votre magasin",
-  "storeDescriptionHint": "Expliquez en quelques lignes en quoi consiste votre activité",
+  "storeDescription": "Description de votre boutique/marque",
+  "storeDescriptionHint": "Description de votre activité",
   "loginRequired": "Vous devez être connecté pour utiliser cette fonctionnalité",
   "close" : "Fermé",
   "phoneNumber": "Numéro de téléphone",
@@ -124,5 +124,9 @@
   "about": "À propos",
   "clear": "Nettoyer la sélection",
   "myLocation": "Ma position",
-  "phoneNumberInvalid": "Numéro de téléphone invalide"
+  "phoneNumberInvalid": "Numéro de téléphone invalide",
+  "userRegister": "Utilisateur",
+  "ownerRegister": "Boutique/marque",
+  "registerUser": "Enregistrez-vous ici en tant que nouvel utilisateur",
+  "registerStore" : "Enregistrez-vous ici si vous souhaitez inscrire votre commerce"
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
@@ -13,7 +14,7 @@ import 'package:shopisan/screens/ForgotPassword.dart';
 import 'package:shopisan/screens/Login.dart';
 import 'package:shopisan/screens/ManagePost.dart';
 import 'package:shopisan/screens/Register.dart';
-import 'package:shopisan/screens/RegisterCommercial.dart';
+import 'package:shopisan/components/Register/RegisterCommercial.dart';
 import 'package:shopisan/screens/ResetPasswordScreen.dart';
 import 'package:shopisan/screens/StoreDetailScreen.dart';
 import 'package:shopisan/screens/StoresScreen.dart';
@@ -81,9 +82,6 @@ class RouteGenerator {
                     },
                     child: RegisterScreen(),
                   );
-
-                case '/register_store':
-                  return RegisterCommercialScreen();
 
                 case '/forgot_password':
                   return ForgotPasswordScreen();

@@ -11,7 +11,6 @@ class FavoriteTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.select((AuthenticationBloc bloc) => bloc.state);
     double newHeight = getScreenHeight(context);
-    print(newHeight);
 
     return Container(
         padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -27,8 +26,8 @@ class FavoriteTab extends StatelessWidget {
             ),
             state is AuthenticationAuthenticated
                 ? Flexible(
-                    //height: newHeight - 64 - 70 - 32,
-                    //width: double.infinity,
+                    // height: newHeight - 64 - 70 - 32,
+                    // width: double.infinity,
                     child: state.user.profile.favouriteStores.length == 0
                         ? Center(
                             child: Text(

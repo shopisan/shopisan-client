@@ -1,97 +1,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:shopisan/blocs/registration/registration_bloc.dart';
-import 'package:shopisan/components/Form/text_input.dart';
+import 'package:shopisan/components/Register/RegisterCommercial.dart';
+import 'package:shopisan/components/Register/user_register.dart';
 import 'package:shopisan/theme/colors.dart';
-import 'package:shopisan/utils/validators.dart';
+import 'package:shopisan/utils/common.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController _userNameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _repeatPasswordController =
-      TextEditingController();
+class _RegisterScreenState extends State<RegisterScreen>
+    with SingleTickerProviderStateMixin {
+  int currentIndex = 0;
 
-  final _formKey = GlobalKey<FormState>();
+  TabController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = TabController(length: 2, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final RegistrationState state =
-        context.select((RegistrationBloc bloc) => bloc.state);
-    final Map<String, String> data = state.data;
-
-    List<TextEditingController> controllers = [
-      _userNameController,
-      _emailController,
-      _passwordController,
-      _repeatPasswordController
-    ];
-
-    _changeData() {
-      BlocProvider.of<RegistrationBloc>(context)
-          .add(ChangedRegistrationEvent(data: {
-        "email": _emailController.text,
-        "username": _userNameController.text,
-        "password": _passwordController.text,
-        "passwordRepeat": _repeatPasswordController.text
-      }));
-    }
-
-    for (TextEditingController ctl in controllers) {
-      ctl.addListener(() {
-        _changeData();
+    controller.addListener(() {
+      setState(() {
+        currentIndex = controller.index;
       });
-    }
-
-    _submitRegistration() {
-      if (_formKey.currentState.validate()) {
-        BlocProvider.of<RegistrationBloc>(context)
-            .add(SubmitRegistrationEvent(data: data));
-      }
-    }
-
-    List<Widget> _getMsgText(List<String> data) {
-      List<Widget> list = [];
-      for (String err in data) {
-        switch (err) {
-          case 'email_taken':
-            list.add(Text(AppLocalizations.of(context).emailTaken));
-            break;
-          case 'userName_taken':
-            list.add(Text(AppLocalizations.of(context).userNameTaken));
-            break;
-          default:
-            list.add(Text(""))
-                /*AppLocalizations.of(context).*/;
-        }
-      }
-
-      return list;
-    }
-
-    if (state is DoneRegistrationState) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: state.success
-              ? Text(AppLocalizations.of(context).accountCreated)
-              : Column(
-                  children: _getMsgText(state.message),
-                  mainAxisSize: MainAxisSize.min,
-                ),
-          backgroundColor:
-              state.success ? CustomColors.success : CustomColors.error,
-        ));
-        Navigator.of(context).popUntil(ModalRoute.withName("/"));
-      });
-    }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -102,104 +40,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
       body: Stack(
         children: [
-          Container(
+          SizedBox(
               width: double.infinity,
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              constraints: BoxConstraints.expand(),
-              alignment: Alignment.center,
-              child: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context).signUp,
-                        style: Theme.of(context).textTheme.headline5,
-                        textAlign: TextAlign.center,
+              height: getFullScreenHeight(context) - 80,
+              // padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              // constraints: BoxConstraints.expand(height: getScreenHeight(context) - 100),
+              // alignment: Alignment.center,
+              child: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.only(top:20),
+                    child:  Text(
+                      AppLocalizations.of(context).signUp,
+                      style: Theme.of(context).textTheme.headline5,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  TabBar(
+                    controller: controller,
+                    indicatorColor: CustomColors.textDark,
+                    tabs: <Widget>[
+                      Tab(
+                        child: Text(AppLocalizations.of(context).userRegister,
+                            style: Theme.of(context).textTheme.headline6,
+                            textAlign: TextAlign.center),
                       ),
-                      TextInput(
-                        controller: _userNameController,
-                        icon: Icons.verified_user_outlined,
-                        label: AppLocalizations.of(context).userName,
-                        margin: EdgeInsets.fromLTRB(20, 50, 20, 20),
-                        padding: EdgeInsets.only(left: 10),
-                        hint: AppLocalizations.of(context).userName,
-                        validator: isEmpty,
-                      ),
-                      TextInput(
-                        controller: _emailController,
-                        icon: Icons.mail_outline,
-                        label: AppLocalizations.of(context).emailAddress,
-                        margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                        padding: EdgeInsets.only(left: 10),
-                        hint: AppLocalizations.of(context).emailHint,
-                        validator: isValidEmail,
-                      ),
-                      TextInput(
-                        controller: _passwordController,
-                        icon: Icons.lock_outline,
-                        label: AppLocalizations.of(context).password,
-                        margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                        padding: EdgeInsets.only(left: 10),
-                        hint: AppLocalizations.of(context).passHint,
-                        obscureText: true,
-                        validator: isEmpty,
-                      ),
-                      TextInput(
-                        controller: _repeatPasswordController,
-                        icon: Icons.lock_outline,
-                        label: AppLocalizations.of(context).passwordConfirm,
-                        margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                        padding: EdgeInsets.only(left: 10),
-                        hint: AppLocalizations.of(context).passwordConfirm,
-                        obscureText: true,
-                        validator: passwordsMatch,
-                        passwordValidation: _passwordController.text,
-                      ),
-                      Container(
-                        height: 50,
-                        width: double.infinity,
-                        margin: EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          color: CustomColors.textDark,
-                          boxShadow: [
-                            BoxShadow(
-                              color: CustomColors.spreadRegister,
-                              spreadRadius: 5,
-                              blurRadius: 15,
-                            ),
-                          ],
-                        ),
-                        child: TextButton(
-                          onPressed: () {
-                            _submitRegistration();
-                          },
-                          child: Text(
-                            AppLocalizations.of(context).signUp,
-                            style: GoogleFonts.roboto(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/register_store');
-                        },
-                        child: Text(
-                          AppLocalizations.of(context).signUpStore,
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                      ),
+                      Tab(
+                        child: Text(AppLocalizations.of(context).ownerRegister,
+                            style: Theme.of(context).textTheme.headline6,
+                            textAlign: TextAlign.center),
+                      )
                     ],
                   ),
-                ),
-              )),
+                  Flexible(
+                      child: TabBarView(
+                    controller: controller,
+                    children: <Widget>[
+                      Padding(padding: EdgeInsets.only(top: 40),
+                      child: UserRegister(),),
+                      Padding(padding: EdgeInsets.only(top: 40),
+                         child: RegisterCommercial()
+                      )],
+                  ))
+                ],
+              ))
         ],
       ),
     );
