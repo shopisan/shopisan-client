@@ -9,11 +9,11 @@ import 'package:shopisan/theme/colors.dart';
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final state = context.select((AuthenticationBloc bloc) => bloc.state);
+    final AuthenticationAuthenticated state = context.select((AuthenticationBloc bloc) => bloc.state as AuthenticationAuthenticated) ;
     UserProfile user;
-    if (state is AuthenticationAuthenticated) {
+    // if (state is AuthenticationAuthenticated) {
       user = state.user;
-    }
+    // }
 
     return Container(
       padding: EdgeInsets.all(10),
@@ -38,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
-                          child: Text(AppLocalizations.of(context).profile,
+                          child: Text(AppLocalizations.of(context)!.profile,
                               style: Theme.of(context).textTheme.headline3),
                         ),
                       ],
@@ -53,7 +53,7 @@ class ProfileScreen extends StatelessWidget {
                   Navigator.pushNamed(context, '/edit_profile');
                 },
               )),
-          user.isOwner ?
+          user.isOwner! ?
           Container(
               height: 80,
               padding: EdgeInsets.all(20),
@@ -73,7 +73,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
-                          child: Text(AppLocalizations.of(context).editStore,
+                          child: Text(AppLocalizations.of(context)!.editStore,
                               style: Theme.of(context).textTheme.headline3),
                         ),
                       ],
@@ -88,7 +88,7 @@ class ProfileScreen extends StatelessWidget {
                   Navigator.pushNamed(context, '/edit_stores');
                 },
               )) : Container(),
-          user.isOwner ? Container(
+          user.isOwner! ? Container(
               height: 80,
               padding: EdgeInsets.all(20),
               margin: EdgeInsets.only(bottom: 10),
@@ -107,7 +107,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
-                          child: Text(AppLocalizations.of(context).editPosts,
+                          child: Text(AppLocalizations.of(context)!.editPosts,
                               style: Theme.of(context).textTheme.headline3),
                         ),
                       ],
@@ -141,7 +141,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
-                          child: Text(AppLocalizations.of(context).logOut,
+                          child: Text(AppLocalizations.of(context)!.logOut,
                               style: Theme.of(context).textTheme.headline3),
                         ),
                       ],

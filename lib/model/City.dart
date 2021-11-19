@@ -1,13 +1,13 @@
 import 'Country.dart';
 
 class City {
-  final int id;
-  final String en;
-  final String fr;
-  final List<dynamic> postalCodes;
-  final Country country;
-  final double latitude;
-  final double longitude;
+  final int? id;
+  final String? en;
+  final String? fr;
+  final List<dynamic>? postalCodes;
+  final Country? country;
+  final double? latitude;
+  final double? longitude;
 
   City({this.id, this.en, this.fr, this.postalCodes, this.country,
     this.latitude, this.longitude});
@@ -18,7 +18,7 @@ class City {
     name = this.toJson()[locale];
 
     if ("" == name || name == null) {
-      name = this.en;
+      name = this.en!;
     }
 
     if ("" == name || name == null) {
@@ -59,7 +59,7 @@ class City {
 }
 
 class CityCollection {
-  final List<City> cities;
+  final List<City>? cities;
 
   CityCollection({this.cities});
 

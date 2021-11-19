@@ -10,7 +10,7 @@ import 'package:shopisan/utils/validators.dart';
 class ResetPasswordScreen extends StatefulWidget {
   final String email;
 
-  ResetPasswordScreen({@required this.email});
+  ResetPasswordScreen({required this.email});
 
   @override
   _ResetPasswordScreenState createState() => _ResetPasswordScreenState();
@@ -22,7 +22,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final TextEditingController _repeatPasswordController =
       TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  String password;
+  late String password;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     });
 
     _submitForm() async {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         bool rslt = await resetPasswordSubmit({
           "email": email,
           "token": _tokenController.text,
@@ -44,8 +44,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             backgroundColor: rslt ? CustomColors.success : CustomColors.error,
             content: Text(rslt
-                ? AppLocalizations.of(context).resetPasswordSuccess
-                : AppLocalizations.of(context).anErrorOccurred)));
+                ? AppLocalizations.of(context)!.resetPasswordSuccess
+                : AppLocalizations.of(context)!.anErrorOccurred)));
 
         if (rslt) {
           Navigator.of(context).popUntil(ModalRoute.withName("/"));
@@ -76,14 +76,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        AppLocalizations.of(context).resetPassword,
+                        AppLocalizations.of(context)!.resetPassword,
                         style: Theme.of(context).textTheme.headline5,
                         textAlign: TextAlign.center,
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                         child: Text(
-                          AppLocalizations.of(context).resetPassText,
+                          AppLocalizations.of(context)!.resetPassText,
                           style: GoogleFonts.poppins(
                             fontSize: 14,
                             color: CustomColors.textDark,
@@ -94,16 +94,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       TextInput(
                         controller: _tokenController,
                         icon: Icons.lock_outline,
-                        label: AppLocalizations.of(context).resetPassToken,
-                        hint: AppLocalizations.of(context).resetPassTokenHint,
+                        label: AppLocalizations.of(context)!.resetPassToken,
+                        hint: AppLocalizations.of(context)!.resetPassTokenHint,
                         margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                         validator: isEmpty,
                       ),
                       TextInput(
                         controller: _passwordController,
                         icon: Icons.lock_outline,
-                        label: AppLocalizations.of(context).password,
-                        hint: AppLocalizations.of(context).passHint,
+                        label: AppLocalizations.of(context)!.password,
+                        hint: AppLocalizations.of(context)!.passHint,
                         margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                         validator: isEmpty,
                         obscureText: true,
@@ -111,8 +111,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       TextInput(
                         controller: _repeatPasswordController,
                         icon: Icons.lock_outline,
-                        label: AppLocalizations.of(context).passwordConfirm,
-                        hint: AppLocalizations.of(context).passwordConfirm,
+                        label: AppLocalizations.of(context)!.passwordConfirm,
+                        hint: AppLocalizations.of(context)!.passwordConfirm,
                         margin: EdgeInsets.fromLTRB(0, 20, 0, 40),
                         validator: passwordsMatch,
                         passwordValidation: password,
@@ -137,7 +137,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         child: FlatButton(
                           onPressed: _submitForm,
                           child: Text(
-                            AppLocalizations.of(context).resetPassword,
+                            AppLocalizations.of(context)!.resetPassword,
                             style: GoogleFonts.roboto(
                               color: Colors.white,
                               fontSize: 16,

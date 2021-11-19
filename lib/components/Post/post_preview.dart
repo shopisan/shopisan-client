@@ -9,7 +9,7 @@ import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
 
 class PostPreview extends StatefulWidget {
-  PostPreview({@required this.post, this.isSettings = false});
+  PostPreview({required this.post, this.isSettings = false});
 
   final Post post;
   final bool isSettings;
@@ -27,8 +27,8 @@ class _PostPreviewState extends State<PostPreview> {
     double width = MediaQuery.of(context).size.width;
     bool overlayOpened = false;
 
-    final OverlayState _overlay = Overlay.of(context);
-    OverlayEntry overlayEntry;
+    final OverlayState? _overlay = Overlay.of(context);
+    late OverlayEntry overlayEntry;
 
     void removeEntry() {
       overlayEntry.remove();
@@ -51,14 +51,14 @@ class _PostPreviewState extends State<PostPreview> {
             child: GestureDetector(
               onTap: removeEntry,
               child: Hero(
-                tag: NetworkImage(postMedia.media.file),
+                tag: NetworkImage(postMedia.media!.file!),
                 child: PhotoViewGallery.builder(
                   scrollPhysics: const BouncingScrollPhysics(),
                   pageController: controller,
                   builder: (BuildContext context, index) {
                     return PhotoViewGalleryPageOptions(
                       imageProvider:
-                          NetworkImage(post.postMedia[index].media.file),
+                          NetworkImage(post.postMedia[index].media!.file!),
                       initialScale: PhotoViewComputedScale.contained * 1,
                       minScale: PhotoViewComputedScale.contained * 1,
                     );
@@ -71,8 +71,8 @@ class _PostPreviewState extends State<PostPreview> {
                       child: CircularProgressIndicator(
                         value: event == null
                             ? 0
-                            : event.cumulativeBytesLoaded /
-                                event.expectedTotalBytes,
+                            : (event.cumulativeBytesLoaded /
+                            (event.expectedTotalBytes ?? 1)),
                       ),
                     ),
                   ),
@@ -87,7 +87,7 @@ class _PostPreviewState extends State<PostPreview> {
     void _insertOverlay(BuildContext context, PostMedia postMedia, int index) {
       overlayEntry = getEntry(postMedia, widget.post, index);
       overlayOpened = true;
-      return _overlay.insert(overlayEntry);
+      return _overlay!.insert(overlayEntry);
     }
 
     bool hasTextOverflow(String text,
@@ -112,7 +112,7 @@ class _PostPreviewState extends State<PostPreview> {
           color: CustomColors.search,
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
-            image: NetworkImage(postMedia.media.file),
+            image: NetworkImage(postMedia.media!.file!),
             fit: BoxFit.cover,
           ),
         ),

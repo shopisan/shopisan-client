@@ -7,11 +7,11 @@ import 'package:shopisan/utils/common.dart';
 
 class RecentResearch extends StatelessWidget {
   const RecentResearch(
-      {Key key,
-      @required this.categories,
-      @required this.recentSearches,
-      @required this.setSelectedCats})
-      : super(key: key);
+      {
+      required this.categories,
+      required this.recentSearches,
+      required this.setSelectedCats})
+      : super();
 
   final List<Category> categories;
   final List<dynamic> recentSearches;
@@ -37,7 +37,7 @@ class RecentResearch extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-              AppLocalizations.of(context).recentResearch.toUpperCase(),
+              AppLocalizations.of(context)!.recentResearch.toUpperCase(),
               style: Theme.of(context).textTheme.headline2),
           SizedBox(
             height: 38,
@@ -62,7 +62,7 @@ class RecentResearch extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10)),
                               child: Center(
                                 child: Text(
-                                  categoryById[categoryId]
+                                  categoryById[categoryId]!
                                       .toJson()[locale]
                                       .toUpperCase(),
                                   style: TextStyle(

@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shopisan/components/Map/CustomeMarker.dart';
-import 'package:shopisan/components/StoresScreenTabs/MapTab/DetailsMap/SearchBar.dart';
 import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
@@ -12,15 +11,15 @@ import 'package:shopisan/utils/common.dart';
 
 class GoogleMapScreen extends StatefulWidget {
   const GoogleMapScreen(
-      {Key key,
-      @required this.stores,
-      @required this.categories,
-      @required this.latitude,
-      @required this.longitude,
-      @required this.selectedCountry,
-      @required this.setCountry,
-      this.loading})
-      : super(key: key);
+      {
+      required this.stores,
+      required this.categories,
+      required this.latitude,
+      required this.longitude,
+      required this.selectedCountry,
+      required this.setCountry,
+      this.loading = false})
+      : super();
 
   final List<Store> stores;
   final CategoryCollection categories;
@@ -35,9 +34,9 @@ class GoogleMapScreen extends StatefulWidget {
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
-  GoogleMapController mapController;
-  BitmapDescriptor mapMarker;
-  CameraPosition cameraPosition;
+  late GoogleMapController mapController;
+  late BitmapDescriptor mapMarker;
+  late CameraPosition cameraPosition;
 
   @override
   void initState() {
@@ -93,7 +92,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
       Set<Marker> newMarkers = {};
       for (Store store in stores) {
-        for (Address address in store.addresses) {
+        for (Address address in store.addresses!) {
           if (address.latitude != null && address.longitude != null) {
             newMarkers.add(
               Marker(
@@ -101,8 +100,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     address.id.toString() + " " + address.streetAvenue),
                 icon: mapMarker,
                 position: LatLng(
-                  double.parse(address.latitude),
-                  double.parse(address.longitude),
+                  double.parse(address.latitude!),
+                  double.parse(address.longitude!),
                 ),
                 infoWindow: InfoWindow(
                   title: store.name,
@@ -128,7 +127,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               return GoogleMap(
                 padding: EdgeInsets.only(left: 5, bottom: 80),
                 onMapCreated: _onMapCreated,
-                markers: snapshot.data,
+                markers: snapshot.data as Set<Marker>,
                 myLocationEnabled: true,
                 zoomControlsEnabled: false,
                 tiltGesturesEnabled: false,

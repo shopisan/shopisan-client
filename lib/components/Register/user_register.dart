@@ -8,7 +8,7 @@ import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/validators.dart';
 
 class UserRegister extends StatefulWidget {
-  UserRegister({Key key}) : super(key: key);
+  UserRegister() : super();
 
   @override
   _UserRegisterState createState() => _UserRegisterState();
@@ -53,7 +53,7 @@ class _UserRegisterState extends State<UserRegister> {
     }
 
     _submitRegistration() {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         BlocProvider.of<RegistrationBloc>(context)
             .add(SubmitRegistrationEvent(data: data));
       }
@@ -64,10 +64,10 @@ class _UserRegisterState extends State<UserRegister> {
       for (String err in data) {
         switch (err) {
           case 'email_taken':
-            list.add(Text(AppLocalizations.of(context).emailTaken));
+            list.add(Text(AppLocalizations.of(context)!.emailTaken));
             break;
           case 'userName_taken':
-            list.add(Text(AppLocalizations.of(context).userNameTaken));
+            list.add(Text(AppLocalizations.of(context)!.userNameTaken));
             break;
           default:
             list.add(Text(""));
@@ -78,10 +78,10 @@ class _UserRegisterState extends State<UserRegister> {
     }
 
     if (state is DoneRegistrationState) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: state.success
-              ? Text(AppLocalizations.of(context).accountCreated)
+              ? Text(AppLocalizations.of(context)!.accountCreated)
               : Column(
             children: _getMsgText(state.message),
             mainAxisSize: MainAxisSize.min,
@@ -103,7 +103,7 @@ class _UserRegisterState extends State<UserRegister> {
             children: [
               Padding(padding: EdgeInsets.all(20),child:
               Text(
-                AppLocalizations.of(context).registerUser,
+                AppLocalizations.of(context)!.registerUser,
                 style: Theme.of(context).textTheme.bodyText2,
                 textAlign: TextAlign.center,
               ),
@@ -112,28 +112,28 @@ class _UserRegisterState extends State<UserRegister> {
               TextInput(
                 controller: _userNameController,
                 icon: Icons.verified_user_outlined,
-                label: AppLocalizations.of(context).userName,
+                label: AppLocalizations.of(context)!.userName,
                 margin: EdgeInsets.fromLTRB(20, 10, 20, 20),
                 padding: EdgeInsets.only(left: 10),
-                hint: AppLocalizations.of(context).userName,
+                hint: AppLocalizations.of(context)!.userName,
                 validator: isEmpty,
               ),
               TextInput(
                 controller: _emailController,
                 icon: Icons.mail_outline,
-                label: AppLocalizations.of(context).emailAddress,
+                label: AppLocalizations.of(context)!.emailAddress,
                 margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
                 padding: EdgeInsets.only(left: 10),
-                hint: AppLocalizations.of(context).emailHint,
+                hint: AppLocalizations.of(context)!.emailHint,
                 validator: isValidEmail,
               ),
               TextInput(
                 controller: _passwordController,
                 icon: Icons.lock_outline,
-                label: AppLocalizations.of(context).password,
+                label: AppLocalizations.of(context)!.password,
                 margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
                 padding: EdgeInsets.only(left: 10),
-                hint: AppLocalizations.of(context).passHint,
+                hint: AppLocalizations.of(context)!.passHint,
                 obscureText: true,
                 validator: isEmpty,
               ),
@@ -141,11 +141,11 @@ class _UserRegisterState extends State<UserRegister> {
                 controller: _repeatPasswordController,
                 icon: Icons.lock_outline,
                 label:
-                AppLocalizations.of(context).passwordConfirm,
+                AppLocalizations.of(context)!.passwordConfirm,
                 margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
                 padding: EdgeInsets.only(left: 10),
                 hint:
-                AppLocalizations.of(context).passwordConfirm,
+                AppLocalizations.of(context)!.passwordConfirm,
                 obscureText: true,
                 validator: passwordsMatch,
                 passwordValidation: _passwordController.text,
@@ -170,7 +170,7 @@ class _UserRegisterState extends State<UserRegister> {
                     _submitRegistration();
                   },
                   child: Text(
-                    AppLocalizations.of(context).signUp,
+                    AppLocalizations.of(context)!.signUp,
                     style: GoogleFonts.roboto(
                       color: Colors.white,
                       fontSize: 16,

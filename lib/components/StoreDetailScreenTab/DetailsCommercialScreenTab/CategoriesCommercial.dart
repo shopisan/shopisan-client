@@ -5,7 +5,7 @@ import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
 
 class CategoriesCommercial extends StatefulWidget {
-  const CategoriesCommercial({Key key, @required this.store}) : super(key: key);
+  const CategoriesCommercial({required this.store}) : super();
 
   final Store store;
 
@@ -24,7 +24,7 @@ class _CategoriesCommercialState extends State<CategoriesCommercial> {
         height: 30,
         child: ListView(
           scrollDirection: Axis.horizontal,
-          children: widget.store.categories
+          children: widget.store.categories!
               .map((category) => Container(
                     padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
                     margin: EdgeInsets.only(left: 10),

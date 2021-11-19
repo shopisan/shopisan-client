@@ -10,7 +10,7 @@ final userTable = 'userTable';
 class DatabaseProvider {
   static final DatabaseProvider dbProvider = DatabaseProvider();
 
-  Database _database;
+  late Database _database;
 
   Future<Database> get database async {
     if (_database != null) {

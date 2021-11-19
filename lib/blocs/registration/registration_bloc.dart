@@ -35,12 +35,12 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
           bool rslt = await registrationUserProfile(data);
           if (rslt) {
             FirebaseAnalytics().logEvent(name: 'Registration',parameters:null);
-            yield DoneRegistrationState(data: data, success: true);
+            yield DoneRegistrationState(data: data, success: true, message: []);
           } else {
-            yield DoneRegistrationState(data: data, success: false);
+            yield DoneRegistrationState(data: data, success: false, message: []);
           }
-        } catch (exception) {
-          Map<String, dynamic> error = jsonDecode(exception.message);
+        } catch (e) {
+          Map<String, dynamic> error = jsonDecode(e.toString());
           List<String> message = [];
 
           if (error.containsKey("email")) {

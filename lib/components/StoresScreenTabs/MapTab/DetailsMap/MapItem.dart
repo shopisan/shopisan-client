@@ -5,8 +5,8 @@ import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
 
 class MapItem extends StatelessWidget {
-  const MapItem({Key key, @required this.stores, @required this.categories})
-      : super(key: key);
+  const MapItem({required this.stores, required this.categories})
+      : super();
 
   final List<Store> stores;
   final CategoryCollection categories;
@@ -14,6 +14,14 @@ class MapItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+
+    double _GetStoreRating(Store store){
+      if (store.evaluation != null) {
+        return store.evaluation!;
+      }
+
+      return 0;
+    }
 
     return Container(
       margin: EdgeInsets.all(10),
@@ -46,9 +54,7 @@ class MapItem extends StatelessWidget {
                                 Container(
                                   // margin: EdgeInsets.only(left: 10),
                                   child: RatingBarIndicator(
-                                    rating: store.evaluation != null
-                                        ? store.evaluation
-                                        : 0,
+                                    rating: _GetStoreRating(store),
                                     direction: Axis.horizontal,
                                     itemCount: 5,
                                     itemSize: 15,

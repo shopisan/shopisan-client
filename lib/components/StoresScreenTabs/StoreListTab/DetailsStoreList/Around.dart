@@ -7,8 +7,8 @@ import 'package:shopisan/theme/colors.dart';
 
 class AroundYou extends StatelessWidget {
   const AroundYou(
-      {Key key, @required this.stores, @required this.height, this.loading})
-      : super(key: key);
+      {required this.stores, required this.height, this.loading = false})
+      : super();
 
   final List<Store> stores;
   final double height;
@@ -24,7 +24,7 @@ class AroundYou extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 10),
               child: Row(
                 children: [
-                  Text(AppLocalizations.of(context).aroundYou.toUpperCase(),
+                  Text(AppLocalizations.of(context)!.aroundYou.toUpperCase(),
                       style: Theme.of(context).textTheme.headline4),
                 ],
               )),

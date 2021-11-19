@@ -5,8 +5,8 @@ import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
 
 class ProfileTab extends StatefulWidget {
-  const ProfileTab({Key key, @required this.store, @required this.categories, @required this.formKey})
-      : super(key: key);
+  const ProfileTab({
+    required this.store, required this.categories, required this.formKey});
 
   final Store store;
   final List<Category> categories;

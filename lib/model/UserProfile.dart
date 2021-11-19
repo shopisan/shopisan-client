@@ -1,13 +1,13 @@
 import 'package:shopisan/model/UserProfileProfile.dart';
 
 class UserProfile{
-  int id;
-  String username;
-  String email;
-  bool isActive;
-  bool isOwner;
-  String url;
-  UserProfileProfile profile;
+  int? id;
+  String? username;
+  String? email;
+  bool? isActive;
+  bool? isOwner;
+  String? url;
+  UserProfileProfile? profile;
 
 
   UserProfile({
@@ -37,6 +37,6 @@ class UserProfile{
     "is_active": isActive,
     "is_owner": isOwner,
     "url": url,
-    "profile": profile.toJson()
+    "profile": profile?.toJson()
   };
 }

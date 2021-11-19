@@ -18,43 +18,45 @@ class StoreListTab extends StatefulWidget {
   final List<dynamic> history;
   final List selectedCats;
   final String selectedCountry;
-  final ValueChanged<String> setCountry;
+  final ValueChanged<Object?> setCountry;
   final bool loading;
   final List<City> cities;
   final int selectedCity;
-  final ValueChanged<int> setCity;
+  final ValueChanged<Object?> setCity;
   final List<Category> categories;
   final List<Country> countries;
 
   const StoreListTab(
-      {Key key,
-      @required this.setSelectedCats,
-      @required this.stores,
-      @required this.history,
-      @required this.selectedCats,
-      @required this.selectedCountry,
-      @required this.setCountry,
-      @required this.selectedCity,
-      @required this.setCity,
-      @required this.cities,
-      @required this.categories,
-      @required this.countries,
-      this.loading})
-      : super(key: key);
+      {
+      required this.setSelectedCats,
+      required this.stores,
+      required this.history,
+      required this.selectedCats,
+      required this.selectedCountry,
+      required this.setCountry,
+      required this.selectedCity,
+      required this.setCity,
+      required this.cities,
+      required this.categories,
+      required this.countries,
+      this.loading = false})
+      : super();
 
   @override
   _StoreListTabState createState() => _StoreListTabState();
 }
 
 class _StoreListTabState extends State<StoreListTab> {
-  AddressCollection addresses;
+  late AddressCollection addresses;
 
-  Map<DateTime, Category> categoryHistory;
+  late Map<DateTime, Category> categoryHistory;
 
   @override
   Widget build(BuildContext context) {
     List<Category> categories = widget.categories;
     List<Country> countries = widget.countries;
+
+    print(countries.toString());
 
     double newHeight = getScreenHeight(context);
     int recentSearchHeight =

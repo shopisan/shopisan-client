@@ -8,14 +8,14 @@ import 'DetailsMap/MapItem.dart';
 
 class MapTab extends StatefulWidget {
   const MapTab(
-      {Key key,
-      @required this.stores,
-      @required this.latitude,
-      @required this.longitude,
-      @required this.selectedCountry,
-      @required this.setCountry,
-      this.loading})
-      : super(key: key);
+      {
+      required this.stores,
+      required this.latitude,
+      required this.longitude,
+      required this.selectedCountry,
+      required this.setCountry,
+      this.loading = false})
+      : super();
 
   final List<Store> stores;
   final double latitude;

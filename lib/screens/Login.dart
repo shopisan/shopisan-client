@@ -9,9 +9,8 @@ import 'package:shopisan/repository/user_repository.dart';
 class LoginPage extends StatelessWidget {
   final UserRepository userRepository;
 
-  LoginPage({Key key, @required this.userRepository})
-      : assert(userRepository != null),
-        super(key: key);
+  LoginPage({required this.userRepository})
+      : super();
 
   @override
   Widget build(BuildContext context) {

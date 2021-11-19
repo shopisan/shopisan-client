@@ -6,7 +6,7 @@ import 'package:shopisan/model/Post.dart';
 class PicturesPostsCommercial extends StatelessWidget {
   final Post post;
 
-  PicturesPostsCommercial({@required this.post});
+  PicturesPostsCommercial({required this.post});
 
   @override
   Widget build(BuildContext context) {

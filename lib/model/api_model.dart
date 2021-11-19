@@ -1,6 +1,6 @@
 class UserLogin {
-  String username;
-  String password;
+  String? username;
+  String? password;
 
   UserLogin({this.username, this.password});
 
@@ -11,7 +11,7 @@ class UserLogin {
 }
 
 class Token{
-  String token;
+  String? token;
 
   Token({this.token});
 

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:shopisan/model/user_model.dart';
-import 'package:meta/meta.dart';
 import 'package:shopisan/model/api_model.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/dao/user_dao.dart';
@@ -9,8 +8,8 @@ class UserRepository {
   final userDao = UserDao();
 
   Future<User> authenticate ({
-    @required String username,
-    @required String password,
+    required String username,
+    required String password,
   }) async {
     UserLogin userLogin = UserLogin(
         username: username,
@@ -26,14 +25,14 @@ class UserRepository {
   }
 
   Future<void> persistToken ({
-    @required User user
+    required User user
   }) async {
     // write token with the user to the database
     await userDao.createUser(user);
   }
 
   Future <void> deleteToken({
-    @required int id
+    required int id
   }) async {
     await userDao.deleteUser(id);
   }
@@ -44,7 +43,7 @@ class UserRepository {
   }
 
   Future <String> getAuthToken() async {
-    Map<dynamic, dynamic> user = await userDao.getUser(0);
-    return user['token'];
+    Map<dynamic, dynamic>? user = await userDao.getUser(0);
+    return user?['token'];
   }
 }

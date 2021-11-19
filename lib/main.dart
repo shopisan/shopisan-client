@@ -28,13 +28,17 @@ void main() async {
 }
 
 class App extends StatelessWidget {
+  // static final facebookAppEvents = FacebookAppEvents();
   final FirebaseAnalytics _analytics = FirebaseAnalytics();
   final UserRepository userRepository;
 
-  App({Key key, @required this.userRepository}) : super(key: key);
+  App({required this.userRepository}) : super();
 
   @override
   Widget build(BuildContext context) {
+    _analytics.logAppOpen();
+    // facebookAppEvents.logEvent(name: "App open");
+
     return MaterialApp(
         title: 'Shopisan',
         theme: CustomTheme.lightTheme,
@@ -61,7 +65,8 @@ class App extends StatelessWidget {
         ],
         initialRoute: '/',
         localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales
+        supportedLocales: AppLocalizations.supportedLocales,
+
         // localizationsDelegates: [
         //   AppLocalizations.delegate,
         //   GlobalMaterialLocalizations.delegate,

@@ -3,24 +3,24 @@ import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/File.dart';
 
 class Store {
-  int id;
+  int? id;
   String name;
-  String url;
-  String website;
-  Map<String, dynamic> openingTimes;
-  File profilePicture;
-  List<Category> categories;
-  List<Address> addresses;
+  String? url;
+  String? website;
+  Map<String, dynamic>? openingTimes;
+  File? profilePicture;
+  List<Category>? categories;
+  List<Address>? addresses;
   // ignore: non_constant_identifier_names
   String description_fr;
   // ignore: non_constant_identifier_names
   String description_en;
-  bool appointmentOnly;
-  double evaluation;
+  bool? appointmentOnly;
+  double? evaluation;
 
   Store({
     this.id,
-    this.name,
+    required this.name,
     this.url,
     this.website,
     this.openingTimes,
@@ -28,9 +28,9 @@ class Store {
     this.categories,
     this.addresses,
     // ignore: non_constant_identifier_names
-    this.description_fr,
+    this.description_fr = "",
     // ignore: non_constant_identifier_names
-    this.description_en,
+    this.description_en = "",
     this.appointmentOnly = false,
     this.evaluation
   });
@@ -57,10 +57,10 @@ class Store {
   }
 
   factory Store.fromJson(final json) {
-    List<Address> addressesList =
+    List<Address>? addressesList =
         AddressCollection.fromJson(json['addresses']).addresses;
 
-    List<Category> categoriesList =
+    List<Category>? categoriesList =
         CategoryCollection.fromJson(json["categories"]).categories;
 
     return Store(
@@ -81,15 +81,15 @@ class Store {
 
   Map<String, dynamic> toJson(){
     List<String> categoryList = [];
-    if (null != categories) {
-      for (Category category in this.categories) {
-        categoryList.add(category.url);
+    if (null != this.categories) {
+      for (Category category in this.categories!) {
+        categoryList.add(category.url!);
       }
     }
 
     List<Map<String, dynamic>> addressList = [];
     if (null != addresses) {
-      for (Address address in addresses) {
+      for (Address address in addresses!) {
         addressList.add(address.toJson());
       }
     }
@@ -111,7 +111,7 @@ class Store {
 }
 
 class StoreCollection {
-  final List<Store> stores;
+  final List<Store>? stores;
 
   StoreCollection({this.stores});
 

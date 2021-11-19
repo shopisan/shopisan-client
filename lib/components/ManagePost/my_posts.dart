@@ -4,7 +4,7 @@ import 'package:shopisan/components/Post/post_preview.dart';
 import 'package:shopisan/model/Post.dart';
 
 class MyPosts extends StatelessWidget {
-  MyPosts({@required this.posts});
+  MyPosts({required this.posts});
 
   final List<Post> posts;
 

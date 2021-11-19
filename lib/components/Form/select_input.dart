@@ -7,14 +7,14 @@ class SelectInput extends StatelessWidget {
   final List<DropdownMenuItem> items;
   final IconData icon;
   final String label;
-  final Function validator;
+  final Function? validator;
 
   SelectInput(
-      {@required this.value,
-      @required this.callback,
-      @required this.items,
-      @required this.label,
-      @required this.icon,
+      {required this.value,
+      required this.callback,
+      required this.items,
+      required this.label,
+      required this.icon,
       this.validator});
 
   @override
@@ -38,11 +38,9 @@ class SelectInput extends StatelessWidget {
           // ],
         ),
         child: DropdownButtonFormField(
-            items: items ?? [],
+            items: items,
             value: value,
-            onChanged: (value) {
-              callback(value);
-            },
+            onChanged: callback(value),
             decoration: InputDecoration(
               isDense: true,
               // Added this
@@ -66,50 +64,7 @@ class SelectInput extends StatelessWidget {
               labelText: label,
               /*hintText: hint*/
             ),
-            validator: null != validator
-                ? (value) {
-                    return validator(value, context);
-                  }
-                : null)
-
-        /* FormField<String>(
-          builder: (FormFieldState<String> state) {
-            return InputDecorator(
-              decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(0),
-                  prefixIcon: Icon(
-                    icon,
-                    color: CustomColors.iconsActive,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(40),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
-                    ),
-                  ),
-                  labelText: label,
-                  labelStyle: TextStyle(color: CustomColors.iconsActive)),
-              isEmpty: value == '',
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  style: Theme.of(context).textTheme.headline2,
-                  value: value,
-                  isDense: true,
-                  onChanged: (String newValue) {
-                    callback(newValue);
-                  },
-                  items: items ?? [],
-                ),
-              ),
-            );
-          },
-          validator: null != validator
-              ? (value) {
-                  return validator(value, context);
-                }
-              : null,
-        )*/
+            validator: validator != null ? validator!(value, context) : null)
         );
   }
 }

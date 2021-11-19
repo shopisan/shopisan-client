@@ -32,7 +32,7 @@ class UserDao {
     }
   }
 
-  Future<Map<dynamic, dynamic>> getUser(int id) async {
+  Future<Map<dynamic, dynamic>?> getUser(int id) async {
     final db = await dbProvider.database;
     try {
       List<Map> users =

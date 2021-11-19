@@ -9,11 +9,11 @@ import 'package:shopisan/utils/common.dart';
 
 class DescriptionTabCommercial extends StatefulWidget {
   const DescriptionTabCommercial(
-      {Key key,
-      @required this.store,
-      @required this.height,
-      @required this.posts})
-      : super(key: key);
+      {
+      required this.store,
+      required this.height,
+      required this.posts})
+      : super();
 
   final Store store;
   final double height;
@@ -26,8 +26,8 @@ class DescriptionTabCommercial extends StatefulWidget {
 
 class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
   final String locale = getLocaleCode();
-  Store store;
-  List<Post> posts;
+  Store? store;
+  List<Post>? posts;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                       bottom: BorderSide(color: CustomColors.spread),
                     )),*/
                     child: Text(
-                      AppLocalizations.of(context).description.toUpperCase(),
+                      AppLocalizations.of(context)!.description.toUpperCase(),
                       style: Theme.of(context).textTheme.headline3,
                     ),
                   ),
@@ -81,7 +81,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                         /*SingleChildScrollView(
                       child: */
                         Text(
-                      store?.getDescriptionLocale(locale) ?? "",
+                      store.getDescriptionLocale(locale) ?? "",
                       style: Theme.of(context).textTheme.bodyText1,
                       textAlign: TextAlign.justify,
                     ),
@@ -91,7 +91,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                     width: double.infinity,
                     padding: EdgeInsets.fromLTRB(20, 20, 20, 40),
                     child: Text(
-                      AppLocalizations.of(context).post.toUpperCase(),
+                      AppLocalizations.of(context)!.post.toUpperCase(),
                       style: Theme.of(context).textTheme.headline3,
                     ),
                   ),

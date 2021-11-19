@@ -8,7 +8,7 @@ import 'package:shopisan/model/Store.dart';
 import 'opening_hours_form.dart';
 
 class OpeningHoursTab extends StatefulWidget {
-  OpeningHoursTab({@required this.store});
+  OpeningHoursTab({required this.store});
   final Store store;
 
   @override
@@ -28,7 +28,7 @@ class _OpeningHoursTabState extends State<OpeningHoursTab> {
                 Container(
                   padding: EdgeInsets.all(10),
                   child: Text(
-                    AppLocalizations.of(context).scheduleStore.toUpperCase(),
+                    AppLocalizations.of(context)!.scheduleStore.toUpperCase(),
                     style: Theme.of(context).textTheme.headline3,
                   ),
                 )
@@ -37,16 +37,16 @@ class _OpeningHoursTabState extends State<OpeningHoursTab> {
             CheckboxListTile(
                 value: store.appointmentOnly,
                 title: Text(
-                  AppLocalizations.of(context).appointmentOnly,
+                  AppLocalizations.of(context)!.appointmentOnly,
                   style: Theme.of(context).textTheme.headline2,
                 ),
                 controlAffinity: ListTileControlAffinity.leading,
                 onChanged: (value) {
-                  store.appointmentOnly = value;
+                  store.appointmentOnly = value!;
                   BlocProvider.of<EditStoreBloc>(context)
                       .add(StoreEditAppointmentOnlyEvent(store: store));
                 }),
-            store.appointmentOnly
+            store.appointmentOnly!
                 ? Column()
                 : OpeningHoursForm(
               store: store,

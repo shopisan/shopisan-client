@@ -12,7 +12,7 @@ class AppStarted extends AuthenticationEvent {}
 class LoggedIn extends AuthenticationEvent {
   final User user;
 
-  const LoggedIn({@required this.user});
+  const LoggedIn({required this.user});
 
   @override
   List<Object> get props => [user];
@@ -26,7 +26,7 @@ class LoggedOut extends AuthenticationEvent {}
 class UserChangedEvent extends AuthenticationEvent {
   final UserProfile user;
 
-  const UserChangedEvent({@required this.user});
+  const UserChangedEvent({required this.user});
 
   @override
   List<Object> get props => [user];

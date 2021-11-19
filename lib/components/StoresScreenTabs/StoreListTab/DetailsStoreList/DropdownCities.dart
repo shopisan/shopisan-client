@@ -12,14 +12,14 @@ import 'package:shopisan/utils/common.dart';
 
 class DropdownCities extends StatefulWidget {
   const DropdownCities(
-      {Key key,
-      @required this.setCity,
-      @required this.cities,
-      @required this.selectedCity})
-      : super(key: key);
+      {
+      required this.setCity,
+      required this.cities,
+      required this.selectedCity})
+      : super();
 
   final List<City> cities;
-  final ValueChanged<int> setCity;
+  final ValueChanged<Object?> setCity;
   final int selectedCity;
 
   @override
@@ -36,7 +36,7 @@ class _DropdownCitiesState extends State<DropdownCities> {
     _getCityItems(){
       List<MultiSelectItem> items = [];
 
-      items.add(MultiSelectItem(0, AppLocalizations.of(context).myLocation));
+      items.add(MultiSelectItem(0, AppLocalizations.of(context)!.myLocation));
 
       if (null != widget.cities) {
         for (City city in widget.cities) {
@@ -67,7 +67,7 @@ class _DropdownCitiesState extends State<DropdownCities> {
                     Icons.search,
                     color: CustomColors.iconsActive,
                   ),
-                  buttonText: Text(AppLocalizations.of(context).city,
+                  buttonText: Text(AppLocalizations.of(context)!.city,
                       style: Theme.of(context).textTheme.headline6),
                   items: _getCityItems(),
                   searchable: true,
@@ -83,7 +83,7 @@ class _DropdownCitiesState extends State<DropdownCities> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   cancelText: Text(
-                    AppLocalizations.of(context).cancel,
+                    AppLocalizations.of(context)!.cancel,
                     style: GoogleFonts.poppins(
                         fontSize: 14,
                         color: CustomColors.iconsActive,
@@ -97,7 +97,7 @@ class _DropdownCitiesState extends State<DropdownCities> {
                         fontWeight: FontWeight.bold),
                   ),
                   title: Text(
-                    AppLocalizations.of(context).select,
+                    AppLocalizations.of(context)!.select,
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 )

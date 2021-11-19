@@ -9,7 +9,7 @@ import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class AddressTab extends StatefulWidget {
-  AddressTab({@required this.store, @required this.formKey});
+  AddressTab({required this.store, required this.formKey});
   final Store store;
   final GlobalKey<FormState> formKey;
 
@@ -38,14 +38,14 @@ class _AddressTabState extends State<AddressTab> with AutomaticKeepAliveClientMi
               Container(
                 padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
                 child: Text(
-                  AppLocalizations.of(context).local.toUpperCase(),
+                  AppLocalizations.of(context)!.local.toUpperCase(),
                   style: Theme.of(context).textTheme.headline3,
                 ),
               )
             ],
           ),
           Column(
-            children: store.addresses
+            children: store.addresses!
                 .asMap()
                 .map((index, Address address) => MapEntry(
                 index, StoreAddressRow(address: address, index: index)))

@@ -1,5 +1,3 @@
-import 'dart:io' show Platform;
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
@@ -13,9 +11,9 @@ class SearchBar extends StatefulWidget {
   final void Function(String selectCountry) setCountry;
 
   SearchBar({
-    @required this.setCameraPosition,
-    @required this.selectedCountry,
-    @required this.setCountry});
+    required this.setCameraPosition,
+    required this.selectedCountry,
+    required this.setCountry});
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -26,7 +24,7 @@ final searchScaffoldKey = GlobalKey<ScaffoldState>();
 
 class _SearchBarState extends State<SearchBar> {
   TextEditingController _cityController = TextEditingController();
-  BitmapDescriptor mapMarker;
+  late BitmapDescriptor mapMarker;
 
   _getCountry(addrComponents) {
     for (var i = 0; i < addrComponents.length; i++) {

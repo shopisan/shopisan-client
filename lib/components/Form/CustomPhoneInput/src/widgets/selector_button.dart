@@ -9,30 +9,29 @@ import 'package:shopisan/components/Form/CustomPhoneInput/src/widgets/item.dart'
 /// [SelectorButton]
 class SelectorButton extends StatelessWidget {
   final List<Country> countries;
-  final Country country;
+  final Country? country;
   final SelectorConfig selectorConfig;
-  final TextStyle selectorTextStyle;
-  final InputDecoration searchBoxDecoration;
+  final TextStyle? selectorTextStyle;
+  final InputDecoration? searchBoxDecoration;
   final bool autoFocusSearchField;
-  final String locale;
+  final String? locale;
   final bool isEnabled;
   final bool isScrollControlled;
 
-  final ValueChanged<Country> onCountryChanged;
+  final ValueChanged<Country?> onCountryChanged;
 
   const SelectorButton({
-    Key key,
-    @required this.countries,
-    @required this.country,
-    @required this.selectorConfig,
-    @required this.selectorTextStyle,
-    @required this.searchBoxDecoration,
-    @required this.autoFocusSearchField,
-    @required this.locale,
-    @required this.onCountryChanged,
-    @required this.isEnabled,
-    @required this.isScrollControlled,
-  }) : super(key: key);
+    required this.countries,
+    required this.country,
+    required this.selectorConfig,
+    required this.selectorTextStyle,
+    required this.searchBoxDecoration,
+    required this.autoFocusSearchField,
+    required this.locale,
+    required this.onCountryChanged,
+    required this.isEnabled,
+    required this.isScrollControlled,
+  }) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +103,7 @@ class SelectorButton extends StatelessWidget {
       return DropdownMenuItem<Country>(
         value: country,
         child: Item(
-          key: Key(TestHelper.countryItemKeyValue(country.alpha2Code)),
+          // key: Key(TestHelper.countryItemKeyValue(country.alpha2Code)),
           country: country,
           showFlag: selectorConfig.showFlags,
           useEmoji: selectorConfig.useEmoji,
@@ -134,7 +133,7 @@ class SelectorButton extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ) as Future<Country>;
   }
 
   /// shows a Dialog with list [countries] if the [PhoneInputSelectorType.BOTTOM_SHEET] is selected
@@ -179,6 +178,6 @@ class SelectorButton extends StatelessWidget {
           ),
         ]);
       },
-    );
+    ) as Future<Country>;
   }
 }

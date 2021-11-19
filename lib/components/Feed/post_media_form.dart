@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,8 +10,8 @@ import 'package:shopisan/model/PostMedia.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class PostMediaForm extends StatefulWidget {
-  final PostMedia postMedia;
-  final int index;
+  final PostMedia? postMedia;
+  final int? index;
 
   PostMediaForm({this.postMedia, this.index});
 
@@ -26,7 +25,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
   final _descriptionController_fr = TextEditingController();
   final _descriptionController_en = TextEditingController();
   final _priceController = TextEditingController();
-  File _image;
+  File? _image;
 
   Future takePicture() async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
@@ -54,10 +53,10 @@ class _PostMediaFormState extends State<PostMediaForm> {
 
   @override
   void initState() {
-    _descriptionController_fr.text = widget.postMedia.description_fr;
-    _descriptionController_en.text = widget.postMedia.description_en;
-    if (null != widget.postMedia.price) {
-      _priceController.text = widget.postMedia.price.toString();
+    _descriptionController_fr.text = (widget.postMedia?.description_fr ?? "");
+    _descriptionController_en.text = (widget.postMedia?.description_en ?? "");
+    if (null != widget.postMedia?.price) {
+      _priceController.text = (widget.postMedia?.price ?? 0).toString();
     }
 
     super.initState();
@@ -70,22 +69,27 @@ class _PostMediaFormState extends State<PostMediaForm> {
           description_fr: _descriptionController_fr.text,
           description_en: _descriptionController_en.text,
           price: _priceController.text,
-          index: widget.index));
+          index: widget.index ?? 0));
     }
 
     void _deletePostMedia() {
       BlocProvider.of<PostCreationBloc>(context)
-          .add(DeletePostMedia(index: widget.index));
+          .add(DeletePostMedia(index: widget.index ?? 0));
     }
 
     _takePhoto(ImageSource source) async {
       final pickedFile = await picker.getImage(source: source);
+
+      // TODO we might have to add a few conditions here
+
       Navigator.of(context).pop();
       setState(() {
-        _image = File(pickedFile.path);
+        _image = File(pickedFile!.path);
       });
+
       BlocProvider.of<PostCreationBloc>(context)
-          .add(ChangePostMediaPicture(uploadFile: _image, index: widget.index));
+          .add(ChangePostMediaPicture(uploadFile: _image!,
+          index: widget.index ?? 0));
     }
 
     return BlocBuilder<PostCreationBloc, PostCreationState>(
@@ -125,9 +129,9 @@ class _PostMediaFormState extends State<PostMediaForm> {
                     //     Border.all(color: CustomColors.lightPink, width: 3)
                   ),
                   child: _image == null
-                      ? (widget.postMedia.media != null
+                      ? (widget.postMedia?.media != null
                           ? Image.network(
-                              widget.postMedia.media.file,
+                              widget.postMedia!.media!.file!,
                               fit: BoxFit.cover,
                             )
                           : Center(
@@ -143,12 +147,12 @@ class _PostMediaFormState extends State<PostMediaForm> {
                                     size: 60,
                                   ),
                                 ),
-                                Text(AppLocalizations.of(context).noImage,
+                                Text(AppLocalizations.of(context)!.noImage,
                                     style:
                                         Theme.of(context).textTheme.headline3),
                               ],
                             )))
-                      : Image.file(_image),
+                      : Image.file(_image!),
                 ),
                 Positioned(
                   bottom: 15,
@@ -173,7 +177,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
-                                        AppLocalizations.of(context)
+                                        AppLocalizations.of(context)!
                                             .choosePicture,
                                         style: Theme.of(context)
                                             .textTheme
@@ -194,7 +198,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
                                           icon: Icon(Icons.camera,
                                               color: Colors.black),
                                           label: Text(
-                                              AppLocalizations.of(context)
+                                              AppLocalizations.of(context)!
                                                   .camera,
                                               style: Theme.of(context)
                                                   .textTheme
@@ -212,7 +216,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
                                           icon: Icon(Icons.image,
                                               color: Colors.black),
                                           label: Text(
-                                              AppLocalizations.of(context)
+                                              AppLocalizations.of(context)!
                                                   .gallery,
                                               style: Theme.of(context)
                                                   .textTheme
@@ -243,7 +247,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
                       isTextarea: true,
                       controller: _descriptionController_en,
                       icon: Icons.text_snippet_outlined,
-                      label: AppLocalizations.of(context).description+" "+AppLocalizations.of(context).english,
+                      label: AppLocalizations.of(context)!.description+" "+AppLocalizations.of(context)!.english,
                       // initialValue: widget.postMedia.description,
                       callback: (value) {
                         _updateValues();
@@ -255,7 +259,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
                       isTextarea: true,
                       controller: _descriptionController_fr,
                       icon: Icons.text_snippet_outlined,
-                      label: AppLocalizations.of(context).description+" "+AppLocalizations.of(context).french,
+                      label: AppLocalizations.of(context)!.description+" "+AppLocalizations.of(context)!.french,
                       // initialValue: widget.postMedia.description,
                       callback: (value) {
                         _updateValues();

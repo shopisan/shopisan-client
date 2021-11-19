@@ -23,7 +23,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     _onLoginButtonPressed() {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         BlocProvider.of<LoginBloc>(context).add(LoginButtonPressed(
           username: _emailController.text,
           password: _passwordController.text,
@@ -33,9 +33,9 @@ class _LoginFormState extends State<LoginForm> {
 
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state is LoginFaliure) {
+        if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(AppLocalizations.of(context).loginError),
+            content: Text(AppLocalizations.of(context)!.loginError),
             backgroundColor: Colors.red,
           ));
         }
@@ -54,24 +54,24 @@ class _LoginFormState extends State<LoginForm> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text(AppLocalizations.of(context).logIn,
+                    Text(AppLocalizations.of(context)!.logIn,
                         style: Theme.of(context).textTheme.headline5),
                     TextInput(
                       controller: _emailController,
                       icon: Icons.mail_outline,
-                      label: AppLocalizations.of(context).emailAddress,
+                      label: AppLocalizations.of(context)!.emailAddress,
                       margin: EdgeInsets.fromLTRB(20, 50, 20, 20),
                       padding: EdgeInsets.only(left: 10),
-                      hint: AppLocalizations.of(context).emailAddress,
+                      hint: AppLocalizations.of(context)!.emailAddress,
                       validator: isEmpty,
                     ),
                     TextInput(
                       controller: _passwordController,
                       icon: Icons.lock_outline,
-                      label: AppLocalizations.of(context).password,
+                      label: AppLocalizations.of(context)!.password,
                       margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
                       padding: EdgeInsets.only(left: 10),
-                      hint: AppLocalizations.of(context).passHint,
+                      hint: AppLocalizations.of(context)!.passHint,
                       obscureText: true,
                       validator: isEmpty,
                     ),
@@ -95,7 +95,7 @@ class _LoginFormState extends State<LoginForm> {
                             ? _onLoginButtonPressed
                             : null,
                         child: Text(
-                          AppLocalizations.of(context).logIn,
+                          AppLocalizations.of(context)!.logIn,
                           style: GoogleFonts.roboto(
                             color: Colors.white,
                             fontSize: 16,
@@ -117,7 +117,7 @@ class _LoginFormState extends State<LoginForm> {
                           Navigator.pushNamed(context, '/forgot_password');
                         },
                         child: Text(
-                          AppLocalizations.of(context).forgotPassword,
+                          AppLocalizations.of(context)!.forgotPassword,
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
@@ -127,7 +127,7 @@ class _LoginFormState extends State<LoginForm> {
                         Navigator.pushNamed(context, '/register');
                       },
                       child: Text(
-                        AppLocalizations.of(context).register,
+                        AppLocalizations.of(context)!.register,
                         style: GoogleFonts.roboto(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

@@ -5,16 +5,16 @@ import 'package:libphonenumber_plugin/libphonenumber_plugin.dart' as p;
 class PhoneNumberUtil {
   /// Accepts [phoneNumber] and [isoCode]
   /// Returns [Future<String>]
-  static Future<String> getNameForNumber(
-      {String phoneNumber, String isoCode}) async {
+  static Future<String?> getNameForNumber(
+      {required String phoneNumber, required String isoCode}) async {
     return p.PhoneNumberUtil.getNameForNumber(phoneNumber, isoCode);
   }
 
   /// [isValidNumber] checks if a [phoneNumber] is valid.
   /// Accepts [phoneNumber] and [isoCode]
   /// Returns [Future<bool>].
-  static Future<bool> isValidNumber(
-      { String phoneNumber, String isoCode}) async {
+  static Future<bool?> isValidNumber(
+      { required String phoneNumber, required String isoCode}) async {
     if (phoneNumber.length < 2) {
       return false;
     }
@@ -24,15 +24,15 @@ class PhoneNumberUtil {
   /// [normalizePhoneNumber] normalizes a string of characters representing a phone number
   /// Accepts [phoneNumber] and [isoCode]
   /// Returns [Future<String>]
-  static Future<String> normalizePhoneNumber(
-      {String phoneNumber, String isoCode}) async {
+  static Future<String?> normalizePhoneNumber(
+      {required String phoneNumber, required String isoCode}) async {
     return p.PhoneNumberUtil.normalizePhoneNumber(phoneNumber, isoCode);
   }
 
   /// Accepts [phoneNumber] and [isoCode]
   /// Returns [Future<RegionInfo>] of all information available about the [phoneNumber]
   static Future<RegionInfo> getRegionInfo(
-      {String phoneNumber, String isoCode}) async {
+      {required String phoneNumber, required String isoCode}) async {
     var response = await p.PhoneNumberUtil.getRegionInfo(phoneNumber, isoCode);
 
     return RegionInfo(
@@ -44,7 +44,7 @@ class PhoneNumberUtil {
   /// Accepts [phoneNumber] and [isoCode]
   /// Returns [Future<PhoneNumberType>] type of phone number
   static Future<PhoneNumberType> getNumberType(
-      {String phoneNumber, String isoCode}) async {
+      {required String phoneNumber, required String isoCode}) async {
     final dynamic type =
         await p.PhoneNumberUtil.getNumberType(phoneNumber, isoCode);
 
@@ -54,8 +54,8 @@ class PhoneNumberUtil {
   /// [formatAsYouType] uses Google's libphonenumber input format as you type.
   /// Accepts [phoneNumber] and [isoCode]
   /// Returns [Future<String>]
-  static Future<String> formatAsYouType(
-      {String phoneNumber, String isoCode}) async {
+  static Future<String?> formatAsYouType(
+      {required String phoneNumber, required String isoCode}) async {
     return p.PhoneNumberUtil.formatAsYouType(phoneNumber, isoCode);
   }
 }
@@ -65,9 +65,9 @@ class PhoneNumberUtil {
 /// [regionPrefix] dialCode of the phone number
 /// [formattedPhoneNumber] national level formatting rule apply to the phone number
 class RegionInfo {
-  String regionPrefix;
-  String isoCode;
-  String formattedPhoneNumber;
+  String? regionPrefix;
+  String? isoCode;
+  String? formattedPhoneNumber;
 
   RegionInfo({this.regionPrefix, this.isoCode, this.formattedPhoneNumber});
 

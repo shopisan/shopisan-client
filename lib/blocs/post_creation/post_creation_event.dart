@@ -5,21 +5,21 @@ abstract class PostCreationEvent extends Equatable {
 }
 
 class IsStarted extends PostCreationEvent {
-  final int postId;
+  final int? postId;
 
-  const IsStarted({@required this.postId});
-
-  @override
-  List<Object> get props => [postId];
+  const IsStarted({this.postId});
 
   @override
-  String toString() => 'Post edited { store: $postId }';
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'Post started { store: $postId }';
 }
 
 class ChangePost extends PostCreationEvent {
   final Post post;
 
-  const ChangePost({@required this.post});
+  const ChangePost({required this.post});
 
   @override
   List<Object> get props => [post];
@@ -42,7 +42,8 @@ class ChangePostMedia extends PostCreationEvent {
   final int index;
 
   const ChangePostMedia(
-      {@required this.description_fr, @required this.description_en, @required this.price, @required this.index});
+      {required this.description_fr, required this.description_en,
+        required this.price, required this.index});
 
   @override
   List<Object> get props => [uploadFile, description_fr, description_en, price, index];
@@ -57,7 +58,7 @@ class ChangePostMediaPicture extends PostCreationEvent {
   final int index;
 
   const ChangePostMediaPicture(
-      {@required this.uploadFile, @required this.index});
+      {required this.uploadFile, required this.index});
 
   @override
   List<Object> get props => [uploadFile, index];
@@ -70,7 +71,7 @@ class ChangePostStore extends PostCreationEvent {
   final String storeUrl;
 
   const ChangePostStore(
-      {@required this.storeUrl});
+      {required this.storeUrl});
 
   @override
   List<Object> get props => [storeUrl];
@@ -84,7 +85,7 @@ class AddPostMedia extends PostCreationEvent {
 class DeletePostMedia extends PostCreationEvent {
   final int index;
 
-  const DeletePostMedia({@required this.index});
+  const DeletePostMedia({required this.index});
 
   @override
   List<Object> get props => [index];

@@ -2,13 +2,13 @@ import 'package:shopisan/model/File.dart' as FileModel;
 import 'dart:io';
 
 class PostMedia {
-  int id;
-  String description_fr;
-  String description_en;
-  double price;
-  int post;
-  FileModel.File media;
-  File uploadFile;
+  int? id;
+  String? description_fr;
+  String? description_en;
+  double? price;
+  int? post;
+  FileModel.File? media;
+  File? uploadFile;
 
   PostMedia({
       this.id,
@@ -24,7 +24,7 @@ class PostMedia {
     description = this.toJson()["description_" + locale];
 
     if ("" == description || description == null) {
-      description = this.description_en;
+      description = this.description_en!;
     }
 
     if ("" == description || description == null) {
@@ -55,7 +55,7 @@ class PostMedia {
       "description_fr": description_fr,
       "description_en": description_en,
       "price": price,
-      "media": media.url
+      "media": media!.url
     };
   }
 }
@@ -63,7 +63,7 @@ class PostMedia {
 class PostMediaCollection {
   final List<PostMedia> postMedias;
 
-  PostMediaCollection({this.postMedias});
+  PostMediaCollection({required this.postMedias});
 
   factory PostMediaCollection.fromJson(json) {
     return PostMediaCollection(

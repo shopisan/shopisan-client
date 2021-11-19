@@ -6,7 +6,7 @@ abstract class RegistrationEvent extends Equatable {}
 class ChangedRegistrationEvent extends RegistrationEvent {
   final Map<String, String> data;
 
-  ChangedRegistrationEvent({@required this.data});
+  ChangedRegistrationEvent({required this.data});
 
   @override
   List<Object> get props => [data];
@@ -15,7 +15,7 @@ class ChangedRegistrationEvent extends RegistrationEvent {
 class SubmitRegistrationEvent extends RegistrationEvent {
   final Map<String, String> data;
 
-  SubmitRegistrationEvent({@required this.data});
+  SubmitRegistrationEvent({required this.data});
 
   @override
   List<Object> get props => [data];

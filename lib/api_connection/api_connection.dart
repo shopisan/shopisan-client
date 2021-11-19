@@ -29,7 +29,7 @@ Future<List<Category>> fetchCategories() async {
       headers: {'Accept': 'application/json'});
 
   if (response.statusCode == 200) {
-    return CategoryCollection.fromJson(jsonDecode(response.body)).categories;
+    return CategoryCollection.fromJson(jsonDecode(response.body)).categories!;
   } else {
     throw Exception(
         'Failed to load categories, ca serait bien de faire quelque chose dans ce cas la');
@@ -41,7 +41,7 @@ Future<List<Country>> fetchCountries() async {
       headers: {'Accept': 'application/json'});
 
   if (response.statusCode == 200) {
-    return CountryCollection.fromJson(jsonDecode(response.body)).countries;
+    return CountryCollection.fromJson(jsonDecode(response.body)).countries!;
   } else {
     throw Exception(
         'Failed to load countries, ca serait bien de faire quelque chose dans ce cas la');
@@ -54,7 +54,7 @@ Future<List<City>> fetchCities(String country) async {
       headers: {'Accept': 'application/json'});
 
   if (response.statusCode == 200) {
-    return CityCollection.fromJson(jsonDecode(response.body)).cities;
+    return CityCollection.fromJson(jsonDecode(response.body)).cities!;
   } else {
     throw Exception(
         'Failed to load countries, ca serait bien de faire quelque chose dans ce cas la');
@@ -76,19 +76,19 @@ Future<List<Store>> fetchStores(List<dynamic> categories, double latitude,
     params['position'] = "$latitude,$longitude";
   }
 
-  Map<String, dynamic> headers = await getHeaders();
+  Map<String, String> headers = await getHeaders();
   final response = await http.get(Uri.https(_base, "/api/stores_geo/", params),
       headers: headers);
 
   if (response.statusCode == 200) {
-    return StoreCollection.fromJson(json.decode(response.body)).stores;
+    return StoreCollection.fromJson(json.decode(response.body)).stores!;
   } else {
     throw Exception('Failed to load stores');
   }
 }
 
 Future<Store> fetchStore(int storeId) async {
-  Map<String, dynamic> headers = await getHeaders();
+  Map<String, String> headers = await getHeaders();
   final response = await http.get(
       Uri.https(_base, "/api/stores/stores/${storeId.toString()}/"),
       headers: headers);
@@ -101,7 +101,7 @@ Future<Store> fetchStore(int storeId) async {
 }
 
 Future<int> editStore(Store store) async {
-  Map<String, dynamic> headers = await getHeaders();
+  Map<String, String> headers = await getHeaders();
   http.Response response;
 
   if (store.id == null) {
@@ -122,7 +122,7 @@ Future<int> editStore(Store store) async {
 }
 
 Future<UserProfile> manageFavouriteStore(int storeId) async {
-  Map<String, dynamic> headers = await getHeaders();
+  Map<String, String> headers = await getHeaders();
 
   final http.Response response = await http.post(
       Uri.https(_base, "/api/manage_favourite_store/"),
@@ -138,7 +138,7 @@ Future<UserProfile> manageFavouriteStore(int storeId) async {
 }
 
 Future<bool> postEvaluation(int storeId, double score) async {
-  Map<String, dynamic> headers = await getHeaders();
+  Map<String, String> headers = await getHeaders();
 
   final http.Response response = await http.post(
       Uri.https(_base, "/api/stores/evals/"),
@@ -172,7 +172,7 @@ Future<FileModel.File> uploadFile(File file, String type) async {
 
 Future<Map<String, dynamic>> sendStoreRegistration(
     Map<String, dynamic> body) async {
-  Map<String, dynamic> headers = await getHeaders();
+  Map<String, String> headers = await getHeaders();
 
   final http.Response response = await http.post(
       Uri.https(_base, "/api/store_contact/"),

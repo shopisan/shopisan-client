@@ -26,7 +26,7 @@ class _EditStoreState extends State<EditStore>
   final _formProfileKey = GlobalKey<FormState>();
   final _formAddressKey = GlobalKey<FormState>();
 
-  TabController controller;
+  late TabController controller;
 
   @override
   void initState() {
@@ -53,14 +53,14 @@ class _EditStoreState extends State<EditStore>
       return LoadingIndicator();
     }
 
-    final Store store = state.store;
-    final List<Category> categories = state.categories;
+    final Store store = state.store as Store;
+    final List<Category> categories = state.categories as List<Category>;
 
     if (state is DoneEditStoreState) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context).storeSaved),
+            content: Text(AppLocalizations.of(context)!.storeSaved),
             backgroundColor: CustomColors.success,
           ),
         );
@@ -69,10 +69,10 @@ class _EditStoreState extends State<EditStore>
     }
 
     if (state is ErrorEditStoreState) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context).anErrorOccurred),
+            content: Text(AppLocalizations.of(context)!.anErrorOccurred),
             backgroundColor: CustomColors.error,
           ),
         );
@@ -88,22 +88,22 @@ class _EditStoreState extends State<EditStore>
           prevent = true;
         }
       } else {
-        prevent = !_formAddressKey.currentState.validate();
+        prevent = !_formAddressKey.currentState!.validate();
       }
 
       if (!oneFilled([store.description_fr, store.description_en])) {
         prevent = true;
-        WidgetsBinding.instance.addPostFrameCallback((_) {
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(AppLocalizations.of(context).atLeastOneDescriptionRequired),
+              content: Text(AppLocalizations.of(context)!.atLeastOneDescriptionRequired),
               backgroundColor: CustomColors.error,
             ),
           );
         });
       }
 
-      if (_formProfileKey.currentState.validate() && !prevent) {
+      if (_formProfileKey.currentState!.validate() && !prevent) {
         BlocProvider.of<EditStoreBloc>(context).add(
             StoreSubmitEvent(authBloc: authBloc));
       }
@@ -125,7 +125,7 @@ class _EditStoreState extends State<EditStore>
               elevation: 8,
               iconTheme: IconThemeData(color: Colors.black),
               title: Text(
-                AppLocalizations.of(context).editStore,
+                AppLocalizations.of(context)!.editStore,
                 style: Theme.of(context).textTheme.headline4,
               ),
             ),

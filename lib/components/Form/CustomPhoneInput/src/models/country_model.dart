@@ -4,22 +4,22 @@ import 'package:flutter/rendering.dart';
 /// information about the country
 class Country {
   /// The name of the [Country]
-  final String name;
+  final String? name;
 
   /// The alpha 2 isoCode of the [Country]
-  final String alpha2Code;
+  final String? alpha2Code;
 
   /// The alpha 3 isoCode of the [Country]
-  final String alpha3Code;
+  final String? alpha3Code;
 
   /// The dialCode of the [Country]
-  final String dialCode;
+  final String? dialCode;
 
   /// The flagUri which links to the flag for the [Country] in the library assets
-  final String flagUri;
+  final String? flagUri;
 
   /// The nameTranslation for translation
-  final Map<String, String> nameTranslations;
+  final Map<String, String>? nameTranslations;
 
   Country({
     this.name,

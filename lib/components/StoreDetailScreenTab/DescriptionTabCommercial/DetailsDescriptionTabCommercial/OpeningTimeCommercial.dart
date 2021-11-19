@@ -5,8 +5,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/model/Store.dart';
 
 class OpeningTimeCommercial extends StatefulWidget {
-  const OpeningTimeCommercial({Key key, @required this.store})
-      : super(key: key);
+  const OpeningTimeCommercial({required this.store})
+      : super();
 
   final Store store;
 
@@ -18,19 +18,19 @@ class _OpeningTimeCommercialState extends State<OpeningTimeCommercial> {
   _getDayText(day) {
     switch (day) {
       case 'MO':
-        return AppLocalizations.of(context).mo;
+        return AppLocalizations.of(context)!.mo;
       case 'TU':
-        return AppLocalizations.of(context).tu;
+        return AppLocalizations.of(context)!.tu;
       case 'WE':
-        return AppLocalizations.of(context).we;
+        return AppLocalizations.of(context)!.we;
       case 'TH':
-        return AppLocalizations.of(context).th;
+        return AppLocalizations.of(context)!.th;
       case 'FR':
-        return AppLocalizations.of(context).fr;
+        return AppLocalizations.of(context)!.fr;
       case 'SA':
-        return AppLocalizations.of(context).sa;
+        return AppLocalizations.of(context)!.sa;
       case 'SU':
-        return AppLocalizations.of(context).su;
+        return AppLocalizations.of(context)!.su;
     }
   }
 
@@ -58,7 +58,7 @@ class _OpeningTimeCommercialState extends State<OpeningTimeCommercial> {
   @override
   Widget build(BuildContext context) {
     Store store = widget.store;
-    Map<String, dynamic> openingTimes = store.openingTimes;
+    Map<String, dynamic> openingTimes = store.openingTimes!;
     List<String> sortedKeys = openingTimes == null ? [] : openingTimes.keys.toList()
       ..sort((a, b) => _getDayOrder(a).compareTo(_getDayOrder(b)));
 
@@ -70,15 +70,15 @@ class _OpeningTimeCommercialState extends State<OpeningTimeCommercial> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(AppLocalizations.of(context).scheduleStore.toUpperCase(),
+            Text(AppLocalizations.of(context)!.scheduleStore.toUpperCase(),
                 style: Theme.of(context).textTheme.headline3),
             Padding(
               padding: EdgeInsets.only(top: 10),
-              child: store.appointmentOnly
-                  ? Text(AppLocalizations.of(context).appointmentOnly,
+              child: store.appointmentOnly!
+                  ? Text(AppLocalizations.of(context)!.appointmentOnly,
                       style: Theme.of(context).textTheme.bodyText1)
                   : store.openingTimes == null
-                      ? Text(AppLocalizations.of(context).noSchedule,
+                      ? Text(AppLocalizations.of(context)!.noSchedule,
                           style: Theme.of(context).textTheme.bodyText1)
                       : Column(
                           children: sortedKeys.map((key) {
@@ -110,7 +110,7 @@ Widget _getHoursRows(hours, context) {
   List<Widget> children = [];
   if (hours.length == 0) {
     return Text(
-      AppLocalizations.of(context).close,
+      AppLocalizations.of(context)!.close,
       style: Theme.of(context).textTheme.bodyText1,
     );
   }

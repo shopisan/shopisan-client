@@ -12,7 +12,7 @@ class RatingBarCommercial extends StatefulWidget {
   final Store store;
   final profile;
 
-  RatingBarCommercial({@required this.store, this.profile});
+  RatingBarCommercial({required this.store, this.profile});
 
   @override
   _RatingBarCommercialState createState() => _RatingBarCommercialState();
@@ -38,7 +38,7 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
           color: CustomColors.lightBlue,
 
           child: RatingBarIndicator(
-            rating: store?.evaluation ?? 0,
+            rating: store.evaluation ?? 0,
             direction: Axis.horizontal,
             itemCount: 5,
             itemSize: 15,
@@ -57,11 +57,11 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
             } else {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 key: Key("yup"),
-                content: Text(AppLocalizations.of(context).loginRequired),
+                content: Text(AppLocalizations.of(context)!.loginRequired),
                 backgroundColor: CustomColors.error,
                 action: SnackBarAction(
                   textColor: Colors.white,
-                  label: AppLocalizations.of(context).logIn.toUpperCase(),
+                  label: AppLocalizations.of(context)!.logIn.toUpperCase(),
                   onPressed: () {
                     Navigator.of(context)
                         .pushNamed("/", arguments: {"toLogin": true});
@@ -86,7 +86,7 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
                 Padding(
                   padding: EdgeInsets.all(30),
                   child: Text(
-                    AppLocalizations.of(context).evaluation,
+                    AppLocalizations.of(context)!.evaluation,
                     style: GoogleFonts.poppins(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
@@ -94,7 +94,7 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
                   ),
                 ),
                 RatingBar.builder(
-                  initialRating: store?.evaluation ?? 0,
+                  initialRating: store.evaluation ?? 0,
                   minRating: 0,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
@@ -106,9 +106,9 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
                     color: Colors.amber,
                   ),
                   onRatingUpdate: (rating) async {
-                    bool rslt = await postEvaluation(store.id, rating);
+                    bool rslt = await postEvaluation(store.id as int, rating);
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(AppLocalizations.of(context).evalMessage),
+                      content: Text(AppLocalizations.of(context)!.evalMessage),
                       backgroundColor: CustomColors.success,
                     ));
                   },

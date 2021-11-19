@@ -23,20 +23,20 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     final UserProfile user =
-        context.select((ProfileEditBloc bloc) => bloc.state.user);
+        context.select((ProfileEditBloc bloc) => bloc.state.user as UserProfile);
     final state = context.select((ProfileEditBloc bloc) => bloc.state);
 
     _setUser(username, email, name, surname, dob) {
       user.username = username;
       user.email = email;
-      UserProfileProfile profile = user.profile;
+      UserProfileProfile profile = user.profile as UserProfileProfile;
       profile.name = name;
       profile.surname = surname;
       profile.dob = dob;
     }
 
     _submitUser() {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         BlocProvider.of<ProfileEditBloc>(context).add(SubmitEvent(user: user));
       }
     }
@@ -44,22 +44,22 @@ class _EditProfileState extends State<EditProfile> {
     if (state is InitialProfileEditState) {
       return LoadingIndicator();
     } else if (state is ErrorProfileEditState) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
         // comme la snackbar est appelée avant le build du widget scaffold
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.error == 'submit'
-                ? AppLocalizations.of(context).profileError
-                : AppLocalizations.of(context).profilePicError),
+                ? AppLocalizations.of(context)!.profileError
+                : AppLocalizations.of(context)!.profilePicError),
             backgroundColor: CustomColors.error,
           ),
         );
       });
     } else if (state is SuccessProfileEditState) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
         // comme la snackbar est appelée avant le build du widget scaffold
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(AppLocalizations.of(context).profileSaved),
+          content: Text(AppLocalizations.of(context)!.profileSaved),
           backgroundColor: CustomColors.success,
         ));
       });
@@ -74,7 +74,7 @@ class _EditProfileState extends State<EditProfile> {
         elevation: 8,
         iconTheme: IconThemeData(color: Colors.black),
         title: Text(
-          AppLocalizations.of(context).profile,
+          AppLocalizations.of(context)!.profile,
           style: Theme.of(context).textTheme.headline4,
         ),
       ),

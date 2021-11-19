@@ -6,9 +6,9 @@ import 'package:shopisan/components/Form/CustomPhoneInput/src/utils/util.dart';
 /// Creates a list of Countries with a search textfield.
 class CountrySearchListWidget extends StatefulWidget {
   final List<Country> countries;
-  final InputDecoration searchBoxDecoration;
-  final String locale;
-  final ScrollController scrollController;
+  final InputDecoration? searchBoxDecoration;
+  final String? locale;
+  final ScrollController? scrollController;
   final bool autoFocus;
   final bool showFlags;
   final bool useEmoji;
@@ -16,8 +16,8 @@ class CountrySearchListWidget extends StatefulWidget {
   CountrySearchListWidget(this.countries, this.locale,
       {this.searchBoxDecoration,
       this.scrollController,
-      this.showFlags,
-      this.useEmoji,
+      this.showFlags = true,
+      this.useEmoji = false,
       this.autoFocus = false});
 
   @override
@@ -27,7 +27,7 @@ class CountrySearchListWidget extends StatefulWidget {
 
 class _CountrySearchListWidgetState extends State<CountrySearchListWidget> {
   TextEditingController _searchController = TextEditingController();
-  List<Country> filteredCountries;
+  List<Country> filteredCountries = [];
 
   @override
   void initState() {
@@ -55,14 +55,14 @@ class _CountrySearchListWidgetState extends State<CountrySearchListWidget> {
       return widget.countries
           .where(
             (Country country) =>
-                country.alpha3Code
+                country.alpha3Code!
                     .toLowerCase()
                     .startsWith(value.toLowerCase()) ||
-                country.name.toLowerCase().contains(value.toLowerCase()) ||
+                country.name!.toLowerCase().contains(value.toLowerCase()) ||
                 getCountryName(country)
                     .toLowerCase()
                     .contains(value.toLowerCase()) ||
-                country.dialCode.contains(value.toLowerCase()),
+                country.dialCode!.contains(value.toLowerCase()),
           )
           .toList();
     }
@@ -74,12 +74,12 @@ class _CountrySearchListWidgetState extends State<CountrySearchListWidget> {
   /// returns the translated name.
   String getCountryName(Country country) {
     if (widget.locale != null && country.nameTranslations != null) {
-      String translated = country.nameTranslations[widget.locale];
+      String translated = country.nameTranslations![widget.locale]!;
       if (translated != null && translated.isNotEmpty) {
         return translated;
       }
     }
-    return country.name;
+    return country.name!;
   }
 
   @override
@@ -106,7 +106,7 @@ class _CountrySearchListWidgetState extends State<CountrySearchListWidget> {
             itemBuilder: (BuildContext context, int index) {
               Country country = filteredCountries[index];
               return ListTile(
-                key: Key(TestHelper.countryItemKeyValue(country.alpha2Code)),
+                key: Key(TestHelper.countryItemKeyValue(country.alpha2Code!)),
                 leading: widget.showFlags
                     ? _Flag(country: country, useEmoji: widget.useEmoji)
                     : null,
@@ -137,10 +137,10 @@ class _CountrySearchListWidgetState extends State<CountrySearchListWidget> {
 }
 
 class _Flag extends StatelessWidget {
-  final Country country;
+  final Country? country;
   final bool useEmoji;
 
-  const _Flag({Key key, this.country, this.useEmoji}) : super(key: key);
+  const _Flag({this.country, this.useEmoji = false}) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +154,7 @@ class _Flag extends StatelessWidget {
                 : country?.flagUri != null
                     ? CircleAvatar(
                         backgroundImage: AssetImage(
-                          country.flagUri,
+                          country!.flagUri!,
                           package: 'intl_phone_number_input',
                         ),
                       )

@@ -22,13 +22,13 @@ class SelectorConfig {
   /// [countryComparator], sort the country list according to the comparator.
   ///
   /// Sorting is disabled by default
-  final CountryComparator countryComparator;
+  final CountryComparator? countryComparator;
 
   /// [setSelectorButtonAsPrefixIcon], this sets/places the selector button inside the [TextField] as a prefixIcon.
   final bool setSelectorButtonAsPrefixIcon;
 
   /// Space before the flag icon
-  final double leadingPadding;
+  final double? leadingPadding;
 
   /// Add white space for short dial code
   final bool trailingSpace;

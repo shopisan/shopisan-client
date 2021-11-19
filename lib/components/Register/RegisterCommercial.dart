@@ -27,7 +27,7 @@ class _RegisterCommercialState extends State<RegisterCommercial> {
   TextEditingController _repeatPasswordController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
   String phoneNumber = "";
-  String password;
+  String password = "";
 
   final _formKey = GlobalKey<FormState>();
 
@@ -40,7 +40,7 @@ class _RegisterCommercialState extends State<RegisterCommercial> {
     });
 
     _submitRegistration() async {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         Map<String, dynamic> rslt = await sendStoreRegistration({
           "brand": _brandController.text,
           "name": _nameController.text,
@@ -53,12 +53,12 @@ class _RegisterCommercialState extends State<RegisterCommercial> {
           "lang": getLocaleCode()
         });
 
-        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
           if (rslt.containsKey('success')) {
             FirebaseAnalytics()
                 .logEvent(name: 'Owner registration', parameters: null);
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(AppLocalizations.of(context).storeTicketSubmitted),
+              content: Text(AppLocalizations.of(context)!.storeTicketSubmitted),
               backgroundColor: CustomColors.success,
             ));
 
@@ -66,14 +66,14 @@ class _RegisterCommercialState extends State<RegisterCommercial> {
           } else {
             if (rslt.containsKey('username')) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(AppLocalizations.of(context).userNameTaken),
+                content: Text(AppLocalizations.of(context)!.userNameTaken),
                 backgroundColor: CustomColors.error,
               ));
             }
 
             if (rslt.containsKey('email')) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(AppLocalizations.of(context).emailTaken),
+                content: Text(AppLocalizations.of(context)!.emailTaken),
                 backgroundColor: CustomColors.error,
               ));
             }
@@ -96,7 +96,7 @@ class _RegisterCommercialState extends State<RegisterCommercial> {
                     children: [
                       Padding(padding: EdgeInsets.all(20),
                       child: Text(
-                        AppLocalizations.of(context).registerStore,
+                        AppLocalizations.of(context)!.registerStore,
                         style: Theme.of(context).textTheme.bodyText2,
                         textAlign: TextAlign.center,
                       ),
@@ -105,41 +105,41 @@ class _RegisterCommercialState extends State<RegisterCommercial> {
                       TextInput(
                         controller: _brandController,
                         icon: Icons.store_outlined,
-                        label: AppLocalizations.of(context).brand,
+                        label: AppLocalizations.of(context)!.brand,
                         margin: EdgeInsets.fromLTRB(0, 10, 0, 20),
-                        hint: AppLocalizations.of(context).brand,
+                        hint: AppLocalizations.of(context)!.brand,
                         validator: isEmpty,
                       ),
                       TextInput(
                         controller: _nameController,
                         icon: Icons.verified_user_outlined,
-                        label: AppLocalizations.of(context).name,
+                        label: AppLocalizations.of(context)!.name,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                        hint: AppLocalizations.of(context).name,
+                        hint: AppLocalizations.of(context)!.name,
                         validator: isEmpty,
                       ),
                       TextInput(
                         controller: _surnameController,
                         icon: Icons.verified_user_outlined,
-                        label: AppLocalizations.of(context).lastName,
+                        label: AppLocalizations.of(context)!.lastName,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                        hint: AppLocalizations.of(context).lastName,
+                        hint: AppLocalizations.of(context)!.lastName,
                         validator: isEmpty,
                       ),
                       TextInput(
                         controller: _usernameController,
                         icon: Icons.person_outline,
-                        label: AppLocalizations.of(context).userName,
+                        label: AppLocalizations.of(context)!.userName,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                        hint: AppLocalizations.of(context).userName,
+                        hint: AppLocalizations.of(context)!.userName,
                         validator: isEmpty,
                       ),
                       TextInput(
                         controller: _emailController,
                         icon: Icons.mail_outline,
-                        label: AppLocalizations.of(context).emailAddress,
+                        label: AppLocalizations.of(context)!.emailAddress,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                        hint: AppLocalizations.of(context).emailHint,
+                        hint: AppLocalizations.of(context)!.emailHint,
                         validator: isValidEmail,
                       ),
                       Container(
@@ -171,7 +171,7 @@ class _RegisterCommercialState extends State<RegisterCommercial> {
                                 selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                               setSelectorButtonAsPrefixIcon: true
                             ),
-                            errorMessage: AppLocalizations.of(context).phoneNumberInvalid,
+                            errorMessage: AppLocalizations.of(context)!.phoneNumberInvalid,
                             textStyle: Theme.of(context).textTheme.bodyText1,
                             inputBorder: InputBorder.none,
                             spaceBetweenSelectorAndTextField: 0,
@@ -195,27 +195,27 @@ class _RegisterCommercialState extends State<RegisterCommercial> {
                         obscureText: true,
                         controller: _passwordController,
                         icon: Icons.lock_outline,
-                        label: AppLocalizations.of(context).password,
+                        label: AppLocalizations.of(context)!.password,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                        hint: AppLocalizations.of(context).passHint,
+                        hint: AppLocalizations.of(context)!.passHint,
                         validator: isEmpty,
                       ),
                       TextInput(
                         obscureText: true,
                         controller: _repeatPasswordController,
                         icon: Icons.lock_outline,
-                        label: AppLocalizations.of(context).passwordConfirm,
+                        label: AppLocalizations.of(context)!.passwordConfirm,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                        hint: AppLocalizations.of(context).passwordConfirm,
+                        hint: AppLocalizations.of(context)!.passwordConfirm,
                         validator: passwordsMatch,
                         passwordValidation: _passwordController.text,
                       ),
                       TextInput(
                         controller: _descriptionController,
                         icon: Icons.text_snippet_outlined,
-                        label: AppLocalizations.of(context).storeDescription,
+                        label: AppLocalizations.of(context)!.storeDescription,
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                        hint: AppLocalizations.of(context).storeDescriptionHint,
+                        hint: AppLocalizations.of(context)!.storeDescriptionHint,
                         validator: isEmpty,
                         isTextarea: true,
                         keyboardType: TextInputType.multiline,
@@ -241,7 +241,7 @@ class _RegisterCommercialState extends State<RegisterCommercial> {
                             _submitRegistration();
                           },
                           child: Text(
-                            AppLocalizations.of(context).signUpStore,
+                            AppLocalizations.of(context)!.signUpStore,
                             style: GoogleFonts.roboto(
                               color: Colors.white,
                               fontSize: 16,

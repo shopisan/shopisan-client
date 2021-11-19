@@ -10,7 +10,7 @@ class PostsCommercialScreen extends StatelessWidget {
   final Post post;
   final Store store;
 
-  PostsCommercialScreen({@required this.post, @required this.store});
+  PostsCommercialScreen({required this.post, required this.store});
 
   @override
   Widget build(BuildContext context) {

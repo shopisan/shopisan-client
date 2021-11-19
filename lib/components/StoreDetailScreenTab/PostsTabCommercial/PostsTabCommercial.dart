@@ -9,7 +9,7 @@ import 'package:shopisan/utils/common.dart';
 
 class PostsTabCommercial extends StatefulWidget {
   PostsTabCommercial(
-      {@required this.store, @required this.posts, @required this.height});
+      {required this.store, required this.posts, required this.height});
 
   final Store store;
   final List<Post> posts;
@@ -45,7 +45,7 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
                   Padding(
                     padding: EdgeInsets.all(20),
                     child: Text(
-                      AppLocalizations.of(context).noPost,
+                      AppLocalizations.of(context)!.noPost,
                       style: Theme.of(context).textTheme.headline5,
                       textAlign: TextAlign.center,
                     ),
@@ -64,7 +64,7 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
               crossAxisCount: 2,
               padding: EdgeInsets.all(10),
               children: List.generate(
-                widget.posts.reversed.length ?? 0,
+                widget.posts.reversed.length,
                 (index) {
                   return Container(
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -87,7 +87,7 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
                               borderRadius: BorderRadius.circular(10),
                               image: DecorationImage(
                                 image: NetworkImage(widget
-                                    .posts[index].postMedia[0].media.file),
+                                    .posts[index].postMedia[0].media!.file!),
                                 fit: BoxFit.cover,
                               )),
                         ) 
