@@ -21,14 +21,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     _submitForm() async {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         bool rslt = await forgotPasswordSubmit(
             {"email": _emailController.text, "lang": getLocaleCode()});
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             backgroundColor: rslt ? CustomColors.success : CustomColors.error,
             content: Text(rslt
-                ? AppLocalizations.of(context).forgotPasswordMailSent
-                : AppLocalizations.of(context).anErrorOccurred)));
+                ? AppLocalizations.of(context)!.forgotPasswordMailSent
+                : AppLocalizations.of(context)!.anErrorOccurred)));
 
         if (rslt) {
           Navigator.of(context).pushNamed("/reset_password",
@@ -60,14 +60,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            AppLocalizations.of(context).forgotPassword,
+                            AppLocalizations.of(context)!.forgotPassword,
                             style: Theme.of(context).textTheme.headline5,
                             textAlign: TextAlign.center,
                           ),
                           Padding(
                             padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                             child: Text(
-                              AppLocalizations.of(context).forgPassText,
+                              AppLocalizations.of(context)!.forgPassText,
                               style: GoogleFonts.poppins(
                                 fontSize: 14,
                                 color: CustomColors.textDark,
@@ -80,8 +80,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             child: TextInput(
                               controller: _emailController,
                               icon: (Icons.mail_outline),
-                              label: AppLocalizations.of(context).emailAddress,
-                              hint: AppLocalizations.of(context).emailHint,
+                              label: AppLocalizations.of(context)!.emailAddress,
+                              hint: AppLocalizations.of(context)!.emailHint,
                               margin: EdgeInsets.fromLTRB(0, 20, 0, 40),
                               validator: isValidEmail,
                             ),
@@ -105,7 +105,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             child: FlatButton(
                               onPressed: _submitForm,
                               child: Text(
-                                AppLocalizations.of(context).resetLink,
+                                AppLocalizations.of(context)!.resetLink,
                                 style: GoogleFonts.roboto(
                                   color: Colors.white,
                                   fontSize: 16,

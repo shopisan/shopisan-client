@@ -2,11 +2,11 @@ import 'package:flutter/services.dart';
 
 class Category {
   final int id;
-  final String url;
-  final String en;
-  final String fr;
+  final String? url;
+  final String? en;
+  final String? fr;
 
-  Category({this.id, this.url, this.en, this.fr});
+  Category({required this.id, this.url, this.en, this.fr});
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(
@@ -24,7 +24,7 @@ class Category {
 }
 
 class CategoryCollection {
-  final List<Category> categories;
+  final List<Category>? categories;
 
   CategoryCollection({this.categories});
 

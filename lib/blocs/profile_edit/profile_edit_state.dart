@@ -2,12 +2,12 @@ part of 'profile_edit_bloc.dart';
 
 @immutable
 abstract class ProfileEditState extends Equatable {
-  final UserProfile user;
+  final UserProfile? user;
 
   ProfileEditState({this.user});
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [];
 }
 
 class InitialProfileEditState extends ProfileEditState {
@@ -18,7 +18,7 @@ class InitialProfileEditState extends ProfileEditState {
 class StartedProfileEditState extends ProfileEditState {
   final UserProfile user;
 
-  StartedProfileEditState({@required this.user});
+  StartedProfileEditState({required this.user});
 
   @override
   List<Object> get props => [user];
@@ -27,7 +27,7 @@ class StartedProfileEditState extends ProfileEditState {
 class LoadingProfileEditState extends ProfileEditState {
   final UserProfile user;
 
-  LoadingProfileEditState({@required this.user});
+  LoadingProfileEditState({required this.user});
 
   @override
   List<Object> get props => [user];
@@ -37,7 +37,7 @@ class ErrorProfileEditState extends ProfileEditState {
   final String error;
   final UserProfile user;
 
-  ErrorProfileEditState({@required this.error, @required this.user});
+  ErrorProfileEditState({required this.error, required this.user});
 
   @override
   List<Object> get props => [error, user];
@@ -46,7 +46,7 @@ class ErrorProfileEditState extends ProfileEditState {
 class SuccessProfileEditState extends ProfileEditState {
   final UserProfile user;
 
-  SuccessProfileEditState({@required this.user});
+  SuccessProfileEditState({required this.user});
 
   @override
   List<Object> get props => [user];

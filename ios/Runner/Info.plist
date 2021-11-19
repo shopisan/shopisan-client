@@ -56,5 +56,18 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>fb438185084332258</string>
+      </array>
+      </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>438185084332258</string>
+    <key>FacebookDisplayName</key>
+    <string>Shopisan</string>
 </dict>
 </plist>

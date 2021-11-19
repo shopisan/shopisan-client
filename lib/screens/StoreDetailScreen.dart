@@ -25,7 +25,7 @@ import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
 
 class StoreDetailScreen extends StatefulWidget {
-  const StoreDetailScreen({Key key, @required this.storeId}) : super(key: key);
+  const StoreDetailScreen({required this.storeId}) : super();
 
   final int storeId;
 
@@ -34,11 +34,11 @@ class StoreDetailScreen extends StatefulWidget {
 }
 
 class _StoreDetailScreenState extends State<StoreDetailScreen> {
-  Store store;
-  AddressCollection addresses;
-  List<Category> categories;
-  OpeningTime openingTime;
-  List<Post> posts;
+  late Store store;
+  late AddressCollection addresses;
+  late List<Category> categories;
+  late OpeningTime openingTime;
+  late List<Post> posts;
 
   int _currentIndex = 0;
 
@@ -50,14 +50,14 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
           FontAwesomeIcons.store,
           size: 30,
         ),
-        label: AppLocalizations.of(context).store,
+        label: AppLocalizations.of(context)!.store,
       ),
       BottomNavigationBarItem(
         icon: FaIcon(
           FontAwesomeIcons.mapMarker,
           size: 30,
         ),
-        label: AppLocalizations.of(context).map,
+        label: AppLocalizations.of(context)!.map,
       ),
     ];
   }
@@ -121,14 +121,14 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
 
     final AuthenticationState state =
         context.select((AuthenticationBloc bloc) => bloc.state);
-    UserProfileProfile profile;
+    UserProfileProfile? profile;
     if (state is AuthenticationAuthenticated) {
-      profile = state.user.profile;
+      profile = state.user.profile!;
     }
 
     _submitFavourite() async {
       try {
-        UserProfile user = await manageFavouriteStore(store.id);
+        UserProfile user = await manageFavouriteStore(store.id as int);
         BlocProvider.of<AuthenticationBloc>(context)
             .add(UserChangedEvent(user: user));
       } catch (exception) {
@@ -147,6 +147,13 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
       return false;
     }
 
+    ImageProvider _GetImage(){
+      if (store.profilePicture != null) {
+        return NetworkImage(store.profilePicture!.file!);
+      }
+      return AssetImage("assets/img/store.jpg");
+    }
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -160,9 +167,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                 child: Stack(
                   children: [
                     Image(
-                      image: store.profilePicture != null
-                          ? NetworkImage(store.profilePicture.file)
-                          : AssetImage("assets/img/store.jpg"),
+                      image: _GetImage(),
                       fit: BoxFit.cover,
                       height: 250,
                       width: double.infinity,
@@ -228,7 +233,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                           Padding(
                                             padding: EdgeInsets.all(20),
                                             child: Text(
-                                              AppLocalizations.of(context)
+                                              AppLocalizations.of(context)!
                                                   .about
                                                   .toUpperCase(),
                                               style: Theme.of(context)
@@ -285,12 +290,12 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                         SnackBar(
                                           key: Key("yup"),
                                           content: Text(
-                                              AppLocalizations.of(context)
+                                              AppLocalizations.of(context)!
                                                   .loginRequired),
                                           backgroundColor: CustomColors.error,
                                           action: SnackBarAction(
                                             textColor: Colors.white,
-                                            label: AppLocalizations.of(context)
+                                            label: AppLocalizations.of(context)!
                                                 .logIn
                                                 .toUpperCase(),
                                             onPressed: () {

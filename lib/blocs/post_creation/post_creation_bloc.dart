@@ -3,10 +3,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
-import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/model/File.dart' as ModelFile;
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/PostMedia.dart';
@@ -22,7 +19,7 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
     PostCreationEvent event,
   ) async* {
     if (event is IsStarted) {
-      int postId = event.postId;
+      int? postId = event.postId;
       if (null == postId) {
         yield StartedPostCreationState(
             post: Post(
@@ -53,25 +50,26 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
       } catch (error) {
         print(error.toString());
         yield DonePostCreationState(
-            success: false, message: error.toString(), post: post);
+            success: false, message: error.toString(), post: post,
+            redirect: false);
       }
       // yield StartedPostCreationState(post: post);
     } else if (event is ChangePostMedia) {
-      Post post = state.post;
-      PostMedia postMedia = post.postMedia.elementAt(event.index);
-      double newPrice = double.tryParse(event.price);
+      Post? post = state.post;
+      PostMedia? postMedia = post?.postMedia.elementAt(event.index);
+      double? newPrice = double.tryParse(event.price);
       if (newPrice != null) {
-        postMedia.price = newPrice;
+        postMedia?.price = newPrice;
       }
 
-      postMedia.description_fr = event.description_fr;
-      postMedia.description_en = event.description_en;
+      postMedia?.description_fr = event.description_fr;
+      postMedia?.description_en = event.description_en;
 
-      post.postMedia[event.index] = postMedia;
+      post?.postMedia[event.index] = postMedia!;
       yield StartedPostCreationState(
-          post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
+          post: post!, refresh: null == state.refresh ? 0 : state.refresh! + 1);
     } else if (event is ChangePostMediaPicture) {
-      Post post = state.post;
+      Post post = state.post!;
       PostMedia postMedia = post.postMedia.elementAt(event.index);
 
       final ModelFile.File resp =
@@ -81,37 +79,37 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
 
       post.postMedia[event.index] = postMedia;
       yield StartedPostCreationState(
-          post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
+          post: post, refresh: null == state.refresh ? 0 : state.refresh! + 1);
     } else if (event is DeletePost) {
-      Post post = state.post;
+      Post post = state.post!;
 
       try {
-        await deletePost(post.id);
+        await deletePost(post.id!);
         yield RedirectPostCreationState();
       } catch (e) {
         yield DonePostCreationState(
-            success: false, message: e.toString(), post: post);
+            success: false, message: e.toString(), post: post, redirect: false);
       }
     } else if (event is AddPostMedia) {
-      Post post = state.post;
+      Post post = state.post!;
 
       post.postMedia.add(PostMedia());
 
       yield StartedPostCreationState(
-          post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
+          post: post, refresh: null == state.refresh ? 0 : state.refresh! + 1);
     } else if (event is DeletePostMedia) {
-      Post post = state.post;
+      Post post = state.post!;
       post.postMedia.removeAt(event.index);
       yield StartedPostCreationState(
-          post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
+          post: post, refresh: null == state.refresh ? 0 : state.refresh! + 1);
     } else if (event is ChangePostStore) {
-      Post post = state.post;
+      Post post = state.post!;
 
       post.store = event.storeUrl;
       print(post.store);
 
       yield StartedPostCreationState(
-          post: post, refresh: null == state.refresh ? 0 : state.refresh + 1);
+          post: post, refresh: null == state.refresh ? 0 : state.refresh! + 1);
     }
   }
 }

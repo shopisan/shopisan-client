@@ -15,7 +15,7 @@ import 'package:shopisan/utils/common.dart';
 import 'package:shopisan/utils/validators.dart';
 
 class PostCreation extends StatefulWidget {
-  PostCreation({Key key}) : super(key: key);
+  PostCreation() : super();
 
   @override
   _PostCreationState createState() => _PostCreationState();
@@ -28,26 +28,24 @@ class _PostCreationState extends State<PostCreation> {
   @override
   Widget build(BuildContext context) {
     final Post post =
-        context.select((PostCreationBloc bloc) => bloc.state.post);
-    AuthenticationState authState =
-        context.select((AuthenticationBloc bloc) => bloc.state);
+        context.select((PostCreationBloc bloc) => bloc.state.post as Post);
+    AuthenticationAuthenticated authState =
+        context.select((AuthenticationBloc bloc) => bloc.state as AuthenticationAuthenticated);
 
-    final List<Store> stores = authState is AuthenticationAuthenticated
-        ? authState.user.profile.ownedStores
-        : null;
+    final List<Store> stores = authState.user.profile!.ownedStores;
     final state = context.select((PostCreationBloc bloc) => bloc.state);
 
     if (state is RedirectPostCreationState) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
         Navigator.of(context).pop();
       });
     }
 
     if ((state is DonePostCreationState) && state.success) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context).postSaved),
+            content: Text(AppLocalizations.of(context)!.postSaved),
             backgroundColor: CustomColors.success,
           ),
         );
@@ -59,13 +57,13 @@ class _PostCreationState extends State<PostCreation> {
     }
 
     _sendForm() {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         for (PostMedia postMedia in post.postMedia) {
           if (!oneFilled([postMedia.description_en, postMedia.description_fr])) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
+            WidgetsBinding.instance!.addPostFrameCallback((_) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(AppLocalizations.of(context).atLeastOneDescriptionRequired),
+                  content: Text(AppLocalizations.of(context)!.atLeastOneDescriptionRequired),
                   backgroundColor: CustomColors.error,
                 ),
               );
@@ -74,10 +72,10 @@ class _PostCreationState extends State<PostCreation> {
           }
 
           if (postMedia.uploadFile == null && postMedia.media == null) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
+            WidgetsBinding.instance!.addPostFrameCallback((_) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(AppLocalizations.of(context).pictureMissing),
+                  content: Text(AppLocalizations.of(context)!.pictureMissing),
                   backgroundColor: CustomColors.error,
                 ),
               );
@@ -100,8 +98,8 @@ class _PostCreationState extends State<PostCreation> {
         builder: (BuildContext context) {
           return Confirm(
             executeFct: _submitDeletePost,
-            title: AppLocalizations.of(context).deletePostTitle,
-            text: AppLocalizations.of(context).deletePostText,
+            title: AppLocalizations.of(context)!.deletePostTitle,
+            text: AppLocalizations.of(context)!.deletePostText,
           );
         },
       );
@@ -114,12 +112,12 @@ class _PostCreationState extends State<PostCreation> {
     if (state is InitialPostCreationState) {
       return LoadingIndicator();
     } else if (state is DonePostCreationState && !state.success) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.message != 'post created'
-                ? AppLocalizations.of(context).postError
-                : AppLocalizations.of(context).profilePicError),
+                ? AppLocalizations.of(context)!.postError
+                : AppLocalizations.of(context)!.profilePicError),
             backgroundColor:
                 state.success ? CustomColors.success : CustomColors.error,
           ),
@@ -149,7 +147,7 @@ class _PostCreationState extends State<PostCreation> {
               Container(
                 padding: EdgeInsets.all(10),
                 child: SelectInput(
-                  value: post.store,
+                  value: post.store!,
                   callback: _updateStore,
                   items: stores
                       .map((Store store) => DropdownMenuItem(
@@ -160,7 +158,7 @@ class _PostCreationState extends State<PostCreation> {
                         Text(store.name, overflow: TextOverflow.ellipsis),
                       )))
                       .toList(),
-                  label: AppLocalizations.of(context).storePost,
+                  label: AppLocalizations.of(context)!.storePost,
                   icon: Icons.store,
                   validator: isEmpty,
                 ),
@@ -188,7 +186,7 @@ class _PostCreationState extends State<PostCreation> {
                 child: Column(
                   children: [
                     Text(
-                      AppLocalizations.of(context).addPost,
+                      AppLocalizations.of(context)!.addPost,
                       style: Theme.of(context).textTheme.headline5,
                       textAlign: TextAlign.center,
                     ),
@@ -254,9 +252,9 @@ class _PostCreationState extends State<PostCreation> {
                       onPressed: _sendForm,
                       child: Text(
                           post.id == null
-                              ? AppLocalizations.of(context)
+                              ? AppLocalizations.of(context)!
                               .createPost
-                              : AppLocalizations.of(context).editPost,
+                              : AppLocalizations.of(context)!.editPost,
                           style:
                           Theme.of(context).textTheme.headline1),
                     ),
@@ -274,7 +272,7 @@ class _PostCreationState extends State<PostCreation> {
                     child: TextButton(
                       onPressed: _deletePost,
                       child: Text(
-                          AppLocalizations.of(context).deletePost,
+                          AppLocalizations.of(context)!.deletePost,
                           style: GoogleFonts.poppins(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

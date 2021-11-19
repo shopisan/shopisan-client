@@ -8,7 +8,7 @@ class StorePreview extends StatelessWidget {
   final Store store;
   final String locale = getLocaleCode();
 
-  StorePreview({@required this.store});
+  StorePreview({required this.store});
 
   String _categoriesToString(List<Category> categories) {
     String str = "";
@@ -27,7 +27,21 @@ class StorePreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    String _image = store.profilePicture?.file;
+    String? _image = store.profilePicture!.file;
+
+    ImageProvider GetImage(){
+      if (_image != null) {
+        return NetworkImage(_image);
+      }
+      return AssetImage("assets/img/store.jpg");
+    }
+
+    double _GetRating(){
+      if (store.evaluation != null) {
+        return store.evaluation!;
+      }
+      return 0;
+    }
 
     return TextButton(
       onPressed: () {
@@ -46,9 +60,7 @@ class StorePreview extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: _image != null
-                        ? NetworkImage(_image)
-                        : AssetImage("assets/img/store.jpg"))),
+                    image: GetImage())),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +81,7 @@ class StorePreview extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
                     child: RatingBarIndicator(
-                      rating: store.evaluation != null ? store.evaluation : 0,
+                      rating: _GetRating(),
                       direction: Axis.horizontal,
                       itemCount: 5,
                       itemSize: 10,
@@ -85,7 +97,7 @@ class StorePreview extends StatelessWidget {
               Container(
                   width: width - 70 - 10 - 10 - 20,
                   child: Text(
-                    _categoriesToString(store.categories)
+                    _categoriesToString(store.categories!)
                     /*"${store.categories.map((category) => '${" " + category.fr + " "}')}"*/,
                     style: Theme.of(context).textTheme.bodyText2,
                     maxLines: 2,

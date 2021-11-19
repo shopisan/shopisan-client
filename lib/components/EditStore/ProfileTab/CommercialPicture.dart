@@ -12,14 +12,14 @@ import 'package:shopisan/theme/colors.dart';
 class CommercialPicture extends StatefulWidget {
   final Store store;
 
-  CommercialPicture({@required this.store});
+  CommercialPicture({required this.store});
 
   @override
   _CommercialPictureState createState() => _CommercialPictureState();
 }
 
 class _CommercialPictureState extends State<CommercialPicture> {
-  PickedFile _imageFile;
+  late PickedFile _imageFile;
   final ImagePicker picker = ImagePicker();
 
   void takePhoto(ImageSource source) async {
@@ -37,7 +37,21 @@ class _CommercialPictureState extends State<CommercialPicture> {
 
   @override
   Widget build(BuildContext context) {
-    final storeImage = widget.store?.profilePicture;
+    final storeImage = widget.store.profilePicture;
+
+    ImageProvider _GetImage(){
+      if (null == storeImage) {
+        if (_imageFile == null) {
+          return AssetImage("assets/img/store.jpg");
+        }  else {
+          return FileImage(
+            File(_imageFile.path),
+          );
+        }
+      }  else {
+        return NetworkImage(storeImage.file!);
+      }
+    }
 
     return Center(
       child: Stack(
@@ -49,13 +63,7 @@ class _CommercialPictureState extends State<CommercialPicture> {
                 // color: CustomColors.search,
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: null == storeImage
-                      ? _imageFile == null
-                          ? AssetImage("assets/img/store.jpg")
-                          : FileImage(
-                              File(_imageFile.path),
-                            )
-                      : NetworkImage(storeImage.file),
+                  image: _GetImage(),
                 )),
           ),
           Positioned(
@@ -78,7 +86,7 @@ class _CommercialPictureState extends State<CommercialPicture> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(AppLocalizations.of(context).choosePicture,
+                              Text(AppLocalizations.of(context)!.choosePicture,
                                   style: Theme.of(context).textTheme.headline3),
                               Row(
                                 mainAxisAlignment:
@@ -95,7 +103,7 @@ class _CommercialPictureState extends State<CommercialPicture> {
                                     icon:
                                         Icon(Icons.camera, color: Colors.black),
                                     label: Text(
-                                        AppLocalizations.of(context).camera,
+                                        AppLocalizations.of(context)!.camera,
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline2),
@@ -111,7 +119,7 @@ class _CommercialPictureState extends State<CommercialPicture> {
                                     icon:
                                         Icon(Icons.image, color: Colors.black),
                                     label: Text(
-                                        AppLocalizations.of(context).gallery,
+                                        AppLocalizations.of(context)!.gallery,
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline2),

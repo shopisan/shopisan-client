@@ -11,7 +11,7 @@ class SubmitEvent extends ProfileEditEvent {
   final UserProfile user;
 
   const SubmitEvent({
-    @required this.user
+    required this.user
   });
 
   List<Object> get props => [user];
@@ -24,7 +24,7 @@ class ChangeEvent extends ProfileEditEvent {
   final UserProfile user;
 
   const ChangeEvent({
-    @required this.user
+    required this.user
   });
 
   List<Object> get props => [user];
@@ -37,7 +37,7 @@ class ChangePictureEvent extends ProfileEditEvent {
   final File picture;
 
   const ChangePictureEvent({
-    @required this.picture
+    required this.picture
   });
 
   List<Object> get props => [picture];

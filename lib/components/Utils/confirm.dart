@@ -6,7 +6,7 @@ class Confirm extends StatelessWidget {
   final String title;
   final String text;
 
-  Confirm({@required this.executeFct, this.text, this.title});
+  Confirm({required this.executeFct, this.text = "", this.title = ""});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class Confirm extends StatelessWidget {
     );
 
     final Widget cancelButton = TextButton(
-      child: Text(AppLocalizations.of(context).cancel),
+      child: Text(AppLocalizations.of(context)!.cancel),
       onPressed: () {
         Navigator.of(context).pop();
       },

@@ -16,11 +16,11 @@ class EditStoreSelectionScreen extends StatelessWidget {
       UserProfile user = state.user;
 
       final List<Widget> storeList = [];
-      for (Store store in user.profile.ownedStores) {
+      for (Store store in user.profile!.ownedStores) {
         storeList.add(EditStoreLink(storeName: store.name, storeId: store.id));
       }
       storeList.add(EditStoreLink(
-          storeName: AppLocalizations.of(context).addStore, storeId: null));
+          storeName: AppLocalizations.of(context)!.addStore, storeId: null));
 
       return Scaffold(
           appBar: AppBar(
@@ -29,7 +29,7 @@ class EditStoreSelectionScreen extends StatelessWidget {
             elevation: 8,
             iconTheme: IconThemeData(color: Colors.black),
             title: Text(
-              AppLocalizations.of(context).editStore,
+              AppLocalizations.of(context)!.editStore,
               style: Theme.of(context).textTheme.headline4,
             ),
           ),
@@ -42,9 +42,9 @@ class EditStoreSelectionScreen extends StatelessWidget {
 
 class EditStoreLink extends StatelessWidget {
   final String storeName;
-  final int storeId;
+  final int? storeId;
 
-  EditStoreLink({@required this.storeName, @required this.storeId});
+  EditStoreLink({required this.storeName, this.storeId});
 
   @override
   Widget build(BuildContext context) {

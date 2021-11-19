@@ -11,7 +11,7 @@ class FormProfile extends StatelessWidget {
   final format = DateFormat("yyyy-MM-dd");
   final UserProfile user;
   final Function setUser;
-  FormProfile({@required this.user, @required this.setUser});
+  FormProfile({required this.user, required this.setUser});
 
   final _formKey = GlobalKey<FormState>();
 
@@ -19,10 +19,10 @@ class FormProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final _userNameController = TextEditingController(text: user.username);
     final _emailController = TextEditingController(text: user.email);
-    final _nameController = TextEditingController(text: user.profile.name);
+    final _nameController = TextEditingController(text: user.profile!.name);
     final _surnameController =
-        TextEditingController(text: user.profile.surname);
-    final _dobController = TextEditingController(text: user.profile.dob);
+        TextEditingController(text: user.profile!.surname);
+    final _dobController = TextEditingController(text: user.profile!.dob);
 
     List<TextEditingController> controllers = [
       _userNameController,
@@ -51,32 +51,32 @@ class FormProfile extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
-              child: Text(user.username,
+              child: Text(user.username!,
                   style: Theme.of(context).textTheme.headline4),
             ),
             TextInput(
               controller: _userNameController,
               icon: Icons.verified_user_outlined,
-              label: AppLocalizations.of(context).userName,
+              label: AppLocalizations.of(context)!.userName,
               validator: isEmpty,
             ),
             TextInput(
               controller: _emailController,
               icon: Icons.mail_outline,
-              label: AppLocalizations.of(context).emailAddress,
+              label: AppLocalizations.of(context)!.emailAddress,
               validator: isValidEmail,
             ),
             Padding(padding: EdgeInsets.all(20)),
             TextInput(
               controller: _nameController,
               icon: Icons.account_circle_outlined,
-              label: AppLocalizations.of(context).name,
+              label: AppLocalizations.of(context)!.name,
               validator: isEmpty,
             ),
             TextInput(
               controller: _surnameController,
               icon: Icons.account_circle_outlined,
-              label: AppLocalizations.of(context).lastName,
+              label: AppLocalizations.of(context)!.lastName,
               validator: isEmpty,
             ),
             DateInput(

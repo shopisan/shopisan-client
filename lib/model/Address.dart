@@ -1,19 +1,19 @@
 class Address {
-  int id;
+  int? id;
   String streetAvenue;
   String postalCode;
   String city;
   String country;
-  String latitude;
-  String longitude;
-  int store;
+  String? latitude;
+  String? longitude;
+  int? store;
 
   Address(
       {this.id,
-      this.streetAvenue,
-      this.postalCode,
-      this.city,
-      this.country,
+      required this.streetAvenue,
+      required this.postalCode,
+      required this.city,
+      required this.country,
       this.longitude,
       this.latitude,
       this.store});
@@ -42,7 +42,7 @@ class Address {
 }
 
 class AddressCollection {
-  final List<Address> addresses;
+  final List<Address>? addresses;
 
   AddressCollection({this.addresses});
 

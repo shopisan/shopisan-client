@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/model/Store.dart';
 
 class HeaderPosts extends StatefulWidget {
-  const HeaderPosts({Key key, @required this.stores}) : super(key: key);
+  const HeaderPosts({required this.stores}) : super();
 
   final List<Store> stores;
 
@@ -37,7 +37,7 @@ class _HeaderPostsState extends State<HeaderPosts> {
                   Navigator.pushNamed(context, "/store_detail", arguments: {"storeId": 800});
                 },
                 // @todo Le post sera injecté depuis le widget de la tab avec les posts
-                child: Text(AppLocalizations.of(context).commercialName,
+                child: Text(AppLocalizations.of(context)!.commercialName,
                     // "${store.name}",
                     style: Theme.of(context).textTheme.headline2),
               ),

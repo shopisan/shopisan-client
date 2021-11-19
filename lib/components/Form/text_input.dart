@@ -6,23 +6,23 @@ class TextInput extends StatelessWidget {
   final TextEditingController controller;
   final IconData icon;
   final String label;
-  final Function validator;
-  final String passwordValidation;
-  final Function callback;
-  final TextInputType keyboardType;
-  final List<dynamic> inputFormatter;
+  final Function? validator;
+  final String? passwordValidation;
+  final void Function(String)? callback;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatter;
   final bool isTextarea;
   final bool noIcon;
-  final EdgeInsetsGeometry padding;
-  final EdgeInsetsGeometry margin;
-  final String hint;
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
+  final String? hint;
   final bool obscureText;
-  final int maxLength;
+  final int? maxLength;
 
   TextInput(
-      {@required this.controller,
-      @required this.icon,
-      @required this.label,
+      {required this.controller,
+      required this.icon,
+      required this.label,
       this.validator,
       this.passwordValidation,
       this.callback,
@@ -63,9 +63,9 @@ class TextInput extends StatelessWidget {
         validator: null != validator
             ? (value) {
                 if (passwordValidation != null) {
-                  return validator(value, passwordValidation, context);
+                  return validator!(value, passwordValidation, context);
                 }
-                return validator(value, context);
+                return validator!(value, context);
               }
             : null,
         keyboardType: keyboardType,

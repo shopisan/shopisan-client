@@ -9,7 +9,7 @@ class DateInput extends StatelessWidget {
   final DateFormat format;
 
   DateInput(
-      {@required this.controller, @required this.icon, @required this.format});
+      {required this.controller, required this.icon, required this.format});
 
   @override
   Widget build(BuildContext context) {

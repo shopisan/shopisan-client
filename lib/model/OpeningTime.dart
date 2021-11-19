@@ -1,11 +1,11 @@
 class OpeningTime {
-  final List<String> MO;
-  final List<String> TU;
-  final List<String> WE;
-  final List<String> TH;
-  final List<String> FR;
-  final List<String> SA;
-  final List<String> SU;
+  final List<String>? MO;
+  final List<String>? TU;
+  final List<String>? WE;
+  final List<String>? TH;
+  final List<String>? FR;
+  final List<String>? SA;
+  final List<String>? SU;
 
   OpeningTime({this.MO, this.TU, this.WE, this.TH, this.FR, this.SA, this.SU});
 
@@ -22,7 +22,7 @@ class OpeningTime {
 }
 
 class OpeningTimeCollection {
-  final List<OpeningTime> openingTimes;
+  final List<OpeningTime>? openingTimes;
 
   OpeningTimeCollection({this.openingTimes});
 

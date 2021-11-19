@@ -15,7 +15,7 @@ class _RegisterScreenState extends State<RegisterScreen>
     with SingleTickerProviderStateMixin {
   int currentIndex = 0;
 
-  TabController controller;
+  late TabController controller;
 
   @override
   void initState() {
@@ -52,7 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                     padding: EdgeInsets.all(10),
                     margin: EdgeInsets.only(top:20),
                     child:  Text(
-                      AppLocalizations.of(context).signUp,
+                      AppLocalizations.of(context)!.signUp,
                       style: Theme.of(context).textTheme.headline5,
                       textAlign: TextAlign.center,
                     ),
@@ -62,12 +62,12 @@ class _RegisterScreenState extends State<RegisterScreen>
                     indicatorColor: CustomColors.textDark,
                     tabs: <Widget>[
                       Tab(
-                        child: Text(AppLocalizations.of(context).userRegister,
+                        child: Text(AppLocalizations.of(context)!.userRegister,
                             style: Theme.of(context).textTheme.headline6,
                             textAlign: TextAlign.center),
                       ),
                       Tab(
-                        child: Text(AppLocalizations.of(context).ownerRegister,
+                        child: Text(AppLocalizations.of(context)!.ownerRegister,
                             style: Theme.of(context).textTheme.headline6,
                             textAlign: TextAlign.center),
                       )

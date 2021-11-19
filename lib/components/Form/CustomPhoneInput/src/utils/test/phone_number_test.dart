@@ -9,7 +9,8 @@ class PhoneNumberTest {
   final String dialCode;
   final String isoCode;
 
-  PhoneNumberTest({this.phoneNumber, this.dialCode, this.isoCode});
+  PhoneNumberTest({required this.phoneNumber, required this.dialCode,
+    required this.isoCode});
 
   @override
   String toString() {
@@ -23,16 +24,16 @@ class PhoneNumberTest {
     RegionInfo regionInfo = await PhoneNumberUtil.getRegionInfo(
         phoneNumber: phoneNumber, isoCode: isoCode);
 
-    String internationalPhoneNumber =
+    String? internationalPhoneNumber =
         await PhoneNumberUtil.normalizePhoneNumber(
       phoneNumber: phoneNumber,
       isoCode: regionInfo.isoCode ?? isoCode,
     );
 
     return PhoneNumberTest(
-        phoneNumber: internationalPhoneNumber,
-        dialCode: regionInfo.regionPrefix,
-        isoCode: regionInfo.isoCode);
+        phoneNumber: internationalPhoneNumber!,
+        dialCode: regionInfo.regionPrefix!,
+        isoCode: regionInfo.isoCode!);
   }
 
   static Future<String> getParsableNumber(PhoneNumberTest phoneNumber) async {
@@ -41,11 +42,11 @@ class PhoneNumberTest {
         phoneNumber.phoneNumber,
         phoneNumber.isoCode,
       );
-      String formattedNumber = await PhoneNumberUtil.formatAsYouType(
+      String? formattedNumber = await PhoneNumberUtil.formatAsYouType(
         phoneNumber: number.phoneNumber,
         isoCode: number.isoCode,
       );
-      return formattedNumber.replaceAll(
+      return formattedNumber!.replaceAll(
         RegExp('^([\\+]?${number.dialCode}[\\s]?)'),
         '',
       );
@@ -61,7 +62,7 @@ class PhoneNumberTest {
         .replaceAll(RegExp('^([\\+]?${this.dialCode}[\\s]?)'), '');
   }
 
-  static String getISO2CodeByPrefix(String prefix) {
+  static String? getISO2CodeByPrefix(String prefix) {
     if (prefix.isNotEmpty) {
       prefix = prefix.startsWith('+') ? prefix : '+$prefix';
       var country = Countries.countryList

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:shopisan/CountryTranslation/iso_country_translation.dart';
 import 'package:shopisan/components/Form/CustomMonoSelect/chip_display/multi_select_chip_display.dart';
 import 'package:shopisan/components/Form/CustomMonoSelect/dialog/multi_select_dialog_field.dart';
@@ -12,14 +11,14 @@ import 'package:shopisan/theme/colors.dart';
 
 class DropdownCountry extends StatefulWidget {
   const DropdownCountry(
-      {Key key,
-      @required this.setCountry,
-      @required this.countries,
-      @required this.selectedCountry})
-      : super(key: key);
+      {
+      required this.setCountry,
+      required this.countries,
+      required this.selectedCountry})
+      : super();
 
   final List<Country> countries;
-  final ValueChanged<String> setCountry;
+  final ValueChanged<Object?> setCountry;
   final String selectedCountry;
 
   @override
@@ -52,7 +51,7 @@ class _DropdownCountryState extends State<DropdownCountry> {
                     Icons.search,
                     color: CustomColors.iconsActive,
                   ),
-                  buttonText: Text(AppLocalizations.of(context).countries,
+                  buttonText: Text(AppLocalizations.of(context)!.countries,
                       style: Theme.of(context).textTheme.headline6),
                   items: widget.countries
                       .map((e) => MultiSelectItem(
@@ -70,7 +69,7 @@ class _DropdownCountryState extends State<DropdownCountry> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   cancelText: Text(
-                    AppLocalizations.of(context).cancel,
+                    AppLocalizations.of(context)!.cancel,
                     style: GoogleFonts.poppins(
                         fontSize: 14,
                         color: CustomColors.iconsActive,
@@ -84,7 +83,7 @@ class _DropdownCountryState extends State<DropdownCountry> {
                         fontWeight: FontWeight.bold),
                   ),
                   title: Text(
-                    AppLocalizations.of(context).select,
+                    AppLocalizations.of(context)!.select,
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 )

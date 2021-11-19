@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geocoder/geocoder.dart';
+import 'package:geocode/geocode.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
@@ -29,18 +29,18 @@ class StoresScreen extends StatefulWidget {
 
 class _StoresScreenState extends State<StoresScreen> {
   int _currentIndex = 0;
-  double latitudeData;
-  double longitudeData;
-  double myLatitude;
-  double myLongitude;
+  late double? latitudeData;
+  double? longitudeData;
+  double? myLatitude;
+  double? myLongitude;
   List<Store> stores = [];
   List<Post> posts = [];
   List<Category> categories = [];
   List<Country> countries = [];
-  List<dynamic> selectedCategoriesId;
+  List<dynamic> selectedCategoriesId = [];
   List<dynamic> history = [];
-  String country;
-  List<City> cities;
+  String country = "BE";
+  List<City> cities = [];
   int city = 0;
   bool loading = false;
 
@@ -53,7 +53,7 @@ class _StoresScreenState extends State<StoresScreen> {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey('search_history')) {
-      history = jsonDecode(prefs.getString("search_history"));
+      history = jsonDecode(prefs.getString("search_history")!);
       for (dynamic id in selectedCats) {
         history.remove(id);
       }
@@ -70,13 +70,15 @@ class _StoresScreenState extends State<StoresScreen> {
     prefs.setString('search_history', json.encode(history));
   }
 
-  void setCountry(String selectCountry) async {
-    setState(() {
-      country = selectCountry;
-    });
+  void setCountry(Object? selectCountry) async {
+    if (selectCountry is String) {
+      setState(() {
+        country = selectCountry;
+      });
 
-    loadCities();
-    loadStores();
+      loadCities();
+      loadStores();
+    }
   }
 
   void loadCities() async {
@@ -86,49 +88,55 @@ class _StoresScreenState extends State<StoresScreen> {
     });
   }
 
-  void setCity(int selectedCity) async {
-    City theCity;
+  void setCity(Object? selectedCity) async {
+    City? theCity;
 
-    if (selectedCity == 0) {
-      setState(() {
-        city = 0;
-        latitudeData = myLatitude;
-        longitudeData = myLongitude;
-      });
-    } else {
-      for (City city in cities) {
-        if (city.id == selectedCity) {
-          theCity = city;
+    if (selectedCity is int) {
+      if (selectedCity == 0) {
+        setState(() {
+          city = 0;
+          latitudeData = myLatitude!;
+          longitudeData = myLongitude!;
+        });
+      } else {
+        for (City city in cities) {
+          if (city.id == selectedCity) {
+            theCity = city;
+          }
         }
+
+        setState(() {
+          city = theCity!.id!;
+          latitudeData = theCity.latitude!;
+          longitudeData = theCity.longitude!;
+        });
       }
 
-      setState(() {
-        city = theCity.id;
-        latitudeData = theCity.latitude;
-        longitudeData = theCity.longitude;
-      });
+      loadStores();
     }
-
-    loadStores();
   }
 
   // Récupérer la géolocalisation
   getCurrentLocation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    GeoCode geoCode = GeoCode();
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    final coordinates =
-        new Coordinates(geoposition.latitude, geoposition.longitude);
-    var addresses =
-        await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    String currentCountry = addresses.first.countryCode;
+
+    Address addresses = await geoCode.reverseGeocoding(
+        latitude: geoposition.latitude,
+        longitude: geoposition.longitude);
+
+    String? currentCountry = addresses.countryCode;
+
+    print("Yo!");
 
     setState(() {
       latitudeData = geoposition.latitude;
       longitudeData = geoposition.longitude;
       myLatitude = geoposition.latitude;
       myLongitude = geoposition.longitude;
-      country = currentCountry;
+      country = currentCountry!;
     });
 
     loadCities();
@@ -151,7 +159,7 @@ class _StoresScreenState extends State<StoresScreen> {
     // SharedPreferences prefs = await SharedPreferences.getInstance();
 
     List<Store> storeList = await fetchStores(
-        selectedCategoriesId, latitudeData, longitudeData, country);
+        selectedCategoriesId, latitudeData!, longitudeData!, country);
 
     setState(() {
       stores = storeList;
@@ -164,7 +172,7 @@ class _StoresScreenState extends State<StoresScreen> {
   void getOldPosition() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey('last_geolocation')) {
-      var geoloc = json.decode(prefs.getString('last_geolocation'));
+      var geoloc = json.decode(prefs.getString('last_geolocation')!);
 
       setState(() {
         latitudeData = geoloc['latitude'];
@@ -179,7 +187,7 @@ class _StoresScreenState extends State<StoresScreen> {
   void getOldStores() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey('last_stores')) {
-      var lesStores = json.decode(prefs.getString('last_stores'));
+      var lesStores = json.decode(prefs.getString('last_stores')!);
       setState(() {
         stores = lesStores;
       });
@@ -190,7 +198,7 @@ class _StoresScreenState extends State<StoresScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey('search_history')) {
       setState(() {
-        history = jsonDecode(prefs.getString("search_history"));
+        history = jsonDecode(prefs.getString("search_history")!);
       });
     }
   }
@@ -210,6 +218,8 @@ class _StoresScreenState extends State<StoresScreen> {
   @override
   void initState() {
     super.initState();
+    latitudeData = 0;
+    longitudeData = 0;
     getOldPosition();
     getOldStores();
     getCurrentLocation();
@@ -234,7 +244,7 @@ class _StoresScreenState extends State<StoresScreen> {
           FontAwesomeIcons.store,
           size: 30,
         ),
-        label: AppLocalizations.of(context).store,
+        label: AppLocalizations.of(context)!.store,
       ),
       BottomNavigationBarItem(
         // icon: SvgPicture.asset(mapIcon),
@@ -243,7 +253,7 @@ class _StoresScreenState extends State<StoresScreen> {
           FontAwesomeIcons.mapMarker,
           size: 30,
         ),
-        label: AppLocalizations.of(context).map,
+        label: AppLocalizations.of(context)!.map,
       ),
       BottomNavigationBarItem(
         // icon: Icon(Icons.favorite_border_outlined, size: 30),
@@ -251,7 +261,7 @@ class _StoresScreenState extends State<StoresScreen> {
           FontAwesomeIcons.solidHeart,
           size: 30,
         ),
-        label: AppLocalizations.of(context).fav,
+        label: AppLocalizations.of(context)!.fav,
       ),
       BottomNavigationBarItem(
         // icon: Icon(Icons.account_circle_outlined, size: 30),
@@ -259,7 +269,7 @@ class _StoresScreenState extends State<StoresScreen> {
           FontAwesomeIcons.solidUser,
           size: 30,
         ),
-        label: AppLocalizations.of(context).profile,
+        label: AppLocalizations.of(context)!.profile,
       ),
     ];
   }
@@ -302,8 +312,8 @@ class _StoresScreenState extends State<StoresScreen> {
       ),
       MapTab(
           stores: stores,
-          latitude: latitudeData,
-          longitude: longitudeData,
+          latitude: latitudeData!,
+          longitude: longitudeData!,
           selectedCountry: country,
           setCountry: setCountry,
           loading: loading),

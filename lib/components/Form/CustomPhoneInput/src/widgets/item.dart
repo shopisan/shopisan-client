@@ -4,16 +4,15 @@ import 'package:shopisan/components/Form/CustomPhoneInput/src/utils/util.dart';
 
 /// [Item]
 class Item extends StatelessWidget {
-  final Country country;
-  final bool showFlag;
-  final bool useEmoji;
-  final TextStyle textStyle;
-  final bool withCountryNames;
-  final double leadingPadding;
+  final Country? country;
+  final bool? showFlag;
+  final bool? useEmoji;
+  final TextStyle? textStyle;
+  final bool? withCountryNames;
+  final double? leadingPadding;
   final bool trailingSpace;
 
   const Item({
-    Key key,
     this.country,
     this.showFlag,
     this.useEmoji,
@@ -21,7 +20,7 @@ class Item extends StatelessWidget {
     this.withCountryNames = false,
     this.leadingPadding = 12,
     this.trailingSpace = true,
-  }) : super(key: key);
+  }) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -54,24 +53,24 @@ class Item extends StatelessWidget {
 }
 
 class _Flag extends StatelessWidget {
-  final Country country;
-  final bool showFlag;
-  final bool useEmoji;
+  final Country? country;
+  final bool? showFlag;
+  final bool? useEmoji;
 
-  const _Flag({Key key, this.country, this.showFlag, this.useEmoji})
-      : super(key: key);
+  const _Flag({this.country, this.showFlag = true, this.useEmoji = false})
+      : super();
 
   @override
   Widget build(BuildContext context) {
-    return country != null && showFlag
+    return country != null && showFlag!
         ? Container(
-            child: useEmoji
+            child: useEmoji!
                 ? Text(
                     Utils.generateFlagEmojiUnicode(country?.alpha2Code ?? ''),
                     style: Theme.of(context).textTheme.headline5,
                   )
                 : Image.asset(
-                    country.flagUri,
+                    country!.flagUri!,
                     width: 25.0,
                     package: 'intl_phone_number_input',
                     errorBuilder: (context, error, stackTrace) {

@@ -17,7 +17,7 @@ Future<Token> getToken(UserLogin userLogin) async {
 }
 
 Future<UserProfile> getUserProfile() async {
-  Map<String, dynamic> headers = await getHeaders();
+  Map<String, String> headers = await getHeaders();
 
   final http.Response response =
       await http.get(Uri.https(_base, "/api/get_user/"), headers: headers);
@@ -32,7 +32,7 @@ Future<UserProfile> getUserProfile() async {
 }
 
 Future<bool> registrationUserProfile(Map<String, String> data) async {
-  Map<String, dynamic> headers = await getHeaders();
+  Map<String, String> headers = await getHeaders();
 
   final http.Response response = await http.post(
       Uri.https(_base, "/api/register/"),
@@ -47,7 +47,7 @@ Future<bool> registrationUserProfile(Map<String, String> data) async {
 }
 
 Future<bool> forgotPasswordSubmit(Map<String, String> data) async {
-  Map<String, dynamic> headers = await getHeaders();
+  Map<String, String> headers = await getHeaders();
 
   final http.Response response = await http.post(
       Uri.https(_base, "/api/forgot-password/"),
@@ -67,7 +67,7 @@ Future<bool> forgotPasswordSubmit(Map<String, String> data) async {
 }
 
 Future<bool> resetPasswordSubmit(Map<String, String> data) async {
-  Map<String, dynamic> headers = await getHeaders();
+  Map<String, String> headers = await getHeaders();
 
   final http.Response response = await http.post(
       Uri.https(_base, "/api/reset-password/"),
@@ -87,7 +87,7 @@ Future<bool> resetPasswordSubmit(Map<String, String> data) async {
 }
 
 Future<bool> editUserProfile(UserProfile user) async {
-  Map<String, dynamic> headers = await getHeaders();
+  Map<String, String> headers = await getHeaders();
 
   final http.Response response = await http.put(
       Uri.https(_base, "/api/users/users/${user.id}/"),
@@ -103,7 +103,7 @@ Future<bool> editUserProfile(UserProfile user) async {
 }
 
 Future<UserProfile> editUserProfilePicture(UserProfile user) async {
-  Map<String, dynamic> headers = await getHeaders();
+  Map<String, String> headers = await getHeaders();
 
   final http.Response response = await http.put(
       Uri.https(_base, "/api/users/users/${user.id}/"),

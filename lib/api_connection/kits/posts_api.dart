@@ -35,7 +35,7 @@ Future<int> createPost(Post post) async {
   }
 }
 
-Future<List<Post>> getPosts() async {
+Future<List<Post>?> getPosts() async {
   Map<String, String> headers = await getHeaders();
 
   try {
@@ -48,7 +48,6 @@ Future<List<Post>> getPosts() async {
   } catch (Exception) {
     print("Oops: $Exception");
   }
-  return null;
 }
 
 Future<Post> loadPost(int postId) async {
@@ -65,7 +64,7 @@ Future<Post> loadPost(int postId) async {
 }
 
 Future<List<Post>> fetchPostsByStore(int storeId) async {
-  Map<String, dynamic> headers = await getHeaders();
+  Map<String, String> headers = await getHeaders();
   final response = await http.get(
       Uri.https(_base, "/api/posts/by_store/${storeId.toString()}/"),
       headers: headers);
@@ -77,8 +76,8 @@ Future<List<Post>> fetchPostsByStore(int storeId) async {
   }
 }
 
-Future<List<Post>> fetchPostsByOwnedStores() async {
-  Map<String, dynamic> headers = await getHeaders();
+Future<List<Post>?> fetchPostsByOwnedStores() async {
+  Map<String, String> headers = await getHeaders();
 
   try{
     final response = await http.get(

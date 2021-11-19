@@ -19,9 +19,9 @@ class ProfileCommercial extends StatefulWidget {
   final GlobalKey<FormState> formKey;
 
   ProfileCommercial(
-      {@required this.store,
-      @required this.categories,
-      @required this.formKey});
+      {required this.store,
+      required this.categories,
+      required this.formKey});
 
   @override
   _ProfileCommercialState createState() => _ProfileCommercialState();
@@ -43,11 +43,11 @@ class _ProfileCommercialState extends State<ProfileCommercial>
     _nameController.text = store.name;
     _descriptionControllerFr.text = store.description_fr;
     _descriptionControllerEn.text = store.description_en;
-    _websiteController.text = store.website;
+    _websiteController.text = store.website ?? "";
 
     List<int> _initialCats = [];
     if (store.categories != null) {
-      for (Category cat in store.categories) {
+      for (Category cat in store.categories!) {
         _initialCats.add(cat.id);
       }
     }
@@ -88,13 +88,13 @@ class _ProfileCommercialState extends State<ProfileCommercial>
             TextInput(
               controller: _nameController,
               icon: Icons.store_outlined,
-              label: AppLocalizations.of(context).storeName,
+              label: AppLocalizations.of(context)!.storeName,
               validator: isEmpty,
             ),
             TextInput(
               controller: _descriptionControllerEn,
               icon: Icons.store_outlined,
-              label: AppLocalizations.of(context).description + " " + AppLocalizations.of(context).english,
+              label: AppLocalizations.of(context)!.description + " " + AppLocalizations.of(context)!.english,
               keyboardType: TextInputType.multiline,
               isTextarea: true,
               // validator: isEmpty,
@@ -102,7 +102,7 @@ class _ProfileCommercialState extends State<ProfileCommercial>
             TextInput(
               controller: _descriptionControllerFr,
               icon: Icons.store_outlined,
-              label: AppLocalizations.of(context).description + " " + AppLocalizations.of(context).french,
+              label: AppLocalizations.of(context)!.description + " " + AppLocalizations.of(context)!.french,
               keyboardType: TextInputType.multiline,
               isTextarea: true,
               // validator: isEmpty,
@@ -110,12 +110,12 @@ class _ProfileCommercialState extends State<ProfileCommercial>
             TextInput(
               controller: _websiteController,
               icon: Icons.web,
-              label: AppLocalizations.of(context).website,
+              label: AppLocalizations.of(context)!.website,
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
               child: Text(
-                AppLocalizations.of(context).searchCat.toUpperCase(),
+                AppLocalizations.of(context)!.searchCat.toUpperCase(),
                 style: Theme.of(context).textTheme.headline3,
               ),
             ),
@@ -124,7 +124,7 @@ class _ProfileCommercialState extends State<ProfileCommercial>
                 Icons.search,
                 color: CustomColors.iconsActive,
               ),
-              buttonText: Text(AppLocalizations.of(context).searchCat,
+              buttonText: Text(AppLocalizations.of(context)!.searchCat,
                   style: Theme.of(context).textTheme.bodyText1),
               items: null != widget.categories
                   ? widget.categories
@@ -137,7 +137,7 @@ class _ProfileCommercialState extends State<ProfileCommercial>
                 BlocProvider.of<EditStoreBloc>(context)
                     .add(StoreEditCategoriesEvent(categoriesIds: values));
               },
-              title: Text(AppLocalizations.of(context).categories),
+              title: Text(AppLocalizations.of(context)!.categories),
               confirmText: Text(
                 "Ok",
                 style: GoogleFonts.poppins(
@@ -145,7 +145,7 @@ class _ProfileCommercialState extends State<ProfileCommercial>
                     color: CustomColors.iconsActive,
                     fontWeight: FontWeight.bold),
               ),
-              cancelText: Text(AppLocalizations.of(context).cancel,
+              cancelText: Text(AppLocalizations.of(context)!.cancel,
                 style: GoogleFonts.poppins(
                     fontSize: 14,
                     color: CustomColors.iconsActive,

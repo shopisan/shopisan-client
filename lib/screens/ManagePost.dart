@@ -29,7 +29,7 @@ class _ManagePostState extends State<ManagePost> {
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.black),
           title: Text(
-            AppLocalizations.of(context).editPosts,
+            AppLocalizations.of(context)!.editPosts,
             style: Theme.of(context).textTheme.headline3,
           )),
       body: Container(
@@ -49,7 +49,7 @@ class _ManagePostState extends State<ManagePost> {
                   Icons.post_add_outlined,
                   color: Colors.white,
                 ),
-                label: Text(AppLocalizations.of(context).createPost,
+                label: Text(AppLocalizations.of(context)!.createPost,
                     style: Theme.of(context).textTheme.headline1),
                 onPressed: () {
                   Navigator.pushNamed(context, '/create_post')
@@ -60,7 +60,7 @@ class _ManagePostState extends State<ManagePost> {
             Container(
               width: double.infinity,
               margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-              child: Text(AppLocalizations.of(context).post.toUpperCase(),
+              child: Text(AppLocalizations.of(context)!.post.toUpperCase(),
                   style: Theme.of(context).textTheme.headline4),
             ),
             SingleChildScrollView(
@@ -71,7 +71,7 @@ class _ManagePostState extends State<ManagePost> {
                     child: FutureBuilder(
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          List<Post> posts = snapshot.data;
+                          List<Post> posts = snapshot.data as List<Post>;
                           return Container(
                             child: ListView(
                               scrollDirection: Axis.vertical,
@@ -85,8 +85,7 @@ class _ManagePostState extends State<ManagePost> {
                                       },
                                       child: PostPreview(post: post, isSettings: true,),
                                     );
-                                  })?.toList() ??
-                                  [],
+                                  }).toList(),
                             ),
                           );
                         }

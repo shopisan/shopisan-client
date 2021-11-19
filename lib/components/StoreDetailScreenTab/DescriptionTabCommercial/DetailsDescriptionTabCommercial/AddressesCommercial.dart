@@ -5,7 +5,7 @@ import 'package:shopisan/model/Address.dart';
 import 'package:shopisan/model/Store.dart';
 
 class AddressesCommercial extends StatefulWidget {
-  const AddressesCommercial({Key key, @required this.store}) : super(key: key);
+  const AddressesCommercial({required this.store}) : super();
 
   final Store store;
   @override
@@ -34,7 +34,7 @@ class _AddressesCommercialState extends State<AddressesCommercial> {
     }
 
     if (index == 0) {
-      return AppLocalizations.of(context).noAddresses;
+      return AppLocalizations.of(context)!.noAddresses;
     }
 
     return str;
@@ -50,17 +50,17 @@ class _AddressesCommercialState extends State<AddressesCommercial> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            widget.store.addresses.length == 1
-                ? AppLocalizations.of(context).address.toUpperCase()
-                : AppLocalizations.of(context).addresses.toUpperCase(),
+            widget.store.addresses!.length == 1
+                ? AppLocalizations.of(context)!.address.toUpperCase()
+                : AppLocalizations.of(context)!.addresses.toUpperCase(),
             style: Theme.of(context).textTheme.headline3,
           ),
           Padding(
             padding: EdgeInsets.all(20),
             child: Text(
-              widget.store.addresses.length > 0
-                  ? _addressesToString(widget.store.addresses)
-                  : AppLocalizations.of(context).noAddresses,
+              widget.store.addresses!.length > 0
+                  ? _addressesToString(widget.store.addresses!)
+                  : AppLocalizations.of(context)!.noAddresses,
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ),

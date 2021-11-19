@@ -3,8 +3,11 @@ import 'multi_select_item.dart';
 
 /// Contains common actions that are used by different multi select classes.
 class MultiSelectActions<V> {
-  V onItemCheckedChange(
-      V selectedValues, V itemValue, bool checked) {
+  V? onItemCheckedChange(
+      V? selectedValues, V itemValue, bool? checked) {
+    if (null == checked) {
+      checked = false;
+    }
     if (checked) {
       selectedValues = itemValue;
     } else {
@@ -28,7 +31,7 @@ class MultiSelectActions<V> {
     }
   }
 
-  void onClearTap(BuildContext ctx, Function(V) onConfirm) {
+  void onClearTap(BuildContext ctx, Function(V?)? onConfirm) {
     Navigator.pop(ctx);
     if (onConfirm != null) {
       onConfirm(null);

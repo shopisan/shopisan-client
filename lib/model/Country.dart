@@ -2,7 +2,7 @@ class Country {
   final int id;
   final String iso;
 
-  Country({this.id, this.iso});
+  Country({required this.id, required this.iso});
 
   factory Country.fromJson(Map<String, dynamic> json) {
     return Country(
@@ -18,7 +18,7 @@ class Country {
 }
 
 class CountryCollection {
-  final List<Country> countries;
+  final List<Country>? countries;
 
   CountryCollection({this.countries});
 

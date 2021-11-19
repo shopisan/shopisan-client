@@ -9,7 +9,7 @@ import 'package:time_range_picker/time_range_picker.dart';
 class OpeningHoursForm extends StatelessWidget {
   final Store store;
 
-  OpeningHoursForm({@required this.store});
+  OpeningHoursForm({required this.store});
 
   int _getDayOrder(day) {
     switch (day) {
@@ -34,25 +34,27 @@ class OpeningHoursForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> sortedKeys = store.openingTimes.keys.toList()
+    List<String> sortedKeys = store.openingTimes!.keys.toList()
       ..sort((a, b) => _getDayOrder(a).compareTo(_getDayOrder(b)));
 
-    _getTrans(day) {
+    String _getTrans(day) {
       switch (day) {
         case 'MO':
-          return AppLocalizations.of(context).mo;
+          return AppLocalizations.of(context)!.mo;
         case 'TU':
-          return AppLocalizations.of(context).tu;
+          return AppLocalizations.of(context)!.tu;
         case 'WE':
-          return AppLocalizations.of(context).we;
+          return AppLocalizations.of(context)!.we;
         case 'TH':
-          return AppLocalizations.of(context).th;
+          return AppLocalizations.of(context)!.th;
         case 'FR':
-          return AppLocalizations.of(context).fr;
+          return AppLocalizations.of(context)!.fr;
         case 'SA':
-          return AppLocalizations.of(context).sa;
+          return AppLocalizations.of(context)!.sa;
         case 'SU':
-          return AppLocalizations.of(context).su;
+          return AppLocalizations.of(context)!.su;
+        default:
+          return "";
       }
     }
 
@@ -140,7 +142,7 @@ class OpeningHoursForm extends StatelessWidget {
                         )),
                         Expanded(
                           child: Column(
-                            children: _getWidgetList(store.openingTimes[day], day),
+                            children: _getWidgetList(store.openingTimes![day], day),
                           ),
                           flex: 2,
                         ),

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:meta/meta.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
 import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/model/user_model.dart';
@@ -16,9 +15,8 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository userRepository;
 
-  AuthenticationBloc({@required this.userRepository})
-      : assert(UserRepository != null),
-        super(null);
+  AuthenticationBloc({required this.userRepository})
+      : super(AuthenticationUnintialized());
 
   AuthenticationState get initialState => AuthenticationUnintialized();
 

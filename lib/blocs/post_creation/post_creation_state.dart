@@ -1,13 +1,13 @@
 part of 'post_creation_bloc.dart';
 
 abstract class PostCreationState extends Equatable {
-  final Post post;
-  final int refresh;
+  final Post? post;
+  final int? refresh;
 
   const PostCreationState({this.post, this.refresh});
 
   @override
-  List<Object> get props => [post, refresh];
+  List<Object> get props => [];
 }
 
 class InitialPostCreationState extends PostCreationState {
@@ -19,17 +19,17 @@ class InitialPostCreationState extends PostCreationState {
 
 class StartedPostCreationState extends PostCreationState {
   final Post post;
-  final int refresh;
+  final int? refresh;
 
-  const StartedPostCreationState({this.post, this.refresh});
+  const StartedPostCreationState({required this.post, this.refresh});
 
   @override
-  List<Object> get props => [post, refresh];
+  List<Object> get props => [post];
 }
 
 class LoadingPostCreationState extends PostCreationState {
   final Post post;
-  LoadingPostCreationState({@required this.post});
+  LoadingPostCreationState({required this.post});
 
   @override
   List<Object> get props => [post];
@@ -42,10 +42,10 @@ class DonePostCreationState extends PostCreationState {
   final bool redirect;
 
   const DonePostCreationState(
-      {@required this.success,
-      @required this.message,
-      @required this.post,
-      this.redirect});
+      {required this.success,
+      required this.message,
+      required this.post,
+      required this.redirect});
 
   @override
   List<Object> get props => [success, message, post, redirect];

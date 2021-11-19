@@ -13,7 +13,7 @@ class StoreAddressRow extends StatefulWidget {
   final Address address;
   final int index;
 
-  StoreAddressRow({@required this.address, this.index});
+  StoreAddressRow({required this.address, required this.index});
 
   @override
   _StoreAddressRowState createState() => _StoreAddressRowState();
@@ -24,7 +24,7 @@ class _StoreAddressRowState extends State<StoreAddressRow>
   final _streetController = TextEditingController();
   final _cityController = TextEditingController();
   final _postalCodeController = TextEditingController();
-  String selectedCountry;
+  late String selectedCountry;
 
   @override
   Widget build(BuildContext context) {
@@ -93,19 +93,19 @@ class _StoreAddressRowState extends State<StoreAddressRow>
                 TextInput(
                   controller: _streetController,
                   icon: Icons.location_pin,
-                  label: AppLocalizations.of(context).street,
+                  label: AppLocalizations.of(context)!.street,
                   validator: isEmpty,
                 ),
                 TextInput(
                   controller: _postalCodeController,
                   icon: Icons.location_searching,
-                  label: AppLocalizations.of(context).postCode,
+                  label: AppLocalizations.of(context)!.postCode,
                   validator: isEmpty,
                 ),
                 TextInput(
                   controller: _cityController,
                   icon: Icons.location_city,
-                  label: AppLocalizations.of(context).city,
+                  label: AppLocalizations.of(context)!.city,
                   validator: isEmpty,
                 ),
                 TextButton(

@@ -8,8 +8,8 @@ import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class PostsTab extends StatelessWidget {
-  const PostsTab({Key key, @required this.stores, @required this.posts})
-      : super(key: key);
+  const PostsTab({required this.stores, required this.posts})
+      : super();
 
   final List<Store> stores;
   final List<Post> posts;
@@ -22,7 +22,7 @@ class PostsTab extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  AppLocalizations.of(context).noPost,
+                  AppLocalizations.of(context)!.noPost,
                   style: Theme.of(context).textTheme.headline5,
                   textAlign: TextAlign.center,
                 ),
@@ -42,7 +42,7 @@ class PostsTab extends StatelessWidget {
               scrollDirection: Axis.vertical,
               children: posts.reversed.map((post) {
                     return PostPreview(post: post);
-                  })?.toList() ??
+                  }).toList() ??
                   [],
             ),
           );

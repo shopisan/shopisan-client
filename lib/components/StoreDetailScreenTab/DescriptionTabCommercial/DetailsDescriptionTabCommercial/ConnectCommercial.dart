@@ -6,7 +6,7 @@ import 'package:shopisan/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ConnectCommercial extends StatefulWidget {
-  const ConnectCommercial({Key key, @required this.store}) : super(key: key);
+  const ConnectCommercial({required this.store}) : super();
 
   final Store store;
 
@@ -54,7 +54,7 @@ class _ConnectCommercialState extends State<ConnectCommercial> {
                               color: CustomColors.textDark,
                             ),
                             Text(
-                              AppLocalizations.of(context).website,
+                              AppLocalizations.of(context)!.website,
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,

@@ -14,14 +14,14 @@ import 'package:shopisan/theme/colors.dart';
 class ProfilePicture extends StatefulWidget {
   final UserProfile user;
 
-  ProfilePicture({Key key, @required this.user}) : super(key: key);
+  ProfilePicture({required this.user});
 
   @override
   ProfilePictureState createState() => ProfilePictureState();
 }
 
 class ProfilePictureState extends State<ProfilePicture> {
-  PickedFile _imageFile;
+  late PickedFile _imageFile;
   final ImagePicker picker = ImagePicker();
 
   @override
@@ -30,10 +30,24 @@ class ProfilePictureState extends State<ProfilePicture> {
       final pickedFile = await picker.getImage(source: source);
       Navigator.of(context).pop();
       BlocProvider.of<ProfileEditBloc>(context)
-          .add(ChangePictureEvent(picture: File(pickedFile.path)));
+          .add(ChangePictureEvent(picture: File(pickedFile!.path)));
       setState(() {
         _imageFile = pickedFile;
       });
+    }
+
+    ImageProvider _BackgroundImage(){
+      if (widget.user.profile!.picture is FileModel.File) {
+        return NetworkImage(
+            widget.user.profile!.picture!.file!);
+      } else if (_imageFile != null) {
+        return FileImage(
+            File(_imageFile.path));
+      } else {
+        return AssetImage(
+          "assets/img/profile.jpg",
+        );
+      }
     }
 
     return Center(
@@ -41,16 +55,7 @@ class ProfilePictureState extends State<ProfilePicture> {
         children: [
           CircleAvatar(
             radius: 80.0,
-            backgroundImage: widget.user.profile.picture is FileModel.File
-                ? /*AssetImage("assets/img/profile.jpg")*/ NetworkImage(
-                    widget.user.profile.picture.file)
-                : _imageFile != null
-                    ? FileImage(
-                        File(_imageFile.path),
-                      )
-                    : AssetImage(
-                        "assets/img/profile.jpg",
-                      ),
+            backgroundImage: _BackgroundImage(),
           ),
           Positioned(
             bottom: 5,
@@ -72,7 +77,7 @@ class ProfilePictureState extends State<ProfilePicture> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(AppLocalizations.of(context).choosePicture,
+                              Text(AppLocalizations.of(context)!.choosePicture,
                                   style: Theme.of(context).textTheme.headline3),
                               Row(
                                 mainAxisAlignment:
@@ -89,7 +94,7 @@ class ProfilePictureState extends State<ProfilePicture> {
                                     icon:
                                         Icon(Icons.camera, color: Colors.black),
                                     label: Text(
-                                        AppLocalizations.of(context).camera,
+                                        AppLocalizations.of(context)!.camera,
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline2),
@@ -105,7 +110,7 @@ class ProfilePictureState extends State<ProfilePicture> {
                                     icon:
                                         Icon(Icons.image, color: Colors.black),
                                     label: Text(
-                                        AppLocalizations.of(context).gallery,
+                                        AppLocalizations.of(context)!.gallery,
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline2),
