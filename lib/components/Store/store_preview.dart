@@ -27,7 +27,7 @@ class StorePreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    String? _image = store.profilePicture!.file;
+    String? _image = store.profilePicture?.file;
 
     ImageProvider GetImage(){
       if (_image != null) {

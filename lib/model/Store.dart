@@ -69,7 +69,7 @@ class Store {
       url: json['url'],
       website: json['website'],
       openingTimes: json['openingTimes'],
-      profilePicture: File.fromJson(json['profilePicture']),
+      profilePicture: null != json["profilePicture"] ? File.fromJson(json['profilePicture']) : null,
       description_fr: json['description_fr'],
       description_en: json['description_en'],
       appointmentOnly: json['appointmentOnly'],
@@ -118,7 +118,7 @@ class StoreCollection {
   factory StoreCollection.fromJson(json) {
     return StoreCollection(
       stores: json
-          .map<Store>((json) => Store.fromJson(json as Map<String, dynamic>))
+          .map<Store>((json) => Store.fromJson(json as Map<String, dynamic>?))
           .toList(),
     );
   }

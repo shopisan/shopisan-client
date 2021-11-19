@@ -21,10 +21,10 @@ class Address {
   factory Address.fromJson(final json) {
     return Address(
         id: json['id'],
-        streetAvenue: json['streetAvenue'],
-        postalCode: json['postalCode'],
-        city: json['city'],
-        country: json['country'],
+        streetAvenue: json['streetAvenue'] ?? "",
+        postalCode: json['postalCode'] ?? "",
+        city: json['city'] ?? "",
+        country: json['country'] ?? "",
         latitude: json['latitude'],
         longitude: json['longitude'],
         store: json['store']);

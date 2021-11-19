@@ -129,7 +129,8 @@ class _StoresScreenState extends State<StoresScreen> {
 
     String? currentCountry = addresses.countryCode;
 
-    print("Yo!");
+    print("Current country");
+    print(currentCountry);
 
     setState(() {
       latitudeData = geoposition.latitude;

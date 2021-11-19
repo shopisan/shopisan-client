@@ -1,5 +1,6 @@
 import 'package:shopisan/database/user_database.dart';
 import 'package:shopisan/model/user_model.dart';
+import 'package:sqflite/sqflite.dart';
 
 class UserDao {
   final dbProvider = DatabaseProvider.dbProvider;
@@ -18,7 +19,8 @@ class UserDao {
   }
 
   Future<bool> checkUser(int id) async {
-    final db = await dbProvider.database;
+    final Database db = await dbProvider.database;
+
     try {
       List<Map> users =
           await db.query(userTable, where: 'id = ?', whereArgs: [id]);

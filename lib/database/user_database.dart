@@ -10,17 +10,17 @@ final userTable = 'userTable';
 class DatabaseProvider {
   static final DatabaseProvider dbProvider = DatabaseProvider();
 
-  late Database _database;
+  Database? _database;
 
   Future<Database> get database async {
     if (_database != null) {
-      return _database;
+      return _database!;
     }
     _database = await createDatabase();
-    return _database;
+    return _database!;
   }
 
-  createDatabase() async {
+  Future<Database> createDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, "User.db");
 
@@ -30,6 +30,7 @@ class DatabaseProvider {
       onCreate: initDB,
       onUpgrade: onUpgrade,
     );
+
     return database;
   }
 
