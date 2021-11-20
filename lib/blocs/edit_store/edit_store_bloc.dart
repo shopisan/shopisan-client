@@ -51,7 +51,7 @@ class EditStoreBloc extends Bloc<EditStoreEvent, EditStoreState> {
       try {
         var c = fetchCategories();
         if (null != event.storeId) {
-          var s = fetchStore(event.storeId);
+          var s = fetchStore(event.storeId!);
           store = await s;
         } else {
           store = Store(

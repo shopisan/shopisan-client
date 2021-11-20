@@ -27,8 +27,8 @@ class _PostCreationState extends State<PostCreation> {
 
   @override
   Widget build(BuildContext context) {
-    final Post post =
-        context.select((PostCreationBloc bloc) => bloc.state.post as Post);
+    final Post? post =
+        context.select((PostCreationBloc bloc) => bloc.state.post);
     AuthenticationAuthenticated authState =
         context.select((AuthenticationBloc bloc) => bloc.state as AuthenticationAuthenticated);
 
@@ -125,10 +125,12 @@ class _PostCreationState extends State<PostCreation> {
       });
     }
 
-    _updateStore(String storeUrl) {
+    _updateStore(String? storeUrl) {
       BlocProvider.of<PostCreationBloc>(context)
-          .add(ChangePostStore(storeUrl: storeUrl));
+          .add(ChangePostStore(storeUrl: storeUrl ?? ""));
     }
+
+    print(stores);
 
     return GestureDetector(
       onTap: (){
@@ -147,7 +149,7 @@ class _PostCreationState extends State<PostCreation> {
               Container(
                 padding: EdgeInsets.all(10),
                 child: SelectInput(
-                  value: post.store!,
+                  value: post.store,
                   callback: _updateStore,
                   items: stores
                       .map((Store store) => DropdownMenuItem(

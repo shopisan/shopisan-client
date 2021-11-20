@@ -4,12 +4,12 @@ part of 'edit_store_bloc.dart';
 abstract class EditStoreEvent extends Equatable {}
 
 class AppStartedEvent extends EditStoreEvent{
-  final int storeId;
+  final int? storeId;
 
-  AppStartedEvent({required this.storeId});
+  AppStartedEvent({this.storeId});
 
   @override
-  List<Object> get props => [storeId];
+  List<Object> get props => [];
 }
 
 class StoreEditEvent extends EditStoreEvent{

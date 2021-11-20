@@ -48,7 +48,6 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
             post: post,
             redirect: event.post.id == null ? true : false);
       } catch (error) {
-        print(error.toString());
         yield DonePostCreationState(
             success: false, message: error.toString(), post: post,
             redirect: false);
@@ -105,8 +104,7 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
     } else if (event is ChangePostStore) {
       Post post = state.post!;
 
-      post.store = event.storeUrl;
-      print(post.store);
+      post.store = event.storeUrl != "" ? event.storeUrl : null;
 
       yield StartedPostCreationState(
           post: post, refresh: null == state.refresh ? 0 : state.refresh! + 1);

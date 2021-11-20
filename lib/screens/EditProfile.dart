@@ -22,14 +22,14 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    final UserProfile user =
-        context.select((ProfileEditBloc bloc) => bloc.state.user as UserProfile);
+    final UserProfile? user =
+        context.select((ProfileEditBloc bloc) => bloc.state.user);
     final state = context.select((ProfileEditBloc bloc) => bloc.state);
 
     _setUser(username, email, name, surname, dob) {
-      user.username = username;
-      user.email = email;
-      UserProfileProfile profile = user.profile as UserProfileProfile;
+      user?.username = username;
+      user?.email = email;
+      UserProfileProfile profile = user?.profile as UserProfileProfile;
       profile.name = name;
       profile.surname = surname;
       profile.dob = dob;
@@ -37,7 +37,7 @@ class _EditProfileState extends State<EditProfile> {
 
     _submitUser() {
       if (_formKey.currentState!.validate()) {
-        BlocProvider.of<ProfileEditBloc>(context).add(SubmitEvent(user: user));
+        BlocProvider.of<ProfileEditBloc>(context).add(SubmitEvent(user: user!));
       }
     }
 
@@ -86,7 +86,7 @@ class _EditProfileState extends State<EditProfile> {
             child: Column(
               children: [
                 ProfilePicture(
-                  user: user,
+                  user: user!,
                 ),
                 FormProfile(
                   user: user,

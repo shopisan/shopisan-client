@@ -34,9 +34,9 @@ class GoogleMapScreen extends StatefulWidget {
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
-  late GoogleMapController mapController;
-  late BitmapDescriptor mapMarker;
-  late CameraPosition cameraPosition;
+  GoogleMapController? mapController;
+  BitmapDescriptor? mapMarker;
+  CameraPosition? cameraPosition;
 
   @override
   void initState() {
@@ -56,7 +56,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     setState(() {
       cameraPosition = camPos;
     });
-    mapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    mapController!.animateCamera(CameraUpdate.newCameraPosition(cameraPosition!));
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -78,7 +78,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       }
     ]);
 
-    mapController.setMapStyle(style2);
+    mapController!.setMapStyle(style2);
 
     setState(() {});
   }
@@ -98,7 +98,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               Marker(
                 markerId: MarkerId(
                     address.id.toString() + " " + address.streetAvenue),
-                icon: mapMarker,
+                icon: mapMarker!,
                 position: LatLng(
                   double.parse(address.latitude!),
                   double.parse(address.longitude!),
@@ -131,7 +131,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 myLocationEnabled: true,
                 zoomControlsEnabled: false,
                 tiltGesturesEnabled: false,
-                initialCameraPosition: cameraPosition,
+                initialCameraPosition: cameraPosition!,
               );
             }
 

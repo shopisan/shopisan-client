@@ -19,7 +19,7 @@ class CommercialPicture extends StatefulWidget {
 }
 
 class _CommercialPictureState extends State<CommercialPicture> {
-  late PickedFile _imageFile;
+  PickedFile? _imageFile;
   final ImagePicker picker = ImagePicker();
 
   void takePhoto(ImageSource source) async {
@@ -45,7 +45,7 @@ class _CommercialPictureState extends State<CommercialPicture> {
           return AssetImage("assets/img/store.jpg");
         }  else {
           return FileImage(
-            File(_imageFile.path),
+            File(_imageFile!.path),
           );
         }
       }  else {

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:shopisan/theme/colors.dart';
 
 class SelectInput extends StatelessWidget {
-  final String value;
+  final String? value;
   final Function callback;
   final List<DropdownMenuItem> items;
   final IconData icon;
   final String label;
-  final Function? validator;
+  final String? Function(dynamic, dynamic)? validator;
 
   SelectInput(
-      {required this.value,
+      {this.value,
       required this.callback,
       required this.items,
       required this.label,
@@ -19,6 +19,9 @@ class SelectInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(items[0].value);
+    print(value == "");
+
     return Container(
         // height: 50,
         // width: double.infinity,
@@ -64,7 +67,12 @@ class SelectInput extends StatelessWidget {
               labelText: label,
               /*hintText: hint*/
             ),
-            validator: validator != null ? validator!(value, context) : null)
+            validator: (value){
+              if (validator != null) {
+                return validator!(value, context);
+              }
+              return null;
+            })
         );
   }
 }

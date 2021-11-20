@@ -32,8 +32,6 @@ class AuthenticationBloc
 
       return AuthenticationUnauthenticated();
     }
-
-    return AuthenticationUnauthenticated();
   }
 
   @override
@@ -52,7 +50,6 @@ class AuthenticationBloc
 
     if (event is LoggedIn) {
       yield AuthenticationLoading();
-
       await userRepository.deleteToken(id: 0);
       await userRepository.persistToken(user: event.user);
       FirebaseAnalytics().logEvent(name: 'Login',parameters:null);

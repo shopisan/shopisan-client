@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:shopisan/components/Form/date_input.dart';
+// import 'package:shopisan/components/Form/date_input.dart';
 import 'package:shopisan/components/Form/text_input.dart';
 import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/utils/validators.dart';
@@ -17,6 +17,7 @@ class FormProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(user);
     final _userNameController = TextEditingController(text: user.username);
     final _emailController = TextEditingController(text: user.email);
     final _nameController = TextEditingController(text: user.profile!.name);
@@ -79,11 +80,11 @@ class FormProfile extends StatelessWidget {
               label: AppLocalizations.of(context)!.lastName,
               validator: isEmpty,
             ),
-            DateInput(
-              controller: _dobController,
-              icon: Icons.cake_outlined,
-              format: format,
-            ),
+            // DateInput(
+            //   controller: _dobController,
+            //   icon: Icons.cake_outlined,
+            //   format: format,
+            // ),
           ],
         ),
       ),

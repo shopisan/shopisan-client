@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geocode/geocode.dart';
+// import 'package:geocode/geocode.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:shopisan/components/StoresScreenTabs/FavoriteTab/FavoriteTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/MapTab/MapTab.dart';
 import 'package:shopisan/components/StoresScreenTabs/SettingsTab/SettingsTab.dart';
@@ -119,25 +120,21 @@ class _StoresScreenState extends State<StoresScreen> {
   // Récupérer la géolocalisation
   getCurrentLocation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    GeoCode geoCode = GeoCode();
+    // GeoCode geoCode = GeoCode();
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
-    Address addresses = await geoCode.reverseGeocoding(
-        latitude: geoposition.latitude,
-        longitude: geoposition.longitude);
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        geoposition.latitude, geoposition.longitude);
 
-    String? currentCountry = addresses.countryCode;
-
-    print("Current country");
-    print(currentCountry);
+    String currentCountry = placemarks[0].isoCountryCode!;
 
     setState(() {
       latitudeData = geoposition.latitude;
       longitudeData = geoposition.longitude;
       myLatitude = geoposition.latitude;
       myLongitude = geoposition.longitude;
-      country = currentCountry!;
+      country = currentCountry;
     });
 
     loadCities();

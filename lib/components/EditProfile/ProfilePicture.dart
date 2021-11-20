@@ -21,7 +21,7 @@ class ProfilePicture extends StatefulWidget {
 }
 
 class ProfilePictureState extends State<ProfilePicture> {
-  late PickedFile _imageFile;
+  PickedFile? _imageFile;
   final ImagePicker picker = ImagePicker();
 
   @override
@@ -37,12 +37,13 @@ class ProfilePictureState extends State<ProfilePicture> {
     }
 
     ImageProvider _BackgroundImage(){
-      if (widget.user.profile!.picture is FileModel.File) {
+      if (widget.user.profile!.picture is FileModel.File &&
+          widget.user.profile!.picture!.file != null) {
         return NetworkImage(
             widget.user.profile!.picture!.file!);
       } else if (_imageFile != null) {
         return FileImage(
-            File(_imageFile.path));
+            File(_imageFile!.path));
       } else {
         return AssetImage(
           "assets/img/profile.jpg",

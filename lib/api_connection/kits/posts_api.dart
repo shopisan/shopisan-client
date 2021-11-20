@@ -10,8 +10,6 @@ Future<int> createPost(Post post) async {
 
   http.Response response;
 
-  print(post.store);
-
   if (post.id == null) {
     response = await http.post(Uri.https(_base, "/api/posts/posts/"),
         body: jsonEncode({

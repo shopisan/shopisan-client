@@ -3,8 +3,8 @@ import 'package:shopisan/model/Store.dart';
 
 class UserProfileProfile {
   int? id;
-  String name;
-  String surname;
+  String? name;
+  String? surname;
   File? picture;
   String? dob;
   List favouriteStores;
@@ -20,14 +20,14 @@ class UserProfileProfile {
     required this.ownedStores
   });
 
-  factory UserProfileProfile.fromJson(Map<String, dynamic> data) => UserProfileProfile(
-    id: data['id'],
-    name: data['name'],
-    surname: data['surname'],
-    dob: data['date_of_birth'],
-    favouriteStores: data['favourite_stores'],
-    picture: File.fromJson(data['picture']),
-    ownedStores: StoreCollection.fromJson(data['owned_stores']).stores!
+  factory UserProfileProfile.fromJson(Map<String, dynamic>? data) => UserProfileProfile(
+    id: data?['id'],
+    name: data?['name'],
+    surname: data?['surname'],
+    dob: data?['date_of_birth'],
+    favouriteStores: data?['favourite_stores'],
+    picture: File.fromJson(data?['picture']),
+    ownedStores: StoreCollection.fromJson(data?['owned_stores']).stores!
   );
 
   Map<String, dynamic> toJson() => {

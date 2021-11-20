@@ -31,13 +31,13 @@ class CustomMultiSelect<V> extends FormField<List<V>> {
 
   /// Overrides the default MultiSelectChipDisplay attached to this field.
   /// If you want to remove it, use MultiSelectChipDisplay.none().
-  final MultiSelectChipDisplay<V?>? chipDisplay;
+  final MultiSelectChipDisplay<V?> chipDisplay;
 
   /// The list of selected values before interaction.
   final List<V>? initialValue;
 
   /// Fires when confirm is tapped.
-  final void Function(List<V?>) onConfirm;
+  final void Function(List<V?>?) onConfirm;
 
   /// Toggles search functionality.
   final bool? searchable;
@@ -109,7 +109,7 @@ class CustomMultiSelect<V> extends FormField<List<V>> {
     this.listType,
     this.decoration,
     this.onSelectionChanged,
-    this.chipDisplay,
+    required this.chipDisplay,
     this.searchable,
     this.confirmText,
     this.cancelText,

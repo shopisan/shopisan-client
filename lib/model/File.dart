@@ -7,13 +7,13 @@ class File {
 
   File({this.id, this.url, this.contentType, this.fileType, this.file});
 
-  factory File.fromJson(Map<String, dynamic> json) {
+  factory File.fromJson(Map<String, dynamic>? json) {
       return File(
-          id: json['id'],
-          url: json['url'],
-          contentType: json['content_type'],
-          fileType: json['file_type'],
-          file: json['file']);
+          id: json?['id'],
+          url: json?['url'],
+          contentType: json?['content_type'],
+          fileType: json?['file_type'],
+          file: json?['file']);
   }
 
   Map<String, dynamic> toJson() {
@@ -29,7 +29,7 @@ class FileCollection {
   factory FileCollection.fromJson(json) {
     return FileCollection(
       files: json
-          .map<File>((json) => File.fromJson(json as Map<String, dynamic>))
+          .map<File>((json) => File.fromJson(json as Map<String, dynamic>?))
           .toList(),
     );
   }

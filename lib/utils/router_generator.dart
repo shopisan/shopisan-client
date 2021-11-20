@@ -7,7 +7,6 @@ import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
 import 'package:shopisan/blocs/registration/registration_bloc.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/PostsCommercialScreen.dart';
-import 'package:shopisan/repository/user_repository.dart';
 import 'package:shopisan/screens/EditProfile.dart';
 import 'package:shopisan/screens/EditStoreScreen.dart';
 import 'package:shopisan/screens/ForgotPassword.dart';
@@ -22,8 +21,9 @@ import 'package:shopisan/screens/post_creation.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    final Map<String, dynamic>? args = settings.arguments as Map<String, dynamic>?;
-    final UserRepository? userRepository = settings.arguments as UserRepository?;
+    dynamic args = settings.arguments;
+    // final Map<String, dynamic>? args = settings.arguments as Map<String, dynamic>?;
+    // final UserRepository? userRepository = settings.arguments as UserRepository?;
 
     return MaterialPageRoute(
         settings: RouteSettings(name: settings.name),
@@ -72,7 +72,7 @@ class RouteGenerator {
                       ));
 
                 case '/login':
-                  return LoginPage(userRepository: userRepository!);
+                  return LoginPage(userRepository: args);
 
                 case '/register':
                   return BlocProvider<RegistrationBloc>(
@@ -107,7 +107,7 @@ class RouteGenerator {
                       create: (context) {
                         return EditStoreBloc()
                           ..add(AppStartedEvent(
-                              storeId: args!['storeId'] ?? null));
+                              storeId: args?['storeId'] ?? null));
                       },
                       child: EditStore());
 
