@@ -255,7 +255,7 @@ class _PostCreationState extends State<PostCreation> {
                       child: Text(
                           post.id == null
                               ? AppLocalizations.of(context)!
-                              .createPost
+                              .publishPost
                               : AppLocalizations.of(context)!.editPost,
                           style:
                           Theme.of(context).textTheme.headline1),

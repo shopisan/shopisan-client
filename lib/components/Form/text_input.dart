@@ -17,6 +17,8 @@ class TextInput extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final String? hint;
   final bool obscureText;
+  final bool passwordVisible;
+  final Function? setPasswordVisibility;
   final int? maxLength;
 
   TextInput(
@@ -34,6 +36,8 @@ class TextInput extends StatelessWidget {
       this.margin,
       this.hint,
       this.obscureText = false,
+      this.passwordVisible = false,
+      this.setPasswordVisibility,
       this.maxLength});
 
   @override
@@ -70,7 +74,7 @@ class TextInput extends StatelessWidget {
             : null,
         keyboardType: keyboardType,
         inputFormatters: inputFormatter,
-        obscureText: obscureText,
+        obscureText: obscureText && !passwordVisible,
         maxLength: maxLength,
         maxLengthEnforcement: null == maxLength
             ? MaxLengthEnforcement.none
@@ -95,7 +99,22 @@ class TextInput extends StatelessWidget {
               ),
             ),
             labelText: label,
-            hintText: hint),
+            hintText: hint,
+          suffixIcon: obscureText ? IconButton(
+            icon: Icon(
+              // Based on passwordVisible state choose the icon
+              passwordVisible
+                  ? Icons.visibility
+                  : Icons.visibility_off,
+              color: CustomColors.iconsActive,
+            ),
+            onPressed: (){
+              if (null != setPasswordVisibility) {
+                setPasswordVisibility!();
+              }
+            },
+          ) : null,
+        ),
       ),
     );
   }

@@ -5,12 +5,27 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/blocs/authentication/authentication_bloc.dart';
 import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:shopisan/utils/common.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final AuthenticationAuthenticated state = context.select((AuthenticationBloc bloc) => bloc.state as AuthenticationAuthenticated) ;
+
+    /**
+     * @TODO check why this widget is not changed into login widget
+     *      ==> Check why the login widget is reloaded, but not this one
+     *      ==>
+     */
+
+    final state =
+      context.select((AuthenticationBloc bloc) => bloc.state) ;
     UserProfile user;
+
+    if (state is AuthenticationLoading) {
+      return LoadingIndicator();
+    }
+
+    state as AuthenticationAuthenticated;
     // if (state is AuthenticationAuthenticated) {
       user = state.user;
     // }

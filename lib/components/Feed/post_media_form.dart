@@ -8,6 +8,7 @@ import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 import 'package:shopisan/components/Form/text_input.dart' as CustomInput;
 import 'package:shopisan/model/PostMedia.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 
 class PostMediaForm extends StatefulWidget {
   final PostMedia? postMedia;
@@ -80,16 +81,32 @@ class _PostMediaFormState extends State<PostMediaForm> {
     _takePhoto(ImageSource source) async {
       final pickedFile = await picker.getImage(source: source);
 
-      // TODO we might have to add a few conditions here
+      if (null != pickedFile) {
+        final file = File(pickedFile.path);
+        int sizeInBytes = file.lengthSync();
+        double sizeInMb = sizeInBytes / (1024 * 1024);
+        Navigator.of(context).pop();
+        if (sizeInMb > 3){
+          WidgetsBinding.instance!.addPostFrameCallback((_) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(AppLocalizations.of(context)!.fileTooBig),
+                backgroundColor: CustomColors.error,
+              ),
+            );
+          });
+        } else {
+          File rotatedImage =
+            await FlutterExifRotation.rotateImage(path: pickedFile.path);
+          setState(() {
+            _image = rotatedImage;
+          });
 
-      Navigator.of(context).pop();
-      setState(() {
-        _image = File(pickedFile!.path);
-      });
-
-      BlocProvider.of<PostCreationBloc>(context)
-          .add(ChangePostMediaPicture(uploadFile: _image!,
-          index: widget.index ?? 0));
+          BlocProvider.of<PostCreationBloc>(context)
+              .add(ChangePostMediaPicture(uploadFile: _image!,
+              index: widget.index ?? 0));
+        }
+      }
     }
 
     return BlocBuilder<PostCreationBloc, PostCreationState>(

@@ -10,6 +10,7 @@ import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
 import 'package:shopisan/model/File.dart' as FileModel;
 import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 
 class ProfilePicture extends StatefulWidget {
   final UserProfile user;
@@ -21,22 +22,41 @@ class ProfilePicture extends StatefulWidget {
 }
 
 class ProfilePictureState extends State<ProfilePicture> {
-  PickedFile? _imageFile;
+  File? _imageFile;
   final ImagePicker picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
     _takePhoto(ImageSource source) async {
       final pickedFile = await picker.getImage(source: source);
-      Navigator.of(context).pop();
-      BlocProvider.of<ProfileEditBloc>(context)
-          .add(ChangePictureEvent(picture: File(pickedFile!.path)));
-      setState(() {
-        _imageFile = pickedFile;
-      });
+
+      if (null != pickedFile) {
+        final file = File(pickedFile.path);
+        int sizeInBytes = file.lengthSync();
+        double sizeInMb = sizeInBytes / (1024 * 1024);
+        Navigator.of(context).pop();
+        if (sizeInMb > 3){
+          WidgetsBinding.instance!.addPostFrameCallback((_) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(AppLocalizations.of(context)!.fileTooBig),
+                backgroundColor: CustomColors.error,
+              ),
+            );
+          });
+        } else {
+          File rotatedImage =
+            await FlutterExifRotation.rotateImage(path: pickedFile.path);
+          setState(() {
+            _imageFile = rotatedImage;
+          });
+          BlocProvider.of<ProfileEditBloc>(context)
+              .add(ChangePictureEvent(picture: rotatedImage));
+        }
+      }
     }
 
-    ImageProvider _BackgroundImage(){
+    ImageProvider _backgroundImage(){
       if (widget.user.profile!.picture is FileModel.File &&
           widget.user.profile!.picture!.file != null) {
         return NetworkImage(
@@ -56,7 +76,7 @@ class ProfilePictureState extends State<ProfilePicture> {
         children: [
           CircleAvatar(
             radius: 80.0,
-            backgroundImage: _BackgroundImage(),
+            backgroundImage: _backgroundImage(),
           ),
           Positioned(
             bottom: 5,

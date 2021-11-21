@@ -53,6 +53,7 @@
   "addPost": "Veuillez ajouter un post",
   "noPost": "Il n'y a actuellement pas de post",
   "createPost": "Créer un post",
+  "publishPost": "Publier un post",
   "editPost": "Modifier un post",
   "deletePost": "Supprimer",
   "editPosts": "Publier un post",
@@ -128,5 +129,6 @@
   "userRegister": "Utilisateur",
   "ownerRegister": "Boutique/marque",
   "registerUser": "Enregistrez-vous ici en tant que nouvel utilisateur",
-  "registerStore" : "Enregistrez-vous ici si vous souhaitez inscrire votre commerce"
+  "registerStore" : "Enregistrez-vous ici si vous souhaitez inscrire votre commerce",
+  "fileTooBig": "La taille du fichier uploadé ne peut pas dépasser 3MO"
 }

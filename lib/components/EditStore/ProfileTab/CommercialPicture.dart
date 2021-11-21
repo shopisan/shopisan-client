@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 
 class CommercialPicture extends StatefulWidget {
   final Store store;
@@ -19,20 +20,36 @@ class CommercialPicture extends StatefulWidget {
 }
 
 class _CommercialPictureState extends State<CommercialPicture> {
-  PickedFile? _imageFile;
+  File? _imageFile;
   final ImagePicker picker = ImagePicker();
 
   void takePhoto(ImageSource source) async {
     final pickedFile = await picker.getImage(source: source);
-    if (null != pickedFile) {
-      setState(() {
-        _imageFile = pickedFile;
-      });
-      BlocProvider.of<EditStoreBloc>(context)
-          .add(ChangePictureEvent(picture: File(pickedFile.path)));
-    }
 
-    Navigator.of(context).pop();
+    if (null != pickedFile) {
+      final file = File(pickedFile.path);
+      int sizeInBytes = file.lengthSync();
+      double sizeInMb = sizeInBytes / (1024 * 1024);
+      Navigator.of(context).pop();
+      if (sizeInMb > 3){
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.fileTooBig),
+              backgroundColor: CustomColors.error,
+            ),
+          );
+        });
+      } else {
+        File rotatedImage =
+          await FlutterExifRotation.rotateImage(path: pickedFile.path);
+        setState(() {
+          _imageFile = rotatedImage;
+        });
+        BlocProvider.of<EditStoreBloc>(context)
+            .add(ChangePictureEvent(picture: rotatedImage));
+      }
+    }
   }
 
   @override

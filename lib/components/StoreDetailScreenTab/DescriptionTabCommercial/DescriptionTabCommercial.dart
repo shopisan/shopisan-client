@@ -41,6 +41,18 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
     var padding = MediaQuery.of(context).padding;
     double newHeight = height - padding.top - padding.bottom;
 
+    Widget _getPostWidget(){
+
+      if (widget.posts.length > 0) {
+        return PostsTabCommercial(
+          store: store,
+          posts: widget.posts,
+          height: newHeight,
+        );
+      }
+      return Container();
+    }
+
     return Column(
       children: [
         CategoriesCommercial(
@@ -95,11 +107,7 @@ class _DescriptionTabCommercialState extends State<DescriptionTabCommercial> {
                       style: Theme.of(context).textTheme.headline3,
                     ),
                   ),
-                  PostsTabCommercial(
-                    store: store,
-                    posts: widget.posts,
-                    height: newHeight,
-                  ),
+                  _getPostWidget(),
                 ],
               ),
             )),

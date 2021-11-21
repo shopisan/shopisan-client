@@ -34,11 +34,11 @@ class StoreDetailScreen extends StatefulWidget {
 }
 
 class _StoreDetailScreenState extends State<StoreDetailScreen> {
-  late Store store;
-  late AddressCollection addresses;
-  late List<Category> categories;
-  late OpeningTime openingTime;
-  late List<Post> posts;
+  Store? store;
+  AddressCollection? addresses;
+  List<Category>? categories;
+  OpeningTime? openingTime;
+  List<Post>? posts;
 
   int _currentIndex = 0;
 
@@ -110,7 +110,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
         DescriptionTabCommercial(
           store: store,
           height: newHeight,
-          posts: posts,
+          posts: posts!,
         ),
         MapTabCommercial(
           store: store,
@@ -128,7 +128,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
 
     _submitFavourite() async {
       try {
-        UserProfile user = await manageFavouriteStore(store.id as int);
+        UserProfile user = await manageFavouriteStore(store!.id as int);
         BlocProvider.of<AuthenticationBloc>(context)
             .add(UserChangedEvent(user: user));
       } catch (exception) {
@@ -139,7 +139,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
     _isFavourite() {
       if (null != profile) {
         for (Map<String, dynamic> storeJson in profile.favouriteStores) {
-          if (storeJson['id'] == store.id) {
+          if (storeJson['id'] == store!.id) {
             return true;
           }
         }
@@ -148,8 +148,8 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
     }
 
     ImageProvider _GetImage(){
-      if (store.profilePicture != null) {
-        return NetworkImage(store.profilePicture!.file!);
+      if (store!.profilePicture != null) {
+        return NetworkImage(store!.profilePicture!.file!);
       }
       return AssetImage("assets/img/store.jpg");
     }
@@ -200,7 +200,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                     ),
                                     SizedBox(
                                       child: Text(
-                                        "${store.name}",
+                                        "${store!.name}",
                                         style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w700,
                                             fontSize: 16,
@@ -242,12 +242,12 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                             ),
                                           ),
                                           OpeningTimeCommercial(
-                                            store: store,
+                                            store: store!,
                                           ),
                                           ConnectCommercial(
-                                            store: store,
+                                            store: store!,
                                           ),
-                                          AddressesCommercial(store: store)
+                                          AddressesCommercial(store: store!)
                                         ],
                                       ),
                                     ));
@@ -269,7 +269,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               RatingBarCommercial(
-                                store: store,
+                                store: store!,
                                 profile: profile,
                               ),
                               Container(
@@ -316,7 +316,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                   ],
                 ),
               ),
-              _getListTab(store).elementAt(_currentIndex),
+              _getListTab(store!).elementAt(_currentIndex),
             ],
           ),
         ),

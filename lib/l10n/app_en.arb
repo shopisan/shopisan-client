@@ -57,6 +57,7 @@
   "noPost": "There are currently no posts.",
   "addPost": "Please add a post",
   "createPost": "Create a post",
+  "publishPost": "Publish a post",
   "editPost": "Edit post",
   "deletePost": "Delete",
   "deletePostTitle": "Delete post",
@@ -129,6 +130,7 @@
   "phoneNumberInvalid": "Invalid phone number",
   "userRegister": "User",
   "ownerRegister": "Store owner",
-    "registerUser": "Register here as a new user",
-    "registerStore" : "Register here if you want to register your business"
+  "registerUser": "Register here as a new user",
+  "registerStore" : "Register here if you want to register your business",
+  "fileTooBig": "The uploaded file size can't exceed 3MO"
 }

@@ -17,8 +17,13 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
+  bool _passwordVisible = false;
+
+  @override
+  void initState() {
+    _passwordVisible = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +34,12 @@ class _LoginFormState extends State<LoginForm> {
           password: _passwordController.text,
         ));
       }
+    }
+
+    _onPasswordVisibilityChange(){
+      setState(() {
+        _passwordVisible = !_passwordVisible;
+      });
     }
 
     return BlocListener<LoginBloc, LoginState>(
@@ -74,6 +85,8 @@ class _LoginFormState extends State<LoginForm> {
                       hint: AppLocalizations.of(context)!.passHint,
                       obscureText: true,
                       validator: isEmpty,
+                      setPasswordVisibility: _onPasswordVisibilityChange,
+                      passwordVisible: _passwordVisible,
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(20, 20, 20, 0),

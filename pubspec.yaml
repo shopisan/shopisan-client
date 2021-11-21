@@ -59,6 +59,7 @@ dependencies:
   intl_phone_number_input: ^0.7.0+2
   photo_view: ^0.13.0
   full_screen_image: ^1.0.2
+  flutter_exif_rotation: ^0.4.2
 
 
 dev_dependencies:
