@@ -43,7 +43,7 @@ class SelectInput extends StatelessWidget {
         child: DropdownButtonFormField(
             items: items,
             value: value,
-            onChanged: callback(value),
+            onChanged: (value){callback(value);},
             decoration: InputDecoration(
               isDense: true,
               // Added this
