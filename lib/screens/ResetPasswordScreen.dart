@@ -22,7 +22,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final TextEditingController _repeatPasswordController =
       TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  late String password;
+  String? password;
+  bool _passwordVisible = false;
+
+  @override
+  void initState() {
+    _passwordVisible = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +57,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           Navigator.of(context).popUntil(ModalRoute.withName("/"));
         }
       }
+    }
+
+    _onPasswordVisibilityChange(){
+      setState(() {
+        _passwordVisible = !_passwordVisible;
+      });
     }
 
     return Scaffold(
@@ -107,6 +119,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                         validator: isEmpty,
                         obscureText: true,
+                        setPasswordVisibility: _onPasswordVisibilityChange,
+                        passwordVisible: _passwordVisible,
                       ),
                       TextInput(
                         controller: _repeatPasswordController,
@@ -117,6 +131,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         validator: passwordsMatch,
                         passwordValidation: password,
                         obscureText: true,
+                        setPasswordVisibility: _onPasswordVisibilityChange,
+                        passwordVisible: _passwordVisible,
                       ),
                       Container(
                         height: 50,

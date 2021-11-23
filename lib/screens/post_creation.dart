@@ -130,8 +130,6 @@ class _PostCreationState extends State<PostCreation> {
           .add(ChangePostStore(storeUrl: storeUrl ?? ""));
     }
 
-    print(stores);
-
     return GestureDetector(
       onTap: (){
         FocusScopeNode currentFocus = FocusScope.of(context);

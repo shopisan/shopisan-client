@@ -89,7 +89,9 @@ class _UserRegisterState extends State<UserRegister> {
           backgroundColor:
           state.success ? CustomColors.success : CustomColors.error,
         ));
-        Navigator.of(context).popUntil(ModalRoute.withName("/"));
+        if (state.success) {
+          Navigator.of(context).popUntil(ModalRoute.withName("/"));
+        }
       });
     }
 

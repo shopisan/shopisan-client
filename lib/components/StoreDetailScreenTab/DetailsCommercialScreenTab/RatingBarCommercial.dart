@@ -10,7 +10,7 @@ import 'package:shopisan/theme/colors.dart';
 
 class RatingBarCommercial extends StatefulWidget {
   final Store store;
-  final profile;
+  final UserProfileProfile? profile;
 
   RatingBarCommercial({required this.store, this.profile});
 
@@ -22,7 +22,7 @@ class _RatingBarCommercialState extends State<RatingBarCommercial> {
   @override
   Widget build(BuildContext context) {
     final Store store = widget.store;
-    final UserProfileProfile profile = widget.profile;
+    final UserProfileProfile? profile = widget.profile;
 
     return Container(
         padding: EdgeInsets.all(10),

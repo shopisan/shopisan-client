@@ -85,6 +85,8 @@ class TextInput extends StatelessWidget {
             contentPadding: EdgeInsets.all(15),
             filled: true,
             fillColor: Colors.white,
+            floatingLabelStyle: TextStyle(color: CustomColors.iconsActive),
+            // labelStyle: TextStyle(color: CustomColors.iconsActive),
             prefixIcon: noIcon
                 ? null
                 : Icon(

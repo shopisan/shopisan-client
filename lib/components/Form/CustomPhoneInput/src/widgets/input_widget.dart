@@ -206,8 +206,8 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
       // Remove potential duplicates
       countries = countries.toSet().toList();
 
-      final CountryComparator countryComparator =
-          widget.selectorConfig.countryComparator!;
+      final CountryComparator? countryComparator =
+          widget.selectorConfig.countryComparator;
       if (countryComparator != null) {
         countries.sort(countryComparator);
       }

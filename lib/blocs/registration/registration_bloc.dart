@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:meta/meta.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
+import 'package:shopisan/main.dart';
 
 part 'registration_event.dart';
 part 'registration_state.dart';
@@ -35,12 +36,14 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
           bool rslt = await registrationUserProfile(data);
           if (rslt) {
             FirebaseAnalytics().logEvent(name: 'Registration',parameters:null);
+            App.facebookAppEvents.logEvent(name: "Registration");
             yield DoneRegistrationState(data: data, success: true, message: []);
           } else {
             yield DoneRegistrationState(data: data, success: false, message: []);
           }
         } catch (e) {
-          Map<String, dynamic> error = jsonDecode(e.toString());
+          Map<String, dynamic> error = jsonDecode(e.toString()
+              .replaceFirst("Exception: ", ""));
           List<String> message = [];
 
           if (error.containsKey("email")) {
@@ -52,7 +55,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
           }
           
           yield DoneRegistrationState(
-              data: data, success: false, message: message); // todo reste a faire une condition sur le contenu de l'exception
+              data: data, success: false, message: message);
         }
       }
     }

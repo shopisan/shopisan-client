@@ -20,10 +20,10 @@ void main() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
 
-    // if (kDebugMode) {
-    //   await FirebaseCrashlytics.instance
-    //       .setCrashlyticsCollectionEnabled(false);
-    // }
+    if (kDebugMode) {
+      await FirebaseCrashlytics.instance
+          .setCrashlyticsCollectionEnabled(false);
+    }
 
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
     final userRepository = UserRepository();

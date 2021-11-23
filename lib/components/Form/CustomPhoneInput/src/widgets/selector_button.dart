@@ -137,7 +137,7 @@ class SelectorButton extends StatelessWidget {
   }
 
   /// shows a Dialog with list [countries] if the [PhoneInputSelectorType.BOTTOM_SHEET] is selected
-  Future<Country> showCountrySelectorBottomSheet(
+  Future<dynamic> showCountrySelectorBottomSheet(
       BuildContext context, List<Country> countries) {
     return showModalBottomSheet(
       context: context,
@@ -178,6 +178,6 @@ class SelectorButton extends StatelessWidget {
           ),
         ]);
       },
-    ) as Future<Country>;
+    ) /*as Future<Country>*/;
   }
 }

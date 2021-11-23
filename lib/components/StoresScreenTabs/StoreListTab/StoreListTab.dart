@@ -60,11 +60,10 @@ class _StoreListTabState extends State<StoreListTab> {
     int recentSearchHeight =
         (categories != null && widget.history.length != 0) ? 67 : 10;
 
-    if(countries.length == 0){
+    if(countries.length == 0 || widget.selectedCountry == ""){
       return LoadingIndicator();
     }
 
-    //TODO ca doit attendre d'être chargé avant de s'afficher
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
