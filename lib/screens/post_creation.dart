@@ -56,6 +56,15 @@ class _PostCreationState extends State<PostCreation> {
       return LoadingIndicator();
     }
 
+    if(stores.length == 0){
+      return Center(child:
+        Text(AppLocalizations.of(context)!.atLeastOneStoreRequired,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.headline5,
+        ),
+      );
+    }
+
     _sendForm() {
       if (_formKey.currentState!.validate()) {
         for (PostMedia postMedia in post.postMedia) {
@@ -130,158 +139,160 @@ class _PostCreationState extends State<PostCreation> {
           .add(ChangePostStore(storeUrl: storeUrl ?? ""));
     }
 
-    return GestureDetector(
-      onTap: (){
-        FocusScopeNode currentFocus = FocusScope.of(context);
+    return SingleChildScrollView(
+      child: GestureDetector(
+        onTap: (){
+          FocusScopeNode currentFocus = FocusScope.of(context);
 
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
-      child: Container(
-        margin: EdgeInsets.all(10),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(10),
-                child: SelectInput(
-                  value: post.store,
-                  callback: _updateStore,
-                  items: stores
-                      .map((Store store) => DropdownMenuItem(
-                      value: store.url,
-                      child: Container(
-                        width: 200,
-                        child:
-                        Text(store.name, overflow: TextOverflow.ellipsis),
-                      )))
-                      .toList(),
-                  label: AppLocalizations.of(context)!.storePost,
-                  icon: Icons.store,
-                  validator: isEmpty,
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
+        child: Container(
+          margin: EdgeInsets.all(10),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: SelectInput(
+                    value: post.store,
+                    callback: _updateStore,
+                    items: stores
+                        .map((Store store) => DropdownMenuItem(
+                        value: store.url,
+                        child: Container(
+                          width: 200,
+                          child:
+                          Text(store.name, overflow: TextOverflow.ellipsis),
+                        )))
+                        .toList(),
+                    label: AppLocalizations.of(context)!.storePost,
+                    icon: Icons.store,
+                    validator: isEmpty,
+                  ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  key: Key(post.postMedia.length.toString()),
-                  children: (null != post && null != post.postMedia)
-                      ? post.postMedia
-                      .asMap()
-                      .map((index, postMedia) => MapEntry(index,
-                      PostMediaForm(index: index, postMedia: postMedia)))
-                      .values
-                      .toList()
-                      : [],
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    physics: ScrollPhysics(),
+                    key: Key(post.postMedia.length.toString()),
+                    children: (null != post && null != post.postMedia)
+                        ? post.postMedia
+                        .asMap()
+                        .map((index, postMedia) => MapEntry(index,
+                        PostMediaForm(index: index, postMedia: postMedia)))
+                        .values
+                        .toList()
+                        : [],
+                  ),
                 ),
-              ),
-              post.postMedia.length == 0
-                  ? Container(
-                padding: EdgeInsets.fromLTRB(10, 100, 10, 0),
-                child: Column(
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.addPost,
-                      style: Theme.of(context).textTheme.headline5,
-                      textAlign: TextAlign.center,
-                    ),
-                    Padding(padding: EdgeInsets.all(20)),
-                    ElevatedButton(
-                      onPressed: _addPostMedia,
-                      child: Icon(
-                        Icons.post_add_outlined,
-                        size: 25,
-                        color: Colors.black,
-                      ),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              CustomColors.success),
-                          shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(25)))),
-                    ),
-                  ],
-                ),
-              )
-                  : Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                post.postMedia.length == 0
+                    ? Container(
+                  padding: EdgeInsets.fromLTRB(10, 100, 10, 0),
+                  child: Column(
                     children: [
-                      Container(
-                        width: 50,
-                        margin: EdgeInsets.only(bottom: 10),
-                        child: ElevatedButton(
-                          onPressed: _addPostMedia,
-                          child: Icon(
-                            Icons.post_add_outlined,
-                            size: 19,
-                            color: Colors.black,
-                          ),
-                          style: ButtonStyle(
-                              backgroundColor:
-                              MaterialStateProperty.all<Color>(
-                                  CustomColors.success),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(25)))),
+                      Text(
+                        AppLocalizations.of(context)!.addPost,
+                        style: Theme.of(context).textTheme.headline5,
+                        textAlign: TextAlign.center,
+                      ),
+                      Padding(padding: EdgeInsets.all(20)),
+                      ElevatedButton(
+                        onPressed: _addPostMedia,
+                        child: Icon(
+                          Icons.post_add_outlined,
+                          size: 25,
+                          color: Colors.black,
                         ),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                CustomColors.success),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius:
+                                    BorderRadius.circular(25)))),
                       ),
                     ],
                   ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                    height: 50,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: CustomColors.textDark,
+                )
+                    : Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          width: 50,
+                          margin: EdgeInsets.only(bottom: 10),
+                          child: ElevatedButton(
+                            onPressed: _addPostMedia,
+                            child: Icon(
+                              Icons.post_add_outlined,
+                              size: 19,
+                              color: Colors.black,
+                            ),
+                            style: ButtonStyle(
+                                backgroundColor:
+                                MaterialStateProperty.all<Color>(
+                                    CustomColors.success),
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(25)))),
+                          ),
+                        ),
+                      ],
                     ),
-                    child: state is LoadingPostCreationState
-                        ? LoadingIndicator()
-                        : TextButton(
-                      onPressed: _sendForm,
-                      child: Text(
-                          post.id == null
-                              ? AppLocalizations.of(context)!
-                              .publishPost
-                              : AppLocalizations.of(context)!.editPost,
-                          style:
-                          Theme.of(context).textTheme.headline1),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                      height: 50,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: CustomColors.textDark,
+                      ),
+                      child: state is LoadingPostCreationState
+                          ? LoadingIndicator()
+                          : TextButton(
+                        onPressed: _sendForm,
+                        child: Text(
+                            post.id == null
+                                ? AppLocalizations.of(context)!
+                                .publishPost
+                                : AppLocalizations.of(context)!.editPost,
+                            style:
+                            Theme.of(context).textTheme.headline1),
+                      ),
                     ),
-                  ),
-                  post.id == null
-                      ? Container()
-                      : Container(
-                    margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                    height: 50,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: CustomColors.textDark,
+                    post.id == null
+                        ? Container()
+                        : Container(
+                      margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                      height: 50,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: CustomColors.textDark,
+                      ),
+                      child: TextButton(
+                        onPressed: _deletePost,
+                        child: Text(
+                            AppLocalizations.of(context)!.deletePost,
+                            style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
+                      ),
                     ),
-                    child: TextButton(
-                      onPressed: _deletePost,
-                      child: Text(
-                          AppLocalizations.of(context)!.deletePost,
-                          style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16)),
-                    ),
-                  ),
-                ],
-              )
-            ],
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

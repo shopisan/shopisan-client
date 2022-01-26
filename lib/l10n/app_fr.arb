@@ -130,5 +130,6 @@
   "ownerRegister": "Boutique/marque",
   "registerUser": "Enregistrez-vous ici en tant que nouvel utilisateur",
   "registerStore" : "Enregistrez-vous ici si vous souhaitez inscrire votre commerce",
-  "fileTooBig": "La taille du fichier uploadé ne peut pas dépasser 3MO"
+  "fileTooBig": "La taille du fichier uploadé ne peut pas dépasser 3MO",
+  "atLeastOneStoreRequired": "Vous devez avoir au moins un magasin pour pouvoir poster"
 }

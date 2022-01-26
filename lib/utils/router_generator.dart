@@ -66,9 +66,7 @@ class RouteGenerator {
                             style: Theme.of(context).textTheme.headline3,
                           ),
                         ),
-                        body: SingleChildScrollView(
-                          child: PostCreation(),
-                        ),
+                        body: PostCreation(),
                       ));
 
                 case '/login':
