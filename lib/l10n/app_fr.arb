@@ -131,5 +131,9 @@
   "registerUser": "Enregistrez-vous ici en tant que nouvel utilisateur",
   "registerStore" : "Enregistrez-vous ici si vous souhaitez inscrire votre commerce",
   "fileTooBig": "La taille du fichier uploadé ne peut pas dépasser 3MO",
-  "atLeastOneStoreRequired": "Vous devez avoir au moins un magasin pour pouvoir poster"
+  "atLeastOneStoreRequired": "Vous devez avoir au moins un magasin pour pouvoir poster",
+  "chooseLater": "Décider plus tard",
+  "allowTracking": "Autoriser le tracking",
+  "trackingNotice": "Afin d'améliorer notre expérience, nous receullions des statistiques anonymes sur l'utilisation de notre application",
+  "dearUser": "Cher utilisateur"
 }

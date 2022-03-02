@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:facebook_app_events/facebook_app_events.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-// import 'package:geocode/geocode.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopisan/api_connection/api_connection.dart';
@@ -18,6 +19,7 @@ import 'package:shopisan/model/City.dart';
 import 'package:shopisan/model/Post.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 
 class StoresScreen extends StatefulWidget {
   final bool toLogin;
@@ -44,6 +46,55 @@ class _StoresScreenState extends State<StoresScreen> {
   List<City> cities = [];
   int city = 0;
   bool loading = false;
+  static final facebookAppEvents = FacebookAppEvents();
+  final FirebaseAnalytics _analytics = FirebaseAnalytics();
+
+  Future<void> initPlugin() async {
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    final TrackingStatus status =
+      await AppTrackingTransparency.trackingAuthorizationStatus;
+    // If the system can show an authorization request dialog
+    if (status == TrackingStatus.notDetermined) {
+      // Show a custom explainer dialog before the system dialog
+      if (await showCustomTrackingDialog(context)) {
+        // Wait for dialog popping animation
+        await Future.delayed(const Duration(milliseconds: 200));
+        // Request system's tracking authorization dialog
+        final TrackingStatus status =
+          await AppTrackingTransparency.requestTrackingAuthorization();
+      }
+    }
+
+    final uuid = await AppTrackingTransparency.getAdvertisingIdentifier();
+    if(status == TrackingStatus.notDetermined && uuid != "00000000-0000-0000-0000-000000000000"){
+      print("Allow tracking");
+      facebookAppEvents.setAdvertiserTracking(enabled: true);
+      _analytics.setAnalyticsCollectionEnabled(true);
+    }
+    print("UUID: $uuid");
+  }
+
+  Future<bool> showCustomTrackingDialog(BuildContext context) async =>
+      await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(AppLocalizations.of(context)!.dearUser),
+          content: Text(
+              AppLocalizations.of(context)!.trackingNotice
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text(AppLocalizations.of(context)!.chooseLater),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text(AppLocalizations.of(context)!.allowTracking),
+            ),
+          ],
+        ),
+      ) ??
+          false;
 
   void setSelectedCats(List<dynamic> selectedCats) async {
     print("selected cats: " + selectedCats.toString());
@@ -224,6 +275,8 @@ class _StoresScreenState extends State<StoresScreen> {
     getSearchHistory();
     getCategories();
     // loadCities();
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) => initPlugin());
   }
 
   List<BottomNavigationBarItem> _navBarsItems() {
