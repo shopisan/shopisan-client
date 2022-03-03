@@ -134,7 +134,7 @@
   "registerStore" : "Register here if you want to register your business",
   "fileTooBig": "The uploaded file size can't exceed 3MO",
   "atLeastOneStoreRequired": "You need at least one store to create a post",
-  "chooseLater": "I'll decide later",
+  "chooseLater": "Continue",
   "allowTracking": "Allow tracking",
   "trackingNotice": "In order to improve your experience, we gather some anonymous statistics related to the app usage.",
   "dearUser": "Dear User"

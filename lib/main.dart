@@ -53,7 +53,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _analytics.logAppOpen();
-    facebookAppEvents.setAdvertiserTracking(enabled: true);
+    // facebookAppEvents.setAdvertiserTracking(enabled: true);
 
     void allowTracking() async {
       if(await AppTrackingTransparency.getAdvertisingIdentifier() != "00000000-0000-0000-0000-000000000000"){
