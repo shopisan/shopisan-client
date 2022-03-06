@@ -10,7 +10,6 @@ class TextInput extends StatelessWidget {
   final String? passwordValidation;
   final void Function(String)? callback;
   final TextInputType? keyboardType;
-  final List<TextInputFormatter>? inputFormatter;
   final bool isTextarea;
   final bool noIcon;
   final EdgeInsetsGeometry? padding;
@@ -20,6 +19,7 @@ class TextInput extends StatelessWidget {
   final bool passwordVisible;
   final Function? setPasswordVisibility;
   final int? maxLength;
+  final List<TextInputFormatter>? inputFormatters;
 
   TextInput(
       {required this.controller,
@@ -28,7 +28,6 @@ class TextInput extends StatelessWidget {
       this.validator,
       this.passwordValidation,
       this.callback,
-      this.inputFormatter,
       this.keyboardType,
       this.isTextarea = false,
       this.noIcon = false,
@@ -38,6 +37,7 @@ class TextInput extends StatelessWidget {
       this.obscureText = false,
       this.passwordVisible = false,
       this.setPasswordVisibility,
+      this.inputFormatters,
       this.maxLength});
 
   @override
@@ -64,6 +64,7 @@ class TextInput extends StatelessWidget {
         controller: controller,
         style: Theme.of(context).textTheme.bodyText1,
         onChanged: callback,
+        inputFormatters: inputFormatters,
         validator: null != validator
             ? (value) {
                 if (passwordValidation != null) {
@@ -73,7 +74,6 @@ class TextInput extends StatelessWidget {
               }
             : null,
         keyboardType: keyboardType,
-        inputFormatters: inputFormatter,
         obscureText: obscureText && !passwordVisible,
         maxLength: maxLength,
         maxLengthEnforcement: null == maxLength

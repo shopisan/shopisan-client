@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopisan/blocs/registration/registration_bloc.dart';
-import 'package:shopisan/components/Form/text_input.dart';
+import 'package:shopisan/components/Form/text_input.dart' as TextInputCustom;
 import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/validators.dart';
 
@@ -111,7 +112,7 @@ class _UserRegisterState extends State<UserRegister> {
               ),
                 ),
 
-              TextInput(
+              TextInputCustom.TextInput(
                 controller: _userNameController,
                 icon: Icons.verified_user_outlined,
                 label: AppLocalizations.of(context)!.userName,
@@ -120,7 +121,7 @@ class _UserRegisterState extends State<UserRegister> {
                 hint: AppLocalizations.of(context)!.userName,
                 validator: isEmpty,
               ),
-              TextInput(
+              TextInputCustom.TextInput(
                 controller: _emailController,
                 icon: Icons.mail_outline,
                 label: AppLocalizations.of(context)!.emailAddress,
@@ -128,8 +129,13 @@ class _UserRegisterState extends State<UserRegister> {
                 padding: EdgeInsets.only(left: 10),
                 hint: AppLocalizations.of(context)!.emailHint,
                 validator: isValidEmail,
+                inputFormatters: [
+                  FilteringTextInputFormatter.deny(
+                      RegExp(r"\s\b|\b\s|[ ]")
+                  )
+                ],
               ),
-              TextInput(
+              TextInputCustom.TextInput(
                 controller: _passwordController,
                 icon: Icons.lock_outline,
                 label: AppLocalizations.of(context)!.password,
@@ -139,7 +145,7 @@ class _UserRegisterState extends State<UserRegister> {
                 obscureText: true,
                 validator: isEmpty,
               ),
-              TextInput(
+              TextInputCustom.TextInput(
                 controller: _repeatPasswordController,
                 icon: Icons.lock_outline,
                 label:
