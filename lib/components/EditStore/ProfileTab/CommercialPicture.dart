@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
 import 'package:shopisan/model/Store.dart';
@@ -27,11 +27,21 @@ class _CommercialPictureState extends State<CommercialPicture> {
     final pickedFile = await picker.getImage(source: source);
 
     if (null != pickedFile) {
-      final file = File(pickedFile.path);
-      int sizeInBytes = file.lengthSync();
-      double sizeInMb = sizeInBytes / (1024 * 1024);
+      File rotatedImage =
+        await FlutterExifRotation.rotateImage(path: pickedFile.path);
+
       Navigator.of(context).pop();
+      // TODO first we should try to compress it
+      // Check how dies the compression affects the size
+
+      File finalFile = await testCompressAndGetFile(rotatedImage, pickedFile.path);
+      int sizeInBytes = finalFile.lengthSync();
+      double sizeInMb = sizeInBytes / (1024 * 1024);
+
       if (sizeInMb > 3){
+
+        // TODO dans ce cas refaire une compression?
+
         WidgetsBinding.instance!.addPostFrameCallback((_) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -41,8 +51,6 @@ class _CommercialPictureState extends State<CommercialPicture> {
           );
         });
       } else {
-        File rotatedImage =
-          await FlutterExifRotation.rotateImage(path: pickedFile.path);
         setState(() {
           _imageFile = rotatedImage;
         });
@@ -52,11 +60,25 @@ class _CommercialPictureState extends State<CommercialPicture> {
     }
   }
 
+  Future<File> testCompressAndGetFile(File file, String targetPath) async {
+    var result = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path,
+      targetPath,
+      quality: 90,
+      rotate: 0,
+    );
+
+    print(file.lengthSync());
+    print(result?.lengthSync());
+
+    return result!;
+  }
+
   @override
   Widget build(BuildContext context) {
     final storeImage = widget.store.profilePicture;
 
-    ImageProvider _GetImage(){
+    ImageProvider _getImage(){
       if (null == storeImage) {
         if (_imageFile == null) {
           return AssetImage("assets/img/store.jpg");
@@ -80,7 +102,7 @@ class _CommercialPictureState extends State<CommercialPicture> {
                 // color: CustomColors.search,
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: _GetImage(),
+                  image: _getImage(),
                 )),
           ),
           Positioned(

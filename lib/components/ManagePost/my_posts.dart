@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopisan/components/Post/post_preview.dart';
 import 'package:shopisan/model/Post.dart';
@@ -24,8 +23,7 @@ class MyPosts extends StatelessWidget {
                 },
                 child: PostPreview(post: post),
               );
-            })?.toList() ??
-            [],
+            }).toList(),
       ),
     );
   }

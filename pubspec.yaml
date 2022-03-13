@@ -42,7 +42,6 @@ dependencies:
   url_launcher: ^6.0.3
   image_picker: ^0.7.3
   datetime_picker_formfield: ^2.0.0
-  # address_search_field: ^3.1.0-nullsafety.0
   cupertino_icons: ^1.0.2
   flutter_svg: ^0.21.0-nullsafety.0
   geolocator: ^7.7.1
@@ -51,8 +50,6 @@ dependencies:
   time_range_picker: ^2.0.1
   country_picker: ^2.0.3
   favorite_button: ^0.0.4
-#  geocoder: ^0.2.1
-#  geocode: ^1.0.1
   geocoding: ^2.0.1
   firebase_analytics: ^8.0.1
   firebase_core: ^1.0.4
@@ -63,6 +60,7 @@ dependencies:
   firebase_crashlytics: ^2.3.0
   facebook_app_events: ^0.14.8
   app_tracking_transparency: ^2.0.2+1
+  flutter_image_compress: ^1.1.0
 
 
 dev_dependencies:
