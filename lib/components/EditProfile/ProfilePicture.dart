@@ -1,16 +1,14 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
+import 'package:shopisan/components/Form/file_handler.dart';
 import 'package:shopisan/model/File.dart' as FileModel;
 import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/theme/colors.dart';
-import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 
 class ProfilePicture extends StatefulWidget {
   final UserProfile user;
@@ -24,6 +22,7 @@ class ProfilePicture extends StatefulWidget {
 class ProfilePictureState extends State<ProfilePicture> {
   File? _imageFile;
   final ImagePicker picker = ImagePicker();
+  final FileHandler fileHandler = FileHandler();
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +30,12 @@ class ProfilePictureState extends State<ProfilePicture> {
       final pickedFile = await picker.getImage(source: source);
 
       if (null != pickedFile) {
-        final file = File(pickedFile.path);
-        int sizeInBytes = file.lengthSync();
-        double sizeInMb = sizeInBytes / (1024 * 1024);
+
+        File finalFile = await fileHandler.handleFile(pickedFile);
+
         Navigator.of(context).pop();
-        if (sizeInMb > 3){
+
+        if (finalFile.lengthSync() > fileHandler.maxSize){
           WidgetsBinding.instance!.addPostFrameCallback((_) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -45,13 +45,11 @@ class ProfilePictureState extends State<ProfilePicture> {
             );
           });
         } else {
-          File rotatedImage =
-            await FlutterExifRotation.rotateImage(path: pickedFile.path);
           setState(() {
-            _imageFile = rotatedImage;
+            _imageFile = finalFile;
           });
           BlocProvider.of<ProfileEditBloc>(context)
-              .add(ChangePictureEvent(picture: rotatedImage));
+              .add(ChangePictureEvent(picture: finalFile));
         }
       }
     }

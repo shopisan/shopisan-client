@@ -3,12 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopisan/blocs/edit_store/edit_store_bloc.dart';
+import 'package:shopisan/components/Form/file_handler.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/theme/colors.dart';
-import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 
 class CommercialPicture extends StatefulWidget {
   final Store store;
@@ -22,26 +21,17 @@ class CommercialPicture extends StatefulWidget {
 class _CommercialPictureState extends State<CommercialPicture> {
   File? _imageFile;
   final ImagePicker picker = ImagePicker();
+  final FileHandler fileHandler = FileHandler();
 
   void takePhoto(ImageSource source) async {
     final pickedFile = await picker.getImage(source: source);
 
     if (null != pickedFile) {
-      File rotatedImage =
-        await FlutterExifRotation.rotateImage(path: pickedFile.path);
+      File finalFile = await fileHandler.handleFile(pickedFile);
 
       Navigator.of(context).pop();
-      // TODO first we should try to compress it
-      // Check how dies the compression affects the size
 
-      File finalFile = await testCompressAndGetFile(rotatedImage, pickedFile.path);
-      int sizeInBytes = finalFile.lengthSync();
-      double sizeInMb = sizeInBytes / (1024 * 1024);
-
-      if (sizeInMb > 3){
-
-        // TODO dans ce cas refaire une compression?
-
+      if (finalFile.lengthSync() > fileHandler.maxSize){
         WidgetsBinding.instance!.addPostFrameCallback((_) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -52,26 +42,13 @@ class _CommercialPictureState extends State<CommercialPicture> {
         });
       } else {
         setState(() {
-          _imageFile = rotatedImage;
+          _imageFile = finalFile;
         });
+
         BlocProvider.of<EditStoreBloc>(context)
-            .add(ChangePictureEvent(picture: rotatedImage));
+            .add(ChangePictureEvent(picture: finalFile));
       }
     }
-  }
-
-  Future<File> testCompressAndGetFile(File file, String targetPath) async {
-    var result = await FlutterImageCompress.compressAndGetFile(
-      file.absolute.path,
-      targetPath,
-      quality: 90,
-      rotate: 0,
-    );
-
-    print(file.lengthSync());
-    print(result?.lengthSync());
-
-    return result!;
   }
 
   @override

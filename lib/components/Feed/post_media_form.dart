@@ -5,10 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
+import 'package:shopisan/components/Form/file_handler.dart';
 import 'package:shopisan/components/Form/text_input.dart' as CustomInput;
 import 'package:shopisan/model/PostMedia.dart';
 import 'package:shopisan/theme/colors.dart';
-import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 
 class PostMediaForm extends StatefulWidget {
   final PostMedia? postMedia;
@@ -22,35 +22,36 @@ class PostMediaForm extends StatefulWidget {
 
 class _PostMediaFormState extends State<PostMediaForm> {
   final ImagePicker picker = ImagePicker();
+  final FileHandler fileHandler = FileHandler();
 
   final _descriptionController_fr = TextEditingController();
   final _descriptionController_en = TextEditingController();
   final _priceController = TextEditingController();
   File? _image;
 
-  Future takePicture() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+  // Future takePicture() async {
+  //   final pickedFile = await picker.getImage(source: ImageSource.camera);
+  //
+  //   setState(() {
+  //     if (pickedFile != null) {
+  //       _image = File(pickedFile.path);
+  //     } else {
+  //       print('No image selected.');
+  //     }
+  //   });
+  // }
 
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
-
-  Future uploadImage() async {
-    final galleryFile = await picker.getImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (galleryFile != null) {
-        _image = File(galleryFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
+  // Future uploadImage() async {
+  //   final galleryFile = await picker.getImage(source: ImageSource.gallery);
+  //
+  //   setState(() {
+  //     if (galleryFile != null) {
+  //       _image = File(galleryFile.path);
+  //     } else {
+  //       print('No image selected.');
+  //     }
+  //   });
+  // }
 
   @override
   void initState() {
@@ -82,11 +83,11 @@ class _PostMediaFormState extends State<PostMediaForm> {
       final pickedFile = await picker.getImage(source: source);
 
       if (null != pickedFile) {
-        final file = File(pickedFile.path);
-        int sizeInBytes = file.lengthSync();
-        double sizeInMb = sizeInBytes / (1024 * 1024);
+        File finalFile = await fileHandler.handleFile(pickedFile);
+
         Navigator.of(context).pop();
-        if (sizeInMb > 3){
+
+        if (finalFile.lengthSync() > fileHandler.maxSize){
           WidgetsBinding.instance!.addPostFrameCallback((_) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -96,14 +97,12 @@ class _PostMediaFormState extends State<PostMediaForm> {
             );
           });
         } else {
-          File rotatedImage =
-            await FlutterExifRotation.rotateImage(path: pickedFile.path);
           setState(() {
-            _image = rotatedImage;
+            _image = finalFile;
           });
 
           BlocProvider.of<PostCreationBloc>(context)
-              .add(ChangePostMediaPicture(uploadFile: _image!,
+              .add(ChangePostMediaPicture(uploadFile: finalFile,
               index: widget.index ?? 0));
         }
       }
