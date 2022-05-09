@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,7 +15,7 @@ class PostsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (posts == null || posts.length == 0)
+    return (posts.length == 0)
         ? Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -42,8 +41,7 @@ class PostsTab extends StatelessWidget {
               scrollDirection: Axis.vertical,
               children: posts.reversed.map((post) {
                     return PostPreview(post: post);
-                  }).toList() ??
-                  [],
+                  }).toList(),
             ),
           );
   }

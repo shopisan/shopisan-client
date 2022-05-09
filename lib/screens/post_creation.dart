@@ -118,15 +118,43 @@ class _PostCreationState extends State<PostCreation> {
       BlocProvider.of<PostCreationBloc>(context).add(AddPostMedia());
     }
 
+    String getTranslatedMessage(String errorMessage){
+      switch (errorMessage){
+        case 'post created': {
+          return AppLocalizations.of(context)!.profilePicError;
+        }
+
+        case 'NeedAtLeastOneMedia': {
+          return AppLocalizations.of(context)!.mediaEmpty;
+        }
+
+        case 'mediaEmpty': {
+          return AppLocalizations.of(context)!.mediaEmpty;
+        }
+
+        case 'mediaMissingPicture': {
+          return AppLocalizations.of(context)!.mediaMissingPicture;
+        }
+
+        case 'mediaMissingDescription': {
+          return AppLocalizations.of(context)!.mediaMissingDescription;
+        }
+
+        default: {
+          return AppLocalizations.of(context)!.postError;
+        }
+      }
+    }
+
     if (state is InitialPostCreationState) {
       return LoadingIndicator();
     } else if (state is DonePostCreationState && !state.success) {
       WidgetsBinding.instance!.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(state.message != 'post created'
-                ? AppLocalizations.of(context)!.postError
-                : AppLocalizations.of(context)!.profilePicError),
+            content: Text(
+              getTranslatedMessage(state.message)
+            ),
             backgroundColor:
                 state.success ? CustomColors.success : CustomColors.error,
           ),

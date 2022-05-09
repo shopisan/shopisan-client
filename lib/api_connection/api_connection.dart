@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:shopisan/api_connection/interceptors/common_request_interceptor.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/City.dart';
 import 'package:shopisan/model/Country.dart';
@@ -12,6 +13,7 @@ import 'package:shopisan/model/PostMedia.dart';
 import 'package:shopisan/model/Store.dart';
 import 'package:shopisan/model/UserProfile.dart';
 import 'package:shopisan/model/api_model.dart';
+import 'package:http_interceptor/http_interceptor.dart';
 import 'package:shopisan/repository/user_repository.dart';
 
 part 'kits/posts_api.dart';
@@ -23,9 +25,12 @@ part 'kits/user_api.dart';
 final _base = "shopisan.com";
 final _tokenEndpoint = "/api/token-auth/";
 final _tokenURL = Uri.https(_base, _tokenEndpoint);
+final client = InterceptedClient.build(interceptors: [
+  CommonRequestInterceptor(),
+]);
 
 Future<List<Category>> fetchCategories() async {
-  final response = await http.get(Uri.https(_base, "/api/stores/categories/"),
+  final response = await client.get(Uri.https(_base, "/api/stores/categories/"),
       headers: {'Accept': 'application/json'});
 
   if (response.statusCode == 200) {
@@ -37,7 +42,7 @@ Future<List<Category>> fetchCategories() async {
 }
 
 Future<List<Country>> fetchCountries() async {
-  final response = await http.get(Uri.https(_base, "/api/countries/"),
+  final response = await client.get(Uri.https(_base, "/api/countries/"),
       headers: {'Accept': 'application/json'});
 
   if (response.statusCode == 200) {
@@ -49,7 +54,7 @@ Future<List<Country>> fetchCountries() async {
 }
 
 Future<List<City>> fetchCities(String country) async {
-  final response = await http.get(
+  final response = await client.get(
       Uri.https(_base, "/api/cities/", {"country": country}),
       headers: {'Accept': 'application/json'});
 
@@ -65,20 +70,18 @@ Future<List<Store>> fetchStores(List<dynamic> categories, double latitude,
     double longitude, String country) async {
   Map<String, String> params = {};
 
-  if (categories != null && categories.length > 0) {
+  if (categories.length > 0) {
     categories.remove('all');
     params['categories'] = categories.join(",");
   }
 
   params['countries'] = country;
 
-  if (latitude != null && longitude != null) {
-    params['position'] = "$latitude,$longitude";
-  }
+  params['position'] = "$latitude,$longitude";
 
-  Map<String, String> headers = await getHeaders();
-  final response = await http.get(Uri.https(_base, "/api/stores_geo/", params),
-      headers: headers);
+  final response = await client.get(
+      Uri.https(_base, "/api/stores_geo/", params)
+  );
 
   if (response.statusCode == 200) {
     return StoreCollection.fromJson(json.decode(response.body)).stores!;
@@ -88,10 +91,8 @@ Future<List<Store>> fetchStores(List<dynamic> categories, double latitude,
 }
 
 Future<Store> fetchStore(int storeId) async {
-  Map<String, String> headers = await getHeaders();
-  final response = await http.get(
-      Uri.https(_base, "/api/stores/stores/${storeId.toString()}/"),
-      headers: headers);
+  final response = await client.get(
+      Uri.https(_base, "/api/stores/stores/${storeId.toString()}/"));
 
   if (response.statusCode == 200) {
     return Store.fromJson(json.decode(response.body));
@@ -101,17 +102,15 @@ Future<Store> fetchStore(int storeId) async {
 }
 
 Future<int> editStore(Store store) async {
-  Map<String, String> headers = await getHeaders();
   http.Response response;
 
   if (store.id == null) {
-    response = await http.post(Uri.https(_base, "/api/stores/stores/"),
-        body: jsonEncode(store.toJson()), headers: headers);
+    response = await client.post(Uri.https(_base, "/api/stores/stores/"),
+        body: jsonEncode(store.toJson()));
   } else {
-    response = await http.put(
+    response = await client.put(
         Uri.https(_base, "/api/stores/stores/${store.id.toString()}/"),
-        body: jsonEncode(store.toJson()),
-        headers: headers);
+        body: jsonEncode(store.toJson()));
   }
 
   if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -122,12 +121,9 @@ Future<int> editStore(Store store) async {
 }
 
 Future<UserProfile> manageFavouriteStore(int storeId) async {
-  Map<String, String> headers = await getHeaders();
-
-  final http.Response response = await http.post(
+  final http.Response response = await client.post(
       Uri.https(_base, "/api/manage_favourite_store/"),
-      body: jsonEncode({"favourite_store": storeId}),
-      headers: headers);
+      body: jsonEncode({"favourite_store": storeId}));
 
   if (response.statusCode == 200) {
     // return true;
@@ -138,12 +134,10 @@ Future<UserProfile> manageFavouriteStore(int storeId) async {
 }
 
 Future<bool> postEvaluation(int storeId, double score) async {
-  Map<String, String> headers = await getHeaders();
 
-  final http.Response response = await http.post(
+  final http.Response response = await client.post(
       Uri.https(_base, "/api/stores/evals/"),
-      body: jsonEncode({"store": storeId, "score": score}),
-      headers: headers);
+      body: jsonEncode({"store": storeId, "score": score}));
 
   if (response.statusCode >= 200 && response.statusCode < 300) {
     return true;
@@ -152,32 +146,49 @@ Future<bool> postEvaluation(int storeId, double score) async {
   }
 }
 
-Future<FileModel.File> uploadFile(File file, String type) async {
-  Map<String, String> headers = await getHeaders();
+Future<FileModel.File?> uploadFile(File file, String type) async {
+  print(file.lengthSync());
+  print(type);
 
-  var request = http.MultipartRequest('POST', Uri.https(_base, "/api/files/"));
-  request.files.add(http.MultipartFile.fromBytes('file', file.readAsBytesSync(),
-      filename: file.toString()));
-  request.fields['file_type'] = type;
-  request.headers.addAll(headers);
+  try {
+    var request = http.MultipartRequest('POST', Uri.https(_base, "/api/files/"));
 
-  http.Response response = await http.Response.fromStream(await request.send());
+    final UserRepository userRepo = UserRepository();
+    bool hasUser = await userRepo.hasToken();
 
-  if (response.statusCode == 201) {
-    return FileModel.File.fromJson(json.decode(response.body));
-  } else {
-    throw Exception('Failed to upload file');
+    if (hasUser) {
+      String token = await userRepo.getAuthToken();
+      var headers = {"Authorization": "Token $token"};
+      request.headers.addAll(headers);
+    }
+
+    request.files.add(http.MultipartFile.fromBytes('file', file.readAsBytesSync(),
+        filename: file.toString()));
+    request.fields['file_type'] = type;
+
+    http.Response response = await http.Response.fromStream(await request.send());
+
+    if (response.statusCode == 201) {
+      return FileModel.File.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to upload file');
+    }
+  } catch (exception){
+    if (exception is SocketException){
+      print(exception.message);
+    }
+    print(exception);
   }
+
+  return null;
 }
 
 Future<Map<String, dynamic>> sendStoreRegistration(
     Map<String, dynamic> body) async {
-  Map<String, String> headers = await getHeaders();
 
-  final http.Response response = await http.post(
+  final http.Response response = await client.post(
       Uri.https(_base, "/api/store_contact/"),
-      body: jsonEncode(body),
-      headers: headers);
+      body: jsonEncode(body));
 
   if (response.statusCode == 201) {
     return {'success': true};
@@ -193,25 +204,30 @@ Future<Map<String, dynamic>> searchLocation(String locationName) async {
     "key": "AIzaSyCegSUW6N1wYgRONnn_4kOZXUzFu7w2Drs"
   };
 
-  final http.Response response = await http
+  final http.Response response = await client
       .get(Uri.https("maps.googleapis.com", "/maps/api/geocode/json", params));
 
   return json.decode(response.body);
 }
 
-Future<Map<String, String>> getHeaders() async {
-  Map<String, String> headers = {
-    'Accept': 'application/json',
-    'Content-type': 'application/json'
-  };
+// Future<Map<String, String>> getHeaders() async {
+//   Map<String, String> headers = {
+//     'Accept': 'application/json',
+//     'Content-type': 'application/json'
+//   };
+//
+//   final UserRepository userRepo = UserRepository();
+//   bool hasUser = await userRepo.hasToken();
+//
+//   if (hasUser) {
+//     String token = await userRepo.getAuthToken();
+//     headers['Authorization'] = "Token $token";
+//   }
+//
+//   return headers;
+// }
 
-  final UserRepository userRepo = UserRepository();
-  bool hasUser = await userRepo.hasToken();
-
-  if (hasUser) {
-    String token = await userRepo.getAuthToken();
-    headers['Authorization'] = "Token $token";
-  }
-
-  return headers;
-}
+// bool _shouldRetryOnHttpException(DioError err) {
+//   return err.type == DioErrorType.other &&
+//       ((err.error is HttpException && err.message.contains('Connection closed before full header was received')));
+// }

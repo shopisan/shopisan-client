@@ -66,33 +66,38 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
               children: List.generate(
                 widget.posts.reversed.length,
                 (index) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    child: TextButton(
-                        style: TextButton.styleFrom(
-                          backgroundColor: CustomColors.lightBlue,
-                          padding: EdgeInsets.all(0),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/post_detail',
-                              arguments: {
-                                "post": widget.posts[index],
-                                "store": widget.store
-                              });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                image: NetworkImage(widget
-                                    .posts[index].postMedia[0].media!.file!),
-                                fit: BoxFit.cover,
-                              )),
-                        ) 
-                        ),
-                  );
+                  if(widget
+                      .posts[index].postMedia.isNotEmpty){
+                    return Container(
+                      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      child: TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor: CustomColors.lightBlue,
+                            padding: EdgeInsets.all(0),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                          ),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/post_detail',
+                                arguments: {
+                                  "post": widget.posts[index],
+                                  "store": widget.store
+                                });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  image: NetworkImage(widget
+                                      .posts[index].postMedia[0].media!.file!),
+                                  fit: BoxFit.cover,
+                                )),
+                          )
+                      ),
+                    );
+                  }
+                  print(widget.posts[index].postMedia.length);
+                  return Container();
                 },
               ),
             ),

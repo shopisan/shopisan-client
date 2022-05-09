@@ -30,16 +30,23 @@ class EditStoreBloc extends Bloc<EditStoreEvent, EditStoreState> {
     Store store = state.store as Store;
 
     try {
-      final ModelFile.File resp =
+      final ModelFile.File? resp =
           await uploadFile(event.picture, "store_picture");
-      store.profilePicture = resp;
 
-      return StartedEditStoreState(
-          store: store,
-          categories: state.categories ?? new List<Category>.empty(),
-          index: _incrementIndex(state));
+      if(null != resp){
+        store.profilePicture = resp;
+
+        return StartedEditStoreState(
+            store: store,
+            categories: state.categories ?? new List<Category>.empty(),
+            index: _incrementIndex(state));
+      }
+
+      return ErrorEditStoreState(message: "Picture error", store: store,
+          categories: state.categories);
     } catch (exception) {
-      return ErrorEditStoreState(message: "Picture error", store: store, categories: state.categories);
+      return ErrorEditStoreState(message: "Picture error", store: store,
+          categories: state.categories);
     }
   }
 

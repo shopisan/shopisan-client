@@ -1,7 +1,7 @@
 part of '../api_connection.dart';
 
 Future<Token> getToken(UserLogin userLogin) async {
-  final http.Response response = await http.post(
+  final http.Response response = await client.post(
     _tokenURL,
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -17,27 +17,21 @@ Future<Token> getToken(UserLogin userLogin) async {
 }
 
 Future<UserProfile> getUserProfile() async {
-  Map<String, String> headers = await getHeaders();
-
   final http.Response response =
-      await http.get(Uri.https(_base, "/api/get_user/"), headers: headers);
+      await client.get(Uri.https(_base, "/api/get_user/"));
 
   if (response.statusCode == 200) {
     return UserProfile.fromJson(json.decode(response.body));
   } else {
-    // @todo faire une fonction pour reset le user token (reco auto,
-    //        si ca marche pas, virer le token)
+    // @todo faire une fonction pour reset le user token (reco auto)
     throw Exception(json.decode(response.body));
   }
 }
 
 Future<bool> registrationUserProfile(Map<String, String> data) async {
-  Map<String, String> headers = await getHeaders();
-
-  final http.Response response = await http.post(
+  final http.Response response = await client.post(
       Uri.https(_base, "/api/register/"),
-      body: jsonEncode(data),
-      headers: headers);
+      body: jsonEncode(data));
 
   if (response.statusCode == 201) {
     return true;
@@ -47,19 +41,16 @@ Future<bool> registrationUserProfile(Map<String, String> data) async {
 }
 
 Future<bool> forgotPasswordSubmit(Map<String, String> data) async {
-  Map<String, String> headers = await getHeaders();
-
-  final http.Response response = await http.post(
+  final http.Response response = await client.post(
       Uri.https(_base, "/api/forgot-password/"),
-      body: jsonEncode(data),
-      headers: headers);
+      body: jsonEncode(data));
 
   if (response.statusCode == 200) {
     Map<String, dynamic> rslt = jsonDecode(response.body);
     if (rslt['success']) {
       return true;
     }
-    // @ todo return bool selon resultat obtenu dans le body
+
     return false;
   } else {
     throw Exception(response.body);
@@ -67,12 +58,9 @@ Future<bool> forgotPasswordSubmit(Map<String, String> data) async {
 }
 
 Future<bool> resetPasswordSubmit(Map<String, String> data) async {
-  Map<String, String> headers = await getHeaders();
-
-  final http.Response response = await http.post(
+  final http.Response response = await client.post(
       Uri.https(_base, "/api/reset-password/"),
-      body: jsonEncode(data),
-      headers: headers);
+      body: jsonEncode(data));
 
   if (response.statusCode == 200) {
     Map<String, dynamic> rslt = jsonDecode(response.body);
@@ -87,12 +75,9 @@ Future<bool> resetPasswordSubmit(Map<String, String> data) async {
 }
 
 Future<bool> editUserProfile(UserProfile user) async {
-  Map<String, String> headers = await getHeaders();
-
-  final http.Response response = await http.put(
+  final http.Response response = await client.put(
       Uri.https(_base, "/api/users/users/${user.id}/"),
-      body: jsonEncode(user.toJson()),
-      headers: headers);
+      body: jsonEncode(user.toJson()));
 
   if (response.statusCode == 200) {
     return true;
@@ -103,12 +88,9 @@ Future<bool> editUserProfile(UserProfile user) async {
 }
 
 Future<UserProfile> editUserProfilePicture(UserProfile user) async {
-  Map<String, String> headers = await getHeaders();
-
-  final http.Response response = await http.put(
+  final http.Response response = await client.put(
       Uri.https(_base, "/api/users/users/${user.id}/"),
-      body: jsonEncode(user.toJson()),
-      headers: headers);
+      body: jsonEncode(user.toJson()));
 
   if (response.statusCode == 200) {
     return UserProfile.fromJson(json.decode(response.body));

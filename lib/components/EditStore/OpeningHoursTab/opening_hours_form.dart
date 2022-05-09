@@ -78,7 +78,7 @@ class OpeningHoursForm extends StatelessWidget {
           children: [
             TextButton(
                 onPressed: () async {
-                  TimeRange result = await showTimeRangePicker(
+                  TimeRange? result = await showTimeRangePicker(
                     start: TimeOfDay(
                         hour: int.parse(start[0]), minute: int.parse(start[1])),
                     end: TimeOfDay(
@@ -87,13 +87,15 @@ class OpeningHoursForm extends StatelessWidget {
                   );
                   final localization = MaterialLocalizations.of(context);
 
-                  BlocProvider.of<EditStoreBloc>(context).add(ChangeHourEvent(
-                      day: day,
-                      index: index,
-                      values: [
-                        localization.formatTimeOfDay(result.startTime, alwaysUse24HourFormat: true),
-                        localization.formatTimeOfDay(result.endTime, alwaysUse24HourFormat: true)
-                      ]));
+                  if (result != null){
+                    BlocProvider.of<EditStoreBloc>(context).add(ChangeHourEvent(
+                        day: day,
+                        index: index,
+                        values: [
+                          localization.formatTimeOfDay(result.startTime, alwaysUse24HourFormat: true),
+                          localization.formatTimeOfDay(result.endTime, alwaysUse24HourFormat: true)
+                        ]));
+                  }
                 },
                 child: Text(
                   "${hour[0]} - ${hour[1]}",

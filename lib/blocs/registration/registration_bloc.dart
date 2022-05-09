@@ -36,7 +36,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
           bool rslt = await registrationUserProfile(data);
           if (rslt) {
             FirebaseAnalytics().logEvent(name: 'Registration',parameters:null);
-            App.facebookAppEvents.logEvent(name: "Registration");
+            // App.facebookAppEvents.logEvent(name: "Registration");
             yield DoneRegistrationState(data: data, success: true, message: []);
           } else {
             yield DoneRegistrationState(data: data, success: false, message: []);

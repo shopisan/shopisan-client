@@ -137,5 +137,8 @@
   "chooseLater": "Continue",
   "allowTracking": "Allow tracking",
   "trackingNotice": "In order to improve your experience, we gather some anonymous statistics related to the app usage.",
-  "dearUser": "Dear User"
+  "dearUser": "Dear User",
+  "mediaMissingDescription": "Every post media requires at least a description.",
+  "mediaMissingPicture": "Every post media requires a picture.",
+  "mediaEmpty": "At least one media should be linked to a post."
 }

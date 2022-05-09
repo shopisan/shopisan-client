@@ -26,9 +26,14 @@ class ProfileEditBloc extends Bloc<ProfileEditEvent, ProfileEditState> {
       yield LoadingProfileEditState(user: user);
       // @todo uploader l'image ++ recupérer le fichier créé ++ associer a l'obj
       try {
-        FileModel.File resp = await uploadFile(event.picture, "profile_pic");
-        user.profile!.picture = resp;
-        yield StartedProfileEditState(user: user);
+        FileModel.File? resp = await uploadFile(event.picture, "profile_pic");
+
+        if (null != resp){
+          user.profile!.picture = resp;
+          yield StartedProfileEditState(user: user);
+        } else {
+          yield ErrorProfileEditState(error: 'picture', user: user);
+        }
       } catch (exception){
         yield ErrorProfileEditState(error: 'picture', user: user);
       }

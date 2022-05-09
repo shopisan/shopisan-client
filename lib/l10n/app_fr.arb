@@ -135,5 +135,8 @@
   "chooseLater": "Continuer",
   "allowTracking": "Autoriser le tracking",
   "trackingNotice": "Afin d'améliorer notre expérience, nous receullions des statistiques anonymes sur l'utilisation de notre application",
-  "dearUser": "Cher utilisateur"
+  "dearUser": "Cher utilisateur",
+  "mediaMissingDescription": "Chaque media doit avoir au moins une description",
+  "mediaMissingPicture": "Chaque media doit avoir une photo.",
+  "mediaEmpty": "Au moins un media doit être lié au post."
 }

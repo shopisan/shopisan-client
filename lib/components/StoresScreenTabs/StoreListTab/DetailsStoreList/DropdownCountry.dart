@@ -59,9 +59,11 @@ class _DropdownCountryState extends State<DropdownCountry> {
                   listType: MultiSelectListType.LIST,
                   chipDisplay: MultiSelectChipDisplay.none(),
                   onConfirm: (value) {
-                    setState(() {
-                      widget.setCountry(value);
-                    });
+                    if (value != null){
+                      setState(() {
+                        widget.setCountry(value);
+                      });
+                    }
                   },
                   backgroundColor: CustomColors.search,
                   decoration: BoxDecoration(

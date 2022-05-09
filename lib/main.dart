@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:app_tracking_transparency/app_tracking_transparency.dart';
-import 'package:facebook_app_events/facebook_app_events.dart';
+// import 'package:app_tracking_transparency/app_tracking_transparency.dart';
+// import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -44,7 +44,7 @@ void main() async {
 }
 
 class App extends StatelessWidget {
-  static final facebookAppEvents = FacebookAppEvents();
+  // static final facebookAppEvents = FacebookAppEvents();
   final FirebaseAnalytics _analytics = FirebaseAnalytics();
   final UserRepository userRepository;
 
@@ -53,17 +53,18 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _analytics.logAppOpen();
+    _analytics.setAnalyticsCollectionEnabled(true);
     // facebookAppEvents.setAdvertiserTracking(enabled: true);
 
-    void allowTracking() async {
-      if(await AppTrackingTransparency.getAdvertisingIdentifier() != "00000000-0000-0000-0000-000000000000"){
-        print("Allow tracking (yay)");
-        facebookAppEvents.setAdvertiserTracking(enabled: true);
-        _analytics.setAnalyticsCollectionEnabled(true);
-      }
-    }
+    // void allowTracking() async {
+    //   if(await AppTrackingTransparency.getAdvertisingIdentifier() != "00000000-0000-0000-0000-000000000000"){
+    //     print("Allow tracking (yay)");
+    //     // facebookAppEvents.setAdvertiserTracking(enabled: true);
+    //     _analytics.setAnalyticsCollectionEnabled(true);
+    //   }
+    // }
 
-    allowTracking();
+    // allowTracking();
 
     return MaterialApp(
         title: 'Shopisan',

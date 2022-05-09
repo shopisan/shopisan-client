@@ -38,18 +38,27 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
       yield StartedPostCreationState(post: event.post);
       yield LoadingPostCreationState(post: event.post);
 
-      try {
-        int created = await createPost(event.post);
-        post = await loadPost(created);
+      String validation = validatePost(event.post);
+      if (validation == "OK"){
+        print("submit form");
+        try {
+          int created = await createPost(event.post);
+          post = await loadPost(created);
 
+          yield DonePostCreationState(
+              success: true,
+              message: "post created",
+              post: post,
+              redirect: event.post.id != null ? true : false);
+        } catch (error) {
+          yield DonePostCreationState(
+              success: false, message: error.toString(), post: post,
+              redirect: false);
+        }
+      } else {
+        print(validation);
         yield DonePostCreationState(
-            success: true,
-            message: "post created",
-            post: post,
-            redirect: event.post.id == null ? true : false);
-      } catch (error) {
-        yield DonePostCreationState(
-            success: false, message: error.toString(), post: post,
+            success: false, message: validation, post: event.post,
             redirect: false);
       }
       // yield StartedPostCreationState(post: post);
@@ -71,14 +80,21 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
       Post post = state.post!;
       PostMedia postMedia = post.postMedia.elementAt(event.index);
 
-      final ModelFile.File resp =
+      final ModelFile.File? resp =
           await uploadFile(event.uploadFile, "post_picture");
-      postMedia.media = resp;
-      postMedia.uploadFile = null;
 
-      post.postMedia[event.index] = postMedia;
-      yield StartedPostCreationState(
-          post: post, refresh: null == state.refresh ? 0 : state.refresh! + 1);
+      if (null != resp){
+        postMedia.media = resp;
+        postMedia.uploadFile = null;
+
+        post.postMedia[event.index] = postMedia;
+        yield StartedPostCreationState(
+            post: post, refresh: null == state.refresh ? 0 : state.refresh! + 1);
+      } else {
+        yield DonePostCreationState(
+            success: false, message: "post created", post: post,
+            redirect: false);
+      }
     } else if (event is DeletePost) {
       Post post = state.post!;
 
@@ -98,9 +114,14 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
           post: post, refresh: null == state.refresh ? 0 : state.refresh! + 1);
     } else if (event is DeletePostMedia) {
       Post post = state.post!;
-      post.postMedia.removeAt(event.index);
-      yield StartedPostCreationState(
-          post: post, refresh: null == state.refresh ? 0 : state.refresh! + 1);
+      if(post.postMedia.length > 1){
+        post.postMedia.removeAt(event.index);
+        yield StartedPostCreationState(
+            post: post, refresh: null == state.refresh ? 0 : state.refresh! + 1);
+      } else {
+        yield DonePostCreationState(
+            success: false, message: "NeedAtLeastOneMedia", post: post, redirect: false);
+      }
     } else if (event is ChangePostStore) {
       Post post = state.post!;
 
@@ -109,5 +130,23 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
       yield StartedPostCreationState(
           post: post, refresh: null == state.refresh ? 0 : state.refresh! + 1);
     }
+  }
+
+  String validatePost(Post post){
+    if (post.postMedia.isEmpty){
+      return "mediaEmpty";
+    }
+
+    for (PostMedia postMedia in post.postMedia){
+      if(postMedia.media == null){
+        return "mediaMissingPicture";
+      }
+
+      if (postMedia.description_en == null && postMedia.description_fr == null){
+        return "mediaMissingDescription";
+      }
+    }
+
+    return "OK";
   }
 }

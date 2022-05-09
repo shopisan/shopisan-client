@@ -16,10 +16,7 @@ class FileHandler{
 
     String targetPath = pathName + "compressed" + extension;
 
-    int compressionIndex = 0;
     while(file.lengthSync() > maxSize){
-      print(compressionIndex);
-      compressionIndex++;
       file = await compressAndGetFile(initialPath, targetPath);
     }
 
@@ -30,7 +27,7 @@ class FileHandler{
     var result = await FlutterImageCompress.compressAndGetFile(
       path,
       targetPath,
-      quality: 90,
+      quality: 98,
       rotate: 0,
     );
 

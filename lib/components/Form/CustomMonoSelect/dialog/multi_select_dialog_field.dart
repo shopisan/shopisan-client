@@ -379,7 +379,7 @@ class __MultiSelectDialogFieldViewState<V>
               widget.state!.didChange(selected);
             }
             _selectedItems = selected;
-            if (widget.onConfirm != null) widget.onConfirm!(selected!);
+            if (widget.onConfirm != null && selected != null) widget.onConfirm!(selected);
           },
         );
       },

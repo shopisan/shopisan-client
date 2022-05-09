@@ -1,7 +1,6 @@
 part of '../api_connection.dart';
 
 Future<int> createPost(Post post) async {
-  Map<String, String> headers = await getHeaders();
 
   List<Map<String, dynamic>> jsonMedias = [];
   for (PostMedia postMedia in post.postMedia) {
@@ -11,19 +10,17 @@ Future<int> createPost(Post post) async {
   http.Response response;
 
   if (post.id == null) {
-    response = await http.post(Uri.https(_base, "/api/posts/posts/"),
+    response = await client.post(Uri.https(_base, "/api/posts/posts/"),
         body: jsonEncode({
           "store": post.store,
           "post_media": jsonMedias,
-        }),
-        headers: headers);
+        }));
   } else {
-    response = await http.put(Uri.https(_base, "/api/posts/posts/${post.id}/"),
+    response = await client.put(Uri.https(_base, "/api/posts/posts/${post.id}/"),
         body: jsonEncode({
           "store": post.store,
           "post_media": jsonMedias,
-        }),
-        headers: headers);
+        }));
   }
 
   if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -34,25 +31,21 @@ Future<int> createPost(Post post) async {
 }
 
 Future<List<Post>?> getPosts() async {
-  Map<String, String> headers = await getHeaders();
-
   try {
     final response =
-    await http.get(Uri.https(_base, "/api/posts/posts/"), headers: headers);
+    await client.get(Uri.https(_base, "/api/posts/posts/"));
 
     if (response.statusCode == 200) {
       return PostCollection.fromJson(jsonDecode(response.body)).posts;
     }
-  } catch (Exception) {
-    print("Oops: $Exception");
+  } catch (exception) {
+    print("Oops: $exception");
   }
 }
 
 Future<Post> loadPost(int postId) async {
-  Map<String, String> headers = await getHeaders();
 
-  final response = await http.get(Uri.https(_base, "/api/posts/posts/$postId/"),
-      headers: headers);
+  final response = await client.get(Uri.https(_base, "/api/posts/posts/$postId/"));
 
   if (response.statusCode == 200) {
     return Post.fromJson(json.decode(response.body));
@@ -62,10 +55,8 @@ Future<Post> loadPost(int postId) async {
 }
 
 Future<List<Post>> fetchPostsByStore(int storeId) async {
-  Map<String, String> headers = await getHeaders();
-  final response = await http.get(
-      Uri.https(_base, "/api/posts/by_store/${storeId.toString()}/"),
-      headers: headers);
+  final response = await client.get(
+      Uri.https(_base, "/api/posts/by_store/${storeId.toString()}/"));
 
   if (response.statusCode == 200) {
     return PostCollection.fromJson(jsonDecode(response.body)).posts;
@@ -75,12 +66,9 @@ Future<List<Post>> fetchPostsByStore(int storeId) async {
 }
 
 Future<List<Post>?> fetchPostsByOwnedStores() async {
-  Map<String, String> headers = await getHeaders();
-
   try{
-    final response = await http.get(
-        Uri.https(_base, "/api/posts_by_owned_stores/"),
-        headers: headers);
+    final response = await client.get(
+        Uri.https(_base, "/api/posts_by_owned_stores/"));
 
     if (response.statusCode == 200) {
       return PostCollection.fromJson(jsonDecode(response.body)).posts;
@@ -92,10 +80,8 @@ Future<List<Post>?> fetchPostsByOwnedStores() async {
 }
 
 Future<bool> deletePost(int postId) async {
-  Map<String, String> headers = await getHeaders();
-
-  final response = await http
-      .delete(Uri.https(_base, "/api/posts/posts/$postId/"), headers: headers);
+  final response = await client
+      .delete(Uri.https(_base, "/api/posts/posts/$postId/"));
 
   if (response.statusCode >= 200 && response.statusCode < 300) {
     return true;

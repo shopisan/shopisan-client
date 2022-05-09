@@ -17,7 +17,6 @@ class FormProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(user);
     final _userNameController = TextEditingController(text: user.username);
     final _emailController = TextEditingController(text: user.email);
     final _nameController = TextEditingController(text: user.profile!.name);

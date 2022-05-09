@@ -19,9 +19,6 @@ class SelectInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(items[0].value);
-    print(value == "");
-
     return Container(
         // height: 50,
         // width: double.infinity,

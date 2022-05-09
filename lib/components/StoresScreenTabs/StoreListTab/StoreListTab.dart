@@ -58,7 +58,7 @@ class _StoreListTabState extends State<StoreListTab> {
 
     double newHeight = getScreenHeight(context);
     int recentSearchHeight =
-        (categories != null && widget.history.length != 0) ? 67 : 10;
+        (widget.history.length != 0) ? 67 : 10;
 
     if(countries.length == 0 || widget.selectedCountry == ""){
       return LoadingIndicator();
