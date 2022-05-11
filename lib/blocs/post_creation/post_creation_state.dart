@@ -1,5 +1,10 @@
 part of 'post_creation_bloc.dart';
 
+// class PostCreationState extends Equatable{
+//   ?Post post;
+//
+// }
+
 abstract class PostCreationState extends Equatable {
   final Post? post;
   final int? refresh;
@@ -19,12 +24,12 @@ class InitialPostCreationState extends PostCreationState {
 
 class StartedPostCreationState extends PostCreationState {
   final Post post;
-  final int? refresh;
+  final int refresh;
 
-  const StartedPostCreationState({required this.post, this.refresh});
+  const StartedPostCreationState({required this.post, required this.refresh});
 
   @override
-  List<Object> get props => [post];
+  List<Object> get props => [post, refresh];
 }
 
 class LoadingPostCreationState extends PostCreationState {

@@ -23,6 +23,7 @@ class PostCreation extends StatefulWidget {
 
 class _PostCreationState extends State<PostCreation> {
   List<PostMedia> postMedias = [];
+  int? refresh;
   final _formKey = GlobalKey<FormState>();
 
   @override

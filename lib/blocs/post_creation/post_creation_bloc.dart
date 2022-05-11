@@ -27,16 +27,18 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
                 store: null,
                 postMedia: [PostMedia()],
                 created: null,
-                url: null));
+                url: null),
+          refresh: 0
+        );
       } else {
         Post post = await loadPost(postId);
-        yield StartedPostCreationState(post: post);
+        yield StartedPostCreationState(post: post, refresh: 0);
       }
     } else if (event is ChangePost) {
       Post post = event.post;
 
-      yield StartedPostCreationState(post: event.post);
-      yield LoadingPostCreationState(post: event.post);
+      // yield StartedPostCreationState(post: event.post, refresh: state.refresh! + 1);
+      // yield LoadingPostCreationState(post: event.post);
 
       String validation = validatePost(event.post);
       if (validation == "OK"){
@@ -56,7 +58,7 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
               redirect: false);
         }
       } else {
-        print(validation);
+        // print(validation);
         yield DonePostCreationState(
             success: false, message: validation, post: event.post,
             redirect: false);
@@ -111,7 +113,7 @@ class PostCreationBloc extends Bloc<PostCreationEvent, PostCreationState> {
       post.postMedia.add(PostMedia());
 
       yield StartedPostCreationState(
-          post: post, refresh: null == state.refresh ? 0 : state.refresh! + 1);
+          post: post, refresh: state.refresh! + 1);
     } else if (event is DeletePostMedia) {
       Post post = state.post!;
       if(post.postMedia.length > 1){
