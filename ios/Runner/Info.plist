@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -31,16 +33,6 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>FacebookAppID</key>
-	<string>438185084332258</string>
-    <key>FacebookClientToken</key>
-    <string>18d500b2c2ae1d23e02896455759ba8b</string>
-	<key>FacebookDisplayName</key>
-	<string>Shopisan</string>
-	<key>FacebookAutoLogAppEventsEnabled</key>
-    <true/>
-    <key>FacebookAdvertiserIDCollectionEnabled</key>
-    <true/>
 	<key>FirebaseCrashlyticsCollectionEnabled</key>
 	<true/>
 	<key>LSRequiresIPhoneOS</key>
@@ -50,14 +42,16 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Needed for picture upload for the stores and posts</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Enables Shopisan to pin your position on the map</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Enables Shopisan to propose stores near your position</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Needed for picture upload</string>
-	<key>NSCameraUsageDescription</key>
-    <string>Needed for picture upload for the stores and posts</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>This identifier will be used to gather anonymous usage statistics.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -77,7 +71,5 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
-	<key>NSUserTrackingUsageDescription</key>
-    <string>This identifier will be used to gather anonymous usage statistics.</string>
 </dict>
 </plist>

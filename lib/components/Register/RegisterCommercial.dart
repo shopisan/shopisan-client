@@ -1,5 +1,4 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as InputService;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -54,7 +53,7 @@ class _RegisterCommercialState extends State<RegisterCommercial> {
           "lang": getLocaleCode()
         });
 
-        WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
           if (rslt.containsKey('success')) {
             FirebaseAnalytics()
                 .logEvent(name: 'Owner registration', parameters: null);

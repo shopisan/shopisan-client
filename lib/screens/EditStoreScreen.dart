@@ -57,7 +57,7 @@ class _EditStoreState extends State<EditStore>
     final List<Category> categories = state.categories as List<Category>;
 
     if (state is DoneEditStoreState) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(AppLocalizations.of(context)!.storeSaved),
@@ -69,7 +69,7 @@ class _EditStoreState extends State<EditStore>
     }
 
     if (state is ErrorEditStoreState) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(AppLocalizations.of(context)!.anErrorOccurred),
@@ -93,7 +93,7 @@ class _EditStoreState extends State<EditStore>
 
       if (!oneFilled([store.description_fr, store.description_en])) {
         prevent = true;
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(AppLocalizations.of(context)!.atLeastOneDescriptionRequired),

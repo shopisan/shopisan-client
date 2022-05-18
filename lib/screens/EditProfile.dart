@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -44,7 +43,7 @@ class _EditProfileState extends State<EditProfile> {
     if (state is InitialProfileEditState) {
       return LoadingIndicator();
     } else if (state is ErrorProfileEditState) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         // comme la snackbar est appelée avant le build du widget scaffold
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -56,7 +55,7 @@ class _EditProfileState extends State<EditProfile> {
         );
       });
     } else if (state is SuccessProfileEditState) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         // comme la snackbar est appelée avant le build du widget scaffold
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(AppLocalizations.of(context)!.profileSaved),
