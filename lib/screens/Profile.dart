@@ -11,12 +11,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    /**
-     * @TODO check why this widget is not changed into login widget
-     *      ==> Check why the login widget is reloaded, but not this one
-     *      ==>
-     */
-
     final state =
       context.select((AuthenticationBloc bloc) => bloc.state) ;
     UserProfile user;
@@ -66,6 +60,40 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/edit_profile');
+                },
+              )),
+          Container( // Add contests code
+              height: 80,
+              padding: EdgeInsets.all(20),
+              margin: EdgeInsets.only(bottom: 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: CustomColors.search),
+              child: TextButton(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.qr_code_2_outlined,
+                          color: Colors.black,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(AppLocalizations.of(context)!.addCode,
+                              style: Theme.of(context).textTheme.headline3),
+                        ),
+                      ],
+                    ),
+                    Icon(
+                      Icons.arrow_right_outlined,
+                      color: Colors.black,
+                    )
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/add_code');
                 },
               )),
           user.isOwner! ?

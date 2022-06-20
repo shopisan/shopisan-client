@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shopisan/model/Category.dart';
 import 'package:shopisan/model/Store.dart';
+import 'package:shopisan/theme/colors.dart';
 import 'package:shopisan/utils/common.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class StorePreview extends StatelessWidget {
   final Store store;
@@ -31,7 +33,7 @@ class StorePreview extends StatelessWidget {
 
     ImageProvider GetImage(){
       if (_image != null) {
-        return NetworkImage(_image);
+        return CachedNetworkImageProvider(_image);
       }
       return AssetImage("assets/img/store.jpg");
     }
@@ -51,6 +53,7 @@ class StorePreview extends StatelessWidget {
       // padding: EdgeInsets.all(0),
       child: Row(
         children: [
+          _image != null ?
           Container(
             height: 60,
             width: 60,
@@ -61,7 +64,18 @@ class StorePreview extends StatelessWidget {
                 image: DecorationImage(
                     fit: BoxFit.cover,
                     image: GetImage())),
-          ),
+          ) :
+          Container(
+            height: 60,
+            width: 60,
+            margin: EdgeInsets.only(right: 10),
+            decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(5),
+            ),
+            child: Center(child:  Icon(Icons.no_photography_outlined, color: CustomColors.textLight)),
+          )
+          ,
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -102,7 +116,16 @@ class StorePreview extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText2,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                  ))
+                  )),
+              store.featured ?
+                  Container(
+                      width: width - 70 - 10 - 10 - 20,
+                      child: Text(
+                        "Featured",
+                        style: Theme.of(context).textTheme.subtitle2,
+                        /*maxLines: 2,
+                        overflow: TextOverflow.ellipsis,*/
+                      )) : Container()
             ],
           )
         ],

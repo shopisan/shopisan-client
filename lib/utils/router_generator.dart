@@ -7,6 +7,7 @@ import 'package:shopisan/blocs/post_creation/post_creation_bloc.dart';
 import 'package:shopisan/blocs/profile_edit/profile_edit_bloc.dart';
 import 'package:shopisan/blocs/registration/registration_bloc.dart';
 import 'package:shopisan/components/StoreDetailScreenTab/PostsTabCommercial/PostsCommercialScreen/PostsCommercialScreen.dart';
+import 'package:shopisan/screens/AddCodeScreen.dart';
 import 'package:shopisan/screens/EditProfile.dart';
 import 'package:shopisan/screens/EditStoreScreen.dart';
 import 'package:shopisan/screens/ForgotPassword.dart';
@@ -96,6 +97,9 @@ class RouteGenerator {
                       child: Scaffold(
                         body: EditProfile(),
                       ));
+
+                case '/add_code':
+                  return AddCode();
 
                 case '/edit_stores':
                   return EditStoreSelectionScreen();

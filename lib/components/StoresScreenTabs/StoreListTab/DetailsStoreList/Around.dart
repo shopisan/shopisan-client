@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopisan/components/Store/store_preview.dart';
@@ -56,25 +55,6 @@ class AroundYou extends StatelessWidget {
                         )
                 ],
               )
-
-              // loading != true
-              //     ? ListView(
-              //         padding: EdgeInsets.only(bottom: 50),
-              //         scrollDirection: Axis.vertical,
-              //         children: stores
-              //             .map((store) => StorePreview(store: store))
-              //             .toList(),
-              //       )
-              //     : Align(
-              //         alignment: Alignment.center,
-              //         child: Container(
-              //             height: 50,
-              //             width: 50,
-              //             child: CircularProgressIndicator(
-              //                 backgroundColor: CustomColors.iconsActive,
-              //                 valueColor: AlwaysStoppedAnimation<Color>(
-              //                     CustomColors.error))),
-              //       ),
               )
         ],
       ),

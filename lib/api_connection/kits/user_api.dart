@@ -23,6 +23,7 @@ Future<UserProfile> getUserProfile() async {
   if (response.statusCode == 200) {
     return UserProfile.fromJson(json.decode(response.body));
   } else {
+    print("WTF???");
     // @todo faire une fonction pour reset le user token (reco auto)
     throw Exception(json.decode(response.body));
   }

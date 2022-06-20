@@ -140,5 +140,10 @@
   "dearUser": "Dear User",
   "mediaMissingDescription": "Every post media requires at least a description.",
   "mediaMissingPicture": "Every post media requires a picture.",
-  "mediaEmpty": "At least one media should be linked to a post."
+  "mediaEmpty": "At least one media should be linked to a post.",
+  "addCode": "Add code",
+  "enterCode": "Paste or write the code",
+  "codeAdded": "The code was successfully added.",
+  "codeClosed": "The code entered is already passed.",
+  "codeError": "An error occurred, the code couldn't be added."
 }

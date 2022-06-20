@@ -43,7 +43,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       if (_formKey.currentState!.validate()) {
         bool rslt = await resetPasswordSubmit({
           "email": email,
-          "token": _tokenController.text,
+          "token": _tokenController.text.trim(),
           "password": _passwordController.text
         });
 

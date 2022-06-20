@@ -17,6 +17,7 @@ class Store {
   String description_en;
   bool? appointmentOnly;
   double? evaluation;
+  bool featured;
 
   Store({
     this.id,
@@ -32,7 +33,8 @@ class Store {
     // ignore: non_constant_identifier_names
     this.description_en = "",
     this.appointmentOnly = false,
-    this.evaluation
+    this.evaluation,
+    this.featured = false
   });
 
   getDescriptionLocale(String locale){
@@ -56,7 +58,7 @@ class Store {
     return description;
   }
 
-  factory Store.fromJson(final json) {
+  factory Store.fromJson(final json, {bool featured = false}) {
     List<Address>? addressesList =
         AddressCollection.fromJson(json['addresses']).addresses;
 
@@ -70,12 +72,13 @@ class Store {
       website: json['website'],
       openingTimes: json['openingTimes'],
       profilePicture: null != json["profilePicture"] ? File.fromJson(json['profilePicture']) : null,
-      description_fr: json['description_fr'],
-      description_en: json['description_en'],
+      description_fr: json['description_fr'] ?? "",
+      description_en: json['description_en'] ?? "",
       appointmentOnly: json['appointmentOnly'],
       categories: categoriesList,
       addresses: addressesList,
       evaluation: json['average_score']['score__avg'],
+      featured: featured
     );
   }
 
@@ -115,11 +118,12 @@ class StoreCollection {
 
   StoreCollection({this.stores});
 
-  factory StoreCollection.fromJson(json) {
+  factory StoreCollection.fromJson(json, {bool featured = false}) {
     return StoreCollection(
       stores: json
-          .map<Store>((json) => Store.fromJson(json as Map<String, dynamic>?))
-          .toList(),
+          .map<Store>((json) => Store.fromJson(json as Map<String, dynamic>?,
+                                featured: featured))
+          .toList()
     );
   }
 }

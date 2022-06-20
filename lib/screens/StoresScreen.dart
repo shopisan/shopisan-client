@@ -189,7 +189,7 @@ class _StoresScreenState extends State<StoresScreen> {
     }
 
     List<Placemark> placemarks = await placemarkFromCoordinates(
-        latitude, longitude);
+        latitude, longitude, localeIdentifier: "en");
 
     String currentCountry = placemarks[0].isoCountryCode!;
 
@@ -219,8 +219,24 @@ class _StoresScreenState extends State<StoresScreen> {
     });
     // SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    List<Store> storeList = await fetchStores(
+    List<Store> storeList1 = await fetchStores("featured",
         selectedCategoriesId, latitudeData!, longitudeData!, country);
+    setState(() {
+      stores = storeList1;
+      loading = false;
+    });
+
+    List<Store> storeList2 = await fetchStores("customised",
+        selectedCategoriesId, latitudeData!, longitudeData!, country);
+    setState(() {
+      stores = [...storeList1, ...storeList2];
+      loading = false;
+    });
+
+    List<Store> storeList3 = await fetchStores("",
+        selectedCategoriesId, latitudeData!, longitudeData!, country);
+
+    List<Store> storeList = [...storeList1, ...storeList2, ...storeList3];
 
     setState(() {
       stores = storeList;

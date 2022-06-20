@@ -17,10 +17,11 @@ import 'package:http_interceptor/http_interceptor.dart';
 import 'package:shopisan/repository/user_repository.dart';
 
 part 'kits/posts_api.dart';
-
 part 'kits/user_api.dart';
+part 'kits/featured_api.dart';
 
 // final _base = "10.0.2.2:8000";
+// final _base = "192.168.0.51:8000";
 // final _base = "shopisan.herokuapp.com";
 final _base = "shopisan.com";
 final _tokenEndpoint = "/api/token-auth/";
@@ -66,9 +67,11 @@ Future<List<City>> fetchCities(String country) async {
   }
 }
 
-Future<List<Store>> fetchStores(List<dynamic> categories, double latitude,
+Future<List<Store>> fetchStores(String context, List<dynamic> categories, double latitude,
     double longitude, String country) async {
   Map<String, String> params = {};
+
+  params['context'] = context;
 
   if (categories.length > 0) {
     categories.remove('all');
@@ -80,11 +83,16 @@ Future<List<Store>> fetchStores(List<dynamic> categories, double latitude,
   params['position'] = "$latitude,$longitude";
 
   final response = await client.get(
-      Uri.https(_base, "/api/stores_geo/", params)
+      Uri.https(_base, "/api/stores_geo_new/", params)
   );
 
   if (response.statusCode == 200) {
-    return StoreCollection.fromJson(json.decode(response.body)).stores!;
+    bool featured = false;
+    if(context == "featured"){
+      featured = true;
+    }
+
+    return StoreCollection.fromJson(json.decode(response.body), featured: featured).stores!;
   } else {
     throw Exception('Failed to load stores');
   }

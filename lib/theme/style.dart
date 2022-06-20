@@ -41,6 +41,10 @@ class CustomTheme {
               GoogleFonts.poppins(fontSize: 12, color: CustomColors.textLight),
           subtitle1: GoogleFonts.poppins(
               fontSize: 13, fontWeight: FontWeight.bold, color: Colors.black),
+          subtitle2: GoogleFonts.poppins(
+              fontSize: 8,
+              fontWeight: FontWeight.w300,
+              color: CustomColors.iconsActive),
         ));
   }
 }

@@ -138,5 +138,10 @@
   "dearUser": "Cher utilisateur",
   "mediaMissingDescription": "Chaque media doit avoir au moins une description",
   "mediaMissingPicture": "Chaque media doit avoir une photo.",
-  "mediaEmpty": "Au moins un media doit être lié au post."
+  "mediaEmpty": "Au moins un media doit être lié au post.",
+  "addCode": "Ajouter un code",
+  "enterCode": "Collez ou entrer le code",
+  "codeAdded": "Le code a été ajouté.",
+  "codeClosed": "Le code entré à été clôturé.",
+  "codeError": "Une erreur est survenue, le code n'a pas pu être ajouté."
 }
