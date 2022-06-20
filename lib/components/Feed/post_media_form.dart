@@ -88,7 +88,7 @@ class _PostMediaFormState extends State<PostMediaForm> {
         Navigator.of(context).pop();
 
         if (finalFile.lengthSync() > fileHandler.maxSize){
-          WidgetsBinding.instance.addPostFrameCallback((_) {
+          WidgetsBinding.instance?.addPostFrameCallback((_) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(AppLocalizations.of(context)!.fileTooBig),

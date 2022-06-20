@@ -79,7 +79,7 @@ class _UserRegisterState extends State<UserRegister> {
     }
 
     if (state is DoneRegistrationState) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: state.success
               ? Text(AppLocalizations.of(context)!.accountCreated)
