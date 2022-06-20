@@ -264,7 +264,7 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
   /// if [phoneNumber] is not valid or if an [Exception] is caught.
   Future<String?> getParsedPhoneNumber(
       String phoneNumber, String isoCode) async {
-    if (phoneNumber.isNotEmpty && isoCode != null) {
+    if (phoneNumber.isNotEmpty) {
       try {
         bool isValidPhoneNumber = await PhoneNumberUtil.isValidNumber(
             phoneNumber: phoneNumber, isoCode: isoCode) as bool;
@@ -318,8 +318,8 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
   String? validator(String? value) {
     bool isValid =
         this.isNotValid && null != value && (value.isNotEmpty || widget.ignoreBlank == false);
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      if (isValid && widget.errorMessage != null) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (isValid) {
         setState(() {
           this.selectorButtonBottomPadding =
               widget.selectorButtonOnErrorPadding;

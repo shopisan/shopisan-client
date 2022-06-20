@@ -19,7 +19,7 @@
     </queries>
 
     <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name="${applicationName}"
         android:label="Shopisan"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/shopisan_logo">
