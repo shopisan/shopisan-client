@@ -47,7 +47,7 @@ class _RegisterCommercialState extends State<RegisterCommercial> {
           "surname": _surnameController.text,
           "username": _usernameController.text,
           "email": _emailController.text,
-          "password": _passwordController.text,
+          "password": _passwordController.text.trim(),
           "phone": phoneNumber,
           "message": _descriptionController.text,
           "lang": getLocaleCode()

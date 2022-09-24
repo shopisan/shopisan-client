@@ -44,7 +44,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         bool rslt = await resetPasswordSubmit({
           "email": email,
           "token": _tokenController.text.trim(),
-          "password": _passwordController.text
+          "password": _passwordController.text.trim()
         });
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -50,8 +50,6 @@
 	<string>Enables Shopisan to propose stores near your position</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Needed for picture upload</string>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>This identifier will be used to gather anonymous usage statistics.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

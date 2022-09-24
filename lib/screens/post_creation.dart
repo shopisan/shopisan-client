@@ -37,13 +37,13 @@ class _PostCreationState extends State<PostCreation> {
     final state = context.select((PostCreationBloc bloc) => bloc.state);
 
     if (state is RedirectPostCreationState) {
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.of(context).pop();
       });
     }
 
     if ((state is DonePostCreationState) && state.success) {
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(AppLocalizations.of(context)!.postSaved),
@@ -70,7 +70,7 @@ class _PostCreationState extends State<PostCreation> {
       if (_formKey.currentState!.validate()) {
         for (PostMedia postMedia in post.postMedia) {
           if (!oneFilled([postMedia.description_en, postMedia.description_fr])) {
-            WidgetsBinding.instance?.addPostFrameCallback((_) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(AppLocalizations.of(context)!.atLeastOneDescriptionRequired),
@@ -82,7 +82,7 @@ class _PostCreationState extends State<PostCreation> {
           }
 
           if (postMedia.uploadFile == null && postMedia.media == null) {
-            WidgetsBinding.instance?.addPostFrameCallback((_) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(AppLocalizations.of(context)!.pictureMissing),
@@ -150,7 +150,7 @@ class _PostCreationState extends State<PostCreation> {
     if (state is InitialPostCreationState) {
       return LoadingIndicator();
     } else if (state is DonePostCreationState && !state.success) {
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(

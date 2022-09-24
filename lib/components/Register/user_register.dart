@@ -42,8 +42,8 @@ class _UserRegisterState extends State<UserRegister> {
           .add(ChangedRegistrationEvent(data: {
         "email": _emailController.text,
         "username": _userNameController.text,
-        "password": _passwordController.text,
-        "passwordRepeat": _repeatPasswordController.text
+        "password": _passwordController.text.trim(),
+        "passwordRepeat": _repeatPasswordController.text.trim()
       }));
     }
 
