@@ -240,9 +240,10 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                                   .headline5,
                                             ),
                                           ),
+                                          store?.openingTimes != null ?
                                           OpeningTimeCommercial(
                                             store: store!,
-                                          ),
+                                          ) : Container(),
                                           ConnectCommercial(
                                             store: store!,
                                           ),

@@ -23,7 +23,7 @@ class _AddCodeState extends State<AddCode> {
         int rslt = await addCode(_codeController.text.trim());
         print(rslt);
         if(rslt == 200) {
-          WidgetsBinding.instance!.addPostFrameCallback((_) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(AppLocalizations.of(context)!.codeAdded),
@@ -41,7 +41,7 @@ class _AddCodeState extends State<AddCode> {
             message = AppLocalizations.of(context)!.codeError;
           }
 
-          WidgetsBinding.instance!.addPostFrameCallback((_) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(message),

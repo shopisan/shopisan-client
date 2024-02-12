@@ -28,6 +28,7 @@ class _RegisterCommercialState extends State<RegisterCommercial> {
   TextEditingController _descriptionController = TextEditingController();
   String phoneNumber = "";
   String password = "";
+  bool _buttonEnabled = true;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -53,7 +54,8 @@ class _RegisterCommercialState extends State<RegisterCommercial> {
           "lang": getLocaleCode()
         });
 
-        WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          _buttonEnabled = true;
           if (rslt.containsKey('success')) {
             FirebaseAnalytics()
                 .logEvent(name: 'Owner registration', parameters: null);
@@ -243,7 +245,10 @@ class _RegisterCommercialState extends State<RegisterCommercial> {
                         // ignore: deprecated_member_use
                         child: FlatButton(
                           onPressed: () {
-                            _submitRegistration();
+                            if (_buttonEnabled){
+                              _buttonEnabled = false;
+                              _submitRegistration();
+                            }
                           },
                           child: Text(
                             AppLocalizations.of(context)!.signUpStore,

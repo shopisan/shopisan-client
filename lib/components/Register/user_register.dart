@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -20,14 +22,20 @@ class _UserRegisterState extends State<UserRegister> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _repeatPasswordController =
-  TextEditingController();
+    TextEditingController();
+  bool _enableButton = true;
+
+  @override
+  void initState(){
+    _enableButton = true;
+  }
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final RegistrationState state =
-    context.select((RegistrationBloc bloc) => bloc.state);
+      context.select((RegistrationBloc bloc) => bloc.state);
     final Map<String, String> data = state.data;
 
     List<TextEditingController> controllers = [
@@ -79,7 +87,9 @@ class _UserRegisterState extends State<UserRegister> {
     }
 
     if (state is DoneRegistrationState) {
-      WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      print("YUP!!!!");
+      // TODO it seems to be duplicated and triggered everytime I push the button (every update/refresh)
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: state.success
               ? Text(AppLocalizations.of(context)!.accountCreated)
@@ -91,9 +101,12 @@ class _UserRegisterState extends State<UserRegister> {
           state.success ? CustomColors.success : CustomColors.error,
         ));
         if (state.success) {
+          BlocProvider.of<RegistrationBloc>(context)
+              .add(ChangedRegistrationEvent(data: data));
           Navigator.of(context).popUntil(ModalRoute.withName("/"));
         }
       });
+      _enableButton = true;
     }
 
     return SingleChildScrollView(
@@ -175,7 +188,10 @@ class _UserRegisterState extends State<UserRegister> {
                 ),
                 child: TextButton(
                   onPressed: () {
-                    _submitRegistration();
+                    if (_enableButton){
+                      _enableButton = false;
+                      _submitRegistration();
+                    }
                   },
                   child: Text(
                     AppLocalizations.of(context)!.signUp,

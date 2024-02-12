@@ -143,5 +143,6 @@
   "enterCode": "Collez ou entrer le code",
   "codeAdded": "Le code a été ajouté.",
   "codeClosed": "Le code entré à été clôturé.",
-  "codeError": "Une erreur est survenue, le code n'a pas pu être ajouté."
+  "codeError": "Une erreur est survenue, le code n'a pas pu être ajouté.",
+  "selectCountryInTheList": "Ce pays n'est pas disponible, veuillez en choisir un autre dans la liste."
 }

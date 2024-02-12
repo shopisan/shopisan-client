@@ -58,7 +58,7 @@ class _OpeningTimeCommercialState extends State<OpeningTimeCommercial> {
   @override
   Widget build(BuildContext context) {
     Store store = widget.store;
-    Map<String, dynamic> openingTimes = store.openingTimes!;
+    Map<String, dynamic>? openingTimes = store.openingTimes;
     List<String> sortedKeys = openingTimes == null ? [] : openingTimes.keys.toList()
       ..sort((a, b) => _getDayOrder(a).compareTo(_getDayOrder(b)));
 
@@ -94,7 +94,7 @@ class _OpeningTimeCommercialState extends State<OpeningTimeCommercial> {
                                             .headline2,
                                       ),
                                       width: 100),
-                                  _getHoursRows(openingTimes[key], context),
+                                  _getHoursRows(openingTimes?[key], context),
                                 ],
                               ),
                             );

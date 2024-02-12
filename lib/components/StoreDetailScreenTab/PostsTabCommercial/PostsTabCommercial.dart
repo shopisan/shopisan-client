@@ -64,10 +64,11 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
               crossAxisCount: 2,
               padding: EdgeInsets.all(10),
               children: List.generate(
-                widget.posts.reversed.length,
+                widget.posts.length,
                 (index) {
+                  int reversedIndex = widget.posts.length - 1 - index;
                   if(widget
-                      .posts[index].postMedia.isNotEmpty){
+                      .posts[reversedIndex].postMedia.isNotEmpty){
                     return Container(
                       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                       child: TextButton(
@@ -80,7 +81,7 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
                           onPressed: () {
                             Navigator.pushNamed(context, '/post_detail',
                                 arguments: {
-                                  "post": widget.posts[index],
+                                  "post": widget.posts[reversedIndex],
                                   "store": widget.store
                                 });
                           },
@@ -89,14 +90,14 @@ class _PostsTabCommercialState extends State<PostsTabCommercial> {
                                 borderRadius: BorderRadius.circular(10),
                                 image: DecorationImage(
                                   image: NetworkImage(widget
-                                      .posts[index].postMedia[0].media!.file!),
+                                      .posts[reversedIndex].postMedia[0].media!.file!),
                                   fit: BoxFit.cover,
                                 )),
                           )
                       ),
                     );
                   }
-                  print(widget.posts[index].postMedia.length);
+                  print(widget.posts[reversedIndex].postMedia.length);
                   return Container();
                 },
               ),

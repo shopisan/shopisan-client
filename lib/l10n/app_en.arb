@@ -145,5 +145,6 @@
   "enterCode": "Paste or write the code",
   "codeAdded": "The code was successfully added.",
   "codeClosed": "The code entered is already passed.",
-  "codeError": "An error occurred, the code couldn't be added."
+  "codeError": "An error occurred, the code couldn't be added.",
+  "selectCountryInTheList": "This country is not available in the list, please select another one."
 }
